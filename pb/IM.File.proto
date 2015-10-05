@@ -1,0 +1,107 @@
+package IM.File;
+import "IM.BaseDefine.proto";
+option java_package = "com.dffx.im.protobuf";
+//option java_outer_classname = "MOGUJIEIMMessage";
+option optimize_for = LITE_RUNTIME;
+
+message IMFileLoginReq{
+	//cmd id:	0x0501
+	required uint32 user_id = 1;	//自己的id
+	required string task_id = 2;	//任务的uuid
+	required IM.BaseDefine.ClientFileRole file_role= 3;//文件传输模式
+}
+
+message IMFileLoginRsp{
+	//cmd id:	0x0502
+	required uint32 result_code = 1;		//0:successed    1:failed
+	required string task_id = 2;//任务的uuid
+}
+
+message IMFileState{
+	//cmd id: 	0x0503
+	required IM.BaseDefine.ClientFileState state = 1;//文件传输状态
+	required string task_id = 2;//任务的uuid
+	required uint32 user_id = 3;//发送者：自己的id 	接收者：对方的id
+}
+
+message IMFilePullDataReq{
+	//cmd id:	0x0504
+	required string task_id = 1;//任务的uuid
+	required uint32 user_id = 2;//自己的id
+	required IM.BaseDefine.FileType trans_mode = 3;//在线或离线传输
+	required uint32 offset = 4;//拉取文件的位置偏移
+	required uint32 data_size = 5;//本次拉取数据大小
+}
+
+message IMFilePullDataRsp{
+	//cmd id: 	0x0505
+	required uint32 result_code = 1;//1: 失败 0:成功
+	required string task_id = 2;//任务的uuid
+	required uint32 user_id = 3;//自己的id
+	required uint32 offset = 4;//IMFilePullDataReq里面的offset原样返回
+	required bytes file_data = 5;//本次拉取到的数据
+}
+
+message IMFileReq{
+	//cmd id: 	0x0506
+	required uint32 from_user_id = 1;	//自己的id
+	required uint32 to_user_id = 2;     //发给谁
+	required string file_name = 3;      //文件名
+	required uint32 file_size = 4;		//文件大小
+	required IM.BaseDefine.FileType trans_mode = 5;	//在线或离线传输
+}
+
+message IMFileRsp{
+	//cmd id: 	0x0507
+	required uint32	result_code = 1;			//1: 失败 0:成功
+	required uint32 from_user_id = 2;	//自己的id
+	required uint32 to_user_id = 3;		//发给谁
+	required string file_name = 4;		//文件名
+	required string task_id = 5;		//任务的uuid
+	repeated IM.BaseDefine.IpAddr ip_addr_list = 6;	//result_code=0表示成功，则用这个地址连接文件服务器
+	required IM.BaseDefine.FileType trans_mode = 7;	//客户端需要判断返回的是在线还是离线，因为可能请求的是在线，但对方实际不在线则应转离线传输。
+}
+
+message IMFileNotify{
+	//cmd id: 	0x0508
+	required uint32 from_user_id = 1;	//谁发给我
+	required uint32 to_user_id = 2;		//自己的id
+	required string file_name = 3;		//文件名
+	required uint32 file_size = 4;		//文件大小
+	required string task_id = 5;		//任务的uuid
+	repeated IM.BaseDefine.IpAddr ip_addr_list = 6;	//则用这个地址连接文件服务器
+	required IM.BaseDefine.FileType trans_mode = 7;	//在线或离线传输
+	required uint32 offline_ready = 8;				//1:True 0:False 离线传输是否准备好了
+}
+
+message IMFileHasOfflineReq{
+	//cmd id: 	0x0509
+	required uint32 user_id = 1;//自己的id
+	optional bytes attach_data = 20;
+}
+
+message IMFileHasOfflineRsp{
+	//cmd id:	0x050a
+	required uint32 user_id = 1;//自己的id
+	repeated IM.BaseDefine.OfflineFileInfo offline_file_list = 2;//离线文件信息
+	
+	optional bytes attach_data = 20;
+}
+
+message IMFileAddOfflineReq{
+	//cmd id:	0x050b
+	required uint32 from_user_id = 1;//自己的id
+	required uint32 to_user_id = 2;	//发给谁
+	required string task_id = 3;	//任务的uuid
+	required string file_name = 4;	//文件名
+	required uint32 file_size = 5;	//文件大小
+	
+	repeated IM.BaseDefine.IpAddr ip_addr_list = 10; //文件服务器地址
+}
+
+message IMFileDelOfflineReq{
+	//cmd id:	0x050c
+	required uint32 from_user_id = 1; //谁发给我的离线文件
+	required uint32 to_user_id = 2;	//自己的id
+	required string task_id = 3;	//任务的uuid
+}

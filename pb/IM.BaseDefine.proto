@@ -1,0 +1,429 @@
+package IM.BaseDefine;
+option java_package = "com.dffx.im.protobuf";
+//option java_outer_classname = "MOGUJIEIMMessage";
+option optimize_for = LITE_RUNTIME;
+
+// service id
+enum ServiceID{  								 //服务号，对不同的协议进行归类，便于后面针对模块进行分类。
+    DFFX_SID_LOGIN           = 0x0001;           // for login
+    DFFX_SID_BUDDY_LIST      = 0x0002;		    // for friend list
+    DFFX_SID_MSG             = 0x0003;          //	for msg 
+    DFFX_SID_GROUP           = 0x0004;           // for group message
+    DFFX_SID_FILE            = 0x0005;			// for file
+    DFFX_SID_SWITCH_SERVICE  = 0x0006;			// for switch server
+    DFFX_SID_OTHER           = 0x0007;			//for other
+	DFFX_SID_INTERNAL        = 0x0008;		     //for internal
+}
+
+// command id for login
+enum LoginCmdID{									//登陆相关的命令。
+    DFFX_CID_LOGIN_REQ_MSGSERVER         = 0x0101; 	//msg_server登录请求消息
+    DFFX_CID_LOGIN_RES_MSGSERVER         = 0x0102;	//msg_server登录响应消息
+    DFFX_CID_LOGIN_REQ_USERLOGIN         = 0x0103;	//用户登录请求消息
+    DFFX_CID_LOGIN_RES_USERLOGIN         = 0x0104;	//用户登陆响应消息
+    DFFX_CID_LOGIN_REQ_LOGINOUT          = 0x0105;	//退出登录请求
+    DFFX_CID_LOGIN_RES_LOGINOUT          = 0x0106; 	//退出登录响应
+    DFFX_CID_LOGIN_KICK_USER			 = 0x0107; 	//踢用户
+    DFFX_CID_LOGIN_REQ_DEVICETOKEN       = 0x0108;  //devicetoken请求
+    DFFX_CID_LOGIN_RES_DEVICETOKEN       = 0x0109;  //devicetoken响应
+    DFFX_CID_LOGIN_REQ_KICKPCCLIENT      = 0x010a;	//移动端踢PC端请求
+	DFFX_CID_LOGIN_RES_KICKPCCLIENT      = 0x010b;  //移动端踢PC端响应
+}
+
+// command id for buddy list
+enum BuddyListCmdID{
+    DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST       = 0x0201; //获取最近会话请求
+    DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE      = 0x0202; //获取最近会话响应
+    DFFX_CID_BUDDY_LIST_STATUS_NOTIFY                        = 0x0203; //用户状态通知
+    DFFX_CID_BUDDY_LIST_USER_INFO_REQUEST                    = 0x0204; //查找用户信息请求
+    DFFX_CID_BUDDY_LIST_USER_INFO_RESPONSE                   = 0x0205; //查找用户信息返回
+    DFFX_CID_BUDDY_LIST_REMOVE_SESSION_REQ                   = 0x0206; //移除会话请求
+    DFFX_CID_BUDDY_LIST_REMOVE_SESSION_RES                   = 0x0207; //移除会话返回
+    DFFX_CID_BUDDY_LIST_ALL_USER_REQUEST                     = 0x0208; //获取所有好友请求
+    DFFX_CID_BUDDY_LIST_ALL_USER_RESPONSE                    = 0x0209; //获取所有好友返回
+    DFFX_CID_BUDDY_LIST_USERS_STATUS_REQUEST                 = 0x020a; //用户状态请求
+    DFFX_CID_BUDDY_LIST_USERS_STATUS_RESPONSE                = 0x020b; //用户状态返回
+    DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST                = 0x020c; //更改用户头像请求
+    DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE               = 0x020d; //更改用户头像返回
+    DFFX_CID_BUDDY_LIST_PC_LOGIN_STATUS_NOTIFY               = 0x020e;	//PC登陆后通知移动端。
+    DFFX_CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY                = 0x020f;	//删除会话后的通知，用于多端同步。
+    DFFX_CID_BUDDY_LIST_DEPARTMENT_REQUEST                   = 0x0210;	//获取好友分组请求
+    DFFX_CID_BUDDY_LIST_DEPARTMENT_RESPONSE                  = 0x0211;  //获取好友分组返回
+	
+	//add by hyh begin 2015-7-10 for friend_relation
+	DFFX_CID_BUDDY_LIST_ADDFRIEND_REQ                  		 = 0x0212;	//添加好友请求 
+    DFFX_CID_BUDDY_LIST_ADDFRIEND_RES                  		 = 0x0213;	//添加好友返回
+	DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_REQ                 = 0x0214; 	//验证（同意或拒绝）好友请求
+	DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_RES                 = 0x0215; 	//验证（同意或拒绝）好友返回
+	DFFX_CID_BUDDY_LIST_DELFRIEND_REQ                  		 = 0x0216; 	//删除好友请求
+    DFFX_CID_BUDDY_LIST_DELFRIEND_RES                  		 = 0x0217;	//删除好友返回
+	DFFX_CID_BUDDY_LIST_CHGFRIENDREMARK_REQ                  = 0x0218; 	//修改好友备注请求
+    DFFX_CID_BUDDY_LIST_CHGFRIENDREMARK_RES                  = 0x0219;  //修改好友备注返回
+	
+	DFFX_CID_BUDDY_LIST_CREATEFRIENDGROUP_REQ                = 0x021a;  //创建好友分组请求
+    DFFX_CID_BUDDY_LIST_CREATEFRIENDGROUP_RES                = 0x021b;	//创建好友分组返回
+	DFFX_CID_BUDDY_LIST_DELFRIENDGROUP_REQ                   = 0x021c;  //删除好友分组请求，好友自动进入默认分组（我的好友）
+    DFFX_CID_BUDDY_LIST_DELFRIENDGROUP_RES                   = 0x021d;	//删除好友分组返回
+	DFFX_CID_BUDDY_LIST_MOVEFRIENDTOGROUP_REQ                = 0x021e;  //移动好友到某分组请求
+    DFFX_CID_BUDDY_LIST_MOVEFRIENDTOGROUP_RES                = 0x021f;	//移动好友到某分组返回
+	DFFX_CID_BUDDY_LIST_CHGFRIENDGROUPNAME_REQ               = 0x0220; 	//修改好友分组名请求
+    DFFX_CID_BUDDY_LIST_CHGFRIENDGROUPNAME_RES               = 0x0221;  //修改好友分组名返回
+	
+	DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_REQ               		 = 0x0222;	//好友申请通过或拒绝的通知，服务器发给客户端
+	DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_RES               		 = 0x0223;  //好友申请通过或拒绝的通知应答，服务器收到后，更改数据状态
+	DFFX_CID_BUDDY_LIST_GETADDFRIEND_REQ               		 = 0x0224;	//登录时获取好友申请及好友验证结果请求
+	DFFX_CID_BUDDY_LIST_GETADDFRIEND_RES               		 = 0x0225;  //登录时获取好友申请及好友验证结果应答
+	DFFX_CID_BUDDY_LIST_FINDUSERINFO_REQ             		 = 0x0226;	//用法宝号或手机号查找用户信息请求
+	DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES           			 = 0x0227;  //用法宝号或手机号查找用户信息应答
+	
+	//end by hyh
+}
+
+// command id for msg
+enum MessageCmdID{
+    DFFX_CID_MSG_DATA					= 0x0301;	// 发送消息协议
+    DFFX_CID_MSG_DATA_ACK				= 0x0302; 	// 消息收到回复
+    DFFX_CID_MSG_READ_ACK				= 0x0303; 	// 消息已读回复
+    DFFX_CID_MSG_READ_NOTIFY     		= 0x0304;   // 消息已读通知，用于多端同步。
+    DFFX_CID_MSG_TIME_REQUEST 			= 0x0305;	// 时间请求,就是time(null)
+    DFFX_CID_MSG_TIME_RESPONSE			= 0x0306; 	// 时间应答
+    DFFX_CID_MSG_UNREAD_CNT_REQUEST		= 0x0307; 	// 未读消息计数请求
+    DFFX_CID_MSG_UNREAD_CNT_RESPONSE	= 0x0308;	// 未读消息计数应答
+    DFFX_CID_MSG_LIST_REQUEST            = 0x0309;  // 获取指定数量消息请求
+    DFFX_CID_MSG_LIST_RESPONSE           = 0x030a;  // 获取指定数量消息应答
+    DFFX_CID_MSG_GET_LATEST_MSG_ID_REQ   = 0x030b;	// 获取某个会话最新msg_id请求
+    DFFX_CID_MSG_GET_LATEST_MSG_ID_RSP   = 0x030c;	// 获取某个会话最新msg_id返回
+    DFFX_CID_MSG_GET_BY_MSG_ID_REQ       = 0x030d;	// 通过msg_id获取消息请求
+    DFFX_CID_MSG_GET_BY_MSG_ID_RES       = 0x030e;  // 通过msg_id获取消息应答
+	
+	DFFX_CID_MSG_CLEAN_MSGLIST_REQ       = 0x030f;	// 清空聊天记录请求
+    DFFX_CID_MSG_CLEAN_MSGLIST_RES       = 0x0310;  // 清空聊天记录应答
+}
+
+// command id for group message                     //暂时不用
+enum GroupCmdID{
+    DFFX_CID_GROUP_NORMAL_LIST_REQUEST			= 0x0401;	//用户所在固定群组请求。
+    DFFX_CID_GROUP_NORMAL_LIST_RESPONSE			= 0x0402;
+    DFFX_CID_GROUP_INFO_REQUEST          		= 0x0403;	//群组信息请求。
+    DFFX_CID_GROUP_INFO_RESPONSE         		= 0x0404;
+    DFFX_CID_GROUP_CREATE_REQUEST               = 0x0405;	//创建群组请求。
+    DFFX_CID_GROUP_CREATE_RESPONSE              = 0x0406;
+    DFFX_CID_GROUP_CHANGE_MEMBER_REQUEST 		= 0x0407;	//群组成员变更请求。
+    DFFX_CID_GROUP_CHANGE_MEMBER_RESPONSE 		= 0x0408;
+    DFFX_CID_GROUP_SHIELD_GROUP_REQUEST  		= 0x0409;	//屏蔽群组请求。
+    DFFX_CID_GROUP_SHIELD_GROUP_RESPONSE 		= 0x040a;
+    DFFX_CID_GROUP_CHANGE_MEMBER_NOTIFY			= 0x040b;	//群组成员变更通知。
+}
+
+// command id for file
+enum FileCmdID{                                             
+    DFFX_CID_FILE_LOGIN_REQ              = 0x0501; // sender/receiver need to login to	客户端登录文件服务器请求
+    DFFX_CID_FILE_LOGIN_RES              = 0x0502; // login success or failure			客户端登录文件服务器响应
+    DFFX_CID_FILE_STATE                  = 0x0503; // 文件传输状态： 取消 完成 拒绝
+    DFFX_CID_FILE_PULL_DATA_REQ          = 0x0504; //  拉取文件数据请求
+    DFFX_CID_FILE_PULL_DATA_RSP          = 0x0505; //  拉取文件数据响应
+    // To MsgServer
+    DFFX_CID_FILE_REQUEST                = 0x0506; // sender -> receiver  发送文件请求
+    DFFX_CID_FILE_RESPONSE               = 0x0507; // receiver -> sender 发送文件响应
+    DFFX_CID_FILE_NOTIFY                 = 0x0508;	//状态通知
+    DFFX_CID_FILE_HAS_OFFLINE_REQ        = 0x0509;	//客户端登录，查找是否有离线文件请求
+    DFFX_CID_FILE_HAS_OFFLINE_RES        = 0x050a;	//客户端登录，查找是否有离线文件响应
+    DFFX_CID_FILE_ADD_OFFLINE_REQ        = 0x050b;	//添加离线文件请求
+    DFFX_CID_FILE_DEL_OFFLINE_REQ        = 0x050c;	//删除离线文件请求
+}
+
+// command id for switch service(该文件定义了用户之间的P2P消息，比如正在输入等，服务端不关心具体的协议内容，只做转发，客户端互相之间知道协议的含义。)
+// 暂时没用
+enum SwitchServiceCmdID{
+    DFFX_CID_SWITCH_P2P_CMD	= 0x0601;	//定义了P2P命令。
+}
+
+// command id for other
+enum OtherCmdID{	//定义了一些其他的命令，目前只使用了心跳。
+    DFFX_CID_OTHER_HEARTBEAT                     = 0x0701;	//心跳    
+}
+
+// command id for internal
+enum InternalCmdId{
+	DFFX_CID_OTHER_STOP_RECV_PACKET              = 0x0802;	//停止接收
+    DFFX_CID_OTHER_VALIDATE_REQ                  = 0x0803;	//验证请求
+    DFFX_CID_OTHER_VALIDATE_RSP                  = 0x0804;
+    DFFX_CID_OTHER_GET_DEVICE_TOKEN_REQ          = 0x0805;	//获取设备token请求
+    DFFX_CID_OTHER_GET_DEVICE_TOKEN_RSP          = 0x0806;
+    DFFX_CID_OTHER_ROLE_SET                      = 0x0807;	
+    DFFX_CID_OTHER_ONLINE_USER_INFO              = 0x0808;	//在线用户信息
+    DFFX_CID_OTHER_MSG_SERV_INFO                 = 0x0809;	//msg_server信息
+    DFFX_CID_OTHER_USER_STATUS_UPDATE            = 0x080a;	//用户状态更新
+    DFFX_CID_OTHER_USER_CNT_UPDATE               = 0x080b;	//在线用户数量更新
+    DFFX_CID_OTHER_SERVER_KICK_USER              = 0x080d;	//服务端踢人
+    DFFX_CID_OTHER_LOGIN_STATUS_NOTIFY           = 0x080e;	//登录状态通知
+    DFFX_CID_OTHER_PUSH_TO_USER_REQ              = 0x080f;	//发送push通知请求
+    DFFX_CID_OTHER_PUSH_TO_USER_RSP              = 0x0810;
+    DFFX_CID_OTHER_GET_SHIELD_REQ                = 0x0811;	//获取屏蔽请求
+    DFFX_CID_OTHER_GET_SHIELD_RSP                = 0x0812;
+    DFFX_CID_OTHER_FILE_TRANSFER_REQ             = 0x0813;	//文件传送请求
+    DFFX_CID_OTHER_FILE_TRANSFER_RSP             = 0x0814;
+    DFFX_CID_OTHER_FILE_SERVER_IP_REQ            = 0x0815;	//文件服务器信息请求
+    DFFX_CID_OTHER_FILE_SERVER_IP_RSP            = 0x0816;
+	
+	DFFX_CID_OTHER_GETFRIENDSID_REQ       		  = 0x0817;	//获取所有好友的id,(服务器内部消息)
+	DFFX_CID_OTHER_GETFRIENDSID_RES         	  = 0x0818; //
+}
+
+enum ResultType{			//这里定义了登陆返回错误码。
+	REFUSE_REASON_NONE				= 0;	//未知错误
+	REFUSE_REASON_NO_MSG_SERVER		= 1;	//没有msg_server
+	REFUSE_REASON_MSG_SERVER_FULL 	= 2;	//msg_server已满
+	REFUSE_REASON_NO_DB_SERVER		= 3;	//没有db_server
+	REFUSE_REASON_NO_LOGIN_SERVER	= 4;	//没有login_server
+	REFUSE_REASON_NO_ROUTE_SERVER	= 5;	//没有route_server
+	REFUSE_REASON_DB_VALIDATE_FAILED = 6;	//数据验证失败	
+	REFUSE_REASON_VERSION_TOO_OLD	= 7;	//客户端版本太老
+
+}
+
+enum KickReasonType{
+	KICK_REASON_DUPLICATE_USER = 1;
+    KICK_REASON_MOBILE_KICK    = 2;
+}
+
+//删除未使用
+//enum OnlineListType{
+	//ONLINE_LIST_TYPE_FRIEND_LIST = 1; //在线好友列表
+//}
+
+enum UserStatType{					  //用户状态：在线，离线，离开
+	USER_STATUS_ONLINE 	= 1;
+	USER_STATUS_OFFLINE	= 2;
+	USER_STATUS_LEAVE	= 3;
+
+}
+enum SessionType{
+	SESSION_TYPE_SINGLE = 1;          	//单个用户会话
+	SESSION_TYPE_GROUP = 2;          	//群会话
+}
+
+enum MsgType{						//消息类型： 单聊文本，单聊音频，群聊文本，群聊音频
+	MSG_TYPE_SINGLE_TEXT    = 0x01;
+    MSG_TYPE_SINGLE_AUDIO   = 0x02;
+    MSG_TYPE_GROUP_TEXT     = 0x11;
+    MSG_TYPE_GROUP_AUDIO    = 0x12;
+	MSG_TYPE_ORDER_PUSH		= 0x21; //推送给律师订单消息
+	MSG_TYPE_ORDER_GRAB		= 0x22;	//推送给客户，律师的抢单状况
+	MSG_TYPE_ORDER_RESULT	= 0x23;	//通知律师抢单结果
+	MSG_TYPE_LOCATION_SHARING	= 0x31;	//位置分享消息
+	MSG_TYPE_FILE_TRANSFER	= 0x32;	//文件消息
+}
+
+enum ClientType{					//客户端操作系统类型：
+	CLIENT_TYPE_WINDOWS     = 0x01;
+    CLIENT_TYPE_MAC         = 0x02;
+    CLIENT_TYPE_IOS         = 0x11;
+    CLIENT_TYPE_ANDROID     = 0x12;
+}
+
+enum GroupType{						//群组类型：正常群组，临时群组
+	GROUP_TYPE_NORMAL		= 0x01;
+	GROUP_TYPE_TMP			= 0x02;
+}
+
+enum GroupModifyType{				//组修改类型：添加，删除
+	GROUP_MODIFY_TYPE_ADD	= 0x01;
+	GROUP_MODIFY_TYPE_DEL	= 0x02;
+}
+
+enum FileType{						//在线文件，离线文件
+    FILE_TYPE_ONLINE        = 0x01;
+    FILE_TYPE_OFFLINE       = 0x02;
+}
+
+enum ClientFileState{				//文件传输状态定义:对方已准备好 取消 拒绝 完成
+    CLIENT_FILE_PEER_READY  = 0x00;
+    CLIENT_FILE_CANCEL      = 0x01;
+    CLIENT_FILE_REFUSE      = 0x02;
+    CLIENT_FILE_DONE       = 0x03;
+}
+
+enum ClientFileRole{				//文件传输角色定义 实时发送者 实时接受者 离线上传 离线下载	
+    CLIENT_REALTIME_SENDER  = 0x01;
+    CLIENT_REALTIME_RECVER  = 0x02;
+    CLIENT_OFFLINE_UPLOAD   = 0x03;
+    CLIENT_OFFLINE_DOWNLOAD = 0x04;
+}
+
+enum FileServerError{			//文件传输错误码。
+    FILE_SERVER_ERRNO_OK                                = 0x00;
+    FILE_SERVER_ERRNO_CREATE_TASK_ID_ERROR              = 0x01;
+    FILE_SERVER_ERRNO_CREATE_TASK_ERROR                 = 0x02;
+    FILE_SERVER_ERRNO_LOGIN_INVALID_TOKEN               = 0x03;
+    FILE_SERVER_ERRNO_INVALID_USER_FOR_TASK             = 0x04;
+    FILE_SERVER_ERRNO_PULL_DATA_WITH_INVALID_TASK_ID    = 0x05;
+    FILE_SERVER_ERRNO_PULL_DATA_ILLIEAGE_USER           = 0x06;
+    FILE_SERVER_ERRNO_PULL_DATA_MKDIR_ERROR             = 0x07;
+    FILE_SERVER_ERRNO_PULL_DATA_OPEN_FILE_ERROR         = 0x08;
+    FILE_SERVER_ERRNO_PULL_DATA_READ_FILE_HEADER_ERROR  = 0x09;
+    FILE_SERVER_ERRNO_PULL_DATA_ALLOC_MEM_ERROR         = 0x0a;
+    FILE_SERVER_ERRNO_PULL_DATA_SEEK_OFFSET_ERROR       = 0x0b;
+    FILE_SERVER_ERRNO_PULL_DATA_FINISHED                = 0x0c;
+}
+
+enum SessionStatusType{		//状态定义，删除，正常。
+    SESSION_STATUS_OK           = 0x00;
+    SESSION_STATUS_DELETE       = 0x01;
+}
+
+enum DepartmentStatusType{		//部门状态定义。
+    DEPT_STATUS_OK              = 0x00;
+    DEPT_STATUS_DELETE          = 0x01;
+}
+
+//add by hyh 
+enum FriendResStatusType{		//好友请求状态类型
+    FRIENDRES_STATUS_AGREE           = 0x00;    //同意
+    FRIENDRES_STATUS_REFUSE          = 0x01;	//拒绝
+	FRIENDRES_STATUS_IGNORE			 = 0x02;	//忽略
+}
+
+//end by hyh 
+message IpAddr{					//一组服务的唯一标识：IP+port定义
+	required string ip = 1;
+	required uint32 port = 2;
+}
+
+message UserInfo{			//用户信息数据结构。
+/*
+	required uint32 user_id = 1;
+	required uint32 user_gender = 2; 	//// 用户性别,男：1 女：2 人妖/外星人：0
+	required string user_nick_name = 3;	//绰号
+	required string avatar_url = 4;
+	required uint32 department_id = 5;
+	required string email = 6;
+	required string user_real_name = 7;	//真名
+	required string user_tel = 8;
+	required string user_domain = 9;	//用户名拼音
+    required uint32 status = 10;        //0:在职  1. 试用期 2. 正式 3. 离职 4.实习,  client端需要对“离职”进行不展示
+ */
+	required uint32	user_id = 1;        //用户id
+	required string user_nickname = 2;  //昵称
+	required uint32 user_gender = 3;	//性别 男：1 女：2 
+	required string user_birthday = 4;  //生日
+	required string user_headlink = 5;	//头像
+	required uint32 user_level = 6;     //等级
+	required uint32 user_status = 7;    //用户在线状态
+	optional uint32 user_uid = 8;		//法信号
+	optional string user_phone = 9; 	//手机号
+	
+	optional	uint32 friend_groupid = 10;	//我的好友才有此选项,分组id
+	optional	string friend_remark = 11;	//好友的备注
+	optional	uint32 friend_status = 12;			//好友的状态
+	
+/*
+-2  -  被拒绝但未通知
+-1	—  应该删除这个好友
+0	—  没有建立好友关系		//用户登录获取好友信息之后，服务端将删除0,-1的状态的记录
+1	—  用户已经发出好友请求
+2	—  收到好友请求,但没有回复
+3	—  好友已经相互添加
+4   -  被同意但未通知
+*/
+	
+	optional uint32 user_type = 13;	//用户类型，然而im服务器不清楚具体定义
+	optional uint32 user_ischeck = 14;	//用户认证状态(0:未认证1:申请认证 2:已认证)
+}
+
+message ContactSessionInfo{			//最近联系人(会话)数据结构
+	required uint32 session_id = 1;
+	required SessionType session_type = 2;
+    required SessionStatusType session_status = 3;
+	required uint32 updated_time = 4;
+	required uint32 latest_msg_id = 5;	//某个会话最新msg_id
+	required bytes latest_msg_data = 6;
+    required MsgType latest_msg_type = 7;
+    required uint32 latest_msg_from_user_id = 8; //发送得用户id
+}
+
+message UserStat{			//用户状态数据结构
+	required uint32 user_id = 1;
+	required UserStatType status = 2;
+	optional ClientType client_type = 3;
+}
+
+//删除之使用UserStat
+//message ServerUserStat{		//服务端用户状态数据结构，比UserStat多了一个用户所在端。
+	//required uint32 user_id = 1;
+	//required UserStatType status = 2;
+	//required ClientType client_type = 3;
+//}
+
+message UnreadInfo{		//未读消息数据结构，其中seession_id定义的有点歧义，在这里标识对方id(可以理解为peer_id)，如果是单聊，表示对方id，如果是群组，表示群id
+	required uint32 session_id = 1;
+	required SessionType session_type = 2;
+	required uint32 unread_cnt = 3;
+	required uint32 latest_msg_id = 4;		//某个会话最新msg_id
+	required bytes latest_msg_data = 5;		//某个会话最新msg_data
+    required MsgType latest_msg_type = 6;
+    required uint32 latest_msg_from_user_id = 7;        //发送得用户id
+}
+
+message MsgInfo{		//消息数据结构，session_id同上。
+	required uint32 msg_id = 1;				//消息id
+	required uint32 from_session_id = 2;   //发送的用户id
+	required uint32 create_time = 3;
+	required MsgType msg_type = 4;			//消息类型
+	required bytes msg_data = 5;			//消息数据
+}
+
+message GroupVersionInfo{//群组版本信息数据结构，为增量推送群组信息考虑。
+	required uint32 group_id = 1;
+	required uint32 version = 2;
+	
+}
+
+message GroupInfo{			//群组数据结构。
+	required uint32 group_id = 1;			//组id
+	required uint32 version = 2;			//版本		
+	required string group_name = 3;			
+	required string group_avatar = 4;
+	required uint32 group_creator_id = 5;	//组的创建者
+	required GroupType group_type = 6;		//组类型：1.正常 2.临时群组
+	required uint32 shield_status = 7;		//1: shield  0: not shield 
+	repeated uint32 group_member_list = 8;
+}
+
+message UserTokenInfo{	//推送用户token数据结构。
+    required uint32 user_id = 1;			//用户id
+	required ClientType user_type = 2;		//用户类型
+	required string token = 3;
+	required uint32 push_count = 4;			
+	required uint32 push_type = 5;			//1: 正常推送  	2:无打扰式推送
+}
+
+message PushResult{		//推送结果定义。
+	required string user_token = 1;		//用户token
+	required uint32 result_code = 2;	//返回值
+}
+
+message ShieldStatus{	//群消息推送屏蔽状态
+	required uint32 user_id = 1;			//用户id
+	required uint32 group_id = 2;			//组id
+	required uint32 shield_status = 3;		//1: shield  0: not shield 
+}
+
+message OfflineFileInfo{	//离线文件信息
+    required uint32 from_user_id = 1;	//传送id
+    required string task_id = 2;		//任务uuid
+    required string file_name = 3;		//文件名称
+    required uint32 file_size = 4;		//文件大小
+	
+	repeated IM.BaseDefine.IpAddr ip_addr_list = 10; //文件服务器地址
+	
+	optional uint32 send_time = 11;		//发送时间
+}
+
+//修改为好友分组信息
+message DepartInfo{
+	required uint32 group_id = 1; //分组id
+	required uint32 group_flag = 2;	  //0=正常分组，1=我的好友，2=黑名单
+	required string group_name = 3; //分组名称
+    required uint32 group_sort = 4;		//排序值
+}

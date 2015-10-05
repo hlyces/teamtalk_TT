@@ -1,0 +1,426 @@
+package IM.Buddy;
+import "IM.BaseDefine.proto";
+option java_package = "com.dffx.im.protobuf";
+//option java_outer_classname = "MOGUJIEIMMessage";
+option optimize_for = LITE_RUNTIME;
+
+//service id   0x0002
+
+message IMRecentContactSessionReq{	//最近联系人会话请求。
+	//cmd id:		0x0201
+	required uint32 user_id = 1;
+	required uint32 latest_update_time = 2; //最新时间
+	optional bytes attach_data = 20;
+}
+
+message IMRecentContactSessionRsp{
+	//cmd id:		0x0202
+	required uint32 user_id = 1;
+	repeated IM.BaseDefine.ContactSessionInfo contact_session_list = 2;
+	optional bytes attach_data = 20;
+}
+
+message IMUserStatNotify{ 		//用户状态通知
+	//cmd id:		0x0203
+	required IM.BaseDefine.UserStat user_stat = 1;
+}
+
+message IMUsersInfoReq{			//用户信息请求
+	//cmd id:		0x0204
+	required uint32 user_id = 1;
+	repeated uint32 user_id_list = 2;
+	optional bytes attach_data = 20;
+}
+
+message IMUsersInfoRsp{
+	//cmd id:		0x0205
+	required uint32 user_id = 1;
+	repeated IM.BaseDefine.UserInfo user_info_list = 2;
+	optional bytes attach_data = 20;
+}
+
+message IMRemoveSessionReq{	//移除用户会话列表
+	//cmd id:		0x0206
+	required uint32 user_id = 1;
+	required IM.BaseDefine.SessionType session_type = 2;
+	required uint32 session_id = 3;
+	optional bytes attach_data = 20;
+}
+
+message IMRemoveSessionRsp{
+	//cmd id:		0x0207
+	required uint32 user_id = 1;
+	required uint32 result_code = 2;
+	required IM.BaseDefine.SessionType session_type = 3;
+	required uint32 session_id = 4;
+	optional bytes attach_data = 20;
+}
+
+message IMAllUserReq{	//所有用户请求，其中带了一个latest_update_time字段，请求应答会返回latest_update_time时间之后发生变化的用户回来。
+	//cmd id:		0x0208
+	required uint32 user_id = 1;
+	required uint32 latest_update_time = 2;
+	optional bytes attach_data = 20;
+}
+
+message IMAllUserRsp{
+	//cmd id:		0x0209
+	required uint32 user_id = 1;
+	required uint32 latest_update_time = 2;
+	repeated IM.BaseDefine.UserInfo user_list = 3;		
+	optional bytes attach_data = 20;
+}
+
+message IMUsersStatReq{	//用户状态请求。
+	//cmd id:		0x020a
+	required uint32 user_id = 1;
+	repeated uint32 user_id_list = 2;
+	optional bytes attach_data = 20;
+}
+
+message IMUsersStatRsp{
+	//cmd id:		0x020b
+	required uint32 user_id = 1;
+	repeated IM.BaseDefine.UserStat user_stat_list = 2;
+	optional bytes attach_data = 20;
+}
+
+message IMChangeAvatarReq{	//用户头像改变
+	//cmd id:		0x020c
+	required uint32 user_id = 1;		//自己的id
+	required string avatar_url = 2;		//图像保存地址
+	optional bytes attach_data = 20;
+}
+
+message IMChangeAvatarRsp{
+	//cmd id:		0x020d
+	required uint32 user_id = 1;
+	required string avatar_url = 2;
+	required uint32 result_code = 3;
+	optional bytes attach_data = 20;
+}
+
+//只给移动端通知
+message IMPCLoginStatusNotify{
+	//cmd id:		0x020e
+	required uint32 user_id = 1;							//自己的id
+	required IM.BaseDefine.UserStatType login_stat = 2;		 //用户状态：在线，离线，离开
+}
+
+ message IMRemoveSessionNotify{
+ 	//cmd id:		0x020f
+ 	required uint32 user_id = 1;							//自己的id
+	required IM.BaseDefine.SessionType session_type = 2;	//会话类型 1.单聊 2 群聊
+	required uint32 session_id = 3;							//会话id
+ }
+
+//修改为获取好友分组信息
+message IMDepartmentReq{
+	//cmd id:		0x0210
+	required uint32 user_id = 1;
+	required uint32 latest_update_time = 2;
+	optional bytes attach_data = 20;
+}
+
+message IMDepartmentRsp{
+	//cmd id:		0x0211
+	required uint32 user_id = 1;						//自己的id
+	required uint32 latest_update_time = 2;				//本次最新的用户变化时间
+	repeated IM.BaseDefine.DepartInfo dept_list = 3;	//用户的分组列表
+	optional bytes attach_data = 20;
+}
+
+//add by hyh begin 2015-7-10 for friend_relation
+message IMAddFriendReq{//加好友请求
+	//cmd id:		0x0212
+	required uint32 from_user_id = 1;           //客户端发出请求为自己的id	//客户端收到的请求则为好友id
+	required uint32 to_user_id = 2;             //好友的id	//客户端收到的请求则为自己的id
+	
+	optional uint32 friend_groupid = 3;         //分组的id
+	optional string friend_remark = 4;          //好友的备注
+	optional string extra_info = 5;             //附加信息(我是...)
+	
+	optional string user_nickname = 6; //昵称
+	optional string user_headlink = 7; //头像url
+	optional uint32 user_gender = 8;	//性别 男：1 女：2 	
+	optional uint32 user_uid = 9;		//法信号
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMCommonOperFriendRes
+//message IMAddFriendRes{
+	//cmd id:		0x0213
+	//required uint32 user_id = 1;
+	//required uint32 result_code = 3;           //操作结果，0=success,1=failed
+	//optional bytes attach_data = 20;
+//}
+
+message IMReverseAddFriendReq{//同意或拒绝好友请求
+	//cmd id:		0x0214
+	required uint32 from_user_id = 1;         //自己的id
+	required uint32 to_user_id = 2;           //好友的id
+	required IM.BaseDefine.FriendResStatusType friendres_status_type = 3;//同意或拒绝好友请求
+	
+	optional uint32 friend_groupid = 4;       //可选项(仅在同意时加入此字段)：分组的id
+	optional string friend_remark = 5;        //可选项(仅在同意时加入此字段)：好友的备注
+	
+	optional string refuse_reason= 10;        //拒绝时的选项，拒绝理由
+	
+	optional bytes attach_data = 20;
+}
+
+message IMCommonOperFriendRes{
+	//cmd id:		0x0215
+	required uint32 user_id = 1;
+	required uint32 result_code = 2;//操作结果，0=success,1=failed	
+	
+	optional uint32 friend_id = 10; //好友id
+	
+	optional bytes attach_data = 20; //数据库响应时将原req返回
+}
+
+//删除之使用IMCommonOperFriendRes
+//message IMReverseAddFriendRes{
+	//cmd id:		0x0215
+	//required uint32 user_id = 1;
+	//required uint32 result_code = 2;//操作结果，0=success,1=failed	
+	
+	//optional uint32 friend_id = 10; //好友id
+	
+	//optional bytes attach_data = 20; //数据库响应时将原req返回
+//}
+
+message IMDelFriendReq{//删除好友
+	//cmd id:		0x0216
+	required uint32 user_id = 1;//自己的id
+	required uint32 del_user_id = 2;//好友的id
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMCommonOperFriendRes
+//message IMDelFriendRes{
+	//cmd id:		0x0217
+	//required uint32 user_id = 1;
+	//required uint32 result_code = 2;//操作结果，0=success,1=failed
+	
+	//optional uint32 friend_id = 10; //好友id
+	
+	//optional bytes attach_data = 20;
+//}
+
+message IMChgFriendRemarkReq{//修改好友备注
+	//cmd id:		0x0218
+	required uint32 user_id = 1;//自己的id
+	required uint32 friend_id = 2;//好友的id
+	required string friend_nick = 3;//备注
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMCommonOperFriendRes
+//message IMChgFriendRemarkRes{	
+	//cmd id:		0x0219
+	//required uint32 user_id = 1;
+	//required uint32 result_code = 2;//操作结果，0=success,1=failed
+	
+	//optional uint32 friend_id = 10; //好友id
+	
+	//optional bytes attach_data = 20;
+//}
+
+message IMCreateFriendGroupReq{//创建好友分组
+	//cmd id:		0x021a
+	required uint32 user_id = 1;//自己的id
+	required string group_name = 2;//分组的名称
+	
+	optional bytes attach_data = 20;
+}
+
+message IMCommonOperFriendGroupRes{
+	//cmd id:		0x021b
+	required uint32 user_id = 1;
+	required uint32 result_code = 2; //操作结果，0=success,1=failed//分组的group_id,if id <=0 failed
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMCommonOperFriendGroupRes
+//message IMCreateFriendGroupRes{
+	//cmd id:		0x021b
+	//required uint32 user_id = 1;
+	//required uint32 group_id = 2; //分组的group_id,if id <=0 failed
+	
+	//optional bytes attach_data = 20;
+//}
+
+message IMDelFriendGroupReq{//删除好友分组，好友自动进入默认分组
+	//cmd id:		0x021c
+	required uint32 user_id = 1;//自己的id
+	required uint32 group_id = 2;//分组的group_id
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMCommonOperFriendGroupRes
+//message IMDelFriendGroupRes{
+	//cmd id:		0x021d
+	//required uint32 user_id = 1;
+	//required uint32 result_code = 2;//操作结果，0=success,1=failed
+	
+	//optional bytes attach_data = 20;
+//}
+
+message IMMoveFriendToGroupReq{//移动一些好友到某分组
+	//cmd id:		0x021e
+	required uint32 user_id = 1;//自己的id
+	required uint32 group_id = 2;//分组的group_id
+	repeated uint32 friend_id_list = 3;//多个好友id的list
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMCommonOperFriendGroupRes
+//message IMMoveFriendToGroupRes{
+	//cmd id:		0x021f
+	//required uint32 user_id = 1;
+	//required uint32 result_code = 2;//操作结果，0=success,1=failed
+	
+	//optional bytes attach_data = 20;
+//}
+
+message IMChgFriendGroupNameReq{//修改好友分组名
+	//cmd id:		0x0220
+	required uint32 user_id = 1;//自己的id
+	required uint32 group_id = 2;//分组的group_id
+	required string group_name = 3;//分组名称
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMCommonOperFriendGroupRes
+//message IMChgFriendGroupNameRes{
+	//cmd id:		0x0221
+	//required uint32 user_id = 1;
+	//required uint32 result_code = 2;//操作结果，0=success,1=failed
+	
+	//optional bytes attach_data = 20;
+//}
+
+message IMFriendNotifyReq{//好友申请通过或拒绝的通知
+	//cmd id:		0x0222
+	required uint32 from_user_id = 1;//好友的id
+	required uint32 to_user_id = 2;//自己的id
+	required IM.BaseDefine.FriendResStatusType friendres_status_type = 3;//同意或拒绝好友请求
+	
+	optional string user_nickname = 6; //昵称
+	optional string user_headlink = 7; //头像url
+	optional uint32 user_gender = 8;	//性别 男：1 女：2 	
+	optional uint32 user_uid = 9;		//法信号
+		
+	optional string refuse_reason= 10; //拒绝时的选项，拒绝理由
+	
+}
+
+message IMFriendNotifyRes{
+	//cmd id:		0x0223
+	required uint32 from_user_id = 1;//自己的id
+	required uint32 to_user_id = 2;//好友的id
+	
+}
+
+message IMGetAddFriendReq{//登录时获取好友申请及好友验证结果
+	//cmd id:		0x0224
+	required uint32 user_id = 1;//自己的id
+		
+	optional bytes attach_data = 20;
+}
+
+
+message IMCommonOperFrienInfo{
+	required uint32 oper_user_id = 1; //操作的用户id	
+	required uint32 oper_time = 2; //操作时间
+		
+	optional string extra_info = 3;  //附加信息
+	
+	optional string user_nickname = 6; //昵称
+	optional string user_headlink = 7; //头像url
+	optional uint32 user_gender = 8;	//性别 男：1 女：2 
+	optional uint32 user_uid = 9;		//法信号	
+}
+
+//删除之使用IMCommonOperFrienInfo
+//message AddFrienInfo{
+	//required uint32 from_user_id = 1; //加我好友的id	
+	//required uint32 create_time = 2; //创建时间
+		
+	//optional string extra_info = 3;  //附加信息
+	
+	//optional string user_nickname = 6; //昵称
+	//optional string user_headlink = 7; //头像url
+	//optional uint32 user_gender = 8;	//性别 男：1 女：2 
+	//optional uint32 user_uid = 9;		//法信号	
+//}
+
+//删除之使用IMCommonOperFrienInfo
+//message RefuseAddFrienInfo{
+	//required uint32 refuse_user_id = 1; //拒绝我的好友申请的id	
+	//required uint32 resp_time = 2; //响应时间
+	
+	//optional string refuse_reason = 3;  //拒绝理由
+	
+	//optional string user_nickname = 6; //昵称
+	//optional string user_headlink = 7; //头像url
+	//optional uint32 user_gender = 8;	//性别 男：1 女：2 	
+	//optional uint32 user_uid = 9;		//法信号
+//}
+
+//删除之使用IMCommonOperFrienInfo
+//message AgreeAddFrienInfo{
+	//required uint32 agree_user_id = 1; //同意我的好友申请的id
+	//required uint32 resp_time = 2; //响应时间
+	
+	//optional string user_nickname = 6; //昵称
+	//optional string user_headlink = 7; //头像url
+	//optional uint32 user_gender = 8;	//性别 男：1 女：2 	
+	//optional uint32 user_uid = 9;		//法信号
+//}
+
+message IMGetAddFriendRes{
+	//cmd id:		0x0225
+	required uint32 user_id = 1;
+	repeated IMCommonOperFrienInfo addfriend_info_list = 2; //哪些id加我好友
+	
+	repeated IMCommonOperFrienInfo agree_info_list = 3; //哪些id同意我的好友申请
+	repeated IMCommonOperFrienInfo refuse_info_list = 4; //哪些id拒绝我的好友申请
+	
+	optional bytes attach_data = 20;
+}
+
+
+message IMFindUserInfoReq{//用法宝号查找用户信息的请求
+	//cmd id:		0x0226	
+	required uint32 user_id = 1;
+	required string find_string = 2;//法宝号
+	
+	optional bytes attach_data = 20;
+}
+
+//删除之使用IMUsersInfoRsp
+//message IMFindUserInfoRes{
+	//cmd id:		0x0227
+	//required uint32 user_id = 1;
+	
+	//repeated IM.BaseDefine.UserInfo userinfo_list = 2; //用户的信息列表
+	
+	//optional bytes attach_data = 20;
+//}
+
+//end by hyh
+
+
+
+
+
+

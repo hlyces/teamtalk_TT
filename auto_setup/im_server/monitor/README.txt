@@ -1,0 +1,1 @@
+该表monitor.sh里面的IMDIR的路径，即安装包的路径，运行setup.sh即可挂起监控程序
