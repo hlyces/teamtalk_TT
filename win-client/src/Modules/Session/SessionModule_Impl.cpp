@@ -198,11 +198,31 @@ BOOL SessionModule_Impl::_prase2LocalMsg(OUT MessageEntity& msg)
 		//msg.content = msgEncrypt;
 		msg.content = fileName;
 	}
+	else if (0x31 == msg.msgType)
+	{
+		//实时个人消息需要多端同步
+		if (MESSAGE_TYPE_RUNTIME == msg.msgStatusType
+			&& msg.talkerSid != module::getSysConfigModule()->userID())
+			msg.sessionId = msg.talkerSid;
+
+		msg.msgSessionType = MESSAGETYPE_FROM_FRIEND;
+		msg.msgRenderType = MESSAGE_RENDERTYPE_IMAGE;
+		//ASSERT(FALSE);
+		//LOG__(ERR, _T("Don't support this msgtype:%d"), msg.msgType);
+		//return FALSE;
+	}
 	else
 	{
+		//实时个人消息需要多端同步
+		if (MESSAGE_TYPE_RUNTIME == msg.msgStatusType
+			&& msg.talkerSid != module::getSysConfigModule()->userID())
+			msg.sessionId = msg.talkerSid;
+
+		msg.msgSessionType = MESSAGETYPE_FROM_FRIEND;
+		msg.msgRenderType = MESSAGE_RENDERTYPE_TEXT;
 		//ASSERT(FALSE);
-		LOG__(ERR, _T("Don't support this msgtype:%d"), msg.msgType);
-		return FALSE;
+		//LOG__(ERR, _T("Don't support this msgtype:%d"), msg.msgType);
+		//return FALSE;
 	}
 	return TRUE;
 }

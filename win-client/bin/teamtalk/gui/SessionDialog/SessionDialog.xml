@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Window size="520,540" mininfo="520,540" caption="0,0,0,40" sizebox="4,4,4,4" roundcorner="4,4,4,4">
+<Window size="650,540" mininfo="520,540" caption="0,0,0,40" sizebox="4,4,4,4" roundcorner="4,4,4,4">
   <Font name="微软雅黑" size="12" bold="false" default="true" />
   <Font name="微软雅黑" size="14" bold="true"/>
   <Default name="VScrollBar" value="button1normalimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,0,8,7&apos;&quot; button1hotimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,0,8,7&apos;&quot; button1pushedimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,0,8,7&apos;&quot; button2normalimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,17,8,24&apos;&quot; button2hotimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,17,8,24&apos;&quot; button2pushedimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,17,8,24&apos;&quot; thumbnormalimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,24,8,72&apos; corner=&apos;2,2,2,2&apos;&quot; thumbhotimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,24,8,72&apos; corner=&apos;2,2,2,2&apos;&quot; thumbpushedimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,24,8,72&apos; corner=&apos;2,2,2,2&apos;&quot; bknormalimage=&quot;file=&apos;MainDialog/scrollbar.png&apos; source=&apos;0,6,8,17&apos;&quot;" />
@@ -22,7 +22,7 @@
 			</HorizontalLayout>	
 		</HorizontalLayout>
 		<SessionLayout name="会话面板">
-			<VerticalLayout>
+			<VerticalLayout>			
 				<WebBrowser name="ie" clsid="{8856F961-340A-11D0-A96B-00C04FD705A2}" delaycreate="false"/>
 				<VerticalLayout height="210" maxheight="350" minheight="80" sepheight="-30" sepimm="true">
 					<HorizontalLayout height="30" inset="2,4,2,4">

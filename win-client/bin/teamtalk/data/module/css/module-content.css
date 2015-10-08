@@ -10,6 +10,15 @@ body, html {
 img {
     border: 0;
 }
+
+.container{	
+	position: relative;
+    min-width:400px; 
+	border:1px solid #f00; 
+	min-height:250px; 
+	height:80%;
+}
+	  
 .clearfix:after{content:"\200B";display:block;height:0;clear:both;}
 .clearfix{*zoom:1;}
 .im_mainbox_middle_main_contentbox {

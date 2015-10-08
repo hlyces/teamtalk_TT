@@ -148,7 +148,7 @@ void SessionLayout::OnWindowInitialized(TNotifyUI& msg)
 		CString csPath = module::getMiscModule()->getDataDir() + _T("module\\module-content.html");
 		m_pWebBrowser->Navigate2(csPath);
 	}
-
+	
 	m_pInputRichEdit = dynamic_cast <UIIMEdit*>(m_pManager->FindSubControlByName(this, _T("input_richedit")));
 	m_pBtnSendMsg = dynamic_cast <CButtonUI*>(m_pManager->FindSubControlByName(this, _T("sendbtn")));
 	m_pBtnClose = dynamic_cast <CButtonUI*>(m_pManager->FindSubControlByName(this, _T("closebtn")));

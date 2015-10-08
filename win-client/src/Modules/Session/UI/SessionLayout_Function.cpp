@@ -131,7 +131,7 @@ BOOL SessionLayout::_DisplayMsgToIE(IN MessageEntity msg)
 	root["mtype"] = msg.isMySendMsg() ? "me" : "other";
 	CTime timeData(msg.msgTime);
 	root["time"] = util::cStringToString(timeData.Format(_T("%Y-%m-%d %H:%M:%S")));
-
+	root["msgId"] = msg.msgId;
 	//语音内容特殊处理
 	if (MESSAGE_RENDERTYPE_AUDIO == msg.msgRenderType)
 	{
@@ -170,7 +170,7 @@ BOOL SessionLayout::_DisplayMsgToIE(IN MessageEntity msg)
 		{
 			LOG__(ERR, _T("CallJScript failed:%s"),jsData);
 		}
-		jsData.ReleaseBuffer();
+		jsData.ReleaseBuffer();		
 	}
 	return TRUE;
 }
@@ -193,6 +193,7 @@ void SessionLayout::DoDisplayHistoryMsgToIE(std::vector<MessageEntity>& msgList,
 		msgItem["time"] = util::cStringToString(time.Format(_T("%Y-%m-%d %H:%M:%S")));
 		msgItem["uuid"] = itMsg->talkerSid;
 		msgItem["msgtype"] = itMsg->msgRenderType;
+		msgItem["msgId"] = itMsg->msgId;
 
 		if (MESSAGE_RENDERTYPE_AUDIO == itMsg->msgRenderType)
 		{
@@ -235,6 +236,30 @@ void SessionLayout::DoDisplayHistoryMsgToIE(std::vector<MessageEntity>& msgList,
 	BOOL bRet = m_pWebBrowser->CallJScript(_T("historyMessage"), jsData.GetBuffer(), &result);
 	if (!bRet)
 		LOG__(ERR, _T("CallJScript failed,%s"), jsData);
+
+	for (auto itMsg = msgList.rbegin(); itMsg != msgList.rend(); ++itMsg)
+	{
+		if (itMsg->msgRenderType == MESSAGE_RENDERTYPE_IMAGE)
+		{
+			std::string msgDecrptyCnt;
+			DECRYPT_MSG(itMsg->content, msgDecrptyCnt);		
+			CString content = util::stringToCString(msgDecrptyCnt);
+			Json::Value rootRead2;
+			jsonRead.parse(msgDecrptyCnt, rootRead2);
+
+			Json::Value jsonD;
+			jsonD["msgId"] = itMsg->msgId;
+			jsonD["longitude"] = rootRead2["longitude"];
+			jsonD["latitude"] = rootRead2["latitude"];
+			Json::StyledWriter styleWrite2;
+			std::string record2 = styleWrite2.write(jsonD);
+			CString jsData2 = util::stringToCString(record2);
+			BOOL bRet2 = m_pWebBrowser->CallJScript(_T("setMapLL"), jsData2.GetBuffer(), &result);
+			if (!bRet2)
+				LOG__(ERR, _T("CallJScript failed,%s"), jsData);
+		}
+	}
+
 	if (scrollBottom)
 	{
 		module::getEventManager()->asynFireUIEventWithLambda(

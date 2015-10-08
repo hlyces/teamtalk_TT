@@ -4,6 +4,8 @@
  * @time 2013-08-27
  */
 var IMApp = IMApp || {};
+
+	
 IMApp.MessageView = (function($, _) {
     // message content dom
     var $msgview = $('#msgview');
@@ -65,6 +67,14 @@ IMApp.MessageView = (function($, _) {
             msgtype = message.msgtype;
             template = _.template($('#tpl_message' + msgtype).html());
             $dom += template(message);
+			if(msgtype == 2){
+				var jsonD = {};
+				jsonD["msgId"]=message.msgId;
+				jsonD["longtitude"] = 113.949349;
+				jsonD["latitude"] = 22.551158;
+				//setMapLL2(jsonD);
+				//setMapLL(jsonD);
+			}				
         }
 
         if (hisClicked) {
@@ -207,3 +217,40 @@ $(document).ready(function() {
     IMApp.MessageView.init();
 	window.open("moguim://moguim/:documentcompleted");
 });
+
+var setMapLL = function(jsData){	
+		jsonData = JSON.parse(jsData);
+		var map = new AMap.Map('container'+jsonData.msgId,{
+				resizeEnable: true,
+				zoom: 20,
+				center: [jsonData.longitude, jsonData.latitude]
+		});
+		var marker = new AMap.Marker({
+				position: [jsonData.longitude, jsonData.latitude]
+		});
+		marker.setMap(map);
+		marker.on('click',function(e){
+		  infowindow.open(map,e.target.getPosition());
+		})
+		
+		AMap.plugin('AMap.AdvancedInfoWindow',function(){
+		   infowindow = new AMap.AdvancedInfoWindow({
+			content: '<div class="info-title">高德地图</div><div class="info-content">'+
+					'<img src="http://webapi.amap.com/images/amap.jpg">'+
+					'东方法信测试。<br/>'+
+					'<a target="_blank" href = "http://mobile.amap.com/">点击下载高德地图</a></div>',
+			offset: new AMap.Pixel(0, -30)
+		  });
+		  //infowindow.open(map,[113.949349, 22.551158]);
+		})
+		AMap.plugin(['AMap.ToolBar','AMap.Scale'],function(){
+			var toolBar = new AMap.ToolBar();
+			var scale = new AMap.Scale();
+			map.addControl(toolBar);
+			map.addControl(scale);
+		})    
+	}
+
+	window.setMapLL = setMapLL;
+		
+    

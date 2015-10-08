@@ -15,8 +15,10 @@
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/json2.min.js"></script>
     <script src="js/lib/underscore.min.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=9fcfb4ae49a0698af44abe05076c98d2"></script>
+	
     <script src="js/module-msgview.js"></script>
-
+	
     <!-- message -->
     <script type="template/text" id="tpl_message1">
         <div class="message <%= mtype %>">
@@ -44,7 +46,8 @@
                     <div class="message_name"><a href="moguim://moguim/:chat2?<%= uuid %>" target="_blank"><%= name %></a></div>
                     <div class="message_time"><%= time %></div>
                 </div>
-                <p><a href="<%= src %>" target="_blank"><img src="<%= src %>" width="<%= width %>" height="<%= height %>" /></a></p>
+               <div class="container" id="container<%=msgId%>"><p>地图信息<%=msgId%></p></div>
+			   <div id='panel'></div>
             </div>
         </div>
     </script>
