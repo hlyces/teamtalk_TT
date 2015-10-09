@@ -105,7 +105,7 @@ BOOL ScreenSnapshot::snapshotScreen()
 	HBITMAP hMaskBitmap = CreateCompatibleBitmap(hScreenDC, cx, cy);
 	SelectObject(hMaskDC, (HGDIOBJ)hMaskBitmap);
 
-	BLENDFUNCTION ftn = { AC_SRC_OVER, 0, 100, 0 };
+	BLENDFUNCTION ftn = { AC_SRC_OVER, 0, 100, 0 }; 
 	AlphaBlend(m_hBkgMemDC, 0, 0, cx, cy, hMaskDC, 0, 0, cx, cy, ftn);
 	DeleteObject(hMaskBitmap);
 	DeleteDC(hMaskDC);
@@ -128,7 +128,7 @@ BOOL ScreenSnapshot::paintWndRect(__in HWND hWnd, __in LPRECT lpRect)
 	HDC hWndDC = GetDC(hWnd);
 
 	//1. draw background
-	BitBlt(m_hDrawMemDC, 0, 0, cxWnd, cxWnd, m_hBkgMemDC, 0, 0, SRCCOPY);
+	BitBlt(m_hDrawMemDC, 0, 0, cxWnd, cyWnd, m_hBkgMemDC, 0, 0, SRCCOPY);
 
 	//2. draw high light rect if any
 	if (lpRect)
@@ -146,7 +146,14 @@ BOOL ScreenSnapshot::paintWndRect(__in HWND hWnd, __in LPRECT lpRect)
 		SelectObject(m_hDrawMemDC, hPrevBrush);
 		SelectObject(m_hDrawMemDC, hPrevPen);
 	}
-	BitBlt(hWndDC, 0, 0, cxWnd, cxWnd, m_hDrawMemDC, 0, 0, SRCCOPY);
+	BitBlt(hWndDC, 0, 0, cxWnd, cyWnd, m_hDrawMemDC, 0, 0, SRCCOPY);
+
+	SetTextColor(hWndDC, RGB(0, 0, 255));
+	SetBkMode(hWndDC, OPAQUE);
+
+	CString strRect;
+	strRect.Format(_T("%dx%d"), abs(lpRect->right-lpRect->left), abs(lpRect->bottom-lpRect->top));
+	TextOut(hWndDC, lpRect->left+5, lpRect->top - 18, strRect.GetBuffer(), strRect.GetLength());
 
 	ReleaseDC(hWnd, hWndDC);
 	ValidateRect(hWnd, NULL);

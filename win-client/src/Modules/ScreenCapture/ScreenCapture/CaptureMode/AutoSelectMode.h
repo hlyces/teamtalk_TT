@@ -70,7 +70,7 @@ private:
 	BOOL adjustRectInScreen(__in RECT &rc);
 	ScreenCaptureWndInfo* windowFromPoint(__in int x, __in int y);
 
-private:
+public:
 	HWND m_hPrevMouseWindow;
 	std::vector<ScreenCaptureWndInfo> m_lsWndList;
 

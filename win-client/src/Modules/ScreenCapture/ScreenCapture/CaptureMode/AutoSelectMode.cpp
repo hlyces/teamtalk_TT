@@ -67,6 +67,34 @@ BOOL AutoSelectMode::snapshotWindows()
 		{
 			continue;
 		}
+		EnumChildWindows(hWnd, [](HWND hwnd, LPARAM lParam)->BOOL{
+			if (!IsWindow(hwnd)
+				|| !IsWindowVisible(hwnd)
+				|| IsIconic(hwnd))
+			{
+				return TRUE;
+			}
+			RECT rcWnd = { 0 };
+			GetWindowRect(hwnd, &rcWnd);
+			
+			if (ScreenCommon::isRectEmpty(rcWnd))
+			{
+				return TRUE;
+			}
+
+			wchar_t szTxt[MAX_PATH] = { 0 };
+			GetWindowText(hwnd, szTxt, MAX_PATH);
+			if (wcslen(szTxt) <= 0)
+			{
+				//continue;
+			}
+
+			//combine the rect with the screen rect
+			AutoSelectMode* pThis = (AutoSelectMode*)lParam;
+			pThis->m_lsWndList.push_back(ScreenCaptureWndInfo(hwnd, rcWnd));
+			return TRUE;
+		}, (LPARAM)this);
+		
 
 		RECT rcWnd = { 0 };
 		GetWindowRect(hWnd, &rcWnd);
@@ -80,7 +108,7 @@ BOOL AutoSelectMode::snapshotWindows()
 		GetWindowText(hWnd, szTxt, MAX_PATH);
 		if (wcslen(szTxt) <= 0)
 		{
-			continue;
+			//continue;
 		}
 
 		//combine the rect with the screen rect
