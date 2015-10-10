@@ -177,11 +177,12 @@ void ScreenCapture::finishCapture()
 {
 	RECT rcSelect = {0};
 	UIScreenCaptureMgr::Instance()->sendBkgMessage(WM_SNAPSHOT_TEST_SELECT_RECT, (WPARAM)&rcSelect, 0);
+	UIScreenCaptureMgr::Instance()->sendBkgMessage(WM_SNAPSHOT_TEST_SELECT_DONE, 0, 0);
 
-    rcSelect.left += 2;
-    rcSelect.top += 2;
-    rcSelect.right -= 2;
-    rcSelect.bottom -= 2;
+//     rcSelect.left += 2;
+//     rcSelect.top += 2;
+//     rcSelect.right -= 2;
+//     rcSelect.bottom -= 2;
 	if (!ScreenCommon::isRectEmpty(rcSelect))
 	{
 		ScreenSnapshot::Instance()->saveRect(rcSelect, m_strSavePath);

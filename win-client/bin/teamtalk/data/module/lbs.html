@@ -55,21 +55,21 @@
 		  infowindow.open(map,e.target.getPosition());
 		})
 		AMap.plugin('AMap.AdvancedInfoWindow',function(){
-       infowindow = new AMap.AdvancedInfoWindow({
-        content: '<div class="info-title">高德地图</div><div class="info-content">'+
-                '<img src="http://webapi.amap.com/images/amap.jpg">'+
-                '东方法信测试。<br/>'+
-                '<a target="_blank" href = "http://mobile.amap.com/">点击下载高德地图</a></div>',
-        offset: new AMap.Pixel(0, -30)
-      });
-      //infowindow.open(map,[113.949349, 22.551158]);
-    })
-    AMap.plugin(['AMap.ToolBar','AMap.Scale'],function(){
-        var toolBar = new AMap.ToolBar();
-        var scale = new AMap.Scale();
-        map.addControl(toolBar);
-        map.addControl(scale);
-    })
+		   infowindow = new AMap.AdvancedInfoWindow({
+			content: '<div class="info-title">高德地图</div><div class="info-content">'+
+					'<img src="http://webapi.amap.com/images/amap.jpg">'+
+					'东方法信测试。<br/>'+
+					'<a target="_blank" href = "http://mobile.amap.com/">点击下载高德地图</a></div>',
+			offset: new AMap.Pixel(0, -30)
+			  });
+			  //infowindow.open(map,[113.949349, 22.551158]);
+			})
+		AMap.plugin(['AMap.ToolBar','AMap.Scale'],function(){
+			var toolBar = new AMap.ToolBar();
+			var scale = new AMap.Scale();
+			map.addControl(toolBar);
+			map.addControl(scale);
+		})
 	}
 	window.setMapLL = setMapLL;
 	window.setMapLL('{"longitude":113.950258,"latitude":22.549986}');	

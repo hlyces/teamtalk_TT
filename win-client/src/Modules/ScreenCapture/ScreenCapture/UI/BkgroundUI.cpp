@@ -101,6 +101,7 @@ void BkgroundUI::InitMsgMap()
 	RegisterMsg(WM_SNAPSHOT_DRAW_POLY_REGION, (MSG_HANDLER)&BkgroundUI::onDrawPolyRegion);
 	RegisterMsg(WM_SNAPSHOT_ADD_RECT_ITEM, (MSG_HANDLER)&BkgroundUI::onAddRectItem);
 	RegisterMsg(WM_SNAPSHOT_ADD_POLY_REGION_ITEM, (MSG_HANDLER)&BkgroundUI::onAddPolyRegionItem);
+	RegisterMsg(WM_SNAPSHOT_TEST_SELECT_DONE, (MSG_HANDLER)&BkgroundUI::onTestSelectDone);
 }
 
 void BkgroundUI::onKeyDown(__in HWND hWnd, __in WPARAM wParam, __in LPARAM lParam)
@@ -119,6 +120,10 @@ void BkgroundUI::onSnapshotTestSelectRect(__in HWND hWnd, __in WPARAM wParam, __
         return;
     }
     memcpy(lpRect, &m_sSelectRect, sizeof(RECT));
+}
+void BkgroundUI::onTestSelectDone(__in HWND hWnd, __in WPARAM wParam, __in LPARAM lParam)
+{
+	ScreenSnapshot::Instance()->paintWndRect(hWnd, &m_sSelectRect, TRUE);
 }
 void BkgroundUI::onSnapshotWindowChange(__in HWND hWnd, __in WPARAM wParam, __in LPARAM lParam)
 {

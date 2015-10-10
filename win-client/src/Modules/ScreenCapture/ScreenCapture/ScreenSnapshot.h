@@ -24,7 +24,7 @@ public:
 	ScreenSnapshot();
 	BOOL snapshotScreen();
     BOOL updateRect(__in LPRECT lpRect);
-	BOOL paintWndRect(__in HWND hWnd, __in LPRECT lpRect);
+	BOOL paintWndRect(__in HWND hWnd, __in LPRECT lpRect, __in BOOL isDone=FALSE);
 	BOOL saveRect(__in RECT &rc, __in std::wstring &savePath);
 
 private:

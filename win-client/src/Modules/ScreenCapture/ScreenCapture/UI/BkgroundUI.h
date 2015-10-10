@@ -39,6 +39,7 @@ private:
 	void onDrawPolyRegion(__in HWND hWnd, __in WPARAM wParam, __in LPARAM lParam);
 	void onAddRectItem(__in HWND hWnd, __in WPARAM wParam, __in LPARAM lParam);
 	void onAddPolyRegionItem(__in HWND hWnd, __in WPARAM wParam, __in LPARAM lParam);
+	void onTestSelectDone(__in HWND hWnd, __in WPARAM wParam, __in LPARAM lParam);
 
 	DECLARE_DIALOG_PROC
 

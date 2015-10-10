@@ -118,7 +118,7 @@ BOOL ScreenSnapshot::snapshotScreen()
 	return TRUE;
 }
 
-BOOL ScreenSnapshot::paintWndRect(__in HWND hWnd, __in LPRECT lpRect)
+BOOL ScreenSnapshot::paintWndRect(__in HWND hWnd, __in LPRECT lpRect, __in BOOL isDone)
 {
 	RECT rcWnd = { 0 };
 	GetWindowRect(hWnd, &rcWnd);
@@ -139,21 +139,29 @@ BOOL ScreenSnapshot::paintWndRect(__in HWND hWnd, __in LPRECT lpRect)
 		BitBlt(m_hDrawMemDC, pt.x, pt.y, cx, cy, m_hMemDC, pt.x, pt.y, SRCCOPY);
 
 		//3. now draw green rect
-		HBRUSH hPrevBrush = (HBRUSH)SelectObject(m_hDrawMemDC, (HGDIOBJ)GetStockObject(NULL_BRUSH));
-		HPEN hDrawPen = CreatePen(PS_SOLID, m_iDrawPenWidth, RGB(255, 215, 0));
-		HPEN hPrevPen = (HPEN)SelectObject(m_hDrawMemDC, hDrawPen);
-		Rectangle(m_hDrawMemDC, lpRect->left, lpRect->top, lpRect->right, lpRect->bottom);
-		SelectObject(m_hDrawMemDC, hPrevBrush);
-		SelectObject(m_hDrawMemDC, hPrevPen);
+		if (!isDone)
+		{
+			HBRUSH hPrevBrush = (HBRUSH)SelectObject(m_hDrawMemDC, (HGDIOBJ)GetStockObject(NULL_BRUSH));
+			HPEN hDrawPen = CreatePen(PS_SOLID, m_iDrawPenWidth, RGB(255, 215, 0));
+			HPEN hPrevPen = (HPEN)SelectObject(m_hDrawMemDC, hDrawPen);
+			Rectangle(m_hDrawMemDC, lpRect->left, lpRect->top, lpRect->right, lpRect->bottom);
+			SelectObject(m_hDrawMemDC, hPrevBrush);
+			SelectObject(m_hDrawMemDC, hPrevPen);
+		}
 	}
 	BitBlt(hWndDC, 0, 0, cxWnd, cyWnd, m_hDrawMemDC, 0, 0, SRCCOPY);
 
-	SetTextColor(hWndDC, RGB(0, 0, 255));
-	SetBkMode(hWndDC, OPAQUE);
+	if (lpRect)
+	{
 
-	CString strRect;
-	strRect.Format(_T("%dx%d"), abs(lpRect->right-lpRect->left), abs(lpRect->bottom-lpRect->top));
-	TextOut(hWndDC, lpRect->left+5, lpRect->top - 18, strRect.GetBuffer(), strRect.GetLength());
+		SetTextColor(hWndDC, RGB(0, 0, 255));
+		SetBkMode(hWndDC, OPAQUE);
+
+		CString strRect;
+		strRect.Format(_T("%dx%d"), abs(lpRect->right - lpRect->left), abs(lpRect->bottom - lpRect->top));
+		TextOut(hWndDC, lpRect->left + 5, lpRect->top - 18, strRect.GetBuffer(), strRect.GetLength());
+
+	}
 
 	ReleaseDC(hWnd, hWndDC);
 	ValidateRect(hWnd, NULL);
