@@ -20,7 +20,7 @@
 namespace
 {
 	const UInt8 TIMEOUT_SENDINGMSG = 5;	//正在发送的消息，超时为5S
-	const UInt8 SENDMSG_RETRY_CNT = 1;	// 
+	const UInt8 SENDMSG_RETRY_CNT = 1;	//
 	const UInt32 SENDMSG_INTERVAL = 100;//时间间隔为100毫秒
 }
 
