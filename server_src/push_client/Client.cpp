@@ -22,6 +22,7 @@ m_nLastGetUser(0)
 {
 	g_pConn = NULL;
 	g_bLogined = false;
+	g_configReturn = false;
 }
 
 CClient::~CClient()
@@ -56,6 +57,7 @@ void CClient::connect()
     if(nRet != CURLE_OK)
     {
         printf("login falied. access url:%s error\n", strUrl.c_str());
+		g_configReturn = false;
         PROMPTION;
         return;
     }
@@ -64,6 +66,7 @@ void CClient::connect()
     if(!reader.parse(strResp, value))
     {
         printf("login falied. parse response error:%s\n", strResp.c_str());
+		g_configReturn = false;
         PROMPTION;
         return;
     }
@@ -75,6 +78,7 @@ void CClient::connect()
         {
             string strMsg = value["msg"].asString();
             printf("login falied. errorMsg:%s\n", strMsg.c_str());
+			g_configReturn = false;
             PROMPTION;
             return;
         }
@@ -84,6 +88,7 @@ void CClient::connect()
         
     } catch (std::runtime_error msg) {
         printf("login falied. get json error:%s\n", strResp.c_str());
+		g_configReturn = false;
         PROMPTION;
         return;
     }
@@ -92,7 +97,8 @@ void CClient::connect()
     m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort, m_strName, m_strPass);
     if(m_nHandle != INVALID_SOCKET)
     {
-        netlib_register_timer(CClient::TimerCallback, (void*)this, 1000);		
+        netlib_register_timer(CClient::TimerCallback, (void*)this, 1000);	
+		g_configReturn = true;
     }
     else
     {

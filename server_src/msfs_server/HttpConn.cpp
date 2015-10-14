@@ -373,7 +373,11 @@ void  CHttpTask::OnDownload()
             char szResponseHeader[1024];
             size_t nPos = strPath.find_last_of(".");
             string strType = strPath.substr(nPos + 1, strPath.length() - nPos);
-            if(strType == "jpg" || strType == "JPG" || strType == "jpeg" || strType == "JPEG" || strType == "png" || strType == "PNG" || strType == "gif" || strType == "GIF")
+            if(strType == "jpg" || strType == "JPG" 
+				|| strType == "jpeg" || strType == "JPEG" 
+				|| strType == "png" || strType == "PNG" 
+				|| strType == "gif" || strType == "GIF"
+				|| strType == "bmp" || strType == "BMP")
             {
                 snprintf(szResponseHeader, sizeof(szResponseHeader), HTTP_RESPONSE_IMAGE, nTmpSize, strType.c_str());
             }

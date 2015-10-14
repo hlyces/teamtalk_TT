@@ -9,6 +9,11 @@
 *
 ================================================================*/
 #include "PushThread.h"  
+#include "Lock.h"
+
+
+ CLock g_csLock;
+
 
 
 CPushConfig::CPushConfig()
@@ -68,101 +73,102 @@ void CPushThread::OnThreadTick()
 		
 	CPushModel* pPush = CPushModel::getInstance();
 
-	list<OrderMsg> m_OrderMsgList;
+	list<OrderMsg > lsOrderMsg;
 
-	m_OrderMsgList.clear();
+	lsOrderMsg.clear();
 
-	pPush->getOrderMsgList(m_OrderMsgList);
-	if(m_OrderMsgList.size() == 0)
+	pPush->getOrderMsgList(lsOrderMsg);
+	if(lsOrderMsg.size() == 0)
 	{
 		sleep(5);
 		return ;
 	}
 		
 	//获取配置表里面当前区域可以发送的订单
-	list<OrderMsg > t_trueOrderMsgList;
-	list<OrderMsg >::iterator t_orderIter;
+	list<OrderMsg > lsTrueOrderMsg;
+	list<OrderMsg >::iterator lsOrderIter;
 
-	for( t_orderIter = m_OrderMsgList.begin();  t_orderIter != m_OrderMsgList.end(); t_orderIter++)
+	for( lsOrderIter = lsOrderMsg.begin();  lsOrderIter != lsOrderMsg.end(); lsOrderIter++)
 	{
-		string t_mapKey;
-		t_mapKey  = int2string(t_orderIter->msg_case);
-		t_mapKey +=  ",";
-		t_mapKey += int2string(t_orderIter->msg_skillid);
+		string strMapKey;
+		strMapKey  = int2string(lsOrderIter->msg_case);
+		strMapKey +=  ",";
+		strMapKey += int2string(lsOrderIter->msg_skillid);
 
-		map<string, vector<int>>::iterator t_iterMap;
-		t_iterMap = pPush->m_PushConfigMap.find(t_mapKey);
-		if(t_iterMap == pPush->m_PushConfigMap.end())
+		map<string, vector<int>>::iterator mIterMap;
+		mIterMap = pPush->m_PushConfigMap.find(strMapKey);
+		if(mIterMap == pPush->m_PushConfigMap.end())
 		{
 			continue;
 		}
 	
-		vector<int> t_mapValue(5);
-		t_mapValue = t_iterMap->second;
+		vector<int> vMapValue(5);
+		vMapValue = mIterMap->second;
 
-		if(t_mapValue[t_orderIter->msg_sign]  == 1)
+		if(vMapValue[lsOrderIter->msg_sign] == CONFIGTRUE)
 		{
-			t_orderIter->msg_isPushArea = t_mapValue[0];
-			t_orderIter->msg_isPushCity = t_mapValue[1];
-			t_orderIter->msg_isPushProvince = t_mapValue[2];
-			OrderMsg t_order = *t_orderIter;
-			t_trueOrderMsgList.push_back(t_order);
+			lsOrderIter->msg_isPushArea = vMapValue[0];
+			lsOrderIter->msg_isPushCity = vMapValue[1];
+			lsOrderIter->msg_isPushProvince = vMapValue[2];
+			OrderMsg t_order = *lsOrderIter;
+			lsTrueOrderMsg.push_back(t_order);
 		}
 	}
 
 	
 	//查找适合订单的律师，并发送订单
-	list<OrderMsg>::iterator t_iter1 = t_trueOrderMsgList.begin();
+	list<OrderMsg>::iterator lsIter1 = lsTrueOrderMsg.begin();
 
-	for(; t_iter1 != t_trueOrderMsgList.end(); t_iter1++)
+	for(; lsIter1 != lsTrueOrderMsg.end(); lsIter1++)
 	{		
-		list<uint32_t > m_LawyerUidList;
-		pPush->getLawyerList(*t_iter1, m_LawyerUidList);
-		if(m_LawyerUidList.size() == 0)
+		list<uint32_t > lsLawyerUid;
+		pPush->getLawyerList(*lsIter1, lsLawyerUid);
+		if(lsLawyerUid.size() == 0)
 			continue;
 
-		list<uint32_t >::iterator t_iter2 = m_LawyerUidList.begin();
+		list<uint32_t >::iterator lsIter2 = lsLawyerUid.begin();
 
 	
-		for(; t_iter2 != m_LawyerUidList.end(); t_iter2++)
+		for(; lsIter2 != lsLawyerUid.end(); lsIter2++)
 		{
-				g_pClient->sendMsg(*t_iter2, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_PUSH, t_iter1->msg_context);
+				CAutoLock cAutoLock(&g_csLock);
+				g_pClient->sendMsg(*lsIter2, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_PUSH, lsIter1->msg_context);
 			 	usleep(100);
 		}
 
 
 		//sql语句有长度限制，每次插入400条数据
-		list<uint32_t>::iterator t_iter3 = m_LawyerUidList.begin();
-		list<uint32_t > t_tmpMsg ;
-		for(; t_iter3 != m_LawyerUidList.end(); t_iter3++)
+		list<uint32_t>::iterator lsIter3 = lsLawyerUid.begin();
+		list<uint32_t > lsTmpMsg ;
+		for(; lsIter3 != lsLawyerUid.end(); lsIter3++)
 		{
-			t_tmpMsg.push_back(*t_iter3);
+			lsTmpMsg.push_back(*lsIter3);
 
-			if(t_tmpMsg.size() >= 400)
+			if(lsTmpMsg.size() >= 400)
 			{
-				pPush->pushRecord(t_iter1->msg_orderid , t_tmpMsg);
-				t_tmpMsg.clear();
+				pPush->pushRecord(lsIter1->msg_orderid , lsTmpMsg);
+				lsTmpMsg.clear();
 				continue;
 			}
 		}
-		if(t_iter3 == m_LawyerUidList.end() && t_tmpMsg.size() != 0)
+		if(lsIter3 == lsLawyerUid.end() && lsTmpMsg.size() != 0)
 		{
-			pPush->pushRecord(t_iter1->msg_orderid , t_tmpMsg);
-			t_tmpMsg.clear();
+			pPush->pushRecord(lsIter1->msg_orderid , lsTmpMsg);
+			lsTmpMsg.clear();
 		}
 
 	}
 
 	//更新订单表，如果订单不符合发送条件，则不更新订单时间及发送次数
-	if(m_OrderMsgList.size() != 0)
+	if(lsOrderMsg.size() != 0)
 	{
-		pPush->updateOrderPushtime(m_OrderMsgList);
-		pPush->updateOrderSendsign(m_OrderMsgList);
+		pPush->updateOrderPushtime(lsOrderMsg);
+		pPush->updateOrderSendsign(lsOrderMsg);
 		
 	}
-	if(t_trueOrderMsgList.size() != 0)
+	if(lsTrueOrderMsg.size() != 0)
 	{
-		pPush->updateOrderUpdatetime(t_trueOrderMsgList);
+		pPush->updateOrderUpdatetime(lsTrueOrderMsg);
 	}	
 	
 	usleep(5000);
@@ -196,24 +202,39 @@ void CNotifyClientGrabThread::OnThreadTick()
 
 	CPushModel* pPush = CPushModel::getInstance();
 
-	list<GrabRecord > m_GrabRecordList;
-	m_GrabRecordList.clear();
+	list<GrabRecord > lsGrabRecord;
+	lsGrabRecord.clear();
 	
-	pPush->getGrabLawyer(m_GrabRecordList);
-	if(m_GrabRecordList.size() == 0)
+	pPush->getGrabLawyer(lsGrabRecord);
+	if(lsGrabRecord.size() == 0)
 	{
 		sleep(5);
 		return ;
 	}
 	
-	list<GrabRecord >::iterator t_iter;
-	for(t_iter = m_GrabRecordList.begin(); t_iter != m_GrabRecordList.end(); t_iter++)
+	list<GrabRecord >::iterator lsIter;
+	for(lsIter = lsGrabRecord.begin(); lsIter != lsGrabRecord.end(); lsIter++)
 	{
-		g_pClient->sendMsg(t_iter->grab_useruid, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_GRAB, t_iter->grab_context);	
+		int    intResult;
+		
+		CAutoLock cAutoLock(&g_csLock);
+		if(lsIter->grab_status == ENTERLISTPUSHING) //打官司 出勤需进入五人列表
+		{
+			intResult = IM::BaseDefine::LAWSUIT_ATTENDANCE_GRAB;
+			
+		}
+		else if(lsIter->grab_status == DIRECTGRABPUSHING) //文书 咨询一人抢单则直接抢单成功
+		{
+			intResult = IM::BaseDefine::CONSULT_DOCUMENTS_GRAB;
+		}
+		
+		string strMsg = "{\"grabStatus\":" + int2string(intResult) + ", \"grabLawyerInfo\":[" + lsIter->grab_context + "]}";
+		g_pClient->sendMsg(lsIter->grab_useruid, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_GRAB, strMsg);
+	
 		usleep(100);
 	}
 
-	pPush->updateGrabLawyerToClient(m_GrabRecordList);
+	pPush->updateGrabLawyerToClient(lsGrabRecord);
 
 	usleep(500000);
 }
@@ -248,41 +269,45 @@ void CNotifyLawyerGrabThread::OnThreadTick()
 
 	CPushModel* pPush = CPushModel::getInstance();
 
-	list<GrabRecord > m_GrabRecordList;
-	m_GrabRecordList.clear();
+	list<GrabRecord > lsGrabRecord;
+	lsGrabRecord.clear();
 	
-	pPush->getLawyerGrabResult(m_GrabRecordList);
-	if(m_GrabRecordList.size() == 0)
+	pPush->getLawyerGrabResult(lsGrabRecord);
+	if(lsGrabRecord.size() == 0)
 	{
 		sleep(5);
 		return ;
 	}
 
 
-	list<GrabRecord >::iterator t_iter;
-	for(t_iter = m_GrabRecordList.begin(); t_iter != m_GrabRecordList.end(); t_iter++)
+	list<GrabRecord >::iterator lsIter;
+	for(lsIter = lsGrabRecord.begin(); lsIter != lsGrabRecord.end(); lsIter++)
 	{
 		string strResult = "";
-		if(t_iter->grab_status == 4)
+		int    intResult;
+		if(lsIter->grab_status == NOTIFYSUCCESSPUSHING)
 		{
-			strResult = "抢单成功";
+			intResult = IM::BaseDefine::GRAB_SUCCESS;		
+			strResult = "抢单成功";	
 		}
-		else if(t_iter->grab_status == 5)
+		else if(lsIter->grab_status == NOTIFYFAILPUSHING)
 		{
+			intResult = IM::BaseDefine::GRAB_FAID;
 			strResult = "抢单失败";
 		}
 		
-		string strMsg = "{\"orderSn\":" + t_iter->grab_ordersn + "，\"orderId\":" + int2string(t_iter->grab_orderid) + ", \"orderUserId\":" + \
-						int2string(t_iter->grab_useruid) + ", \"caseEtime\":" + t_iter->grab_orderendtime \
-						+ ", \"grabStatus\":" + strResult + "};";	
+		string strMsg = "{\"orderSn\":\"" + lsIter->grab_ordersn + "\", \"orderId\":" + int2string(lsIter->grab_orderid) + ", \"orderUserId\":" + \
+						int2string(lsIter->grab_useruid) + ", \"caseEtime\":\"" + lsIter->grab_orderendtime \
+						+ "\", \"grabStatus\":" + int2string(intResult) + ", \"grabMessage\":\"" + strResult + "\", \"grabContext\":[" + lsIter->grab_context+ "]}";	
 
-		g_pClient->sendMsg(t_iter->grab_lawyeruid, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_RESULT, strMsg);
+		CAutoLock cAutoLock(&g_csLock);
+		g_pClient->sendMsg(lsIter->grab_lawyeruid, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_RESULT, strMsg);
 		usleep(100);
 		
 	}
 
 	
-	pPush->updateGrabResultToLawyer(m_GrabRecordList);
+	pPush->updateGrabResultToLawyer(lsGrabRecord);
 
 	usleep(500000);
 }
@@ -290,8 +315,186 @@ void CNotifyLawyerGrabThread::OnThreadTick()
 
 
 
+CEntrushThread::CEntrushThread()
+{
+	g_pClient = NULL;
+	StartThread();
+}
+
+CEntrushThread::~CEntrushThread()
+{
+
+}
+
+/*
+	1.获取委托，委托受理，委托取消订单
+	2.发送给委托对象
+	3.更新订单消息表
+*/
+void CEntrushThread::OnThreadTick()
+{	
+	log("*************CEntrushThread******************");
+	if(g_pClient == NULL || !g_pClient->g_bLogined || 
+		!g_pClient->g_pConn)
+	{
+		sleep(3);
+		return;
+	}
+
+	CPushModel* pPush = CPushModel::getInstance();
+
+	list<OrderEntrust > lsOrderEntrust;
+	lsOrderEntrust.clear();
+	
+	pPush->handleEntrustOrder(lsOrderEntrust);
+	if(lsOrderEntrust.size() == 0)
+	{
+		sleep(5);
+		return ;
+	}
+
+	list<OrderEntrust >::iterator lsIter;
+	for(lsIter = lsOrderEntrust.begin(); lsIter != lsOrderEntrust.end(); lsIter++)
+	{
+		string strResult = "";
+		int    intResult;
+		if(lsIter->msg_status == ENTRUSTORDER)
+		{
+			CAutoLock cAutoLock(&g_csLock);
+			 //委托通知客户端
+			g_pClient->sendMsg(lsIter->msg_lawyer, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ENTRUST, lsIter->msg_context);
+		}
+		else if(lsIter->msg_status == ORDERCANCEL)
+		{
+			intResult = IM::BaseDefine::ENTRUST_CANCEL;
+			
+			strResult = "委托取消"; //通知律师端
+			string strMsg = "{\"orderId\":" + int2string(lsIter->msg_orderid) + ", \"orderUserId\":" + \
+							int2string(lsIter->msg_user) + ", \"grabStatus\":" + int2string(intResult) +  \
+							", \"grabMessage\":\"" + strResult + "\", \"grabContext\":[" + lsIter->msg_context+ "]}";	
+
+			CAutoLock cAutoLock(&g_csLock);
+			g_pClient->sendMsg(lsIter->msg_lawyer, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_CANCEL, strMsg);
+		}
+		else if(lsIter->msg_status == ORDERACCEPT)
+		{
+			intResult = IM::BaseDefine::ENTRUST_ACCEPT;
+			strResult = "委托受理"; //通知客户端
+			string strMsg = "{\"orderId\":" + int2string(lsIter->msg_orderid) + ", \"orderLawyerId\":" + \
+							int2string(lsIter->msg_lawyer) + ", \"grabStatus\":" + int2string(intResult) +  \
+							", \"grabMessage\":\"" + strResult + "\", \"grabContext\":[" + lsIter->msg_context+ "]}";	
+
+			CAutoLock cAutoLock(&g_csLock);
+			g_pClient->sendMsg(lsIter->msg_user, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ACCEPT	, strMsg);
+
+		}
+	
+		usleep(100);
+		
+	}
+
+	
+	pPush->updateEntrustOrder(lsOrderEntrust);
+
+	usleep(500000);
+}
+
+
+CTopUP_withDrawalThread::CTopUP_withDrawalThread()
+{
+	g_pClient = NULL;
+	StartThread();
+}
+
+CTopUP_withDrawalThread::~CTopUP_withDrawalThread()
+{
+
+}
+
+/*
+	1.获取提现或者充值的消息id
+	2.发送给提现或者充值用户
+	3.更新充值或提现推送表(dffx_common_pushresult)
+*/
+void CTopUP_withDrawalThread::OnThreadTick()
+{	
+	log("*************TopUP_withDrawalThread******************");
+	if(g_pClient == NULL || !g_pClient->g_bLogined || 
+		!g_pClient->g_pConn)
+	{
+		sleep(3);
+		return;
+	}
+
+	CPushModel* pPush = CPushModel::getInstance();
+
+	list<TopUP_withDrawal > lsTopUP_withDrawal;
+	lsTopUP_withDrawal.clear();
+	
+	pPush->getTopUP_withDrawal(lsTopUP_withDrawal);
+	if(lsTopUP_withDrawal.size() == 0)
+	{
+		sleep(5);
+		return ;
+	}
+
+	list<TopUP_withDrawal >::iterator lsIter;
+	for(lsIter = lsTopUP_withDrawal.begin(); lsIter != lsTopUP_withDrawal.end(); lsIter++)
+	{
+		string strResult = "";
+		int    intResult;
+
+		if(lsIter->result_type == TOPUPTYPE) //充值 
+		{
+			if(lsIter->result_result == RESULTFAILED) //失败
+			{
+				intResult = IM::BaseDefine::TOPUP_FAILED;
+				strResult += "充值失败";
+
+			}
+			else if(lsIter->result_result == RESULTSUCCESS) //成功
+			{
+				intResult = IM::BaseDefine::TOPUP_SUCCESS;
+				strResult += "充值成功";
+				
+			}
+		}
+		else if(lsIter->result_type == WITHDRAWAL) //提现
+		{
+			if(lsIter->result_result == RESULTFAILED) //失败
+			{
+				intResult = IM::BaseDefine::WITHDRAWAL_FAILED;
+				strResult += "提现失败";
+	
+			}
+			else if(lsIter->result_result == RESULTSUCCESS) //成功
+			{
+				intResult = IM::BaseDefine::WITHDRAWAL_SUCCESS;
+				strResult += "提现成功";
+			}
+		}
+
+		string strMsg = "{\"UserId\":" + int2string(lsIter->result_userid) +  ", \"resultStatus\":" + int2string(intResult) +  \
+						 ", \"linkId\":\"" + lsIter->result_linkid +  "\", \"resultMessage\":\"" + strResult + "\"}";
+				
+		CAutoLock cAutoLock(&g_csLock);
+		g_pClient->sendMsg(lsIter->result_userid, IM::BaseDefine::MsgType::MSG_TYPE_TOPUP_WITHDRAWAL, strMsg);
+		
+		usleep(100);
+	}
+
+	
+	pPush->updateTopUP_withDrawal(lsTopUP_withDrawal);
+
+	usleep(500000);
+
+}
+
+
+
 CMyTimerThread::CMyTimerThread()
 {
+	m_last_update_tick = 0;
 	StartThread();
 }
 
@@ -309,10 +512,10 @@ void CMyTimerThread::OnThreadTick()
 	
 	CPushModel* pPush = CPushModel::getInstance();
 	
-	uint64_t cur_tick = get_tick_count();
-	if(cur_tick >= m_last_update_tick )
+	uint64_t lCurTick = get_tick_count();
+	if(lCurTick >= m_last_update_tick )
 	{
-		m_last_update_tick = cur_tick + THREAD_TIMER_INTERVAL;
+		m_last_update_tick = lCurTick + THREAD_TIMER_INTERVAL;
 		pPush->updateVipExp();
 	}
 	

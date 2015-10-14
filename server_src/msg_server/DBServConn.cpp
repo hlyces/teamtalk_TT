@@ -391,10 +391,12 @@ void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)
 		}
 	}
 
+	/*
 	if (result != 0)
 	{
 		result = IM::BaseDefine::REFUSE_REASON_DB_VALIDATE_FAILED;
 	}
+	*/
 
 	if (result == 0)
 	{
@@ -465,6 +467,10 @@ void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)
 		*/
 		msg3.set_user_token( msg.user_token());
 
+		msg3.set_version_max( msg.version_max());
+		msg3.set_version_download( msg.version_download());
+		msg3.set_version_filesize( msg.version_filesize());
+
 		CImPdu pdu2;
 		pdu2.SetPBMsg(&msg3);
 		pdu2.SetServiceId(DFFX_SID_LOGIN);
@@ -478,6 +484,11 @@ void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)
 		msg4.set_server_time(time(NULL));
 		msg4.set_result_code((IM::BaseDefine::ResultType)result);
 		msg4.set_result_string(result_string);
+
+		msg4.set_version_max( msg.version_max());
+		msg4.set_version_download( msg.version_download());
+		msg4.set_version_filesize( msg.version_filesize());
+		
 		CImPdu pdu3;
 		pdu3.SetPBMsg(&msg4);
 		pdu3.SetServiceId(DFFX_SID_LOGIN);
@@ -824,12 +835,17 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 	uint32_t from_id = msg2.from_user_id();
 	uint32_t to_id = msg2.to_session_id();
 	//MSG_TYPE_ORDER_PUSH MSG_TYPE_ORDER_GRAB MSG_TYPE_ORDER_RESULT
+// MSG_TYPE_ORDER_ENTRUST MSG_TYPE_ORDER_ACCEPT	MSG_TYPE_ORDER_CANCEL	
 	if (msg_type == IM::BaseDefine::MSG_TYPE_SINGLE_TEXT || msg_type == IM::BaseDefine::MSG_TYPE_GROUP_TEXT \
 	    || msg_type == IM::BaseDefine::MSG_TYPE_ORDER_PUSH \ 
 	    || msg_type == IM::BaseDefine::MSG_TYPE_ORDER_GRAB \
 	    || msg_type == IM::BaseDefine::MSG_TYPE_ORDER_RESULT \
 	    || msg_type == IM::BaseDefine::MSG_TYPE_LOCATION_SHARING \
-	    || msg_type == IM::BaseDefine::MSG_TYPE_FILE_TRANSFER)
+	    || msg_type == IM::BaseDefine::MSG_TYPE_FILE_TRANSFER \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
 	{
 		//msg_data =
 		char* msg_out = NULL;

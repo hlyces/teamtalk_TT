@@ -7,6 +7,7 @@
 
 
 static ConnMap_t g_file_client_conn_map;
+extern string g_temp_path;
 
 FileCliConn::FileCliConn():
 m_bOpen(false)
@@ -148,7 +149,8 @@ void FileCliConn::_HandleIMFileLoginRsp(CImPdu* pPdu)
 		
 		if(m_file_role==IM::BaseDefine::CLIENT_OFFLINE_DOWNLOAD && !m_fp)
 		{
-			m_fp = fopen(m_file_name.c_str(), "wb+"); 
+			string sPath = g_temp_path+m_file_name;
+			m_fp = fopen(sPath.c_str(), "wb+"); 
 			if (!m_fp)
 			{
 				log("can not open file");
@@ -191,7 +193,8 @@ void FileCliConn::_HandleIMFileState(CImPdu* pPdu)
 
 		if(msgResp.state()==IM::BaseDefine::CLIENT_FILE_PEER_READY && !m_fp)
 		{
-			m_fp = fopen(m_file_name.c_str(), "wb+"); 
+			string sPath = g_temp_path+m_file_name;
+			m_fp = fopen(sPath.c_str(), "wb+"); 
 			if (!m_fp)
 			{
 				log("can not open file");
@@ -213,6 +216,11 @@ void FileCliConn::_HandleIMFileState(CImPdu* pPdu)
 			uint32_t nSeqNo = m_pSeqAlloctor->getSeq(ALLOCTOR_PACKET);
 			pduReq.SetSeqNum(nSeqNo);
 			SendPdu(&pduReq);
+		}
+		else if(msgResp.state()==IM::BaseDefine::CLIENT_FILE_DONE && m_fp)
+		{
+			fclose(m_fp);
+			m_fp = NULL;
 		}
     }
 	else
@@ -239,7 +247,8 @@ void FileCliConn::_HandleIMFilePullDataReq(CImPdu* pPdu)
 		msgReq.set_user_id(m_from_user_id);		
 		msgReq.set_offset(msgResp.offset());
 
-		FILE* fp = fopen(m_file_name.c_str(), "rb"); 
+		string sPath = g_temp_path+m_file_name;
+		FILE* fp = fopen(sPath.c_str(), "rb"); 
 		if (!fp)
 		{
 			log("can not open file");
@@ -285,13 +294,16 @@ void FileCliConn::_HandleIMFilePullDataRsp(CImPdu* pPdu)
 	
     if(msgResp.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
     {       
-       	printf("_HandleIMFilePullDataRsp: user_id=%d result_code = %d taskid=%s offset=%d \n", 
-			msgResp.user_id(), msgResp.result_code(), msgResp.task_id().c_str(), msgResp.offset());
+       	printf("_HandleIMFilePullDataRsp: user_id=%d result_code = %d taskid=%s offset=%d len=%d\n", 
+			msgResp.user_id(), msgResp.result_code(), msgResp.task_id().c_str(), msgResp.offset()
+			,msgResp.file_data().length());
 		
 		m_transfer_size += msgResp.file_data().length();
-		if(m_fp)
+		if(m_fp && msgResp.file_data().length())
 		{
-			fwrite(msgResp.file_data().c_str(),1,msgResp.file_data().length(),m_fp);
+			int nSize = fwrite(msgResp.file_data().c_str(),1,msgResp.file_data().length(),m_fp);
+			if(nSize < msgResp.file_data().length())
+					printf("_HandleIMFilePullDataRsp: nSize=%d", nSize);
 		}
 		if(m_transfer_size<m_file_size || !m_bLast)
 		{

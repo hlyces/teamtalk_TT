@@ -49,9 +49,14 @@ namespace DB_PROXY {
             msgResp.set_user_id(nUserId);
             for(auto it=lsContactList.begin(); it!=lsContactList.end(); ++it)
             {
+				// MSG_TYPE_ORDER_ENTRUST MSG_TYPE_ORDER_ACCEPT	MSG_TYPE_ORDER_CANCEL	
 				if(it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_PUSH || \
 					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_GRAB || \
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_RESULT )
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_RESULT || \
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST || \
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT || \
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL ||
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
 				{
 					continue;
 				}

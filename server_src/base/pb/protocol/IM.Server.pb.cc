@@ -315,6 +315,7 @@ const int IMValidateReq::kUserNameFieldNumber;
 const int IMValidateReq::kPasswordFieldNumber;
 const int IMValidateReq::kClientTypeFieldNumber;
 const int IMValidateReq::kClientIpFieldNumber;
+const int IMValidateReq::kClientVersionFieldNumber;
 const int IMValidateReq::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
@@ -341,6 +342,7 @@ void IMValidateReq::SharedCtor() {
   password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   client_type_ = 1;
   client_ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -359,6 +361,9 @@ void IMValidateReq::SharedDtor() {
   }
   if (client_ip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete client_ip_;
+  }
+  if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete client_version_;
   }
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete attach_data_;
@@ -392,7 +397,7 @@ IMValidateReq* IMValidateReq::New() const {
 }
 
 void IMValidateReq::Clear() {
-  if (_has_bits_[0 / 32] & 31) {
+  if (_has_bits_[0 / 32] & 63) {
     if (has_user_name()) {
       if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_name_->clear();
@@ -407,6 +412,11 @@ void IMValidateReq::Clear() {
     if (has_client_ip()) {
       if (client_ip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         client_ip_->clear();
+      }
+    }
+    if (has_client_version()) {
+      if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        client_version_->clear();
       }
     }
     if (has_attach_data()) {
@@ -488,6 +498,19 @@ bool IMValidateReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(98)) goto parse_client_version;
+        break;
+      }
+
+      // optional string client_version = 12;
+      case 12: {
+        if (tag == 98) {
+         parse_client_version:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_client_version()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectTag(162)) goto parse_attach_data;
         break;
       }
@@ -554,6 +577,12 @@ void IMValidateReq::SerializeWithCachedSizes(
       11, this->client_ip(), output);
   }
 
+  // optional string client_version = 12;
+  if (has_client_version()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      12, this->client_version(), output);
+  }
+
   // optional bytes attach_data = 20;
   if (has_attach_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
@@ -596,6 +625,13 @@ int IMValidateReq::ByteSize() const {
           this->client_ip());
     }
 
+    // optional string client_version = 12;
+    if (has_client_version()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->client_version());
+    }
+
     // optional bytes attach_data = 20;
     if (has_attach_data()) {
       total_size += 2 +
@@ -632,6 +668,9 @@ void IMValidateReq::MergeFrom(const IMValidateReq& from) {
     if (from.has_client_ip()) {
       set_client_ip(from.client_ip());
     }
+    if (from.has_client_version()) {
+      set_client_version(from.client_version());
+    }
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
     }
@@ -657,6 +696,7 @@ void IMValidateReq::Swap(IMValidateReq* other) {
     std::swap(password_, other->password_);
     std::swap(client_type_, other->client_type_);
     std::swap(client_ip_, other->client_ip_);
+    std::swap(client_version_, other->client_version_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
@@ -677,6 +717,9 @@ const int IMValidateRsp::kResultCodeFieldNumber;
 const int IMValidateRsp::kResultStringFieldNumber;
 const int IMValidateRsp::kUserInfoFieldNumber;
 const int IMValidateRsp::kUserTokenFieldNumber;
+const int IMValidateRsp::kVersionMaxFieldNumber;
+const int IMValidateRsp::kVersionDownloadFieldNumber;
+const int IMValidateRsp::kVersionFilesizeFieldNumber;
 const int IMValidateRsp::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
@@ -710,6 +753,9 @@ void IMValidateRsp::SharedCtor() {
   result_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   user_info_ = NULL;
   user_token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -728,6 +774,15 @@ void IMValidateRsp::SharedDtor() {
   }
   if (user_token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete user_token_;
+  }
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_max_;
+  }
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_download_;
+  }
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_filesize_;
   }
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete attach_data_;
@@ -762,7 +817,7 @@ IMValidateRsp* IMValidateRsp::New() const {
 }
 
 void IMValidateRsp::Clear() {
-  if (_has_bits_[0 / 32] & 63) {
+  if (_has_bits_[0 / 32] & 255) {
     if (has_user_name()) {
       if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_name_->clear();
@@ -782,10 +837,25 @@ void IMValidateRsp::Clear() {
         user_token_->clear();
       }
     }
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
+    if (has_version_max()) {
+      if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        version_max_->clear();
       }
+    }
+    if (has_version_download()) {
+      if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        version_download_->clear();
+      }
+    }
+    if (has_version_filesize()) {
+      if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        version_filesize_->clear();
+      }
+    }
+  }
+  if (has_attach_data()) {
+    if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      attach_data_->clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -868,6 +938,45 @@ bool IMValidateRsp::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(90)) goto parse_version_max;
+        break;
+      }
+
+      // optional string version_max = 11;
+      case 11: {
+        if (tag == 90) {
+         parse_version_max:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_version_max()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(98)) goto parse_version_download;
+        break;
+      }
+
+      // optional string version_download = 12;
+      case 12: {
+        if (tag == 98) {
+         parse_version_download:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_version_download()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(106)) goto parse_version_filesize;
+        break;
+      }
+
+      // optional string version_filesize = 13;
+      case 13: {
+        if (tag == 106) {
+         parse_version_filesize:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_version_filesize()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectTag(162)) goto parse_attach_data;
         break;
       }
@@ -939,6 +1048,24 @@ void IMValidateRsp::SerializeWithCachedSizes(
       10, this->user_token(), output);
   }
 
+  // optional string version_max = 11;
+  if (has_version_max()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      11, this->version_max(), output);
+  }
+
+  // optional string version_download = 12;
+  if (has_version_download()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      12, this->version_download(), output);
+  }
+
+  // optional string version_filesize = 13;
+  if (has_version_filesize()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      13, this->version_filesize(), output);
+  }
+
   // optional bytes attach_data = 20;
   if (has_attach_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
@@ -989,6 +1116,29 @@ int IMValidateRsp::ByteSize() const {
           this->user_token());
     }
 
+    // optional string version_max = 11;
+    if (has_version_max()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->version_max());
+    }
+
+    // optional string version_download = 12;
+    if (has_version_download()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->version_download());
+    }
+
+    // optional string version_filesize = 13;
+    if (has_version_filesize()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->version_filesize());
+    }
+
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     // optional bytes attach_data = 20;
     if (has_attach_data()) {
       total_size += 2 +
@@ -1028,6 +1178,17 @@ void IMValidateRsp::MergeFrom(const IMValidateRsp& from) {
     if (from.has_user_token()) {
       set_user_token(from.user_token());
     }
+    if (from.has_version_max()) {
+      set_version_max(from.version_max());
+    }
+    if (from.has_version_download()) {
+      set_version_download(from.version_download());
+    }
+    if (from.has_version_filesize()) {
+      set_version_filesize(from.version_filesize());
+    }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
     }
@@ -1057,6 +1218,9 @@ void IMValidateRsp::Swap(IMValidateRsp* other) {
     std::swap(result_string_, other->result_string_);
     std::swap(user_info_, other->user_info_);
     std::swap(user_token_, other->user_token_);
+    std::swap(version_max_, other->version_max_);
+    std::swap(version_download_, other->version_download_);
+    std::swap(version_filesize_, other->version_filesize_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);

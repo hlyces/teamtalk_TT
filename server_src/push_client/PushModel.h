@@ -43,6 +43,16 @@ typedef struct OrderMsg{
 }OrderMsg;
 
 
+typedef struct OrderEntrust{
+	uint32_t id;
+	uint32_t msg_orderid;
+	uint32_t msg_lawyer;
+	uint32_t msg_user;
+	uint32_t msg_status;
+	uint16_t msg_sign;
+	string   msg_context;
+}OrderEntrust;
+
 
 
 /*grab_status判断抢单的状态
@@ -50,6 +60,8 @@ typedef struct OrderMsg{
 	3.不发送给客户端但处于等待的抢单信息
 	4.抢单成功				   5.抢单失败
 	6.抢单成功已经通知律师端   7.抢单失败已经通知律师端
+	10.咨询与文书代写有一人抢单成功未通知客户端
+	11.咨询与文书代写有一人抢单成功已通知客户端
 
 	状态1、3由web service写入
 	状态2--->4、2---->5、3---->5、3---->5由web service修改
@@ -69,14 +81,82 @@ typedef struct GrabRecord{
 	string   grab_context;
 }GrabRecord; 
 
+
+//top-up withdrawal
+typedef struct top_up_or_withdrawal{
+	uint32_t id;
+	uint32_t result_userid;
+	uint16_t result_type;
+	uint16_t result_sign;
+	uint16_t result_result;
+	string   result_linkid;
+}TopUP_withDrawal;
+
+enum CONFIGSTATUS{
+	CONFIGTRUE  = 1,
+	CONFIGFALSE = 0,
+};
+
 enum CaseType{
-	CONSULT = 1,
-	LAWSUIT = 2,
+	CONSULT    = 1,
+	LAWSUIT    = 2,
 	ATTENDANCE = 3,
-	DOCUMENTS = 4,
+	DOCUMENTS  = 4,
+};
+
+//dffx_order_msg dffx_order
+//#define SPECIAL_SKILLID 10001
+
+enum Dffx_Order_Msg_Status{
+	ORDINARYORDER =  1, //普通订单
+	ENTRUSTORDER  =  2, //委托订单
+	ORDERACCEPT   =  5, //订单受理
+	ORDERCANCEL   = -1, //订单取消
+	BYTHETIMEUNDO = -3, //订单截止时间撤销
+	HAVEGRAB	  =  3, //有抢单
+};
+
+enum Dffx_Order_Msg_Sign{
+	PUSHTOINIT			 	 =  0, //sign初始默认为0
+	PUSHEDTOAREA			 =  1, //已推送至区，下一级推送市
+	PUSHEDTOCITY 			 =  2, //已推送至市，下一级推送省
+	PUSHEDTOPROVINCE 		 =  3,
+	PUSHEDTOCOUNTRY 		 =  4,
+	PUSHEDTOSPECIALLAWYER 	 =  5,
+	PUSHEDTOENTRUST 		 = 11, //委托已推送
+	PUSHEDTOACCEPT			 = 12,
+	PUSHEDTOCANCEL			 = 13,
+};
+
+//dffx_order_grab
+enum Dffx_Order_Grab_Sign{
+	ENTERLISTPUSHING 		= 1,   //进入抢单列表待推送
+	ENTERLISTPUSHED  		= 2,   //进入抢单列表已推送
+	NOTIFYSUCCESSPUSHING	= 4,
+	NOTIFYFAILPUSHING 		= 5,
+	NOTIFYSUCCESSPUSHED 	= 6,
+	NOTIFYFAILPUSHED 		= 7,
+	DIRECTGRABPUSHING 		= 10,
+	DIRECTGRABPUSHED 		= 11,
+};
+
+//dffx_common_pushresult
+enum Dffx_Common_Pushresult_Type{
+	TOPUPTYPE  = 1,
+	WITHDRAWAL = 2,
+};
+
+enum Dffx_Common_Pushresult_Result{
+	RESULTSUCCESS = 1,
+	RESULTFAILED  = 2,
 };
 
 
+enum LawyerSSex{
+	SEXULIMITE = 0,
+	MALE	   = 1, 
+	FEMALE	   = 2,
+};
 
 class CPushModel {
 public:
@@ -86,23 +166,30 @@ public:
     void setUrl(string& strFileUrl);
 
 	//订单消息推送给律师端
-	bool getOrderMsgList(list<OrderMsg >& OrderMsgList);
-	bool getLawyerList(OrderMsg t_OrderMsg, list<uint32_t >& LawyerUidList);
-	bool updateOrderMsgTable(list<OrderMsg >& OrderMsgList);
-	bool updateOrderPushtime(list<OrderMsg >& OrderMsgList);
-	bool updateOrderUpdatetime(list<OrderMsg >& OrderMsgList);
-	bool updateOrderSendsign(list<OrderMsg >& OrderMsgList);
-	bool deleteOrderList();
-	bool pushRecord(uint32_t push_orderid , list<uint32_t >& LawyerUidList);
+	bool getOrderMsgList(list<OrderMsg >& lsOrderMsg);
+	bool getLawyerList(OrderMsg cOrderMsg, list<uint32_t >& lsLawyerUid);
+	bool updateOrderMsgTable(list<OrderMsg > lsOrderMsg);
+	bool updateOrderPushtime(list<OrderMsg > lsOrderMsg);
+	bool updateOrderUpdatetime(list<OrderMsg > lsOrderMsg);
+	bool updateOrderSendsign(list<OrderMsg > lsOrderMsg);
+	bool pushRecord(uint32_t nPushOrderid , list<uint32_t > lsLawyerUid);
 
 	//抢单消息通知客户端
-	bool getGrabLawyer(list<GrabRecord >& GrabRecordList);	
-	bool updateGrabLawyerToClient(list<GrabRecord >& GrabRecordList);
+	bool getGrabLawyer(list<GrabRecord >& lsGrabRecord);	
+	bool updateGrabLawyerToClient(list<GrabRecord > lsGrabRecord);
 
 	//抢单结果通知律师端
-	bool getLawyerGrabResult(list<GrabRecord >& GrabRecordList);
-	bool updateGrabResultToLawyer(list<GrabRecord >& GrabRecordList);
+	bool getLawyerGrabResult(list<GrabRecord >& lsGrabRecord);
+	bool updateGrabResultToLawyer(list<GrabRecord > lsGrabRecord);
 
+	//委托订单处理
+	bool handleEntrustOrder(list<OrderEntrust >& lsOrderEntrust);
+	bool updateEntrustOrder(list<OrderEntrust > lsOrderEntrust);
+
+	//充值或提现状态消息推送
+	bool getTopUP_withDrawal(list<TopUP_withDrawal>& lsTopUP_withDrawal);
+	bool updateTopUP_withDrawal(list<TopUP_withDrawal> lsTopUP_withDrawal);
+	
 
 	//会员过期
 	void updateVipExp();
@@ -113,7 +200,6 @@ public:
 	//获取推送配置 dffx_common_skillpushtime;
 	void getPushConfig();
 
-//	map<vector<int >,vector<int >> m_PushConfigMap;
 	map<string ,vector<int >> m_PushConfigMap;
 	
 private:

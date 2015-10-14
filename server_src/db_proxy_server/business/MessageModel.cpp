@@ -175,11 +175,13 @@ bool CMessageModel::sendAudioMessage(uint32_t nRelateId, uint32_t nFromId, uint3
 	}
 
 	CAudioModel* pAudioModel = CAudioModel::getInstance();
-	int nAudioId = pAudioModel->saveAudioInfo(nFromId, nToId, nCreateTime, pMsgContent, nMsgLen);
+	int nAudioId;
+	string strMsg = pAudioModel->saveAudioInfo(nFromId, nToId, nCreateTime, pMsgContent, nMsgLen);
 
 	bool bRet = true;
-	if (nAudioId != -1) {
-		string strMsg = int2string(nAudioId);
+	//if (nAudioId != -1) {
+	if(!strMsg.empty()){
+		//string strMsg = int2string(nAudioId);
 		bRet = sendMessage(nRelateId, nFromId, nToId, nMsgType, nCreateTime, nMsgId, strMsg, isBlack);
 	} else {
 		bRet = false;

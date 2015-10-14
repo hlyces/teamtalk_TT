@@ -170,6 +170,21 @@ enum InternalCmdId{
 	DFFX_CID_OTHER_GETFRIENDSID_RES         	  = 0x0818; //
 }
 
+//订单推送消息状态码
+enum OrderMsgStatus{
+	CONSULT_DOCUMENTS_GRAB  = 0; //咨询与文书代写一人抢单成功通知公众端
+	LAWSUIT_ATTENDANCE_GRAB = 1; //打官司与出勤五人（最多五人）进入抢单列表通知公众端
+	GRAB_SUCCESS			= 2; //律师抢单成功通知律师端
+	GRAB_FAID				= 3; //律师抢单失败通知律师端
+	ENTRUST_ACCEPT			= 4; //律师委托受理通知公众端
+	ENTRUST_CANCEL			= 5; //公众委托取消通知律师端
+	TOPUP_SUCCESS			= 6; //充值成功通知客户端（包括律师端与公众端）
+	TOPUP_FAILED			= 7; //充值失败通知客户端（包括律师端与公众端）
+	WITHDRAWAL_SUCCESS		= 8; //提现成功通知客户端（包括律师端与公众端）
+	WITHDRAWAL_FAILED		= 9; //提现失败通知客户端（包括律师端与公众端）
+}
+
+
 enum ResultType{			//这里定义了登陆返回错误码。
 	REFUSE_REASON_NONE				= 0;	//未知错误
 	REFUSE_REASON_NO_MSG_SERVER		= 1;	//没有msg_server
@@ -211,8 +226,13 @@ enum MsgType{						//消息类型： 单聊文本，单聊音频，群聊文本�
 	MSG_TYPE_ORDER_PUSH		= 0x21; //推送给律师订单消息
 	MSG_TYPE_ORDER_GRAB		= 0x22;	//推送给客户，律师的抢单状况
 	MSG_TYPE_ORDER_RESULT	= 0x23;	//通知律师抢单结果
+	MSG_TYPE_ORDER_ENTRUST	= 0x24; //订单委托
+	MSG_TYPE_ORDER_ACCEPT	= 0x25;	//订单受理
+	MSG_TYPE_ORDER_CANCEL	= 0x26; //订单取消
+	MSG_TYPE_TOPUP_WITHDRAWAL = 0X27; //推送提现或充值消息给用户
 	MSG_TYPE_LOCATION_SHARING	= 0x31;	//位置分享消息
 	MSG_TYPE_FILE_TRANSFER	= 0x32;	//文件消息
+
 }
 
 enum ClientType{					//客户端操作系统类型：
@@ -329,6 +349,7 @@ message UserInfo{			//用户信息数据结构。
 	
 	optional uint32 user_type = 13;	//用户类型，然而im服务器不清楚具体定义
 	optional uint32 user_ischeck = 14;	//用户认证状态(0:未认证1:申请认证 2:已认证)
+	optional string user_desc = 15;	//描述或签名
 }
 
 message ContactSessionInfo{			//最近联系人(会话)数据结构

@@ -22,7 +22,7 @@ using namespace std;
 class CClient:public IPacketCallback
 {
 public:
-    CClient(const string& strName, const string& strPass, const string strDomain="access.tt.mogujie.org");
+    CClient(const string& strName, const string& strPass, const string strDomain="121.201.36.80:8080");
     ~CClient();
 public:
     string getName(){ return m_strName; }
@@ -62,6 +62,8 @@ public:
 	ClientConn*  g_pConn;
 
 	bool         g_bLogined;
+
+	bool 		 g_configReturn;
 
 };
 

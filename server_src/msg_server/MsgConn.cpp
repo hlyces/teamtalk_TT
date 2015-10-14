@@ -546,6 +546,7 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
 	msg2.set_password(password);
 	msg2.set_client_type(msg.client_type());
     msg2.set_client_ip(m_peer_ip);
+	msg2.set_client_version(m_client_version);
 
 	msg2.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
 	CImPdu pdu;
@@ -709,9 +710,13 @@ void CMsgConn::_HandleClientMsgData(CImPdu* pPdu)
 	msg.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
 	pPdu->SetPBMsg(&msg);
 
-	if(msg_type== IM::BaseDefine::MSG_TYPE_ORDER_PUSH
-		|| msg_type== IM::BaseDefine::MSG_TYPE_ORDER_GRAB
-		|| msg_type== IM::BaseDefine::MSG_TYPE_ORDER_RESULT)
+	if(msg_type== IM::BaseDefine::MSG_TYPE_ORDER_PUSH \
+		|| msg_type== IM::BaseDefine::MSG_TYPE_ORDER_GRAB \
+		|| msg_type== IM::BaseDefine::MSG_TYPE_ORDER_RESULT \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
 	{
 		CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_session_id);
 		if (pToImUser)
@@ -1115,7 +1120,7 @@ void CMsgConn::_HandleClientAddFriendRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientAddFriendRes(CImPdu* pPdu)
 {
-	IM::Buddy::IMAddFriendRes msg;
+	IM::Buddy::IMCommonOperFriendRes msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	log("user_id=%u result_code=%u ", msg.user_id(), msg.result_code());

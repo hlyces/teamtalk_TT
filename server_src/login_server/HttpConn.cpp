@@ -19,6 +19,9 @@ extern IpParser* pIpParser;
 extern string strMsfsUrl;
 extern string strDiscovery;
 extern string strHeadlinkUrl;
+extern string strWebServiceUrl;
+extern string strMapUrl;
+
 
 
 // conn_handle 从0开始递增，可以防止因socket handle重用引起的一些冲突
@@ -284,28 +287,30 @@ void CHttpConn::_HandleMsgServRequest(string& url, string& post_data)
     } else {
         Json::Value value;
         value["code"] = 0;
-        value["msg"] = "";
+        value["msg"] = "success";
 		value["curuser_cnt"] = min_user_cnt;
         if(pIpParser->isTelcome(GetPeerIP()))
         {
             value["priorIP"] = string(it_min_conn->second->ip_addr1);
             value["backupIP"] = string(it_min_conn->second->ip_addr2);
-            value["msfsPrior"] = strMsfsUrl;
-            value["msfsBackup"] = strMsfsUrl;
-			value["headlinkPrior"] = strHeadlinkUrl;
-            value["headlinkBackup"] = strHeadlinkUrl;
+           
         }
         else
         {
             value["priorIP"] = string(it_min_conn->second->ip_addr2);
             value["backupIP"] = string(it_min_conn->second->ip_addr1);
-            value["msfsPrior"] = strMsfsUrl;
-            value["msfsBackup"] = strMsfsUrl;
-			value["headlinkPrior"] = strHeadlinkUrl;
-            value["headlinkBackup"] = strHeadlinkUrl;
+           
         }
+		value["port"] = int2string(it_min_conn->second->port);
+		
+		value["msfsPrior"] = strMsfsUrl;
+        value["msfsBackup"] = strMsfsUrl;
+		value["headlinkPrior"] = strHeadlinkUrl;
+        value["headlinkBackup"] = strHeadlinkUrl;
+		value["webServicePrior"] = strWebServiceUrl;
+		value["mapUrlPrior"] = strMapUrl;
         value["discovery"] = strDiscovery;
-        value["port"] = int2string(it_min_conn->second->port);
+        
         string strContent = value.toStyledString();
         char* szContent = new char[HTTP_RESPONSE_HTML_MAX];
         uint32_t nLen = strContent.length();

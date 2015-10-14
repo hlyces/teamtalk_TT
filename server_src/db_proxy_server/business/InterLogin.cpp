@@ -74,30 +74,27 @@ bool CInterLoginStrategy::doLogin(const std::string &strName, const std::string 
 					pResultSet = pDBConn1->ExecuteQuery(strSql.c_str());
 
 					log("strSql=%s", strSql.c_str());
-
-					//default value	???
-					int nId, nLevel, nGender,nStatus, nUserId;
-					string strNickName, strHeadLink , strBirthday, strUserPhone;
-					int nUserType=0;
-					int nUserIscheck=0;
+					
 					if(pResultSet)
 					{
 						if(pResultSet->Next())
 						{
 							bRet = true;
 
-							nId = pResultSet->GetInt("user_uid");
-							nLevel = pResultSet->GetInt("user_level");
-							nStatus = pResultSet->GetInt("user_status");
-							nGender = pResultSet->GetInt("user_sex");
-							nUserId = pResultSet->GetInt("user_uid");
-							strNickName = pResultSet->GetString("user_nickname");
-							strHeadLink = pResultSet->GetString("user_headlink");
-							strBirthday = pResultSet->GetString("user_birthday");
-							strUserPhone = pResultSet->GetString("user_phone");
+							user.set_user_id(pResultSet->GetInt("user_uid"));
+							user.set_user_level(pResultSet->GetInt("user_level"));
+							user.set_user_status(pResultSet->GetInt("user_status"));
+							user.set_user_gender(pResultSet->GetInt("user_sex"));
+							user.set_user_uid(pResultSet->GetInt("user_uid"));
+							user.set_user_nickname(pResultSet->GetString("user_nickname"));
+							user.set_user_headlink(pResultSet->GetString("user_headlink"));
+							user.set_user_birthday(pResultSet->GetString("user_birthday"));
+							user.set_user_phone(pResultSet->GetString("user_phone"));
 
-							nUserType = pResultSet->GetInt("user_type");
-							nUserIscheck = pResultSet->GetInt("user_ischeck");
+							user.set_user_type(pResultSet->GetInt("user_type"));
+							user.set_user_ischeck(pResultSet->GetInt("user_ischeck"));
+
+							user.set_user_desc(pResultSet->GetString("user_desc"));
 
 							pResultSet->Clear();
 
@@ -128,20 +125,27 @@ bool CInterLoginStrategy::doLogin(const std::string &strName, const std::string 
 									{
 										bRet = true;
 
-										nId = pResultSet->GetInt("user_uid");
-										nLevel = pResultSet->GetInt("user_level");
-										nStatus = pResultSet->GetInt("user_status");
-										nGender = pResultSet->GetInt("user_sex");
-										nUserId = pResultSet->GetInt("user_uid");
-										strNickName = pResultSet->GetString("user_nickname");
-										strHeadLink = pResultSet->GetString("user_headlink");
-										strBirthday = pResultSet->GetString("user_birthday");
-										strUserPhone = pResultSet->GetString("user_phone");
+										user.set_user_id(pResultSet->GetInt("user_uid"));
+										user.set_user_level(pResultSet->GetInt("user_level"));
+										user.set_user_status(pResultSet->GetInt("user_status"));
+										user.set_user_gender(pResultSet->GetInt("user_sex"));
+										user.set_user_uid(pResultSet->GetInt("user_uid"));
+										user.set_user_nickname(pResultSet->GetString("user_nickname"));
+										user.set_user_headlink(pResultSet->GetString("user_headlink"));
+										user.set_user_birthday(pResultSet->GetString("user_birthday"));
+										user.set_user_phone(pResultSet->GetString("user_phone"));
 
-										nUserType = pResultSet->GetInt("user_type");
-										nUserIscheck = pResultSet->GetInt("user_ischeck");
+										user.set_user_type(pResultSet->GetInt("user_type"));
+										user.set_user_ischeck(pResultSet->GetInt("user_ischeck"));
+
+										user.set_user_desc(pResultSet->GetString("user_desc"));
 									}
 									pResultSet->Clear();
+									pDBManger->RelDBConn(pDBConn2);
+									pDBConn2 = NULL;
+								}
+								else
+								{
 									pDBManger->RelDBConn(pDBConn2);
 									pDBConn2 = NULL;
 								}
@@ -149,27 +153,22 @@ bool CInterLoginStrategy::doLogin(const std::string &strName, const std::string 
 							
 						}
 
-						user.set_user_id(nId);
-						user.set_user_nickname(strNickName);
-						user.set_user_gender(nGender);
-						user.set_user_birthday(strBirthday);
-						user.set_user_headlink(strHeadLink);
-						user.set_user_level(nLevel);
-						user.set_user_status(nStatus);
-						user.set_user_uid(nUserId);
-						user.set_user_phone(strUserPhone);
-
-						user.set_user_type(nUserType);
-						user.set_user_ischeck(nUserIscheck);
 					}
 					else
 					{
+						pDBManger->RelDBConn(pDBConn1);
+						pDBConn1 = NULL;
 						log("error:strSql=%s", strSql.c_str());
 					}
 
 					
 				}
 			}
+		}
+		else
+		{
+			pDBManger->RelDBConn(pDBConn);
+			pDBConn = NULL;
 		}
 
 		
@@ -296,7 +295,7 @@ bool CInterLoginStrategy::setLoginToken(_AcctInfo & acctInfo, int nClientType)
 	}
 }
 
-bool CInterLoginStrategy::insertLogLogin(_AcctInfo & acctInfo, int nClientType, const string& strLoginIp)
+bool CInterLoginStrategy::insertLogLogin(const _AcctInfo & acctInfo, int nClientType, const string& strLoginIp)
 {
 	if(string2int(acctInfo.user_account) < 10000)
 		return true;
@@ -315,7 +314,85 @@ bool CInterLoginStrategy::insertLogLogin(_AcctInfo & acctInfo, int nClientType, 
         
         log("strSql=%s", strSql.c_str());
 	}
+	else
+	{
+		log("!!!login_db not found");
+	}
 
     return bRet;
 }
+
+bool CInterLoginStrategy::updateInviteRecord(const _AcctInfo & acctInfo)
+{
+	if(string2int(acctInfo.user_account) < 10000)
+		return true;
+    
+    CDBConn* pDBConn = NULL;
+    CAutoDB autoDB("login_db", &pDBConn);
+    bool bRet = false;
+    if (pDBConn)
+	{		
+	    string strSql = "UPDATE `dffx_db_bs`.`dffx_user_inviterecord` SET invite_logintime="+ long2string(time(NULL)*1000)+\
+			" WHERE invite_invitee="+ acctInfo.user_account +" AND invite_logintime=0";
+        bRet = pDBConn->ExecuteUpdate(strSql.c_str());	
+        
+        log("strSql=%s", strSql.c_str());
+	}	
+	else
+	{
+		log("!!!login_db not found");
+	}
+	
+    return bRet;
+}
+
+bool CInterLoginStrategy::veryfyVersion( int nClientType, const string& strClientVersion,IM::Server::IMValidateRsp &msgResp)
+{	
+	CDBConn* pDBConn = NULL;
+	CAutoDB autoDB("login_db", &pDBConn);
+	bool bRet = true;
+	if (pDBConn)
+	{		
+		string strSql = "SELECT * FROM dffx_db_bs.dffx_common_version t WHERE t.version_clienttype = "+ int2string(nClientType)+" LIMIT 1";
+			
+		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());	
+		
+		log("strSql=%s", strSql.c_str());
+		
+		if(pResultSet )
+		{
+			if(pResultSet->Next())
+			{
+				msgResp.set_version_max(pResultSet->GetString("version_max"));
+				msgResp.set_version_download(pResultSet->GetString("version_download"));
+				msgResp.set_version_filesize(pResultSet->GetString("version_filesize"));
+
+				CStrExplode clientVersion((char*)strClientVersion.c_str(), '.');				
+				CStrExplode serverVersion((char*)pResultSet->GetString("version_min"), '.');
+				if(clientVersion.GetItemCnt() < serverVersion.GetItemCnt())
+					bRet = false;
+			    for (uint32_t i = 0; bRet && i < clientVersion.GetItemCnt() && i<serverVersion.GetItemCnt(); i++) 
+			    {
+			    	if(atoi(clientVersion.GetItem(i)) < atoi(serverVersion.GetItem(i)))
+					{
+						bRet = false;
+						break;
+			    	}
+			    }
+				
+
+				//if(strClientVersion < pResultSet->GetString("version_min"))
+				//	bRet = false;
+			}
+			pResultSet->Clear();
+		}
+	}	
+	else
+	{
+		log("!!!login_db not found");
+	}
+
+	return bRet;
+}
+
 

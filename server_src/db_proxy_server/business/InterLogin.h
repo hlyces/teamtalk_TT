@@ -15,6 +15,7 @@
 #include <iostream>
 
 #include "IM.BaseDefine.pb.h"
+#include "IM.Server.pb.h"
 
 #include <uuid/uuid.h>
 using namespace std;
@@ -37,7 +38,9 @@ public:
 	
     virtual bool doLogin(const std::string& strName, const std::string& strPass, IM::BaseDefine::UserInfo& user, _AcctInfo& acctInfo);
 	bool setLoginToken( _AcctInfo& acctInfo, int nClientType);
-	bool insertLogLogin(_AcctInfo& acctInfo, int nClientType, const string& strLoginIp);
+	bool insertLogLogin(const _AcctInfo& acctInfo, int nClientType, const string& strLoginIp);
+	bool updateInviteRecord(const _AcctInfo & acctInfo);
+	bool veryfyVersion( int nClientType, const string& strClientVersion,IM::Server::IMValidateRsp &msgResp);
 private:
 	bool createUserByAcctId(uint32_t acct_id,const std::string& strPhone);	
 	int generate_uuid(char* id);

@@ -280,6 +280,24 @@ bool InternalCmdId_IsValid(int value) {
   }
 }
 
+bool OrderMsgStatus_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+      return true;
+    default:
+      return false;
+  }
+}
+
 bool ResultType_IsValid(int value) {
   switch(value) {
     case 0:
@@ -336,6 +354,10 @@ bool MsgType_IsValid(int value) {
     case 33:
     case 34:
     case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
     case 49:
     case 50:
       return true;
@@ -715,6 +737,7 @@ const int UserInfo::kFriendRemarkFieldNumber;
 const int UserInfo::kFriendStatusFieldNumber;
 const int UserInfo::kUserTypeFieldNumber;
 const int UserInfo::kUserIscheckFieldNumber;
+const int UserInfo::kUserDescFieldNumber;
 #endif  // !_MSC_VER
 
 UserInfo::UserInfo()
@@ -750,6 +773,7 @@ void UserInfo::SharedCtor() {
   friend_status_ = 0u;
   user_type_ = 0u;
   user_ischeck_ = 0u;
+  user_desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -773,6 +797,9 @@ void UserInfo::SharedDtor() {
   }
   if (friend_remark_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete friend_remark_;
+  }
+  if (user_desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_desc_;
   }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -833,8 +860,8 @@ void UserInfo::Clear() {
     }
     user_uid_ = 0u;
   }
-  if (_has_bits_[8 / 32] & 16128) {
-    ZR_(friend_status_, user_ischeck_);
+  if (_has_bits_[8 / 32] & 32512) {
+    ZR_(friend_status_, user_type_);
     if (has_user_phone()) {
       if (user_phone_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_phone_->clear();
@@ -844,6 +871,12 @@ void UserInfo::Clear() {
     if (has_friend_remark()) {
       if (friend_remark_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         friend_remark_->clear();
+      }
+    }
+    user_ischeck_ = 0u;
+    if (has_user_desc()) {
+      if (user_desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        user_desc_->clear();
       }
     }
   }
@@ -1064,6 +1097,19 @@ bool UserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(122)) goto parse_user_desc;
+        break;
+      }
+
+      // optional string user_desc = 15;
+      case 15: {
+        if (tag == 122) {
+         parse_user_desc:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_desc()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1166,6 +1212,12 @@ void UserInfo::SerializeWithCachedSizes(
   // optional uint32 user_ischeck = 14;
   if (has_user_ischeck()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(14, this->user_ischeck(), output);
+  }
+
+  // optional string user_desc = 15;
+  if (has_user_desc()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      15, this->user_desc(), output);
   }
 
   output->WriteRaw(unknown_fields().data(),
@@ -1277,6 +1329,13 @@ int UserInfo::ByteSize() const {
           this->user_ischeck());
     }
 
+    // optional string user_desc = 15;
+    if (has_user_desc()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_desc());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -1338,6 +1397,9 @@ void UserInfo::MergeFrom(const UserInfo& from) {
     if (from.has_user_ischeck()) {
       set_user_ischeck(from.user_ischeck());
     }
+    if (from.has_user_desc()) {
+      set_user_desc(from.user_desc());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -1370,6 +1432,7 @@ void UserInfo::Swap(UserInfo* other) {
     std::swap(friend_status_, other->friend_status_);
     std::swap(user_type_, other->user_type_);
     std::swap(user_ischeck_, other->user_ischeck_);
+    std::swap(user_desc_, other->user_desc_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

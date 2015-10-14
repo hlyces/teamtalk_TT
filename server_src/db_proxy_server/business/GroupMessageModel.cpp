@@ -155,11 +155,13 @@ bool CGroupMessageModel::sendAudioMessage(uint32_t nFromId, uint32_t nGroupId, I
     }
     
 	CAudioModel* pAudioModel = CAudioModel::getInstance();
-	int nAudioId = pAudioModel->saveAudioInfo(nFromId, nGroupId, nCreateTime, pMsgContent, nMsgLen);
+	//int nAudioId;
+	string strMsg = pAudioModel->saveAudioInfo(nFromId, nGroupId, nCreateTime, pMsgContent, nMsgLen);
 
 	bool bRet = true;
-	if (nAudioId != -1) {
-		string strMsg = int2string(nAudioId);
+	//if (nAudioId != -1) {
+	if(!strMsg.empty()){
+		//string strMsg = int2string(nAudioId);
         bRet = sendMessage(nFromId, nGroupId, nMsgType, nCreateTime, nMsgId, strMsg);
 	} else {
 		bRet = false;

@@ -12,6 +12,7 @@
 #include "../DBPool.h"
 #include "../HttpClient.h"
 #include "AudioModel.h"
+#include "json/json.h"
 
 using namespace std;
 
@@ -86,24 +87,54 @@ bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg)
             IM::BaseDefine::MsgType nType = it->msg_type();
             if((IM::BaseDefine::MSG_TYPE_GROUP_AUDIO ==  nType) || (IM::BaseDefine::MSG_TYPE_SINGLE_AUDIO == nType))
             {
-                string strSql = "select * from IMAudio where id=" + it->msg_data();
-                CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
-                if (pResultSet)
-                {
-                    while (pResultSet->Next()) {
-                        uint32_t nCostTime = pResultSet->GetInt("duration");
-                        uint32_t nSize = pResultSet->GetInt("size");
-                        string strPath = pResultSet->GetString("path");
-                        readAudioContent(nCostTime, nSize, strPath, *it);
-                    }
-                    ++it;
-                    pResultSet->Clear();
-                }
-                else
-                {
-                    log("no result for sql:%s", strSql.c_str());
-                    it = lsMsg.erase(it);
-                }
+            	bool isJson=false;
+				try{
+					Json::Value root;
+					Json::Reader jsReader(Json::Features::strictMode());
+					if(jsReader.parse(it->msg_data(), root) &&
+						!root["duration"].isNull() &&
+						!root["size"].isNull() &&
+						!root["path"].isNull() )
+					{
+		            	uint32_t nCostTime = root["duration"].asInt();
+		                uint32_t nSize = root["size"].asInt();
+		                string strPath = root["path"].asString();
+		                readAudioContent(nCostTime, nSize, strPath, *it);
+						++it;
+						isJson=true;
+					}
+					else
+					{
+						log("!!!audio data is invalid json:%s", it->msg_data().c_str());	                    
+					}
+				}
+				catch(...)
+				{
+					log("!!!audio data is invalid json:%s", it->msg_data().c_str());
+				}
+				
+				if( !isJson)			
+				{//use old method to get audio data
+				
+	                string strSql = "select * from IMAudio where id=" + it->msg_data();
+	                CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+	                if (pResultSet)
+	                {
+	                    while (pResultSet->Next()) {
+	                        uint32_t nCostTime = pResultSet->GetInt("duration");
+	                        uint32_t nSize = pResultSet->GetInt("size");
+	                        string strPath = pResultSet->GetString("path");
+	                        readAudioContent(nCostTime, nSize, strPath, *it);
+	                    }
+	                    ++it;
+	                    pResultSet->Clear();
+	                }
+	                else
+	                {
+	                    log("no result for sql:%s", strSql.c_str());
+	                    it = lsMsg.erase(it);
+	                }
+				}
             }
             else
             {
@@ -131,18 +162,21 @@ bool CAudioModel::readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg)
  *
  *  @return 成功返回语音id，失败返回-1
  */
-int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreateTime, const char* pAudioData, uint32_t nAudioLen)
+string CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreateTime, const char* pAudioData, uint32_t nAudioLen)
 {
 	// parse audio data
 	uint32_t nCostTime = CByteStream::ReadUint32((uchar_t*)pAudioData);
 	uchar_t* pRealData = (uchar_t*)pAudioData + 4;
 	uint32_t nRealLen = nAudioLen - 4;
-    int nAudioId = -1;
+    //int nAudioId = -1;
     
 	CHttpClient httpClient;
 	string strPath = httpClient.UploadByteFile(m_strFileSite, pRealData, nRealLen);
 	if (!strPath.empty())
     {
+    	string strAudioMsg="{\"path\":\""+strPath+"\",\"size\":"+int2string(nRealLen)+",\"duration\":"+int2string(nCostTime)+"}";
+		return strAudioMsg;
+		/*
         CDBManager* pDBManager = CDBManager::getInstance();
         CDBConn* pDBConn = pDBManager->GetDBConn("dffxIMDB_master");
         if (pDBConn)
@@ -170,12 +204,14 @@ int CAudioModel::saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreat
         {
             log("no db connection for dffxIMDB_master");
         }
+        */
 	}
     else
     {
         log("upload file failed");
     }
-	return nAudioId;
+	//return nAudioId;
+	return "";
 }
 
 /**

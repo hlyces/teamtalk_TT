@@ -13,6 +13,7 @@
 #include "Common.h"
 #include "security/security.h"
 
+extern string g_temp_path;
 
 static ConnMap_t g_client_conn_map;
 
@@ -79,7 +80,7 @@ uint32_t ClientConn::login(const string &strName, const string &strPass)
     msg.set_user_name(strName);
     msg.set_password(strPass);
     msg.set_online_status(IM::BaseDefine::USER_STATUS_ONLINE);
-    msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
+    msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_IOS);
     msg.set_client_version("1.0");
     cPdu.SetPBMsg(&msg);
     cPdu.SetServiceId(IM::BaseDefine::DFFX_SID_LOGIN);
@@ -795,7 +796,11 @@ void ClientConn::_HandleMsgData(CImPdu* pPdu)
 			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_GRAB
 			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_RESULT
 			|| nMsgType == IM::BaseDefine::MSG_TYPE_LOCATION_SHARING
-			|| nMsgType == IM::BaseDefine::MSG_TYPE_FILE_TRANSFER)
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_FILE_TRANSFER
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
         {
             nSessionType = IM::BaseDefine::SESSION_TYPE_SINGLE;
         }
@@ -827,7 +832,7 @@ void ClientConn::_HandleAddFriendReq(CImPdu* pPdu)
 		string extra_info = msg.extra_info();
 		log("extra_info:%s", extra_info.c_str());
 
-		IM::Buddy::IMAddFriendRes msgRes;
+		IM::Buddy::IMCommonOperFriendRes msgRes;
 		CImPdu pduRes;
 		pduRes.SetPBMsg(&msgRes);
 	    pduRes.SetServiceId(IM::BaseDefine::DFFX_SID_BUDDY_LIST);
@@ -1068,7 +1073,8 @@ void ClientConn::_HandleChgFriendGroupNameRes(CImPdu* pPdu)
 uint32_t ClientConn::fileReq(uint32_t from_user_id, uint32_t to_user_id, string file_name, uint32_t type)
 {
 	struct stat stat_buf;
-	if(stat(file_name.c_str(), &stat_buf))
+	string sPath = g_temp_path+file_name;
+	if(stat(sPath.c_str(), &stat_buf))
 	{
 		log("fileReq error!!!");
 		return -1;
@@ -1097,7 +1103,8 @@ uint32_t ClientConn::fileReq(uint32_t from_user_id, uint32_t to_user_id, string 
 uint32_t ClientConn::addOffFile(uint32_t from_user_id, uint32_t to_user_id, string task_id, string file_name)
 {
 	struct stat stat_buf;
-	if(stat(file_name.c_str(), &stat_buf))
+	string sPath = g_temp_path+file_name;
+	if(stat(sPath.c_str(), &stat_buf))
 	{
 		log("fileReq error!!!");
 		return -1;

@@ -102,6 +102,7 @@ create table IMFxUser
    user_phone           varchar(20) not null COMMENT '手机号码',
    user_type            tinyint(4) not null default 0 COMMENT '用户类型',
    user_ischeck		smallint(6) not null DEFAULT 0 COMMENT '用户认证状态(0:未认证1:申请认证 2:已认证)',
+   user_desc            varchar(400) comment '描述或签名',
    primary key (id),
    unique key idx_useruid (user_uid)
 )

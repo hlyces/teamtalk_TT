@@ -54,6 +54,7 @@ int main(int argc, char* argv[])
 	string strUrl = config_file.GetConfigName( "LoginServerUrl");
 	string sName = config_file.GetConfigName( "UserName");
 	string sPass = config_file.GetConfigName( "Password");
+	char* push_thread = config_file.GetConfigName( "PushThread");
 	char szMd5[33] = {0};
 	CMd5::MD5_Calculate( sPass.c_str(), sPass.length(), szMd5);
 	sPass = szMd5;
@@ -65,8 +66,59 @@ int main(int argc, char* argv[])
 
 	CClient* pClient = new CClient(sName, sPass, strUrl);
 	pClient->connect();
+	if(pClient->g_configReturn == false)
+	{
+		log("Push_client connect failed, please check config or network!");
+		return -1;
+	}
 
-	//读取配置表线程
+	CStrExplode push_thread_list(push_thread, ';');	
+	for (uint32_t i = 0; i < push_thread_list.GetItemCnt(); i++)	
+	{		
+		if(strcmp(push_thread_list.GetItem(i), "CPushConfig") == 0)		
+		{			
+			//读取配置表线程			
+			CPushConfig* pPushConfigThread = new CPushConfig();		
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CPushThread") == 0)		
+		{			
+			//读取订单消息表并发送订单给律师端			
+			CPushThread* pPushThread = new CPushThread();				
+			pPushThread->setGPClient(*pClient);		}		
+		if(strcmp(push_thread_list.GetItem(i), "CNotifyClientGrabThread") == 0)		
+		{			
+			//将抢单消息通知客户端			
+			CNotifyClientGrabThread* pClientPushThread = new CNotifyClientGrabThread();			
+			pClientPushThread->setGPClient(*pClient);		
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CNotifyLawyerGrabThread") == 0)		
+		{			
+			//将抢单单结果通知给律师端			
+			CNotifyLawyerGrabThread* pLawyerPushThread = new CNotifyLawyerGrabThread();				
+			pLawyerPushThread->setGPClient(*pClient);		
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CEntrushThread") == 0)		
+		{			
+				//委托订单处理			
+			CEntrushThread* pEntrushThread = new CEntrushThread();			
+			pEntrushThread->setGPClient(*pClient);		
+		}	
+		if(strcmp(push_thread_list.GetItem(i), "CTopUP_withDrawalThread") == 0)	
+		{			
+			//充值提现处理		
+			CTopUP_withDrawalThread* pTopUP_withDrawalThread = new CTopUP_withDrawalThread();			
+			pTopUP_withDrawalThread->setGPClient(*pClient);		
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CMyTimerThread") == 0)	
+		{			
+			//清空过期vip用户及过期清单		
+			CMyTimerThread* pMyTimerThread = new CMyTimerThread();	
+		}	
+	}
+
+
+	
+/*	//读取配置表线程
 	CPushConfig* pPushConfigThread = new CPushConfig();	
 	
 	//读取订单消息表并发送订单给律师端
@@ -81,9 +133,18 @@ int main(int argc, char* argv[])
 	CNotifyLawyerGrabThread* pLawyerPushThread = new CNotifyLawyerGrabThread();
 	pLawyerPushThread->setGPClient(*pClient);
 
+	//委托订单处理
+	CEntrushThread* pEntrushThread = new CEntrushThread();
+	pEntrushThread->setGPClient(*pClient);
+
+	//充值提现处理
+	CTopUP_withDrawalThread* pTopUP_withDrawalThread = new CTopUP_withDrawalThread();
+	pTopUP_withDrawalThread->setGPClient(*pClient);
+
+
 	//清空过期vip用户及过期清单
 	CMyTimerThread* pMyTimerThread = new CMyTimerThread();
-
+*/
 	
 	printf("now enter the event loop...\n");
     writePid();

@@ -20,6 +20,8 @@
 #include "playsound.h"
 #include "Common.h"
 #include "Client.h"
+#include <sys/stat.h>
+
 using namespace std;
 
 #define MAX_LINE_LEN	1024
@@ -27,6 +29,9 @@ string g_login_domain = "http://127.0.0.1:8080";
 string g_cmd_string[10];
 int g_cmd_num;
 CClient* g_pClient = NULL;
+string g_temp_path = "./temp/";
+
+
 void split_cmd(char* buf)
 {
 	int len = strlen(buf);
@@ -321,12 +326,18 @@ CmdThread g_cmd_thread;
 
 int main(int argc, char* argv[])
 {
+	int ret = mkdir(g_temp_path.c_str(), 0755);
+	if ( (ret != 0) && (errno != EEXIST) )
+	{
+		log("!!!mkdir failed !!!!!");
+	}
+	
 //    play("message.wav");
 	g_cmd_thread.StartThread();
 
 	signal(SIGPIPE, SIG_IGN);
 
-	int ret = netlib_init();
+	ret = netlib_init();
 
 	if (ret == NETLIB_ERROR)
 		return ret;

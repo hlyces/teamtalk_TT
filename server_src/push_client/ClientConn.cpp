@@ -275,7 +275,11 @@ void ClientConn::_HandleMsgData(CImPdu* pPdu)
 			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_GRAB
 			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_RESULT
 			|| nMsgType == IM::BaseDefine::MSG_TYPE_LOCATION_SHARING
-			|| nMsgType == IM::BaseDefine::MSG_TYPE_FILE_TRANSFER)
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_FILE_TRANSFER
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
+			|| nMsgType== IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
         {
             nSessionType = IM::BaseDefine::SESSION_TYPE_SINGLE;
         }

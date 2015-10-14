@@ -10,6 +10,7 @@
 #include "push_app.h"
 #include "timer/Timer.hpp"
 #include <sys/signal.h>
+#include "version.h"
 
 void writePid()
 {
@@ -30,6 +31,13 @@ void writePid()
 
 int main(int argc, const char * argv[]) {
     // insert code here...
+    if ((argc == 2) && (strcmp(argv[1], "-v") == 0))
+	{
+		printf("Client Version: PushServer/%s\n", VERSION);
+		printf("Client Build: %s %s\n", __DATE__, __TIME__);
+		return 0;
+	}
+	
     printf("start push server...\n");
     signal(SIGPIPE, SIG_IGN);
     CPushApp::GetInstance()->Init();

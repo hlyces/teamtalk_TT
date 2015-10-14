@@ -31,7 +31,7 @@ public:
     
     bool readAudios(list<IM::BaseDefine::MsgInfo>& lsMsg);
     
-    int saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreateTime, const char* pAudioData, uint32_t nAudioLen);
+    string saveAudioInfo(uint32_t nFromId, uint32_t nToId, uint32_t nCreateTime, const char* pAudioData, uint32_t nAudioLen);
 
 private:
 	CAudioModel();

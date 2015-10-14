@@ -152,7 +152,7 @@ message IMAddFriendReq{//加好友请求
 //message IMAddFriendRes{
 	//cmd id:		0x0213
 	//required uint32 user_id = 1;
-	//required uint32 result_code = 3;           //操作结果，0=success,1=failed
+	//required uint32 result_code = 2;           //操作结果，0=success,1=failed
 	//optional bytes attach_data = 20;
 //}
 

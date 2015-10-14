@@ -305,6 +305,42 @@ class IMLoginRes : public ::google::protobuf::MessageLite {
   inline ::std::string* release_user_token();
   inline void set_allocated_user_token(::std::string* user_token);
 
+  // optional string version_max = 11;
+  inline bool has_version_max() const;
+  inline void clear_version_max();
+  static const int kVersionMaxFieldNumber = 11;
+  inline const ::std::string& version_max() const;
+  inline void set_version_max(const ::std::string& value);
+  inline void set_version_max(const char* value);
+  inline void set_version_max(const char* value, size_t size);
+  inline ::std::string* mutable_version_max();
+  inline ::std::string* release_version_max();
+  inline void set_allocated_version_max(::std::string* version_max);
+
+  // optional string version_download = 12;
+  inline bool has_version_download() const;
+  inline void clear_version_download();
+  static const int kVersionDownloadFieldNumber = 12;
+  inline const ::std::string& version_download() const;
+  inline void set_version_download(const ::std::string& value);
+  inline void set_version_download(const char* value);
+  inline void set_version_download(const char* value, size_t size);
+  inline ::std::string* mutable_version_download();
+  inline ::std::string* release_version_download();
+  inline void set_allocated_version_download(::std::string* version_download);
+
+  // optional string version_filesize = 13;
+  inline bool has_version_filesize() const;
+  inline void clear_version_filesize();
+  static const int kVersionFilesizeFieldNumber = 13;
+  inline const ::std::string& version_filesize() const;
+  inline void set_version_filesize(const ::std::string& value);
+  inline void set_version_filesize(const char* value);
+  inline void set_version_filesize(const char* value, size_t size);
+  inline ::std::string* mutable_version_filesize();
+  inline ::std::string* release_version_filesize();
+  inline void set_allocated_version_filesize(::std::string* version_filesize);
+
   // @@protoc_insertion_point(class_scope:IM.Login.IMLoginRes)
  private:
   inline void set_has_server_time();
@@ -319,6 +355,12 @@ class IMLoginRes : public ::google::protobuf::MessageLite {
   inline void clear_has_user_info();
   inline void set_has_user_token();
   inline void clear_has_user_token();
+  inline void set_has_version_max();
+  inline void clear_has_version_max();
+  inline void set_has_version_download();
+  inline void clear_has_version_download();
+  inline void set_has_version_filesize();
+  inline void clear_has_version_filesize();
 
   ::std::string _unknown_fields_;
 
@@ -329,6 +371,9 @@ class IMLoginRes : public ::google::protobuf::MessageLite {
   ::std::string* result_string_;
   ::IM::BaseDefine::UserInfo* user_info_;
   ::std::string* user_token_;
+  ::std::string* version_max_;
+  ::std::string* version_download_;
+  ::std::string* version_filesize_;
   int online_status_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eLogin_2eproto_impl();
@@ -1429,6 +1474,234 @@ inline void IMLoginRes::set_allocated_user_token(::std::string* user_token) {
     user_token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Login.IMLoginRes.user_token)
+}
+
+// optional string version_max = 11;
+inline bool IMLoginRes::has_version_max() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void IMLoginRes::set_has_version_max() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void IMLoginRes::clear_has_version_max() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void IMLoginRes::clear_version_max() {
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_->clear();
+  }
+  clear_has_version_max();
+}
+inline const ::std::string& IMLoginRes::version_max() const {
+  // @@protoc_insertion_point(field_get:IM.Login.IMLoginRes.version_max)
+  return *version_max_;
+}
+inline void IMLoginRes::set_version_max(const ::std::string& value) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Login.IMLoginRes.version_max)
+}
+inline void IMLoginRes::set_version_max(const char* value) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Login.IMLoginRes.version_max)
+}
+inline void IMLoginRes::set_version_max(const char* value, size_t size) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Login.IMLoginRes.version_max)
+}
+inline ::std::string* IMLoginRes::mutable_version_max() {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Login.IMLoginRes.version_max)
+  return version_max_;
+}
+inline ::std::string* IMLoginRes::release_version_max() {
+  clear_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_max_;
+    version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMLoginRes::set_allocated_version_max(::std::string* version_max) {
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_max_;
+  }
+  if (version_max) {
+    set_has_version_max();
+    version_max_ = version_max;
+  } else {
+    clear_has_version_max();
+    version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Login.IMLoginRes.version_max)
+}
+
+// optional string version_download = 12;
+inline bool IMLoginRes::has_version_download() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void IMLoginRes::set_has_version_download() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void IMLoginRes::clear_has_version_download() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void IMLoginRes::clear_version_download() {
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_->clear();
+  }
+  clear_has_version_download();
+}
+inline const ::std::string& IMLoginRes::version_download() const {
+  // @@protoc_insertion_point(field_get:IM.Login.IMLoginRes.version_download)
+  return *version_download_;
+}
+inline void IMLoginRes::set_version_download(const ::std::string& value) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Login.IMLoginRes.version_download)
+}
+inline void IMLoginRes::set_version_download(const char* value) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Login.IMLoginRes.version_download)
+}
+inline void IMLoginRes::set_version_download(const char* value, size_t size) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Login.IMLoginRes.version_download)
+}
+inline ::std::string* IMLoginRes::mutable_version_download() {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Login.IMLoginRes.version_download)
+  return version_download_;
+}
+inline ::std::string* IMLoginRes::release_version_download() {
+  clear_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_download_;
+    version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMLoginRes::set_allocated_version_download(::std::string* version_download) {
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_download_;
+  }
+  if (version_download) {
+    set_has_version_download();
+    version_download_ = version_download;
+  } else {
+    clear_has_version_download();
+    version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Login.IMLoginRes.version_download)
+}
+
+// optional string version_filesize = 13;
+inline bool IMLoginRes::has_version_filesize() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void IMLoginRes::set_has_version_filesize() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void IMLoginRes::clear_has_version_filesize() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void IMLoginRes::clear_version_filesize() {
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_->clear();
+  }
+  clear_has_version_filesize();
+}
+inline const ::std::string& IMLoginRes::version_filesize() const {
+  // @@protoc_insertion_point(field_get:IM.Login.IMLoginRes.version_filesize)
+  return *version_filesize_;
+}
+inline void IMLoginRes::set_version_filesize(const ::std::string& value) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Login.IMLoginRes.version_filesize)
+}
+inline void IMLoginRes::set_version_filesize(const char* value) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Login.IMLoginRes.version_filesize)
+}
+inline void IMLoginRes::set_version_filesize(const char* value, size_t size) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Login.IMLoginRes.version_filesize)
+}
+inline ::std::string* IMLoginRes::mutable_version_filesize() {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Login.IMLoginRes.version_filesize)
+  return version_filesize_;
+}
+inline ::std::string* IMLoginRes::release_version_filesize() {
+  clear_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_filesize_;
+    version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMLoginRes::set_allocated_version_filesize(::std::string* version_filesize) {
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_filesize_;
+  }
+  if (version_filesize) {
+    set_has_version_filesize();
+    version_filesize_ = version_filesize;
+  } else {
+    clear_has_version_filesize();
+    version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Login.IMLoginRes.version_filesize)
 }
 
 // -------------------------------------------------------------------

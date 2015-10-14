@@ -19,6 +19,7 @@ message IMValidateReq{
 	
 	optional IM.BaseDefine.ClientType client_type = 10;
 	optional string client_ip = 11;
+	optional string client_version = 12;
 	
 	optional bytes attach_data = 20;
 }
@@ -32,6 +33,10 @@ message IMValidateRsp{
 	optional IM.BaseDefine.UserInfo user_info = 4;
 	
 	optional string user_token = 10;
+	
+	optional string version_max = 11; //最大版本号
+	optional string version_download = 12; //下载地址
+	optional string version_filesize = 13; //安装包大小
 	
 	optional bytes attach_data = 20;
 }

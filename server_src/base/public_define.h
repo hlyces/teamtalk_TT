@@ -100,6 +100,10 @@ if ((IM::BaseDefine::MSG_TYPE_SINGLE_TEXT == type) || (IM::BaseDefine::MSG_TYPE_
 	|| (IM::BaseDefine::MSG_TYPE_ORDER_PUSH == type) \
 	|| (IM::BaseDefine::MSG_TYPE_ORDER_GRAB == type) \
 	|| (IM::BaseDefine::MSG_TYPE_ORDER_RESULT == type) \
+	|| (IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST == type) \
+	|| (IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT == type) \
+	|| (IM::BaseDefine::MSG_TYPE_ORDER_CANCEL == type) \
+	|| (IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL == type) \
 	|| (IM::BaseDefine::MSG_TYPE_LOCATION_SHARING == type) \
 	|| (IM::BaseDefine::MSG_TYPE_FILE_TRANSFER == type)) \
 {\

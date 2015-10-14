@@ -17,6 +17,7 @@
 #include "HttpConn.h"
 #include "FileManager.h"
 #include "ThreadPool.h"
+#include "version.h"
 
 using namespace std;
 using namespace msfs;
@@ -72,7 +73,12 @@ void Stop(int signo)
 }
 int main(int argc, char* argv[])
 {
-    
+    if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
+		printf("Server Version: MsfsServer/%s\n", VERSION);
+		printf("Server Build: %s %s\n", __DATE__, __TIME__);
+		return 0;
+	}
+	
     log("MsfsServer max files can open: %d", getdtablesize());
 
 

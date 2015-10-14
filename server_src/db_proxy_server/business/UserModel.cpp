@@ -116,7 +116,7 @@ void CUserModel::getUsers(list<uint32_t> lsIds, list<IM::BaseDefine::UserInfo> &
 		
         string  strSql = "SELECT t1.*,t2.`friend_groupid`,t2.`friend_remark`,t2.`status` AS friend_status FROM IMFxUser t1 "\
 			"LEFT JOIN IMFxUserRelationPrivate t2 ON t1.`user_uid`=t2.`friend_friendid` AND t2.`user_uid`="+int2string(nUserId)+" WHERE t1.user_uid IN ("\
-			+ strClause + ")";
+			+ strClause + ") ORDER BY t1.user_uid";
 
 		log("getUsers from_user=%d sql=%s", nUserId, strSql.c_str());
 		
@@ -138,6 +138,8 @@ void CUserModel::getUsers(list<uint32_t> lsIds, list<IM::BaseDefine::UserInfo> &
 
 				cUser.set_user_type(pResultSet->GetInt("user_type"));
 				cUser.set_user_ischeck(pResultSet->GetInt("user_ischeck"));
+
+				cUser.set_user_desc(pResultSet->GetString("user_desc"));
 
 				cUser.set_friend_groupid(pResultSet->GetInt("friend_groupid"));
 				cUser.set_friend_remark(pResultSet->GetString("friend_remark"));
@@ -177,7 +179,7 @@ void CUserModel::getFriendsList(uint32_t& nLastTime, uint32_t user_id, list<IM::
 						"  t2.`friend_groupid`,  t2.`friend_remark`, t2.`status` as friend_status FROM "\
 						" IMFxUser t1,  IMFxUserRelationPrivate t2 WHERE t1.user_uid = t2.`friend_friendid` AND "\
 						"(t2.`update_time`>="+int2string(nLastTime)+" or t1.`user_updatetime` >= "+int2string(nLastTime)\
-						+") AND t1.`status` !=3    AND t2.`user_uid` = "+int2string(user_id);
+						+") AND t1.`status` !=3    AND t2.`user_uid` = "+int2string(user_id) +" ORDER BY t1.user_uid";
         CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
 		
 		log("strSql= %s", strSql.c_str());
@@ -203,6 +205,8 @@ void CUserModel::getFriendsList(uint32_t& nLastTime, uint32_t user_id, list<IM::
 
 				cUser.set_user_type(pResultSet->GetInt("user_type"));
 				cUser.set_user_ischeck(pResultSet->GetInt("user_ischeck"));
+
+				cUser.set_user_desc(pResultSet->GetString("user_desc"));
 
 				cUser.set_friend_groupid(pResultSet->GetInt("friend_groupid"));
 				cUser.set_friend_remark(pResultSet->GetString("friend_remark"));
@@ -1303,7 +1307,7 @@ bool CUserModel::findUserInfo(string find_string, list<IM::BaseDefine::UserInfo>
     if (pDBConn) {
 		find_string = pDBConn->EscapeString( find_string.c_str(), find_string.length());
 		
-        string strSql = "select * from IMFxUser where user_uid='" + find_string + "' or user_phone='" + find_string +"'" ;  //+ " and status=0";
+        string strSql = "select * from IMFxUser where user_uid='" + find_string + "' or user_phone='" + find_string +"' LIMIT 10" ;  //+ " and status=0";
 		log("strSql=%s", strSql.c_str());
         CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
         if(pResultSet){			
@@ -1334,6 +1338,7 @@ bool CUserModel::findUserInfo(string find_string, list<IM::BaseDefine::UserInfo>
 				
 				cUser.set_user_type(pResultSet->GetInt("user_type"));
 				cUser.set_user_ischeck(pResultSet->GetInt("user_ischeck"));
+				cUser.set_user_desc(pResultSet->GetString("user_desc"));
 
 				lUser.push_back(cUser);
 			}

@@ -172,11 +172,16 @@ namespace DB_PROXY
 							return;
 						}
 						//	MSG_TYPE_ORDER_PUSH MSG_TYPE_ORDER_GRAB MSG_TYPE_ORDER_RESULT
+						// MSG_TYPE_ORDER_ENTRUST MSG_TYPE_ORDER_ACCEPT	MSG_TYPE_ORDER_CANCEL	
 					}
 					else if(nMsgType== IM::BaseDefine::MSG_TYPE_SINGLE_TEXT
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_PUSH
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_GRAB
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_RESULT
+					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
+					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
+					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
+							|| nMsgType== IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_LOCATION_SHARING
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_FILE_TRANSFER)
 					{
@@ -210,10 +215,12 @@ namespace DB_PROXY
 								nMsgId = pMsgModel->getMsgId(nRelateId);
 								if(nMsgId != INVALID_VALUE)
 								{
-									if(nSessionId != INVALID_VALUE &&
-					 				   nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_PUSH
+									if(nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_PUSH
 									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_GRAB
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_RESULT)
+									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_RESULT
+									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
+									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
+									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL)
 									{
 										CacheConn* pCacheConn = NULL;
 										CAutoCache autoCache( "login_token", &pCacheConn);
@@ -317,7 +324,11 @@ namespace DB_PROXY
 
 					if(nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_PUSH
 					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_GRAB
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_RESULT)
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_RESULT
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_CANCEL)
 					{
 						msg.set_msg_id(nMsgId);
 						pPduResp->SetPBMsg(&msg);

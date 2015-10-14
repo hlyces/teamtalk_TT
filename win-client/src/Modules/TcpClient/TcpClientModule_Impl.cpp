@@ -155,7 +155,7 @@ IM::Login::IMLoginRes* TcpClientModule_Impl::doLogin(CString &linkaddr, UInt16 p
 		imLoginReq.set_password(pass);
 		imLoginReq.set_online_status(IM::BaseDefine::USER_STATUS_ONLINE);
 		imLoginReq.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
-		imLoginReq.set_client_version("win_10086");
+		imLoginReq.set_client_version("1.10.0");
 
 		if (TCPCLIENT_STATE_OK != m_tcpClientState)
 			return 0;

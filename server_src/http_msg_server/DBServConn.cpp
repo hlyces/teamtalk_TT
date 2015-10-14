@@ -38,7 +38,8 @@ static ConnMap_t g_db_server_conn_map;
 static serv_info_t* g_db_server_list = NULL;
 static uint32_t		g_db_server_count = 0;
 static uint32_t		g_db_server_login_count = 0;	// 到进行登录处理的DBServer的总连接数
-    
+static uint32_t		g_db_server_push_count = 0;     //push_client单独使用一个dbproxy，不与login业务以及其他业务混杂
+
     
     
 static void db_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
@@ -77,7 +78,10 @@ void init_db_serv_conn(serv_info_t* server_list, uint32_t server_count, uint32_t
 		exit(1);
 	}
 
-	g_db_server_login_count = (total_db_instance / 2) * concur_conn_cnt;
+	g_db_server_login_count = (total_db_instance / 3) * concur_conn_cnt;
+	g_db_server_push_count = (total_db_instance / 3) * concur_conn_cnt;
+    
+//	g_db_server_login_count = (total_db_instance / 2) * concur_conn_cnt;
 	log("DB server connection index for login business: [0, %u), for other business: [%u, %u)",
 			g_db_server_login_count, g_db_server_login_count, g_db_server_count);
 
@@ -122,7 +126,8 @@ CDBServConn* get_db_serv_conn_for_login()
 	// 先获取login业务的实例，没有就去获取其他业务流程的实例
 	CDBServConn* pDBConn = get_db_server_conn_in_range(0, g_db_server_login_count);
 	if (!pDBConn) {
-		pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
+//		pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
+		pDBConn = get_db_server_conn_in_range(g_db_server_login_count + g_db_server_push_count, g_db_server_count );
 	}
 
 	return pDBConn;
@@ -131,7 +136,8 @@ CDBServConn* get_db_serv_conn_for_login()
 CDBServConn* get_db_serv_conn()
 {
 	// 先获取其他业务流程的实例，没有就去获取login业务的实例
-	CDBServConn* pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
+//	CDBServConn* pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
+	CDBServConn* pDBConn = get_db_server_conn_in_range(g_db_server_login_count + g_db_server_push_count, g_db_server_count );
 	if (!pDBConn) {
 		pDBConn = get_db_server_conn_in_range(0, g_db_server_login_count);
 	}

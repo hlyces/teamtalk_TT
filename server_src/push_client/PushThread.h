@@ -41,7 +41,7 @@ public:
     
  	virtual void OnThreadTick(void);
 
-	void setGPClient(CClient& t_pClient){ g_pClient = &t_pClient;}
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
 	
 private:
 	CClient* g_pClient;
@@ -56,7 +56,7 @@ public:
     
  	virtual void OnThreadTick(void);
 
-	void setGPClient(CClient& t_pClient){ g_pClient = &t_pClient;}
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
 	
 private:
 	CClient* g_pClient;
@@ -70,11 +70,45 @@ public:
     
  	virtual void OnThreadTick(void);
 
-	void setGPClient(CClient& t_pClient){ g_pClient = &t_pClient;}
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
 	
 private:
 	CClient* g_pClient;
 };
+
+
+class CEntrushThread : public CEventThread
+{
+public:
+	CEntrushThread();
+	virtual ~CEntrushThread();
+    
+ 	virtual void OnThreadTick(void);
+
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
+	
+private:
+	CClient* g_pClient;
+
+};
+
+
+class CTopUP_withDrawalThread : public CEventThread
+{
+public:
+	CTopUP_withDrawalThread();
+	virtual ~CTopUP_withDrawalThread();
+    
+ 	virtual void OnThreadTick(void);
+
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
+	
+private:
+	CClient* g_pClient;
+
+};
+
+
 
 class CMyTimerThread : public CEventThread
 {

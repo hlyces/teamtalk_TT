@@ -45,7 +45,21 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
         
         msgResp.set_user_name(strDomain);
         msgResp.set_attach_data(msg.attach_data());
-        
+		
+        log("%s request login.", strDomain.c_str());
+
+		if( !g_loginStrategy.veryfyVersion( msg.client_type(), msg.client_version(), msgResp)) 
+        {
+        	msgResp.set_result_code(7);
+            msgResp.set_result_string("客户端版本太老");
+            pPduResp->SetPBMsg(&msgResp);
+            pPduResp->SetSeqNum(pPdu->GetSeqNum());
+            pPduResp->SetServiceId(IM::BaseDefine::DFFX_SID_OTHER);
+            pPduResp->SetCommandId(IM::BaseDefine::DFFX_CID_OTHER_VALIDATE_RSP);
+            CProxyConn::AddResponsePdu(conn_uuid, pPduResp);
+            return ;
+		}
+		
         do
         {
             CAutoLock cAutoLock(&g_cLimitLock);
@@ -90,10 +104,6 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
             }
         } while(false);
         
-        log("%s request login.", strDomain.c_str());
-        
-        
-        
         IM::BaseDefine::UserInfo cUser;
 
 		_AcctInfo acctInfo;
@@ -124,10 +134,12 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
 				msgResp.set_user_token( acctInfo.token);
 
                 g_loginStrategy.insertLogLogin( acctInfo, msg.client_type(), msg.client_ip());
+
+				g_loginStrategy.updateInviteRecord( acctInfo);
 			}
 			else
 			{
-				msgResp.set_result_code(1);
+				msgResp.set_result_code(6);
            		msgResp.set_result_string("setLoginToken error!");
 			}
         }
@@ -140,13 +152,13 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
             lsErrorTime.push_front(tmCurrent);
             
             log("get result false");
-            msgResp.set_result_code(1);
+            msgResp.set_result_code(6);
             msgResp.set_result_string("用户名/密码错误");
         }
     }
     else
     {
-        msgResp.set_result_code(2);
+        msgResp.set_result_code(6);
         msgResp.set_result_string("服务端内部错误");
     }
     

@@ -254,6 +254,18 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   inline ::std::string* release_client_ip();
   inline void set_allocated_client_ip(::std::string* client_ip);
 
+  // optional string client_version = 12;
+  inline bool has_client_version() const;
+  inline void clear_client_version();
+  static const int kClientVersionFieldNumber = 12;
+  inline const ::std::string& client_version() const;
+  inline void set_client_version(const ::std::string& value);
+  inline void set_client_version(const char* value);
+  inline void set_client_version(const char* value, size_t size);
+  inline ::std::string* mutable_client_version();
+  inline ::std::string* release_client_version();
+  inline void set_allocated_client_version(::std::string* client_version);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -276,6 +288,8 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   inline void clear_has_client_type();
   inline void set_has_client_ip();
   inline void clear_has_client_ip();
+  inline void set_has_client_version();
+  inline void clear_has_client_version();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -286,6 +300,7 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   ::std::string* user_name_;
   ::std::string* password_;
   ::std::string* client_ip_;
+  ::std::string* client_version_;
   ::std::string* attach_data_;
   int client_type_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -414,6 +429,42 @@ class IMValidateRsp : public ::google::protobuf::MessageLite {
   inline ::std::string* release_user_token();
   inline void set_allocated_user_token(::std::string* user_token);
 
+  // optional string version_max = 11;
+  inline bool has_version_max() const;
+  inline void clear_version_max();
+  static const int kVersionMaxFieldNumber = 11;
+  inline const ::std::string& version_max() const;
+  inline void set_version_max(const ::std::string& value);
+  inline void set_version_max(const char* value);
+  inline void set_version_max(const char* value, size_t size);
+  inline ::std::string* mutable_version_max();
+  inline ::std::string* release_version_max();
+  inline void set_allocated_version_max(::std::string* version_max);
+
+  // optional string version_download = 12;
+  inline bool has_version_download() const;
+  inline void clear_version_download();
+  static const int kVersionDownloadFieldNumber = 12;
+  inline const ::std::string& version_download() const;
+  inline void set_version_download(const ::std::string& value);
+  inline void set_version_download(const char* value);
+  inline void set_version_download(const char* value, size_t size);
+  inline ::std::string* mutable_version_download();
+  inline ::std::string* release_version_download();
+  inline void set_allocated_version_download(::std::string* version_download);
+
+  // optional string version_filesize = 13;
+  inline bool has_version_filesize() const;
+  inline void clear_version_filesize();
+  static const int kVersionFilesizeFieldNumber = 13;
+  inline const ::std::string& version_filesize() const;
+  inline void set_version_filesize(const ::std::string& value);
+  inline void set_version_filesize(const char* value);
+  inline void set_version_filesize(const char* value, size_t size);
+  inline ::std::string* mutable_version_filesize();
+  inline ::std::string* release_version_filesize();
+  inline void set_allocated_version_filesize(::std::string* version_filesize);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -438,6 +489,12 @@ class IMValidateRsp : public ::google::protobuf::MessageLite {
   inline void clear_has_user_info();
   inline void set_has_user_token();
   inline void clear_has_user_token();
+  inline void set_has_version_max();
+  inline void clear_has_version_max();
+  inline void set_has_version_download();
+  inline void clear_has_version_download();
+  inline void set_has_version_filesize();
+  inline void clear_has_version_filesize();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -449,6 +506,9 @@ class IMValidateRsp : public ::google::protobuf::MessageLite {
   ::std::string* result_string_;
   ::IM::BaseDefine::UserInfo* user_info_;
   ::std::string* user_token_;
+  ::std::string* version_max_;
+  ::std::string* version_download_;
+  ::std::string* version_filesize_;
   ::std::string* attach_data_;
   ::google::protobuf::uint32 result_code_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -2916,15 +2976,91 @@ inline void IMValidateReq::set_allocated_client_ip(::std::string* client_ip) {
   // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateReq.client_ip)
 }
 
-// optional bytes attach_data = 20;
-inline bool IMValidateReq::has_attach_data() const {
+// optional string client_version = 12;
+inline bool IMValidateReq::has_client_version() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void IMValidateReq::set_has_attach_data() {
+inline void IMValidateReq::set_has_client_version() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void IMValidateReq::clear_has_attach_data() {
+inline void IMValidateReq::clear_has_client_version() {
   _has_bits_[0] &= ~0x00000010u;
+}
+inline void IMValidateReq::clear_client_version() {
+  if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_->clear();
+  }
+  clear_has_client_version();
+}
+inline const ::std::string& IMValidateReq::client_version() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateReq.client_version)
+  return *client_version_;
+}
+inline void IMValidateReq::set_client_version(const ::std::string& value) {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  client_version_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateReq.client_version)
+}
+inline void IMValidateReq::set_client_version(const char* value) {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  client_version_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateReq.client_version)
+}
+inline void IMValidateReq::set_client_version(const char* value, size_t size) {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  client_version_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateReq.client_version)
+}
+inline ::std::string* IMValidateReq::mutable_client_version() {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateReq.client_version)
+  return client_version_;
+}
+inline ::std::string* IMValidateReq::release_client_version() {
+  clear_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = client_version_;
+    client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateReq::set_allocated_client_version(::std::string* client_version) {
+  if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete client_version_;
+  }
+  if (client_version) {
+    set_has_client_version();
+    client_version_ = client_version;
+  } else {
+    clear_has_client_version();
+    client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateReq.client_version)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMValidateReq::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void IMValidateReq::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void IMValidateReq::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void IMValidateReq::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -3293,15 +3429,243 @@ inline void IMValidateRsp::set_allocated_user_token(::std::string* user_token) {
   // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.user_token)
 }
 
-// optional bytes attach_data = 20;
-inline bool IMValidateRsp::has_attach_data() const {
+// optional string version_max = 11;
+inline bool IMValidateRsp::has_version_max() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void IMValidateRsp::set_has_attach_data() {
+inline void IMValidateRsp::set_has_version_max() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void IMValidateRsp::clear_has_attach_data() {
+inline void IMValidateRsp::clear_has_version_max() {
   _has_bits_[0] &= ~0x00000020u;
+}
+inline void IMValidateRsp::clear_version_max() {
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_->clear();
+  }
+  clear_has_version_max();
+}
+inline const ::std::string& IMValidateRsp::version_max() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateRsp.version_max)
+  return *version_max_;
+}
+inline void IMValidateRsp::set_version_max(const ::std::string& value) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateRsp.version_max)
+}
+inline void IMValidateRsp::set_version_max(const char* value) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateRsp.version_max)
+}
+inline void IMValidateRsp::set_version_max(const char* value, size_t size) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateRsp.version_max)
+}
+inline ::std::string* IMValidateRsp::mutable_version_max() {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateRsp.version_max)
+  return version_max_;
+}
+inline ::std::string* IMValidateRsp::release_version_max() {
+  clear_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_max_;
+    version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateRsp::set_allocated_version_max(::std::string* version_max) {
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_max_;
+  }
+  if (version_max) {
+    set_has_version_max();
+    version_max_ = version_max;
+  } else {
+    clear_has_version_max();
+    version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.version_max)
+}
+
+// optional string version_download = 12;
+inline bool IMValidateRsp::has_version_download() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void IMValidateRsp::set_has_version_download() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void IMValidateRsp::clear_has_version_download() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void IMValidateRsp::clear_version_download() {
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_->clear();
+  }
+  clear_has_version_download();
+}
+inline const ::std::string& IMValidateRsp::version_download() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateRsp.version_download)
+  return *version_download_;
+}
+inline void IMValidateRsp::set_version_download(const ::std::string& value) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateRsp.version_download)
+}
+inline void IMValidateRsp::set_version_download(const char* value) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateRsp.version_download)
+}
+inline void IMValidateRsp::set_version_download(const char* value, size_t size) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateRsp.version_download)
+}
+inline ::std::string* IMValidateRsp::mutable_version_download() {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateRsp.version_download)
+  return version_download_;
+}
+inline ::std::string* IMValidateRsp::release_version_download() {
+  clear_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_download_;
+    version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateRsp::set_allocated_version_download(::std::string* version_download) {
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_download_;
+  }
+  if (version_download) {
+    set_has_version_download();
+    version_download_ = version_download;
+  } else {
+    clear_has_version_download();
+    version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.version_download)
+}
+
+// optional string version_filesize = 13;
+inline bool IMValidateRsp::has_version_filesize() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void IMValidateRsp::set_has_version_filesize() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void IMValidateRsp::clear_has_version_filesize() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void IMValidateRsp::clear_version_filesize() {
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_->clear();
+  }
+  clear_has_version_filesize();
+}
+inline const ::std::string& IMValidateRsp::version_filesize() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateRsp.version_filesize)
+  return *version_filesize_;
+}
+inline void IMValidateRsp::set_version_filesize(const ::std::string& value) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateRsp.version_filesize)
+}
+inline void IMValidateRsp::set_version_filesize(const char* value) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateRsp.version_filesize)
+}
+inline void IMValidateRsp::set_version_filesize(const char* value, size_t size) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateRsp.version_filesize)
+}
+inline ::std::string* IMValidateRsp::mutable_version_filesize() {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateRsp.version_filesize)
+  return version_filesize_;
+}
+inline ::std::string* IMValidateRsp::release_version_filesize() {
+  clear_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_filesize_;
+    version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateRsp::set_allocated_version_filesize(::std::string* version_filesize) {
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_filesize_;
+  }
+  if (version_filesize) {
+    set_has_version_filesize();
+    version_filesize_ = version_filesize;
+  } else {
+    clear_has_version_filesize();
+    version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.version_filesize)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMValidateRsp::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void IMValidateRsp::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void IMValidateRsp::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline void IMValidateRsp::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {

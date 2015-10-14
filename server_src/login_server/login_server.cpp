@@ -16,6 +16,9 @@ IpParser* pIpParser = NULL;
 string strMsfsUrl;
 string strDiscovery;//发现获取地址
 string strHeadlinkUrl;
+string strWebServiceUrl;
+string strMapUrl;
+
 
 void client_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
@@ -77,10 +80,12 @@ int main(int argc, char* argv[])
     char* str_msfs_url = config_file.GetConfigName("msfs");
 	char* str_headlink_url = config_file.GetConfigName("headlink");
     char* str_discovery = config_file.GetConfigName("discovery");
+	char* str_webservice_url = config_file.GetConfigName("webService");
+	char* str_map_url = config_file.GetConfigName("mapUrl");
 
 	if (!msg_server_listen_ip || !str_msg_server_port || !http_listen_ip
         || !str_http_port || !str_msfs_url || !str_discovery
-        || !str_headlink_url) {
+        || !str_headlink_url || !str_webservice_url || !str_map_url) {
 		log("config item missing, exit... ");
 		return -1;
 	}
@@ -90,6 +95,8 @@ int main(int argc, char* argv[])
     strMsfsUrl = str_msfs_url;
     strDiscovery = str_discovery;
     strHeadlinkUrl = str_headlink_url;
+	strWebServiceUrl = str_webservice_url;
+	strMapUrl = str_map_url;
     
     pIpParser = new IpParser();
     
