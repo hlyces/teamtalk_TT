@@ -33,7 +33,7 @@ void P2PCmdModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& pbBody
 {
 	switch (header.getCommandId())
 	{
-	case IM::BaseDefine::SwitchServiceCmdID::CID_SWITCH_P2P_CMD:
+	case IM::BaseDefine::SwitchServiceCmdID::DFFX_CID_SWITCH_P2P_CMD:
 		_p2pCmdNotifyResponse(pbBody);
 		break;
 	default:
@@ -129,8 +129,8 @@ BOOL P2PCmdModule_Impl::tcpSendShakeWindowCMD(IN std::string sToID)
 		UInt32 nToId = util::stringToInt32(sToID);
 		imP2PCmdMsg.set_to_user_id(nToId);
 		imP2PCmdMsg.set_cmd_msg_data(cmdMsgData);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_SWITCH_SERVICE
-			,IM::BaseDefine::SwitchServiceCmdID::CID_SWITCH_P2P_CMD
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_SWITCH_SERVICE
+			,IM::BaseDefine::SwitchServiceCmdID::DFFX_CID_SWITCH_P2P_CMD
 			,&imP2PCmdMsg);
 	}
 		);
@@ -160,8 +160,8 @@ void P2PCmdModule_Impl::tcpSendWritingCMD(IN std::string sToID, IN const BOOL bW
 		UInt32 nToId = util::stringToInt32(sToID);
 		imP2PCmdMsg.set_to_user_id(nToId);
 		imP2PCmdMsg.set_cmd_msg_data(cmdMsgData);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_SWITCH_SERVICE
-			, IM::BaseDefine::SwitchServiceCmdID::CID_SWITCH_P2P_CMD
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_SWITCH_SERVICE
+			, IM::BaseDefine::SwitchServiceCmdID::DFFX_CID_SWITCH_P2P_CMD
 			, &imP2PCmdMsg);
 	}
 	);

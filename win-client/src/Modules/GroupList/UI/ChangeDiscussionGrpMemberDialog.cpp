@@ -428,8 +428,8 @@ void ChangeDiscussionGrpMemberDialog::_sendChangeReq()
 		}
 		LOG__(APP, _T("IMGroupChangeMemberReq - add,groupID = %s,size = %d")
 			, util::stringToCString(m_currentSessionId),m_addedUsers.size());
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-			, IM::BaseDefine::GroupCmdID::CID_GROUP_CHANGE_MEMBER_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+			, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_CHANGE_MEMBER_REQUEST
 			, &imGroupChangeMemberReq);
 	}
 	if (!m_deleteUsers.empty())
@@ -444,8 +444,8 @@ void ChangeDiscussionGrpMemberDialog::_sendChangeReq()
 		}
 		LOG__(APP, _T("IMGroupChangeMemberReq - del,groupID = %s,size = %d")
 			, util::stringToCString(m_currentSessionId), m_deleteUsers.size());
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-			, IM::BaseDefine::GroupCmdID::CID_GROUP_CHANGE_MEMBER_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+			, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_CHANGE_MEMBER_REQUEST
 			, &imGroupChangeMemberReq);
 	}
 }

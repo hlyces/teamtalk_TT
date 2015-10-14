@@ -54,6 +54,8 @@ class IMFileTransferReq;
 class IMFileTransferRsp;
 class IMFileServerIPReq;
 class IMFileServerIPRsp;
+class IMGetFriendsidReq;
+class IMGetFriendsidRes;
 
 // ===================================================================
 
@@ -252,6 +254,18 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   inline ::std::string* release_client_ip();
   inline void set_allocated_client_ip(::std::string* client_ip);
 
+  // optional string client_version = 12;
+  inline bool has_client_version() const;
+  inline void clear_client_version();
+  static const int kClientVersionFieldNumber = 12;
+  inline const ::std::string& client_version() const;
+  inline void set_client_version(const ::std::string& value);
+  inline void set_client_version(const char* value);
+  inline void set_client_version(const char* value, size_t size);
+  inline ::std::string* mutable_client_version();
+  inline ::std::string* release_client_version();
+  inline void set_allocated_client_version(::std::string* client_version);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -274,6 +288,8 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   inline void clear_has_client_type();
   inline void set_has_client_ip();
   inline void clear_has_client_ip();
+  inline void set_has_client_version();
+  inline void clear_has_client_version();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -284,6 +300,7 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   ::std::string* user_name_;
   ::std::string* password_;
   ::std::string* client_ip_;
+  ::std::string* client_version_;
   ::std::string* attach_data_;
   int client_type_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -412,6 +429,42 @@ class IMValidateRsp : public ::google::protobuf::MessageLite {
   inline ::std::string* release_user_token();
   inline void set_allocated_user_token(::std::string* user_token);
 
+  // optional string version_max = 11;
+  inline bool has_version_max() const;
+  inline void clear_version_max();
+  static const int kVersionMaxFieldNumber = 11;
+  inline const ::std::string& version_max() const;
+  inline void set_version_max(const ::std::string& value);
+  inline void set_version_max(const char* value);
+  inline void set_version_max(const char* value, size_t size);
+  inline ::std::string* mutable_version_max();
+  inline ::std::string* release_version_max();
+  inline void set_allocated_version_max(::std::string* version_max);
+
+  // optional string version_download = 12;
+  inline bool has_version_download() const;
+  inline void clear_version_download();
+  static const int kVersionDownloadFieldNumber = 12;
+  inline const ::std::string& version_download() const;
+  inline void set_version_download(const ::std::string& value);
+  inline void set_version_download(const char* value);
+  inline void set_version_download(const char* value, size_t size);
+  inline ::std::string* mutable_version_download();
+  inline ::std::string* release_version_download();
+  inline void set_allocated_version_download(::std::string* version_download);
+
+  // optional string version_filesize = 13;
+  inline bool has_version_filesize() const;
+  inline void clear_version_filesize();
+  static const int kVersionFilesizeFieldNumber = 13;
+  inline const ::std::string& version_filesize() const;
+  inline void set_version_filesize(const ::std::string& value);
+  inline void set_version_filesize(const char* value);
+  inline void set_version_filesize(const char* value, size_t size);
+  inline ::std::string* mutable_version_filesize();
+  inline ::std::string* release_version_filesize();
+  inline void set_allocated_version_filesize(::std::string* version_filesize);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -436,6 +489,12 @@ class IMValidateRsp : public ::google::protobuf::MessageLite {
   inline void clear_has_user_info();
   inline void set_has_user_token();
   inline void clear_has_user_token();
+  inline void set_has_version_max();
+  inline void clear_has_version_max();
+  inline void set_has_version_download();
+  inline void clear_has_version_download();
+  inline void set_has_version_filesize();
+  inline void clear_has_version_filesize();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -447,6 +506,9 @@ class IMValidateRsp : public ::google::protobuf::MessageLite {
   ::std::string* result_string_;
   ::IM::BaseDefine::UserInfo* user_info_;
   ::std::string* user_token_;
+  ::std::string* version_max_;
+  ::std::string* version_download_;
+  ::std::string* version_filesize_;
   ::std::string* attach_data_;
   ::google::protobuf::uint32 result_code_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -832,16 +894,16 @@ class IMOnlineUserInfo : public ::google::protobuf::MessageLite {
 
   // accessors -------------------------------------------------------
 
-  // repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;
+  // repeated .IM.BaseDefine.UserStat user_stat_list = 1;
   inline int user_stat_list_size() const;
   inline void clear_user_stat_list();
   static const int kUserStatListFieldNumber = 1;
-  inline const ::IM::BaseDefine::ServerUserStat& user_stat_list(int index) const;
-  inline ::IM::BaseDefine::ServerUserStat* mutable_user_stat_list(int index);
-  inline ::IM::BaseDefine::ServerUserStat* add_user_stat_list();
-  inline const ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::ServerUserStat >&
+  inline const ::IM::BaseDefine::UserStat& user_stat_list(int index) const;
+  inline ::IM::BaseDefine::UserStat* mutable_user_stat_list(int index);
+  inline ::IM::BaseDefine::UserStat* add_user_stat_list();
+  inline const ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserStat >&
       user_stat_list() const;
-  inline ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::ServerUserStat >*
+  inline ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserStat >*
       mutable_user_stat_list();
 
   // @@protoc_insertion_point(class_scope:IM.Server.IMOnlineUserInfo)
@@ -851,7 +913,7 @@ class IMOnlineUserInfo : public ::google::protobuf::MessageLite {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::ServerUserStat > user_stat_list_;
+  ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserStat > user_stat_list_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
   #else
@@ -2411,6 +2473,221 @@ class IMFileServerIPRsp : public ::google::protobuf::MessageLite {
   void InitAsDefaultInstance();
   static IMFileServerIPRsp* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class IMGetFriendsidReq : public ::google::protobuf::MessageLite {
+ public:
+  IMGetFriendsidReq();
+  virtual ~IMGetFriendsidReq();
+
+  IMGetFriendsidReq(const IMGetFriendsidReq& from);
+
+  inline IMGetFriendsidReq& operator=(const IMGetFriendsidReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMGetFriendsidReq& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMGetFriendsidReq* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMGetFriendsidReq* other);
+
+  // implements Message ----------------------------------------------
+
+  IMGetFriendsidReq* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMGetFriendsidReq& from);
+  void MergeFrom(const IMGetFriendsidReq& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 user_id = 1;
+  inline bool has_user_id() const;
+  inline void clear_user_id();
+  static const int kUserIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 user_id() const;
+  inline void set_user_id(::google::protobuf::uint32 value);
+
+  // optional bytes attach_data = 20;
+  inline bool has_attach_data() const;
+  inline void clear_attach_data();
+  static const int kAttachDataFieldNumber = 20;
+  inline const ::std::string& attach_data() const;
+  inline void set_attach_data(const ::std::string& value);
+  inline void set_attach_data(const char* value);
+  inline void set_attach_data(const void* value, size_t size);
+  inline ::std::string* mutable_attach_data();
+  inline ::std::string* release_attach_data();
+  inline void set_allocated_attach_data(::std::string* attach_data);
+
+  // @@protoc_insertion_point(class_scope:IM.Server.IMGetFriendsidReq)
+ private:
+  inline void set_has_user_id();
+  inline void clear_has_user_id();
+  inline void set_has_attach_data();
+  inline void clear_has_attach_data();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::std::string* attach_data_;
+  ::google::protobuf::uint32 user_id_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eServer_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eServer_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMGetFriendsidReq* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IMGetFriendsidRes : public ::google::protobuf::MessageLite {
+ public:
+  IMGetFriendsidRes();
+  virtual ~IMGetFriendsidRes();
+
+  IMGetFriendsidRes(const IMGetFriendsidRes& from);
+
+  inline IMGetFriendsidRes& operator=(const IMGetFriendsidRes& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMGetFriendsidRes& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMGetFriendsidRes* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMGetFriendsidRes* other);
+
+  // implements Message ----------------------------------------------
+
+  IMGetFriendsidRes* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMGetFriendsidRes& from);
+  void MergeFrom(const IMGetFriendsidRes& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated uint32 friend_id_list = 1;
+  inline int friend_id_list_size() const;
+  inline void clear_friend_id_list();
+  static const int kFriendIdListFieldNumber = 1;
+  inline ::google::protobuf::uint32 friend_id_list(int index) const;
+  inline void set_friend_id_list(int index, ::google::protobuf::uint32 value);
+  inline void add_friend_id_list(::google::protobuf::uint32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      friend_id_list() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_friend_id_list();
+
+  // optional bytes attach_data = 20;
+  inline bool has_attach_data() const;
+  inline void clear_attach_data();
+  static const int kAttachDataFieldNumber = 20;
+  inline const ::std::string& attach_data() const;
+  inline void set_attach_data(const ::std::string& value);
+  inline void set_attach_data(const char* value);
+  inline void set_attach_data(const void* value, size_t size);
+  inline ::std::string* mutable_attach_data();
+  inline ::std::string* release_attach_data();
+  inline void set_allocated_attach_data(::std::string* attach_data);
+
+  // @@protoc_insertion_point(class_scope:IM.Server.IMGetFriendsidRes)
+ private:
+  inline void set_has_attach_data();
+  inline void clear_has_attach_data();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > friend_id_list_;
+  ::std::string* attach_data_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eServer_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eServer_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMGetFriendsidRes* default_instance_;
+};
 // ===================================================================
 
 
@@ -2699,15 +2976,91 @@ inline void IMValidateReq::set_allocated_client_ip(::std::string* client_ip) {
   // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateReq.client_ip)
 }
 
-// optional bytes attach_data = 20;
-inline bool IMValidateReq::has_attach_data() const {
+// optional string client_version = 12;
+inline bool IMValidateReq::has_client_version() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void IMValidateReq::set_has_attach_data() {
+inline void IMValidateReq::set_has_client_version() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void IMValidateReq::clear_has_attach_data() {
+inline void IMValidateReq::clear_has_client_version() {
   _has_bits_[0] &= ~0x00000010u;
+}
+inline void IMValidateReq::clear_client_version() {
+  if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_->clear();
+  }
+  clear_has_client_version();
+}
+inline const ::std::string& IMValidateReq::client_version() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateReq.client_version)
+  return *client_version_;
+}
+inline void IMValidateReq::set_client_version(const ::std::string& value) {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  client_version_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateReq.client_version)
+}
+inline void IMValidateReq::set_client_version(const char* value) {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  client_version_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateReq.client_version)
+}
+inline void IMValidateReq::set_client_version(const char* value, size_t size) {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  client_version_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateReq.client_version)
+}
+inline ::std::string* IMValidateReq::mutable_client_version() {
+  set_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    client_version_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateReq.client_version)
+  return client_version_;
+}
+inline ::std::string* IMValidateReq::release_client_version() {
+  clear_has_client_version();
+  if (client_version_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = client_version_;
+    client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateReq::set_allocated_client_version(::std::string* client_version) {
+  if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete client_version_;
+  }
+  if (client_version) {
+    set_has_client_version();
+    client_version_ = client_version;
+  } else {
+    clear_has_client_version();
+    client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateReq.client_version)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMValidateReq::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void IMValidateReq::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void IMValidateReq::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void IMValidateReq::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -3076,15 +3429,243 @@ inline void IMValidateRsp::set_allocated_user_token(::std::string* user_token) {
   // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.user_token)
 }
 
-// optional bytes attach_data = 20;
-inline bool IMValidateRsp::has_attach_data() const {
+// optional string version_max = 11;
+inline bool IMValidateRsp::has_version_max() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void IMValidateRsp::set_has_attach_data() {
+inline void IMValidateRsp::set_has_version_max() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void IMValidateRsp::clear_has_attach_data() {
+inline void IMValidateRsp::clear_has_version_max() {
   _has_bits_[0] &= ~0x00000020u;
+}
+inline void IMValidateRsp::clear_version_max() {
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_->clear();
+  }
+  clear_has_version_max();
+}
+inline const ::std::string& IMValidateRsp::version_max() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateRsp.version_max)
+  return *version_max_;
+}
+inline void IMValidateRsp::set_version_max(const ::std::string& value) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateRsp.version_max)
+}
+inline void IMValidateRsp::set_version_max(const char* value) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateRsp.version_max)
+}
+inline void IMValidateRsp::set_version_max(const char* value, size_t size) {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  version_max_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateRsp.version_max)
+}
+inline ::std::string* IMValidateRsp::mutable_version_max() {
+  set_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_max_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateRsp.version_max)
+  return version_max_;
+}
+inline ::std::string* IMValidateRsp::release_version_max() {
+  clear_has_version_max();
+  if (version_max_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_max_;
+    version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateRsp::set_allocated_version_max(::std::string* version_max) {
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_max_;
+  }
+  if (version_max) {
+    set_has_version_max();
+    version_max_ = version_max;
+  } else {
+    clear_has_version_max();
+    version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.version_max)
+}
+
+// optional string version_download = 12;
+inline bool IMValidateRsp::has_version_download() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void IMValidateRsp::set_has_version_download() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void IMValidateRsp::clear_has_version_download() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void IMValidateRsp::clear_version_download() {
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_->clear();
+  }
+  clear_has_version_download();
+}
+inline const ::std::string& IMValidateRsp::version_download() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateRsp.version_download)
+  return *version_download_;
+}
+inline void IMValidateRsp::set_version_download(const ::std::string& value) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateRsp.version_download)
+}
+inline void IMValidateRsp::set_version_download(const char* value) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateRsp.version_download)
+}
+inline void IMValidateRsp::set_version_download(const char* value, size_t size) {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  version_download_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateRsp.version_download)
+}
+inline ::std::string* IMValidateRsp::mutable_version_download() {
+  set_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_download_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateRsp.version_download)
+  return version_download_;
+}
+inline ::std::string* IMValidateRsp::release_version_download() {
+  clear_has_version_download();
+  if (version_download_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_download_;
+    version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateRsp::set_allocated_version_download(::std::string* version_download) {
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_download_;
+  }
+  if (version_download) {
+    set_has_version_download();
+    version_download_ = version_download;
+  } else {
+    clear_has_version_download();
+    version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.version_download)
+}
+
+// optional string version_filesize = 13;
+inline bool IMValidateRsp::has_version_filesize() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void IMValidateRsp::set_has_version_filesize() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void IMValidateRsp::clear_has_version_filesize() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void IMValidateRsp::clear_version_filesize() {
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_->clear();
+  }
+  clear_has_version_filesize();
+}
+inline const ::std::string& IMValidateRsp::version_filesize() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateRsp.version_filesize)
+  return *version_filesize_;
+}
+inline void IMValidateRsp::set_version_filesize(const ::std::string& value) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateRsp.version_filesize)
+}
+inline void IMValidateRsp::set_version_filesize(const char* value) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMValidateRsp.version_filesize)
+}
+inline void IMValidateRsp::set_version_filesize(const char* value, size_t size) {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  version_filesize_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMValidateRsp.version_filesize)
+}
+inline ::std::string* IMValidateRsp::mutable_version_filesize() {
+  set_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    version_filesize_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMValidateRsp.version_filesize)
+  return version_filesize_;
+}
+inline ::std::string* IMValidateRsp::release_version_filesize() {
+  clear_has_version_filesize();
+  if (version_filesize_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = version_filesize_;
+    version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMValidateRsp::set_allocated_version_filesize(::std::string* version_filesize) {
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_filesize_;
+  }
+  if (version_filesize) {
+    set_has_version_filesize();
+    version_filesize_ = version_filesize;
+  } else {
+    clear_has_version_filesize();
+    version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateRsp.version_filesize)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMValidateRsp::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void IMValidateRsp::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void IMValidateRsp::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline void IMValidateRsp::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -3404,31 +3985,31 @@ inline void IMRoleSet::set_master(::google::protobuf::uint32 value) {
 
 // IMOnlineUserInfo
 
-// repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;
+// repeated .IM.BaseDefine.UserStat user_stat_list = 1;
 inline int IMOnlineUserInfo::user_stat_list_size() const {
   return user_stat_list_.size();
 }
 inline void IMOnlineUserInfo::clear_user_stat_list() {
   user_stat_list_.Clear();
 }
-inline const ::IM::BaseDefine::ServerUserStat& IMOnlineUserInfo::user_stat_list(int index) const {
+inline const ::IM::BaseDefine::UserStat& IMOnlineUserInfo::user_stat_list(int index) const {
   // @@protoc_insertion_point(field_get:IM.Server.IMOnlineUserInfo.user_stat_list)
   return user_stat_list_.Get(index);
 }
-inline ::IM::BaseDefine::ServerUserStat* IMOnlineUserInfo::mutable_user_stat_list(int index) {
+inline ::IM::BaseDefine::UserStat* IMOnlineUserInfo::mutable_user_stat_list(int index) {
   // @@protoc_insertion_point(field_mutable:IM.Server.IMOnlineUserInfo.user_stat_list)
   return user_stat_list_.Mutable(index);
 }
-inline ::IM::BaseDefine::ServerUserStat* IMOnlineUserInfo::add_user_stat_list() {
+inline ::IM::BaseDefine::UserStat* IMOnlineUserInfo::add_user_stat_list() {
   // @@protoc_insertion_point(field_add:IM.Server.IMOnlineUserInfo.user_stat_list)
   return user_stat_list_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::ServerUserStat >&
+inline const ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserStat >&
 IMOnlineUserInfo::user_stat_list() const {
   // @@protoc_insertion_point(field_list:IM.Server.IMOnlineUserInfo.user_stat_list)
   return user_stat_list_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::ServerUserStat >*
+inline ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserStat >*
 IMOnlineUserInfo::mutable_user_stat_list() {
   // @@protoc_insertion_point(field_mutable_list:IM.Server.IMOnlineUserInfo.user_stat_list)
   return &user_stat_list_;
@@ -5150,6 +5731,220 @@ inline ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::IpAddr >*
 IMFileServerIPRsp::mutable_ip_addr_list() {
   // @@protoc_insertion_point(field_mutable_list:IM.Server.IMFileServerIPRsp.ip_addr_list)
   return &ip_addr_list_;
+}
+
+// -------------------------------------------------------------------
+
+// IMGetFriendsidReq
+
+// required uint32 user_id = 1;
+inline bool IMGetFriendsidReq::has_user_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IMGetFriendsidReq::set_has_user_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IMGetFriendsidReq::clear_has_user_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IMGetFriendsidReq::clear_user_id() {
+  user_id_ = 0u;
+  clear_has_user_id();
+}
+inline ::google::protobuf::uint32 IMGetFriendsidReq::user_id() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMGetFriendsidReq.user_id)
+  return user_id_;
+}
+inline void IMGetFriendsidReq::set_user_id(::google::protobuf::uint32 value) {
+  set_has_user_id();
+  user_id_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMGetFriendsidReq.user_id)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMGetFriendsidReq::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IMGetFriendsidReq::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IMGetFriendsidReq::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IMGetFriendsidReq::clear_attach_data() {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_->clear();
+  }
+  clear_has_attach_data();
+}
+inline const ::std::string& IMGetFriendsidReq::attach_data() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMGetFriendsidReq.attach_data)
+  return *attach_data_;
+}
+inline void IMGetFriendsidReq::set_attach_data(const ::std::string& value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMGetFriendsidReq.attach_data)
+}
+inline void IMGetFriendsidReq::set_attach_data(const char* value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMGetFriendsidReq.attach_data)
+}
+inline void IMGetFriendsidReq::set_attach_data(const void* value, size_t size) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMGetFriendsidReq.attach_data)
+}
+inline ::std::string* IMGetFriendsidReq::mutable_attach_data() {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMGetFriendsidReq.attach_data)
+  return attach_data_;
+}
+inline ::std::string* IMGetFriendsidReq::release_attach_data() {
+  clear_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = attach_data_;
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMGetFriendsidReq::set_allocated_attach_data(::std::string* attach_data) {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
+  }
+  if (attach_data) {
+    set_has_attach_data();
+    attach_data_ = attach_data;
+  } else {
+    clear_has_attach_data();
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMGetFriendsidReq.attach_data)
+}
+
+// -------------------------------------------------------------------
+
+// IMGetFriendsidRes
+
+// repeated uint32 friend_id_list = 1;
+inline int IMGetFriendsidRes::friend_id_list_size() const {
+  return friend_id_list_.size();
+}
+inline void IMGetFriendsidRes::clear_friend_id_list() {
+  friend_id_list_.Clear();
+}
+inline ::google::protobuf::uint32 IMGetFriendsidRes::friend_id_list(int index) const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMGetFriendsidRes.friend_id_list)
+  return friend_id_list_.Get(index);
+}
+inline void IMGetFriendsidRes::set_friend_id_list(int index, ::google::protobuf::uint32 value) {
+  friend_id_list_.Set(index, value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMGetFriendsidRes.friend_id_list)
+}
+inline void IMGetFriendsidRes::add_friend_id_list(::google::protobuf::uint32 value) {
+  friend_id_list_.Add(value);
+  // @@protoc_insertion_point(field_add:IM.Server.IMGetFriendsidRes.friend_id_list)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+IMGetFriendsidRes::friend_id_list() const {
+  // @@protoc_insertion_point(field_list:IM.Server.IMGetFriendsidRes.friend_id_list)
+  return friend_id_list_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+IMGetFriendsidRes::mutable_friend_id_list() {
+  // @@protoc_insertion_point(field_mutable_list:IM.Server.IMGetFriendsidRes.friend_id_list)
+  return &friend_id_list_;
+}
+
+// optional bytes attach_data = 20;
+inline bool IMGetFriendsidRes::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IMGetFriendsidRes::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IMGetFriendsidRes::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IMGetFriendsidRes::clear_attach_data() {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_->clear();
+  }
+  clear_has_attach_data();
+}
+inline const ::std::string& IMGetFriendsidRes::attach_data() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMGetFriendsidRes.attach_data)
+  return *attach_data_;
+}
+inline void IMGetFriendsidRes::set_attach_data(const ::std::string& value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMGetFriendsidRes.attach_data)
+}
+inline void IMGetFriendsidRes::set_attach_data(const char* value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMGetFriendsidRes.attach_data)
+}
+inline void IMGetFriendsidRes::set_attach_data(const void* value, size_t size) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMGetFriendsidRes.attach_data)
+}
+inline ::std::string* IMGetFriendsidRes::mutable_attach_data() {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMGetFriendsidRes.attach_data)
+  return attach_data_;
+}
+inline ::std::string* IMGetFriendsidRes::release_attach_data() {
+  clear_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = attach_data_;
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMGetFriendsidRes::set_allocated_attach_data(::std::string* attach_data) {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
+  }
+  if (attach_data) {
+    set_has_attach_data();
+    attach_data_ = attach_data;
+  } else {
+    clear_has_attach_data();
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMGetFriendsidRes.attach_data)
 }
 
 

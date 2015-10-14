@@ -47,23 +47,23 @@ SessionModule_Impl::SessionModule_Impl()
 
 void SessionModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& pbBody)
 {
-	if (IM::BaseDefine::ServiceID::SID_MSG == header.getModuleId())
+	if (IM::BaseDefine::ServiceID::DFFX_SID_MSG == header.getModuleId())
 	{
 		switch (header.getCommandId())
 		{
-		case IM::BaseDefine::MessageCmdID::CID_MSG_DATA:
+		case IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_DATA:
 			_sessionMsgData(pbBody);
 			break;
-		case IM::BaseDefine::MessageCmdID::CID_MSG_DATA_ACK:
+		case IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_DATA_ACK:
 			_sessionMsgACK(header.getSeqNumber(),pbBody);
 			break;
-		case IM::BaseDefine::MessageCmdID::CID_MSG_TIME_RESPONSE:
+		case IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_TIME_RESPONSE:
 			_sessionMsgTimeResponse(pbBody);
 			break;
-		case IM::BaseDefine::MessageCmdID::CID_MSG_UNREAD_CNT_RESPONSE:
+		case IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_UNREAD_CNT_RESPONSE:
 			_sessionMsgUnreadCntResponse(pbBody);
 			break;
-		case IM::BaseDefine::MessageCmdID::CID_MSG_LIST_RESPONSE:
+		case IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_LIST_RESPONSE:
 			if (imcore::RESERVER_TYPE_UNREADER_MESSAGE == header.getSeqNumber())
 			{
 				_sessionUnReadMsgListResponse(pbBody);
@@ -73,7 +73,7 @@ void SessionModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& pbBod
 				_sessionHistoryMsgListResponse(header.getSeqNumber(), pbBody);
 			}
 			break;
-		case IM::BaseDefine::MessageCmdID::CID_MSG_READ_NOTIFY:
+		case IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_READ_NOTIFY:
 			_sessionMsgReadNotify(pbBody);
 			break;
 		default:
@@ -138,8 +138,8 @@ BOOL SessionModule_Impl::_banGroupMSG(IN MessageEntity msg)
 			imMsgDataReadAck.set_session_id(util::stringToInt32(sid));
 			imMsgDataReadAck.set_msg_id(msg.msgId);
 			imMsgDataReadAck.set_session_type(IM::BaseDefine::SessionType::SESSION_TYPE_GROUP);
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_MSG
-				, IM::BaseDefine::MessageCmdID::CID_MSG_READ_ACK
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_MSG
+				, IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_READ_ACK
 				, &imMsgDataReadAck);
 		}
 		);
@@ -279,8 +279,8 @@ void SessionModule_Impl::_sessionMsgData(IN std::string& pbBody)
 				imMsgDataAck.set_session_id(sessionId);
 				imMsgDataAck.set_session_type(IM::BaseDefine::SessionType::SESSION_TYPE_SINGLE);
 				imMsgDataAck.set_msg_id(msg.msgId);
-				module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_MSG
-					, IM::BaseDefine::MessageCmdID::CID_MSG_DATA_ACK
+				module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_MSG
+					, IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_DATA_ACK
 					, &imMsgDataAck);
 			});
 		}
@@ -473,8 +473,8 @@ void SessionModule_Impl::_sessionMsgUnreadCntResponse(IN string& pbBody)
 			}
 			imGetMsgListReq.set_msg_cnt(nUnReadCnt);
 
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_MSG
-				, IM::BaseDefine::MessageCmdID::CID_MSG_LIST_REQUEST,imcore::RESERVER_TYPE_UNREADER_MESSAGE
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_MSG
+				, IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_LIST_REQUEST,imcore::RESERVER_TYPE_UNREADER_MESSAGE
 				, &imGetMsgListReq);
 		}
 		);

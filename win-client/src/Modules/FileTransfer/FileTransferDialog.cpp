@@ -332,8 +332,8 @@ void FileTransferDialog::MKOForFileTransferModuleCallBack(const std::string& key
 			imFileDelOfflineReq.set_from_user_id(util::stringToInt32(FileInfo.sFromID));
 			imFileDelOfflineReq.set_to_user_id(util::stringToInt32(FileInfo.sToID));
 			imFileDelOfflineReq.set_task_id(FileInfo.sTaskID);
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_FILE
-				, IM::BaseDefine::FileCmdID::CID_FILE_DEL_OFFLINE_REQ
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE
+				, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_DEL_OFFLINE_REQ
 				, &imFileDelOfflineReq);
 		}
 		else if (IM::BaseDefine::ClientFileRole::CLIENT_OFFLINE_UPLOAD == FileInfo.nClientMode)
@@ -348,8 +348,8 @@ void FileTransferDialog::MKOForFileTransferModuleCallBack(const std::string& key
 			pIpAddr->set_ip(FileInfo.sIP);
 			pIpAddr->set_port(FileInfo.nPort);
 
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_FILE
-				, IM::BaseDefine::FileCmdID::CID_FILE_ADD_OFFLINE_REQ
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE
+				, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_ADD_OFFLINE_REQ
 				, &imFileAddOfflineReq);
 		}
 		//todo...

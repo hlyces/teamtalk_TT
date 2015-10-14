@@ -90,8 +90,8 @@ void FileTransferSocket::onReceiveData(const char* data, int32_t size)
         pbHeader.unSerialize((byte*)data, imcore::HEADER_LENGTH);
         pbBody.assign(data + imcore::HEADER_LENGTH, size - imcore::HEADER_LENGTH);
 
-        if (IM::BaseDefine::OtherCmdID::CID_OTHER_HEARTBEAT == pbHeader.getCommandId()
-            && IM::BaseDefine::ServiceID::SID_OTHER == pbHeader.getModuleId())
+        if (IM::BaseDefine::OtherCmdID::DFFX_CID_OTHER_HEARTBEAT == pbHeader.getCommandId()
+            && IM::BaseDefine::ServiceID::DFFX_SID_OTHER == pbHeader.getModuleId())
             return;
 	}
 	catch (CPduException e)
@@ -108,16 +108,16 @@ void FileTransferSocket::onReceiveData(const char* data, int32_t size)
     UInt16 ncmdid = pbHeader.getCommandId();
     switch (ncmdid)
 	{	 
-    case IM::BaseDefine::FileCmdID::CID_FILE_LOGIN_RES:
+    case IM::BaseDefine::FileCmdID::DFFX_CID_FILE_LOGIN_RES:
         _fileLoginResponse(pbBody);
 		break;
-    case IM::BaseDefine::FileCmdID::CID_FILE_PULL_DATA_REQ://发文件
+    case IM::BaseDefine::FileCmdID::DFFX_CID_FILE_PULL_DATA_REQ://发文件
         _filePullDataReqResponse(pbBody);
 		break;
-    case IM::BaseDefine::FileCmdID::CID_FILE_PULL_DATA_RSP://收文件
+    case IM::BaseDefine::FileCmdID::DFFX_CID_FILE_PULL_DATA_RSP://收文件
         _filePullDataRspResponse(pbBody);
 		break;
-    case IM::BaseDefine::FileCmdID::CID_FILE_STATE://
+    case IM::BaseDefine::FileCmdID::DFFX_CID_FILE_STATE://
         _fileState(pbBody);
 	default:
 		break;
@@ -146,7 +146,7 @@ void FileTransferSocket::onConnectDone()
     LOG__(APP, _T("IMFileLoginReq,sTaskID:%s,nClientMode:%d"), util::stringToCString(info.sTaskID), info.nClientMode);
 	//send packet
     LOG__(APP, _T("IMFileLoginReq,taskId:%s"), util::stringToCString(info.sTaskID));
-    sendPacket(IM::BaseDefine::ServiceID::SID_FILE, IM::BaseDefine::FileCmdID::CID_FILE_LOGIN_REQ, &imFileLoginReq);
+    sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_LOGIN_REQ, &imFileLoginReq);
 
 	//CImPduClientFileLoginReq pduFileLoginReq(module::getSysConfigModule()->userID().c_str()
 	//	, "", info.sTaskID.c_str(), );
@@ -253,7 +253,7 @@ void FileTransferSocket::_filePullDataReqResponse(IN std::string& body)//发
     imFilePullDataRsp.set_file_data((void*)buff.data(), fileSize);
 
     //send packet
-    sendPacket(IM::BaseDefine::ServiceID::SID_FILE, IM::BaseDefine::FileCmdID::CID_FILE_PULL_DATA_RSP
+    sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_PULL_DATA_RSP
         , &imFilePullDataRsp);
 
 	fileEntity.nProgress = fileOffset + fileSize;
@@ -277,7 +277,7 @@ void FileTransferSocket::_filePullDataReqResponse(IN std::string& body)//发
 		imFileState.set_state(IM::BaseDefine::ClientFileState::CLIENT_FILE_DONE);
 		imFileState.set_task_id(taskId);
 		imFileState.set_user_id(util::stringToInt32(fileEntity.sFromID));
-		sendPacket(IM::BaseDefine::ServiceID::SID_FILE, IM::BaseDefine::FileCmdID::CID_FILE_STATE, &imFileState);
+		sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_STATE, &imFileState);
 
 		module::getFileTransferModule()->asynNotifyObserver(module::KEY_FILESEVER_PROGRESSBAR_FINISHED
             , fileEntity.sTaskID);
@@ -343,7 +343,7 @@ void FileTransferSocket::_filePullDataRspResponse(IN std::string& body)//收
         pullSize > nBlockSize ? imFilePullDataReq.set_data_size(nBlockSize) : imFilePullDataReq.set_data_size(pullSize);
 		
 		// 发包
-        sendPacket(IM::BaseDefine::ServiceID::SID_FILE, IM::BaseDefine::FileCmdID::CID_FILE_PULL_DATA_REQ, &imFilePullDataReq);
+        sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_PULL_DATA_REQ, &imFilePullDataReq);
 	}
 	else//传输完成
 	{
@@ -358,7 +358,7 @@ void FileTransferSocket::_filePullDataRspResponse(IN std::string& body)//收
         imFileState.set_state(IM::BaseDefine::ClientFileState::CLIENT_FILE_DONE);
         imFileState.set_task_id(taskId);
         imFileState.set_user_id(util::stringToInt32(fileEntity.sToID));
-        sendPacket(IM::BaseDefine::ServiceID::SID_FILE, IM::BaseDefine::FileCmdID::CID_FILE_STATE, &imFileState);
+        sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_STATE, &imFileState);
 
 		TransferFileEntityManager::getInstance()->updateFileInfoBysTaskID(fileEntity);
 		module::getFileTransferModule()->asynNotifyObserver(module::KEY_FILESEVER_PROGRESSBAR_FINISHED, fileEntity.sTaskID);
@@ -444,8 +444,8 @@ void PingFileSevTimer::process()
 		[=]()
 	{
         IM::Other::IMHeartBeat imHearBeat;
-        m_pFileTransSocket->sendPacket(IM::BaseDefine::ServiceID::SID_OTHER
-            , IM::BaseDefine::OtherCmdID::CID_OTHER_HEARTBEAT, &imHearBeat);
+        m_pFileTransSocket->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_OTHER
+            , IM::BaseDefine::OtherCmdID::DFFX_CID_OTHER_HEARTBEAT, &imHearBeat);
 	}
 		);
 }

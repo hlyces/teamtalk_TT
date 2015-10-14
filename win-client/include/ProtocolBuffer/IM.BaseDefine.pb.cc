@@ -166,8 +166,6 @@ bool BuddyListCmdID_IsValid(int value) {
     case 549:
     case 550:
     case 551:
-    case 552:
-    case 553:
       return true;
     default:
       return false;
@@ -249,26 +247,54 @@ bool SwitchServiceCmdID_IsValid(int value) {
 bool OtherCmdID_IsValid(int value) {
   switch(value) {
     case 1793:
-    case 1794:
-    case 1795:
-    case 1796:
-    case 1797:
-    case 1798:
-    case 1799:
-    case 1800:
-    case 1801:
-    case 1802:
-    case 1803:
-    case 1805:
-    case 1806:
-    case 1807:
-    case 1808:
-    case 1809:
-    case 1810:
-    case 1841:
-    case 1842:
-    case 1843:
-    case 1844:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool InternalCmdId_IsValid(int value) {
+  switch(value) {
+    case 2050:
+    case 2051:
+    case 2052:
+    case 2053:
+    case 2054:
+    case 2055:
+    case 2056:
+    case 2057:
+    case 2058:
+    case 2059:
+    case 2061:
+    case 2062:
+    case 2063:
+    case 2064:
+    case 2065:
+    case 2066:
+    case 2067:
+    case 2068:
+    case 2069:
+    case 2070:
+    case 2071:
+    case 2072:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool OrderMsgStatus_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
       return true;
     default:
       return false;
@@ -340,6 +366,10 @@ bool MsgType_IsValid(int value) {
     case 33:
     case 34:
     case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
     case 49:
     case 50:
       return true;
@@ -719,6 +749,7 @@ const int UserInfo::kFriendRemarkFieldNumber;
 const int UserInfo::kFriendStatusFieldNumber;
 const int UserInfo::kUserTypeFieldNumber;
 const int UserInfo::kUserIscheckFieldNumber;
+const int UserInfo::kUserDescFieldNumber;
 #endif  // !_MSC_VER
 
 UserInfo::UserInfo()
@@ -754,6 +785,7 @@ void UserInfo::SharedCtor() {
   friend_status_ = 0u;
   user_type_ = 0u;
   user_ischeck_ = 0u;
+  user_desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -777,6 +809,9 @@ void UserInfo::SharedDtor() {
   }
   if (friend_remark_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete friend_remark_;
+  }
+  if (user_desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_desc_;
   }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -837,8 +872,8 @@ void UserInfo::Clear() {
     }
     user_uid_ = 0u;
   }
-  if (_has_bits_[8 / 32] & 16128) {
-    ZR_(friend_status_, user_ischeck_);
+  if (_has_bits_[8 / 32] & 32512) {
+    ZR_(friend_status_, user_type_);
     if (has_user_phone()) {
       if (user_phone_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_phone_->clear();
@@ -848,6 +883,12 @@ void UserInfo::Clear() {
     if (has_friend_remark()) {
       if (friend_remark_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         friend_remark_->clear();
+      }
+    }
+    user_ischeck_ = 0u;
+    if (has_user_desc()) {
+      if (user_desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        user_desc_->clear();
       }
     }
   }
@@ -1068,6 +1109,19 @@ bool UserInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(122)) goto parse_user_desc;
+        break;
+      }
+
+      // optional string user_desc = 15;
+      case 15: {
+        if (tag == 122) {
+         parse_user_desc:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_desc()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1170,6 +1224,12 @@ void UserInfo::SerializeWithCachedSizes(
   // optional uint32 user_ischeck = 14;
   if (has_user_ischeck()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(14, this->user_ischeck(), output);
+  }
+
+  // optional string user_desc = 15;
+  if (has_user_desc()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      15, this->user_desc(), output);
   }
 
   output->WriteRaw(unknown_fields().data(),
@@ -1281,6 +1341,13 @@ int UserInfo::ByteSize() const {
           this->user_ischeck());
     }
 
+    // optional string user_desc = 15;
+    if (has_user_desc()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_desc());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -1342,6 +1409,9 @@ void UserInfo::MergeFrom(const UserInfo& from) {
     if (from.has_user_ischeck()) {
       set_user_ischeck(from.user_ischeck());
     }
+    if (from.has_user_desc()) {
+      set_user_desc(from.user_desc());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -1374,6 +1444,7 @@ void UserInfo::Swap(UserInfo* other) {
     std::swap(friend_status_, other->friend_status_);
     std::swap(user_type_, other->user_type_);
     std::swap(user_ischeck_, other->user_ischeck_);
+    std::swap(user_desc_, other->user_desc_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -1860,6 +1931,7 @@ void ContactSessionInfo::Swap(ContactSessionInfo* other) {
 #ifndef _MSC_VER
 const int UserStat::kUserIdFieldNumber;
 const int UserStat::kStatusFieldNumber;
+const int UserStat::kClientTypeFieldNumber;
 #endif  // !_MSC_VER
 
 UserStat::UserStat()
@@ -1882,6 +1954,7 @@ void UserStat::SharedCtor() {
   _cached_size_ = 0;
   user_id_ = 0u;
   status_ = 1;
+  client_type_ = 1;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1920,9 +1993,10 @@ UserStat* UserStat::New() const {
 }
 
 void UserStat::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
+  if (_has_bits_[0 / 32] & 7) {
     user_id_ = 0u;
     status_ = 1;
+    client_type_ = 1;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->clear();
@@ -1973,6 +2047,27 @@ bool UserStat::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(24)) goto parse_client_type;
+        break;
+      }
+
+      // optional .IM.BaseDefine.ClientType client_type = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_client_type:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::IM::BaseDefine::ClientType_IsValid(value)) {
+            set_client_type(static_cast< ::IM::BaseDefine::ClientType >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2013,6 +2108,12 @@ void UserStat::SerializeWithCachedSizes(
       2, this->status(), output);
   }
 
+  // optional .IM.BaseDefine.ClientType client_type = 3;
+  if (has_client_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->client_type(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:IM.BaseDefine.UserStat)
@@ -2033,6 +2134,12 @@ int UserStat::ByteSize() const {
     if (has_status()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
+    }
+
+    // optional .IM.BaseDefine.ClientType client_type = 3;
+    if (has_client_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->client_type());
     }
 
   }
@@ -2058,6 +2165,9 @@ void UserStat::MergeFrom(const UserStat& from) {
     if (from.has_status()) {
       set_status(from.status());
     }
+    if (from.has_client_type()) {
+      set_client_type(from.client_type());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2078,6 +2188,7 @@ void UserStat::Swap(UserStat* other) {
   if (other != this) {
     std::swap(user_id_, other->user_id_);
     std::swap(status_, other->status_);
+    std::swap(client_type_, other->client_type_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

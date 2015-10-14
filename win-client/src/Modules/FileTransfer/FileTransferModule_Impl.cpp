@@ -55,13 +55,13 @@ void FileTransferModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& 
 {
 	switch (header.getCommandId())
 	{
-	case IM::BaseDefine::FileCmdID::CID_FILE_RESPONSE://发送“文件请求/离线文件”-返回
+	case IM::BaseDefine::FileCmdID::DFFX_CID_FILE_RESPONSE://发送“文件请求/离线文件”-返回
 		_sendfileResponse(pbBody);
 		break;
-	case IM::BaseDefine::FileCmdID::CID_FILE_NOTIFY://收到“发送文件请求”
+	case IM::BaseDefine::FileCmdID::DFFX_CID_FILE_NOTIFY://收到“发送文件请求”
 		_fileNotify(pbBody);
 		break;
-	case IM::BaseDefine::FileCmdID::CID_FILE_HAS_OFFLINE_RES:
+	case IM::BaseDefine::FileCmdID::DFFX_CID_FILE_HAS_OFFLINE_RES:
 		_hasOfflineRes(pbBody);
 		break;
 	default:
@@ -136,8 +136,8 @@ BOOL FileTransferModule_Impl::sendFile(IN const CString& sFilePath, IN const std
 			imFileReq.set_file_size(fileEntity.nFileSize);
 			imFileReq.set_trans_mode(static_cast<IM::BaseDefine::FileType>(transMode));
 
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_FILE
-				, IM::BaseDefine::FileCmdID::CID_FILE_REQUEST
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE
+				, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_REQUEST
 				, &imFileReq);
 		});
 		
@@ -279,8 +279,8 @@ BOOL FileTransferModule_Impl::acceptFileTransfer(IN const std::string& sTaskId, 
 					imFileDelOfflineReq.set_from_user_id(util::stringToInt32(FileInfo.sFromID));
 					imFileDelOfflineReq.set_to_user_id(util::stringToInt32(FileInfo.sToID));
 					imFileDelOfflineReq.set_task_id(FileInfo.sTaskID);
-					module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_FILE
-						, IM::BaseDefine::FileCmdID::CID_FILE_DEL_OFFLINE_REQ
+					module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE
+						, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_DEL_OFFLINE_REQ
 						, &imFileDelOfflineReq);
 				});
 			}

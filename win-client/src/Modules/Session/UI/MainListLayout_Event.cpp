@@ -62,8 +62,8 @@ void MainListLayout::MKOForUserlistModuleCallback(const std::string& keyId, MKO_
 			LOG__(APP, _T("IMUnreadMsgCntReq"));
 			IM::Message::IMUnreadMsgCntReq imUnreadMsgCntReq;
 			imUnreadMsgCntReq.set_user_id(module::getSysConfigModule()->userId());
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_MSG
-				,IM::BaseDefine::MessageCmdID::CID_MSG_UNREAD_CNT_REQUEST
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_MSG
+				,IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_UNREAD_CNT_REQUEST
 				,&imUnreadMsgCntReq);
 		});
 
@@ -74,8 +74,8 @@ void MainListLayout::MKOForUserlistModuleCallback(const std::string& keyId, MKO_
             LOG__(APP, _T("IMFileHasOfflineReq"));
             IM::File::IMFileHasOfflineReq imFileHasOfflineReq;
             imFileHasOfflineReq.set_user_id(module::getSysConfigModule()->userId());
-            module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_FILE
-                , IM::BaseDefine::FileCmdID::CID_FILE_HAS_OFFLINE_REQ
+            module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE
+                , IM::BaseDefine::FileCmdID::DFFX_CID_FILE_HAS_OFFLINE_REQ
                 , &imFileHasOfflineReq);//获取个人会话离线文件
         });
 	}

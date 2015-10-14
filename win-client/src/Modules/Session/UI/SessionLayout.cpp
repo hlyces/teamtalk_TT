@@ -218,7 +218,7 @@ void SessionLayout::_AsynSendReadAck(IN MessageEntity& msg)
 		imMsgDataReadAck.set_session_id(util::stringToInt32(OriginSessionId));
 		imMsgDataReadAck.set_msg_id(msg.msgId);
 		imMsgDataReadAck.set_session_type(static_cast<IM::BaseDefine::SessionType>(msg.msgSessionType));
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::SID_MSG, IM::BaseDefine::CID_MSG_READ_ACK, &imMsgDataReadAck);
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::DFFX_SID_MSG, IM::BaseDefine::DFFX_CID_MSG_READ_ACK, &imMsgDataReadAck);
     },0, imcore::OPERATION_NAME_MSG_READ_ACK
 	);
 }

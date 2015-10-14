@@ -230,8 +230,8 @@ void CreateDiscussionGrpDialog::OnClick(TNotifyUI& msg)
 			{
 				imGroupCreateReq.add_member_id_list(util::stringToInt32(sid));
 			}
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-				, IM::BaseDefine::GroupCmdID::CID_GROUP_CREATE_REQUEST
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+				, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_CREATE_REQUEST
 				, &imGroupCreateReq);
 		}
 		);

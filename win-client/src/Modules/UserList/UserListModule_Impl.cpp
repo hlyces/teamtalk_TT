@@ -43,40 +43,40 @@ void UserListModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& pbBo
 {
 	switch (header.getCommandId())
 	{
-	case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE:
+	case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE:
 		_recentlistResponse(pbBody);
 		break;
-	case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_STATUS_NOTIFY:
+	case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_STATUS_NOTIFY:
 		_userStatusNotify(pbBody);
 		break;
-	case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_USER_INFO_RESPONSE:
+	case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_USER_INFO_RESPONSE:
 		_usersInfoResponse(pbBody);
 		break;
-	case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_REMOVE_SESSION_RES:
+	case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_REMOVE_SESSION_RES:
 		_removeSessionResponse(pbBody);
 		break;
-	case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_ALL_USER_RESPONSE:
+	case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_ALL_USER_RESPONSE:
 		_allUserlistResponse(pbBody);
 		break;
-	case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_USERS_STATUS_RESPONSE:
+	case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_USERS_STATUS_RESPONSE:
 		_usersLineStatusResponse(pbBody);
 		break;
-	case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE:
+	case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE:
 		_changeAvatarResponse(pbBody);
 		break;
-	case  IM::BaseDefine::CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY:
+	case  IM::BaseDefine::DFFX_CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY:
 		_removeSessionNotify(pbBody);
 		break;
-	case IM::BaseDefine::CID_BUDDY_LIST_DEPARTMENT_RESPONSE:
+	case IM::BaseDefine::DFFX_CID_BUDDY_LIST_DEPARTMENT_RESPONSE:
 		_departmentResponse(pbBody);
 		break;
-//     case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY:
+//     case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY:
 //         _avatarChangeNotify(pbBody);
 //         break;
-//     case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE:
+//     case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE:
 //         _changeSignInfoResponse(pbBody);
 //         break;
-//     case IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY:
+//     case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY:
 //         _signInfoChangedNotify(pbBody);
 //         break;
 	default:
@@ -432,8 +432,8 @@ void UserListModule_Impl::tcpGetUserOnlieStatus(IN const std::string& sId)
 		IM::Buddy::IMUsersStatReq imUsersStatReq;
 		imUsersStatReq.set_user_id(module::getSysConfigModule()->userId());
 		imUsersStatReq.add_user_id_list(userId);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_BUDDY_LIST
-			, IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_USERS_STATUS_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_BUDDY_LIST
+			, IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_USERS_STATUS_REQUEST
 			, &imUsersStatReq);
 	}
 	);
@@ -450,8 +450,8 @@ void UserListModule_Impl::_tcpGetUserOnlieStatus(const module::UserInfoEntityVec
 			imUsersStatReq.add_user_id_list(userId);
 		}
 		imUsersStatReq.set_user_id(module::getSysConfigModule()->userId());
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_BUDDY_LIST
-			, IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_USERS_STATUS_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_BUDDY_LIST
+			, IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_USERS_STATUS_REQUEST
 			, &imUsersStatReq);
 	}
 	);
@@ -573,8 +573,8 @@ void UserListModule_Impl::_tcpGetUserInfoList(IN module::UserInfoEntityVec VecUn
 			imUsersInfoReq.add_user_id_list(userID);
 		}
 
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_BUDDY_LIST
-			, IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_USER_INFO_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_BUDDY_LIST
+			, IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_USER_INFO_REQUEST
 			, &imUsersInfoReq);
 	}
 	);
@@ -929,8 +929,8 @@ void UserListModule_Impl::tcpChangeMySignInfo(IN const std::string sSignInfo)
 //         imChangeSignInfoReq.set_sign_info(sSignInfo);
 // 
 //         LOG__(APP, _T("IMChangeSignInfoReq:%s"), util::stringToCString(sSignInfo));
-//         module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_BUDDY_LIST
-//             , IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST
+//         module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_BUDDY_LIST
+//             , IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST
 //             , &imChangeSignInfoReq);
 //     }
 //     );

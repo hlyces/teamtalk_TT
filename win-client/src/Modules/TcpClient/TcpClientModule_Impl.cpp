@@ -36,22 +36,22 @@ namespace
 		module::IPduPacketParse* pRet = 0;
 		switch (moduleId)
 		{
-		case IM::BaseDefine::SID_LOGIN:
+		case IM::BaseDefine::DFFX_SID_LOGIN:
 			pRet = module::getLoginModule();
 			break;
-		case IM::BaseDefine::SID_BUDDY_LIST:
+		case IM::BaseDefine::DFFX_SID_BUDDY_LIST:
 			pRet = module::getUserListModule();
 			break;
-		case IM::BaseDefine::SID_MSG:
+		case IM::BaseDefine::DFFX_SID_MSG:
 			pRet = module::getSessionModule();
 			break;
-		case IM::BaseDefine::SID_SWITCH_SERVICE:
+		case IM::BaseDefine::DFFX_SID_SWITCH_SERVICE:
 			pRet = module::getP2PCmdModule();
 			break;
-		case IM::BaseDefine::SID_GROUP:
+		case IM::BaseDefine::DFFX_SID_GROUP:
 			pRet = module::getGroupListModule();
 			break;
-        case IM::BaseDefine::SID_FILE: //文件传输
+        case IM::BaseDefine::DFFX_SID_FILE: //文件传输
             pRet = module::getFileTransferModule();
             break;
 		default:
@@ -106,7 +106,7 @@ void TcpClientModule_Impl::onReceiveData(const char* data, int32_t size)
 
 	imcore::TTPBHeader header;
 	header.unSerialize((byte*)data, imcore::HEADER_LENGTH);	
-	if (IM::BaseDefine::CID_OTHER_HEARTBEAT == header.getCommandId() && IM::BaseDefine::SID_OTHER == header.getModuleId())
+	if (IM::BaseDefine::DFFX_CID_OTHER_HEARTBEAT == header.getCommandId() && IM::BaseDefine::DFFX_SID_OTHER == header.getModuleId())
 	{
 		//模块器端过来的心跳包，不跳到业务层派发
 		return;
@@ -160,7 +160,7 @@ IM::Login::IMLoginRes* TcpClientModule_Impl::doLogin(CString &linkaddr, UInt16 p
 		if (TCPCLIENT_STATE_OK != m_tcpClientState)
 			return 0;
 
-		sendPacket(IM::BaseDefine::SID_LOGIN, IM::BaseDefine::CID_LOGIN_REQ_USERLOGIN, ++g_seqNum
+		sendPacket(IM::BaseDefine::DFFX_SID_LOGIN, IM::BaseDefine::DFFX_CID_LOGIN_REQ_USERLOGIN, ++g_seqNum
 			, &imLoginReq);
 		m_pImLoginResp->Clear();
 		util::waitSingleObject(m_eventReceived, 10000);
@@ -228,7 +228,7 @@ void TcpClientModule_Impl::startHeartbeat()
 			[=]()
 		{
 			IM::Other::IMHeartBeat imHearBeat;
-			sendPacket(IM::BaseDefine::SID_OTHER, IM::BaseDefine::CID_OTHER_HEARTBEAT, &imHearBeat);
+			sendPacket(IM::BaseDefine::DFFX_SID_OTHER, IM::BaseDefine::DFFX_CID_OTHER_HEARTBEAT, &imHearBeat);
 		}
 		);
 	}

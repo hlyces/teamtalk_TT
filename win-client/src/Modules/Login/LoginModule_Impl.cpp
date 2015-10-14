@@ -72,8 +72,8 @@ void LoginModule_Impl::notifyLoginDone()
 		IM::Buddy::IMDepartmentReq imDepartmentReq;
 		imDepartmentReq.set_user_id(module::getSysConfigModule()->userId());
 		imDepartmentReq.set_latest_update_time(lastTime);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_BUDDY_LIST
-			, IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_DEPARTMENT_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_BUDDY_LIST
+			, IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_DEPARTMENT_REQUEST
 			, &imDepartmentReq);
 		LOG__(APP, _T("IMDepartmentReq,latest update time :%d"), lastTime);
 
@@ -82,16 +82,16 @@ void LoginModule_Impl::notifyLoginDone()
 		IM::Buddy::IMAllUserReq imAllUserReq;
 		imAllUserReq.set_user_id(module::getSysConfigModule()->userId());
 		imAllUserReq.set_latest_update_time(lastTime);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_BUDDY_LIST
-			, IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_ALL_USER_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_BUDDY_LIST
+			, IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_ALL_USER_REQUEST
 			,&imAllUserReq);
 		LOG__(APP, _T("IMAllUserReq,latest update time :%d"), lastTime);
 
 		//增量获取群列表
 		IM::Group::IMNormalGroupListReq imNormalGroupListReq;
 		imNormalGroupListReq.set_user_id(module::getSysConfigModule()->userId());
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-			, IM::BaseDefine::GroupCmdID::CID_GROUP_NORMAL_LIST_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+			, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_NORMAL_LIST_REQUEST
 			, &imNormalGroupListReq);
 		LOG__(APP, _T("IMNormalGroupListReq"));
 	});
@@ -100,7 +100,7 @@ void LoginModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& pbBody)
 {
 	switch (header.getCommandId())
 	{
-	case IM::BaseDefine::LoginCmdID::CID_LOGIN_KICK_USER:
+	case IM::BaseDefine::LoginCmdID::DFFX_CID_LOGIN_KICK_USER:
 		_kickUserResponse(pbBody);
 		break;
 	default:

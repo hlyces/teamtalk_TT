@@ -49,181 +49,205 @@ class OfflineFileInfo;
 class DepartInfo;
 
 enum ServiceID {
-  SID_LOGIN = 1,
-  SID_BUDDY_LIST = 2,
-  SID_MSG = 3,
-  SID_GROUP = 4,
-  SID_FILE = 5,
-  SID_SWITCH_SERVICE = 6,
-  SID_OTHER = 7,
-  SID_INTERNAL = 8
+  DFFX_SID_LOGIN = 1,
+  DFFX_SID_BUDDY_LIST = 2,
+  DFFX_SID_MSG = 3,
+  DFFX_SID_GROUP = 4,
+  DFFX_SID_FILE = 5,
+  DFFX_SID_SWITCH_SERVICE = 6,
+  DFFX_SID_OTHER = 7,
+  DFFX_SID_INTERNAL = 8
 };
 bool ServiceID_IsValid(int value);
-const ServiceID ServiceID_MIN = SID_LOGIN;
-const ServiceID ServiceID_MAX = SID_INTERNAL;
+const ServiceID ServiceID_MIN = DFFX_SID_LOGIN;
+const ServiceID ServiceID_MAX = DFFX_SID_INTERNAL;
 const int ServiceID_ARRAYSIZE = ServiceID_MAX + 1;
 
 enum LoginCmdID {
-  CID_LOGIN_REQ_MSGSERVER = 257,
-  CID_LOGIN_RES_MSGSERVER = 258,
-  CID_LOGIN_REQ_USERLOGIN = 259,
-  CID_LOGIN_RES_USERLOGIN = 260,
-  CID_LOGIN_REQ_LOGINOUT = 261,
-  CID_LOGIN_RES_LOGINOUT = 262,
-  CID_LOGIN_KICK_USER = 263,
-  CID_LOGIN_REQ_DEVICETOKEN = 264,
-  CID_LOGIN_RES_DEVICETOKEN = 265,
-  CID_LOGIN_REQ_KICKPCCLIENT = 266,
-  CID_LOGIN_RES_KICKPCCLIENT = 267
+  DFFX_CID_LOGIN_REQ_MSGSERVER = 257,
+  DFFX_CID_LOGIN_RES_MSGSERVER = 258,
+  DFFX_CID_LOGIN_REQ_USERLOGIN = 259,
+  DFFX_CID_LOGIN_RES_USERLOGIN = 260,
+  DFFX_CID_LOGIN_REQ_LOGINOUT = 261,
+  DFFX_CID_LOGIN_RES_LOGINOUT = 262,
+  DFFX_CID_LOGIN_KICK_USER = 263,
+  DFFX_CID_LOGIN_REQ_DEVICETOKEN = 264,
+  DFFX_CID_LOGIN_RES_DEVICETOKEN = 265,
+  DFFX_CID_LOGIN_REQ_KICKPCCLIENT = 266,
+  DFFX_CID_LOGIN_RES_KICKPCCLIENT = 267
 };
 bool LoginCmdID_IsValid(int value);
-const LoginCmdID LoginCmdID_MIN = CID_LOGIN_REQ_MSGSERVER;
-const LoginCmdID LoginCmdID_MAX = CID_LOGIN_RES_KICKPCCLIENT;
+const LoginCmdID LoginCmdID_MIN = DFFX_CID_LOGIN_REQ_MSGSERVER;
+const LoginCmdID LoginCmdID_MAX = DFFX_CID_LOGIN_RES_KICKPCCLIENT;
 const int LoginCmdID_ARRAYSIZE = LoginCmdID_MAX + 1;
 
 enum BuddyListCmdID {
-  CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST = 513,
-  CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE = 514,
-  CID_BUDDY_LIST_STATUS_NOTIFY = 515,
-  CID_BUDDY_LIST_USER_INFO_REQUEST = 516,
-  CID_BUDDY_LIST_USER_INFO_RESPONSE = 517,
-  CID_BUDDY_LIST_REMOVE_SESSION_REQ = 518,
-  CID_BUDDY_LIST_REMOVE_SESSION_RES = 519,
-  CID_BUDDY_LIST_ALL_USER_REQUEST = 520,
-  CID_BUDDY_LIST_ALL_USER_RESPONSE = 521,
-  CID_BUDDY_LIST_USERS_STATUS_REQUEST = 522,
-  CID_BUDDY_LIST_USERS_STATUS_RESPONSE = 523,
-  CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST = 524,
-  CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE = 525,
-  CID_BUDDY_LIST_PC_LOGIN_STATUS_NOTIFY = 526,
-  CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY = 527,
-  CID_BUDDY_LIST_DEPARTMENT_REQUEST = 528,
-  CID_BUDDY_LIST_DEPARTMENT_RESPONSE = 529,
-  CID_BUDDY_LIST_ADDFRIEND_REQ = 530,
-  CID_BUDDY_LIST_ADDFRIEND_RES = 531,
-  CID_BUDDY_LIST_REVERSEADDFRIEND_REQ = 532,
-  CID_BUDDY_LIST_REVERSEADDFRIEND_RES = 533,
-  CID_BUDDY_LIST_DELFRIEND_REQ = 534,
-  CID_BUDDY_LIST_DELFRIEND_RES = 535,
-  CID_BUDDY_LIST_CHGFRIENDREMARK_REQ = 536,
-  CID_BUDDY_LIST_CHGFRIENDREMARK_RES = 537,
-  CID_BUDDY_LIST_CREATEFRIENDGROUP_REQ = 538,
-  CID_BUDDY_LIST_CREATEFRIENDGROUP_RES = 539,
-  CID_BUDDY_LIST_DELFRIENDGROUP_REQ = 540,
-  CID_BUDDY_LIST_DELFRIENDGROUP_RES = 541,
-  CID_BUDDY_LIST_MOVEFRIENDTOGROUP_REQ = 542,
-  CID_BUDDY_LIST_MOVEFRIENDTOGROUP_RES = 543,
-  CID_BUDDY_LIST_CHGFRIENDGROUPNAME_REQ = 544,
-  CID_BUDDY_LIST_CHGFRIENDGROUPNAME_RES = 545,
-  CID_BUDDY_LIST_FRIENDNOTIFY_REQ = 546,
-  CID_BUDDY_LIST_FRIENDNOTIFY_RES = 547,
-  CID_BUDDY_LIST_GETADDFRIEND_REQ = 548,
-  CID_BUDDY_LIST_GETADDFRIEND_RES = 549,
-  CID_BUDDY_LIST_FINDUSERINFO_REQ = 550,
-  CID_BUDDY_LIST_FINDUSERINFO_RES = 551,
-  CID_BUDDY_LIST_GETFRIENDSID_REQ = 552,
-  CID_BUDDY_LIST_GETFRIENDSID_RES = 553
+  DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST = 513,
+  DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE = 514,
+  DFFX_CID_BUDDY_LIST_STATUS_NOTIFY = 515,
+  DFFX_CID_BUDDY_LIST_USER_INFO_REQUEST = 516,
+  DFFX_CID_BUDDY_LIST_USER_INFO_RESPONSE = 517,
+  DFFX_CID_BUDDY_LIST_REMOVE_SESSION_REQ = 518,
+  DFFX_CID_BUDDY_LIST_REMOVE_SESSION_RES = 519,
+  DFFX_CID_BUDDY_LIST_ALL_USER_REQUEST = 520,
+  DFFX_CID_BUDDY_LIST_ALL_USER_RESPONSE = 521,
+  DFFX_CID_BUDDY_LIST_USERS_STATUS_REQUEST = 522,
+  DFFX_CID_BUDDY_LIST_USERS_STATUS_RESPONSE = 523,
+  DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST = 524,
+  DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE = 525,
+  DFFX_CID_BUDDY_LIST_PC_LOGIN_STATUS_NOTIFY = 526,
+  DFFX_CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY = 527,
+  DFFX_CID_BUDDY_LIST_DEPARTMENT_REQUEST = 528,
+  DFFX_CID_BUDDY_LIST_DEPARTMENT_RESPONSE = 529,
+  DFFX_CID_BUDDY_LIST_ADDFRIEND_REQ = 530,
+  DFFX_CID_BUDDY_LIST_ADDFRIEND_RES = 531,
+  DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_REQ = 532,
+  DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_RES = 533,
+  DFFX_CID_BUDDY_LIST_DELFRIEND_REQ = 534,
+  DFFX_CID_BUDDY_LIST_DELFRIEND_RES = 535,
+  DFFX_CID_BUDDY_LIST_CHGFRIENDREMARK_REQ = 536,
+  DFFX_CID_BUDDY_LIST_CHGFRIENDREMARK_RES = 537,
+  DFFX_CID_BUDDY_LIST_CREATEFRIENDGROUP_REQ = 538,
+  DFFX_CID_BUDDY_LIST_CREATEFRIENDGROUP_RES = 539,
+  DFFX_CID_BUDDY_LIST_DELFRIENDGROUP_REQ = 540,
+  DFFX_CID_BUDDY_LIST_DELFRIENDGROUP_RES = 541,
+  DFFX_CID_BUDDY_LIST_MOVEFRIENDTOGROUP_REQ = 542,
+  DFFX_CID_BUDDY_LIST_MOVEFRIENDTOGROUP_RES = 543,
+  DFFX_CID_BUDDY_LIST_CHGFRIENDGROUPNAME_REQ = 544,
+  DFFX_CID_BUDDY_LIST_CHGFRIENDGROUPNAME_RES = 545,
+  DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_REQ = 546,
+  DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_RES = 547,
+  DFFX_CID_BUDDY_LIST_GETADDFRIEND_REQ = 548,
+  DFFX_CID_BUDDY_LIST_GETADDFRIEND_RES = 549,
+  DFFX_CID_BUDDY_LIST_FINDUSERINFO_REQ = 550,
+  DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES = 551
 };
 bool BuddyListCmdID_IsValid(int value);
-const BuddyListCmdID BuddyListCmdID_MIN = CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST;
-const BuddyListCmdID BuddyListCmdID_MAX = CID_BUDDY_LIST_GETFRIENDSID_RES;
+const BuddyListCmdID BuddyListCmdID_MIN = DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST;
+const BuddyListCmdID BuddyListCmdID_MAX = DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES;
 const int BuddyListCmdID_ARRAYSIZE = BuddyListCmdID_MAX + 1;
 
 enum MessageCmdID {
-  CID_MSG_DATA = 769,
-  CID_MSG_DATA_ACK = 770,
-  CID_MSG_READ_ACK = 771,
-  CID_MSG_READ_NOTIFY = 772,
-  CID_MSG_TIME_REQUEST = 773,
-  CID_MSG_TIME_RESPONSE = 774,
-  CID_MSG_UNREAD_CNT_REQUEST = 775,
-  CID_MSG_UNREAD_CNT_RESPONSE = 776,
-  CID_MSG_LIST_REQUEST = 777,
-  CID_MSG_LIST_RESPONSE = 778,
-  CID_MSG_GET_LATEST_MSG_ID_REQ = 779,
-  CID_MSG_GET_LATEST_MSG_ID_RSP = 780,
-  CID_MSG_GET_BY_MSG_ID_REQ = 781,
-  CID_MSG_GET_BY_MSG_ID_RES = 782,
-  CID_MSG_CLEAN_MSGLIST_REQ = 783,
-  CID_MSG_CLEAN_MSGLIST_RES = 784
+  DFFX_CID_MSG_DATA = 769,
+  DFFX_CID_MSG_DATA_ACK = 770,
+  DFFX_CID_MSG_READ_ACK = 771,
+  DFFX_CID_MSG_READ_NOTIFY = 772,
+  DFFX_CID_MSG_TIME_REQUEST = 773,
+  DFFX_CID_MSG_TIME_RESPONSE = 774,
+  DFFX_CID_MSG_UNREAD_CNT_REQUEST = 775,
+  DFFX_CID_MSG_UNREAD_CNT_RESPONSE = 776,
+  DFFX_CID_MSG_LIST_REQUEST = 777,
+  DFFX_CID_MSG_LIST_RESPONSE = 778,
+  DFFX_CID_MSG_GET_LATEST_MSG_ID_REQ = 779,
+  DFFX_CID_MSG_GET_LATEST_MSG_ID_RSP = 780,
+  DFFX_CID_MSG_GET_BY_MSG_ID_REQ = 781,
+  DFFX_CID_MSG_GET_BY_MSG_ID_RES = 782,
+  DFFX_CID_MSG_CLEAN_MSGLIST_REQ = 783,
+  DFFX_CID_MSG_CLEAN_MSGLIST_RES = 784
 };
 bool MessageCmdID_IsValid(int value);
-const MessageCmdID MessageCmdID_MIN = CID_MSG_DATA;
-const MessageCmdID MessageCmdID_MAX = CID_MSG_CLEAN_MSGLIST_RES;
+const MessageCmdID MessageCmdID_MIN = DFFX_CID_MSG_DATA;
+const MessageCmdID MessageCmdID_MAX = DFFX_CID_MSG_CLEAN_MSGLIST_RES;
 const int MessageCmdID_ARRAYSIZE = MessageCmdID_MAX + 1;
 
 enum GroupCmdID {
-  CID_GROUP_NORMAL_LIST_REQUEST = 1025,
-  CID_GROUP_NORMAL_LIST_RESPONSE = 1026,
-  CID_GROUP_INFO_REQUEST = 1027,
-  CID_GROUP_INFO_RESPONSE = 1028,
-  CID_GROUP_CREATE_REQUEST = 1029,
-  CID_GROUP_CREATE_RESPONSE = 1030,
-  CID_GROUP_CHANGE_MEMBER_REQUEST = 1031,
-  CID_GROUP_CHANGE_MEMBER_RESPONSE = 1032,
-  CID_GROUP_SHIELD_GROUP_REQUEST = 1033,
-  CID_GROUP_SHIELD_GROUP_RESPONSE = 1034,
-  CID_GROUP_CHANGE_MEMBER_NOTIFY = 1035
+  DFFX_CID_GROUP_NORMAL_LIST_REQUEST = 1025,
+  DFFX_CID_GROUP_NORMAL_LIST_RESPONSE = 1026,
+  DFFX_CID_GROUP_INFO_REQUEST = 1027,
+  DFFX_CID_GROUP_INFO_RESPONSE = 1028,
+  DFFX_CID_GROUP_CREATE_REQUEST = 1029,
+  DFFX_CID_GROUP_CREATE_RESPONSE = 1030,
+  DFFX_CID_GROUP_CHANGE_MEMBER_REQUEST = 1031,
+  DFFX_CID_GROUP_CHANGE_MEMBER_RESPONSE = 1032,
+  DFFX_CID_GROUP_SHIELD_GROUP_REQUEST = 1033,
+  DFFX_CID_GROUP_SHIELD_GROUP_RESPONSE = 1034,
+  DFFX_CID_GROUP_CHANGE_MEMBER_NOTIFY = 1035
 };
 bool GroupCmdID_IsValid(int value);
-const GroupCmdID GroupCmdID_MIN = CID_GROUP_NORMAL_LIST_REQUEST;
-const GroupCmdID GroupCmdID_MAX = CID_GROUP_CHANGE_MEMBER_NOTIFY;
+const GroupCmdID GroupCmdID_MIN = DFFX_CID_GROUP_NORMAL_LIST_REQUEST;
+const GroupCmdID GroupCmdID_MAX = DFFX_CID_GROUP_CHANGE_MEMBER_NOTIFY;
 const int GroupCmdID_ARRAYSIZE = GroupCmdID_MAX + 1;
 
 enum FileCmdID {
-  CID_FILE_LOGIN_REQ = 1281,
-  CID_FILE_LOGIN_RES = 1282,
-  CID_FILE_STATE = 1283,
-  CID_FILE_PULL_DATA_REQ = 1284,
-  CID_FILE_PULL_DATA_RSP = 1285,
-  CID_FILE_REQUEST = 1286,
-  CID_FILE_RESPONSE = 1287,
-  CID_FILE_NOTIFY = 1288,
-  CID_FILE_HAS_OFFLINE_REQ = 1289,
-  CID_FILE_HAS_OFFLINE_RES = 1290,
-  CID_FILE_ADD_OFFLINE_REQ = 1291,
-  CID_FILE_DEL_OFFLINE_REQ = 1292
+  DFFX_CID_FILE_LOGIN_REQ = 1281,
+  DFFX_CID_FILE_LOGIN_RES = 1282,
+  DFFX_CID_FILE_STATE = 1283,
+  DFFX_CID_FILE_PULL_DATA_REQ = 1284,
+  DFFX_CID_FILE_PULL_DATA_RSP = 1285,
+  DFFX_CID_FILE_REQUEST = 1286,
+  DFFX_CID_FILE_RESPONSE = 1287,
+  DFFX_CID_FILE_NOTIFY = 1288,
+  DFFX_CID_FILE_HAS_OFFLINE_REQ = 1289,
+  DFFX_CID_FILE_HAS_OFFLINE_RES = 1290,
+  DFFX_CID_FILE_ADD_OFFLINE_REQ = 1291,
+  DFFX_CID_FILE_DEL_OFFLINE_REQ = 1292
 };
 bool FileCmdID_IsValid(int value);
-const FileCmdID FileCmdID_MIN = CID_FILE_LOGIN_REQ;
-const FileCmdID FileCmdID_MAX = CID_FILE_DEL_OFFLINE_REQ;
+const FileCmdID FileCmdID_MIN = DFFX_CID_FILE_LOGIN_REQ;
+const FileCmdID FileCmdID_MAX = DFFX_CID_FILE_DEL_OFFLINE_REQ;
 const int FileCmdID_ARRAYSIZE = FileCmdID_MAX + 1;
 
 enum SwitchServiceCmdID {
-  CID_SWITCH_P2P_CMD = 1537
+  DFFX_CID_SWITCH_P2P_CMD = 1537
 };
 bool SwitchServiceCmdID_IsValid(int value);
-const SwitchServiceCmdID SwitchServiceCmdID_MIN = CID_SWITCH_P2P_CMD;
-const SwitchServiceCmdID SwitchServiceCmdID_MAX = CID_SWITCH_P2P_CMD;
+const SwitchServiceCmdID SwitchServiceCmdID_MIN = DFFX_CID_SWITCH_P2P_CMD;
+const SwitchServiceCmdID SwitchServiceCmdID_MAX = DFFX_CID_SWITCH_P2P_CMD;
 const int SwitchServiceCmdID_ARRAYSIZE = SwitchServiceCmdID_MAX + 1;
 
 enum OtherCmdID {
-  CID_OTHER_HEARTBEAT = 1793,
-  CID_OTHER_STOP_RECV_PACKET = 1794,
-  CID_OTHER_VALIDATE_REQ = 1795,
-  CID_OTHER_VALIDATE_RSP = 1796,
-  CID_OTHER_GET_DEVICE_TOKEN_REQ = 1797,
-  CID_OTHER_GET_DEVICE_TOKEN_RSP = 1798,
-  CID_OTHER_ROLE_SET = 1799,
-  CID_OTHER_ONLINE_USER_INFO = 1800,
-  CID_OTHER_MSG_SERV_INFO = 1801,
-  CID_OTHER_USER_STATUS_UPDATE = 1802,
-  CID_OTHER_USER_CNT_UPDATE = 1803,
-  CID_OTHER_SERVER_KICK_USER = 1805,
-  CID_OTHER_LOGIN_STATUS_NOTIFY = 1806,
-  CID_OTHER_PUSH_TO_USER_REQ = 1807,
-  CID_OTHER_PUSH_TO_USER_RSP = 1808,
-  CID_OTHER_GET_SHIELD_REQ = 1809,
-  CID_OTHER_GET_SHIELD_RSP = 1810,
-  CID_OTHER_FILE_TRANSFER_REQ = 1841,
-  CID_OTHER_FILE_TRANSFER_RSP = 1842,
-  CID_OTHER_FILE_SERVER_IP_REQ = 1843,
-  CID_OTHER_FILE_SERVER_IP_RSP = 1844
+  DFFX_CID_OTHER_HEARTBEAT = 1793
 };
 bool OtherCmdID_IsValid(int value);
-const OtherCmdID OtherCmdID_MIN = CID_OTHER_HEARTBEAT;
-const OtherCmdID OtherCmdID_MAX = CID_OTHER_FILE_SERVER_IP_RSP;
+const OtherCmdID OtherCmdID_MIN = DFFX_CID_OTHER_HEARTBEAT;
+const OtherCmdID OtherCmdID_MAX = DFFX_CID_OTHER_HEARTBEAT;
 const int OtherCmdID_ARRAYSIZE = OtherCmdID_MAX + 1;
+
+enum InternalCmdId {
+  DFFX_CID_OTHER_STOP_RECV_PACKET = 2050,
+  DFFX_CID_OTHER_VALIDATE_REQ = 2051,
+  DFFX_CID_OTHER_VALIDATE_RSP = 2052,
+  DFFX_CID_OTHER_GET_DEVICE_TOKEN_REQ = 2053,
+  DFFX_CID_OTHER_GET_DEVICE_TOKEN_RSP = 2054,
+  DFFX_CID_OTHER_ROLE_SET = 2055,
+  DFFX_CID_OTHER_ONLINE_USER_INFO = 2056,
+  DFFX_CID_OTHER_MSG_SERV_INFO = 2057,
+  DFFX_CID_OTHER_USER_STATUS_UPDATE = 2058,
+  DFFX_CID_OTHER_USER_CNT_UPDATE = 2059,
+  DFFX_CID_OTHER_SERVER_KICK_USER = 2061,
+  DFFX_CID_OTHER_LOGIN_STATUS_NOTIFY = 2062,
+  DFFX_CID_OTHER_PUSH_TO_USER_REQ = 2063,
+  DFFX_CID_OTHER_PUSH_TO_USER_RSP = 2064,
+  DFFX_CID_OTHER_GET_SHIELD_REQ = 2065,
+  DFFX_CID_OTHER_GET_SHIELD_RSP = 2066,
+  DFFX_CID_OTHER_FILE_TRANSFER_REQ = 2067,
+  DFFX_CID_OTHER_FILE_TRANSFER_RSP = 2068,
+  DFFX_CID_OTHER_FILE_SERVER_IP_REQ = 2069,
+  DFFX_CID_OTHER_FILE_SERVER_IP_RSP = 2070,
+  DFFX_CID_OTHER_GETFRIENDSID_REQ = 2071,
+  DFFX_CID_OTHER_GETFRIENDSID_RES = 2072
+};
+bool InternalCmdId_IsValid(int value);
+const InternalCmdId InternalCmdId_MIN = DFFX_CID_OTHER_STOP_RECV_PACKET;
+const InternalCmdId InternalCmdId_MAX = DFFX_CID_OTHER_GETFRIENDSID_RES;
+const int InternalCmdId_ARRAYSIZE = InternalCmdId_MAX + 1;
+
+enum OrderMsgStatus {
+  CONSULT_DOCUMENTS_GRAB = 0,
+  LAWSUIT_ATTENDANCE_GRAB = 1,
+  GRAB_SUCCESS = 2,
+  GRAB_FAID = 3,
+  ENTRUST_ACCEPT = 4,
+  ENTRUST_CANCEL = 5,
+  TOPUP_SUCCESS = 6,
+  TOPUP_FAILED = 7,
+  WITHDRAWAL_SUCCESS = 8,
+  WITHDRAWAL_FAILED = 9
+};
+bool OrderMsgStatus_IsValid(int value);
+const OrderMsgStatus OrderMsgStatus_MIN = CONSULT_DOCUMENTS_GRAB;
+const OrderMsgStatus OrderMsgStatus_MAX = WITHDRAWAL_FAILED;
+const int OrderMsgStatus_ARRAYSIZE = OrderMsgStatus_MAX + 1;
 
 enum ResultType {
   REFUSE_REASON_NONE = 0,
@@ -284,6 +308,10 @@ enum MsgType {
   MSG_TYPE_ORDER_PUSH = 33,
   MSG_TYPE_ORDER_GRAB = 34,
   MSG_TYPE_ORDER_RESULT = 35,
+  MSG_TYPE_ORDER_ENTRUST = 36,
+  MSG_TYPE_ORDER_ACCEPT = 37,
+  MSG_TYPE_ORDER_CANCEL = 38,
+  MSG_TYPE_TOPUP_WITHDRAWAL = 39,
   MSG_TYPE_LOCATION_SHARING = 49,
   MSG_TYPE_FILE_TRANSFER = 50
 };
@@ -692,6 +720,18 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 user_ischeck() const;
   inline void set_user_ischeck(::google::protobuf::uint32 value);
 
+  // optional string user_desc = 15;
+  inline bool has_user_desc() const;
+  inline void clear_user_desc();
+  static const int kUserDescFieldNumber = 15;
+  inline const ::std::string& user_desc() const;
+  inline void set_user_desc(const ::std::string& value);
+  inline void set_user_desc(const char* value);
+  inline void set_user_desc(const char* value, size_t size);
+  inline ::std::string* mutable_user_desc();
+  inline ::std::string* release_user_desc();
+  inline void set_allocated_user_desc(::std::string* user_desc);
+
   // @@protoc_insertion_point(class_scope:IM.BaseDefine.UserInfo)
  private:
   inline void set_has_user_id();
@@ -722,6 +762,8 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline void clear_has_user_type();
   inline void set_has_user_ischeck();
   inline void clear_has_user_ischeck();
+  inline void set_has_user_desc();
+  inline void clear_has_user_desc();
 
   ::std::string _unknown_fields_;
 
@@ -740,6 +782,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   ::std::string* friend_remark_;
   ::google::protobuf::uint32 friend_status_;
   ::google::protobuf::uint32 user_type_;
+  ::std::string* user_desc_;
   ::google::protobuf::uint32 user_ischeck_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBaseDefine_2eproto_impl();
@@ -995,12 +1038,21 @@ class UserStat : public ::google::protobuf::MessageLite {
   inline ::IM::BaseDefine::UserStatType status() const;
   inline void set_status(::IM::BaseDefine::UserStatType value);
 
+  // optional .IM.BaseDefine.ClientType client_type = 3;
+  inline bool has_client_type() const;
+  inline void clear_client_type();
+  static const int kClientTypeFieldNumber = 3;
+  inline ::IM::BaseDefine::ClientType client_type() const;
+  inline void set_client_type(::IM::BaseDefine::ClientType value);
+
   // @@protoc_insertion_point(class_scope:IM.BaseDefine.UserStat)
  private:
   inline void set_has_user_id();
   inline void clear_has_user_id();
   inline void set_has_status();
   inline void clear_has_status();
+  inline void set_has_client_type();
+  inline void clear_has_client_type();
 
   ::std::string _unknown_fields_;
 
@@ -1008,6 +1060,7 @@ class UserStat : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::google::protobuf::uint32 user_id_;
   int status_;
+  int client_type_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBaseDefine_2eproto_impl();
   #else
@@ -3037,6 +3090,82 @@ inline void UserInfo::set_user_ischeck(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:IM.BaseDefine.UserInfo.user_ischeck)
 }
 
+// optional string user_desc = 15;
+inline bool UserInfo::has_user_desc() const {
+  return (_has_bits_[0] & 0x00004000u) != 0;
+}
+inline void UserInfo::set_has_user_desc() {
+  _has_bits_[0] |= 0x00004000u;
+}
+inline void UserInfo::clear_has_user_desc() {
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline void UserInfo::clear_user_desc() {
+  if (user_desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_desc_->clear();
+  }
+  clear_has_user_desc();
+}
+inline const ::std::string& UserInfo::user_desc() const {
+  // @@protoc_insertion_point(field_get:IM.BaseDefine.UserInfo.user_desc)
+  return *user_desc_;
+}
+inline void UserInfo::set_user_desc(const ::std::string& value) {
+  set_has_user_desc();
+  if (user_desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_desc_ = new ::std::string;
+  }
+  user_desc_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.BaseDefine.UserInfo.user_desc)
+}
+inline void UserInfo::set_user_desc(const char* value) {
+  set_has_user_desc();
+  if (user_desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_desc_ = new ::std::string;
+  }
+  user_desc_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.BaseDefine.UserInfo.user_desc)
+}
+inline void UserInfo::set_user_desc(const char* value, size_t size) {
+  set_has_user_desc();
+  if (user_desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_desc_ = new ::std::string;
+  }
+  user_desc_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.BaseDefine.UserInfo.user_desc)
+}
+inline ::std::string* UserInfo::mutable_user_desc() {
+  set_has_user_desc();
+  if (user_desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_desc_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.BaseDefine.UserInfo.user_desc)
+  return user_desc_;
+}
+inline ::std::string* UserInfo::release_user_desc() {
+  clear_has_user_desc();
+  if (user_desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = user_desc_;
+    user_desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void UserInfo::set_allocated_user_desc(::std::string* user_desc) {
+  if (user_desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_desc_;
+  }
+  if (user_desc) {
+    set_has_user_desc();
+    user_desc_ = user_desc;
+  } else {
+    clear_has_user_desc();
+    user_desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.user_desc)
+}
+
 // -------------------------------------------------------------------
 
 // ContactSessionInfo
@@ -3339,6 +3468,31 @@ inline void UserStat::set_status(::IM::BaseDefine::UserStatType value) {
   set_has_status();
   status_ = value;
   // @@protoc_insertion_point(field_set:IM.BaseDefine.UserStat.status)
+}
+
+// optional .IM.BaseDefine.ClientType client_type = 3;
+inline bool UserStat::has_client_type() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void UserStat::set_has_client_type() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void UserStat::clear_has_client_type() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void UserStat::clear_client_type() {
+  client_type_ = 1;
+  clear_has_client_type();
+}
+inline ::IM::BaseDefine::ClientType UserStat::client_type() const {
+  // @@protoc_insertion_point(field_get:IM.BaseDefine.UserStat.client_type)
+  return static_cast< ::IM::BaseDefine::ClientType >(client_type_);
+}
+inline void UserStat::set_client_type(::IM::BaseDefine::ClientType value) {
+  assert(::IM::BaseDefine::ClientType_IsValid(value));
+  set_has_client_type();
+  client_type_ = value;
+  // @@protoc_insertion_point(field_set:IM.BaseDefine.UserStat.client_type)
 }
 
 // -------------------------------------------------------------------

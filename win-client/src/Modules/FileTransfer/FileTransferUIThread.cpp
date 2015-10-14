@@ -160,8 +160,8 @@ BOOL FileTransferUIThread::acceptFileTransfer(const std::string& taskId)
 				imFilePullDataReq.set_offset(0);
                 fileEntity.nFileSize > FILE_TRANSFER_BLOCK_SIZE ? imFilePullDataReq.set_data_size(FILE_TRANSFER_BLOCK_SIZE) : imFilePullDataReq.set_data_size(fileEntity.nFileSize);
 				//发包
-                pFileSocket->sendPacket(IM::BaseDefine::ServiceID::SID_FILE
-                    , IM::BaseDefine::FileCmdID::CID_FILE_PULL_DATA_REQ, &imFilePullDataReq);
+                pFileSocket->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE
+                    , IM::BaseDefine::FileCmdID::DFFX_CID_FILE_PULL_DATA_REQ, &imFilePullDataReq);
 				//CImPduClientFilePullDataReq pduPullDataReq(taskId.c_str(), fileEntity.sToID.c_str()
 				//	, mode, 0, FILE_TRANSFER_BLOCK_SIZE);
 				//pFileSocket->sendPacket(&pduPullDataReq);
@@ -188,7 +188,7 @@ BOOL FileTransferUIThread::rejectFileTransfer(const std::string& taskId)
 				imFileState.set_task_id(taskId);
 				imFileState.set_user_id(util::stringToInt32(fileEntity.sToID));
 				//发包
-                pFileSocket->sendPacket(IM::BaseDefine::ServiceID::SID_FILE, IM::BaseDefine::FileCmdID::CID_FILE_STATE, &imFileState);
+                pFileSocket->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_STATE, &imFileState);
 				//CImPduClientFileState pduRejectData(CLIENT_FILE_REFUSE, taskId.c_str(), fileEntity.sToID.c_str());
 				//pFileSocket->sendPacket(&pduRejectData);
 			}
@@ -231,7 +231,7 @@ BOOL FileTransferUIThread::cancelFileTransfer(const std::string& taskId)
 				imFileState.set_task_id(taskId);
                 imFileState.set_user_id(util::stringToInt32(userid));
 				// 发包
-                pFileSocket->sendPacket(IM::BaseDefine::ServiceID::SID_FILE, IM::BaseDefine::FileCmdID::CID_FILE_STATE, &imFileState);
+                pFileSocket->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_FILE, IM::BaseDefine::FileCmdID::DFFX_CID_FILE_STATE, &imFileState);
 
                 //本地删除记录
                 TransferFileEntityManager::getInstance()->DeleteFileInfoByTaskId(taskId);

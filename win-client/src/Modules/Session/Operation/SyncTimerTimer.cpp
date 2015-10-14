@@ -32,8 +32,8 @@ void SyncTimeTimer::process()
 			[]()
 		{
 			IM::Message::IMClientTimeReq imClientTimeReq;
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_MSG
-				,IM::BaseDefine::MessageCmdID::CID_MSG_TIME_REQUEST
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_MSG
+				,IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_TIME_REQUEST
 				, &imClientTimeReq);
 		});
     }

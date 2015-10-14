@@ -164,8 +164,8 @@ void SendMsgManage::sendMessage(IN SendingMsg& sendingMsg)
 		imMsgData.set_create_time(sendingMsg.msg.msgTime);
 		imMsgData.set_msg_type(static_cast<IM::BaseDefine::MsgType>(sendingMsg.msg.msgType));
 		imMsgData.set_msg_data(sendingMsg.msg.content);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_MSG
-			, IM::BaseDefine::MessageCmdID::CID_MSG_DATA
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_MSG
+			, IM::BaseDefine::MessageCmdID::DFFX_CID_MSG_DATA
 			, sendingMsg.seqNo
 			, &imMsgData);
 	}

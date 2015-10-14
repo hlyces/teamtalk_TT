@@ -105,8 +105,8 @@ void MainListLayout::DoInit()
 		IM::Buddy::IMRecentContactSessionReq imRecentContactSessionReq;
 		imRecentContactSessionReq.set_user_id(module::getSysConfigModule()->userId());
 		imRecentContactSessionReq.set_latest_update_time(updateTime);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_BUDDY_LIST
-			, IM::BaseDefine::BuddyListCmdID::CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_BUDDY_LIST
+			, IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST
 			, &imRecentContactSessionReq);
 	}
 	);

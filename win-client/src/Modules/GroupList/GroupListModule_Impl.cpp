@@ -38,22 +38,22 @@ void GroupListModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& pbB
 {
 	switch (header.getCommandId())
 	{
-	case IM::BaseDefine::CID_GROUP_NORMAL_LIST_RESPONSE :
+	case IM::BaseDefine::DFFX_CID_GROUP_NORMAL_LIST_RESPONSE :
 		_groupNormalListResponse(pbBody);
 		break;
-	case IM::BaseDefine::CID_GROUP_INFO_RESPONSE:
+	case IM::BaseDefine::DFFX_CID_GROUP_INFO_RESPONSE:
 		_groupInfoResponse(pbBody);
 		break;
-	case IM::BaseDefine::CID_GROUP_CREATE_RESPONSE:
+	case IM::BaseDefine::DFFX_CID_GROUP_CREATE_RESPONSE:
 		_groupCreateDiscussGroupResponse(pbBody);
 		break;
-	case IM::BaseDefine::CID_GROUP_CHANGE_MEMBER_RESPONSE:
+	case IM::BaseDefine::DFFX_CID_GROUP_CHANGE_MEMBER_RESPONSE:
 		_groupChangedGroupMembersResponse(pbBody);
 		break;
-	case IM::BaseDefine::CID_GROUP_SHIELD_GROUP_RESPONSE:
+	case IM::BaseDefine::DFFX_CID_GROUP_SHIELD_GROUP_RESPONSE:
 		_groupShieldResponse(pbBody);
 		break;
-	case IM::BaseDefine::CID_GROUP_CHANGE_MEMBER_NOTIFY:
+	case IM::BaseDefine::DFFX_CID_GROUP_CHANGE_MEMBER_NOTIFY:
 		_groupChangeMemberNotify(pbBody);
 		break;
 	default:
@@ -147,8 +147,8 @@ void GroupListModule_Impl::tcpGetGroupsInfo(IN const module::GroupVec& VecGroupI
 			pGroupVersionInfo->set_version(0);
 		}
 		imGroupInfoListReq.set_user_id(module::getSysConfigModule()->userId());		
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-			, IM::BaseDefine::GroupCmdID::CID_GROUP_INFO_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+			, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_INFO_REQUEST
 			, &imGroupInfoListReq);
 	}
 	);
@@ -178,8 +178,8 @@ void GroupListModule_Impl::tcpShieldGroup(IN const std::string& groupId, IN UInt
 		imGroupShieldReq.set_shield_status(shieldStatus);
 
 		LOG__(APP, _T("IMGroupShieldReq, groupID = %d,shieldStatus = %d"), groupID, shieldStatus);
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-			, IM::BaseDefine::GroupCmdID::CID_GROUP_SHIELD_GROUP_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+			, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_SHIELD_GROUP_REQUEST
 			, &imGroupShieldReq);
 	}
 	);
@@ -273,8 +273,8 @@ void GroupListModule_Impl::_groupNormalListResponse(IN std::string& body)
 	if (0 != imGroupInfoListReq.group_version_list_size())//请求群信息
 	{
 		imGroupInfoListReq.set_user_id(module::getSysConfigModule()->userId());
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-			, IM::BaseDefine::GroupCmdID::CID_GROUP_INFO_REQUEST
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+			, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_INFO_REQUEST
 			, &imGroupInfoListReq);
 	}
 }
@@ -487,8 +487,8 @@ void GroupListModule_Impl::_groupChangeMemberNotify(IN std::string& body)
 			IM::BaseDefine::GroupVersionInfo* pGroupVersionInfo = imGroupInfoListReq.add_group_version_list();
 			pGroupVersionInfo->set_group_id(imGroupChangeMemberNotify.group_id());
 			pGroupVersionInfo->set_version(0);
-			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::SID_GROUP
-				, IM::BaseDefine::GroupCmdID::CID_GROUP_INFO_REQUEST
+			module::getTcpClientModule()->sendPacket(IM::BaseDefine::ServiceID::DFFX_SID_GROUP
+				, IM::BaseDefine::GroupCmdID::DFFX_CID_GROUP_INFO_REQUEST
 				, &imGroupInfoListReq);
 		}
 		return;

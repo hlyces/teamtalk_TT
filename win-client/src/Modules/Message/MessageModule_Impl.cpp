@@ -103,8 +103,8 @@ BOOL MessageModule_Impl::getHistoryMessage(IN const std::string& sId, IN UInt32 
 		imGetMsgListReq.set_msg_cnt(nMsgCount);
 
 		UInt16 reserved = (TRUE == scrollBottom) ? imcore::RESERVED_TYPE_HISTORY_SCROLLBOTTOM_MESSAGE : imcore::RESERVED_TYPE_HISTORY_MESSAGE;
-		module::getTcpClientModule()->sendPacket(IM::BaseDefine::SID_MSG
-			, IM::BaseDefine::CID_MSG_LIST_REQUEST, reserved
+		module::getTcpClientModule()->sendPacket(IM::BaseDefine::DFFX_SID_MSG
+			, IM::BaseDefine::DFFX_CID_MSG_LIST_REQUEST, reserved
 			, &imGetMsgListReq);
 	}
 	);

@@ -929,6 +929,9 @@ const int IMLoginRes::kResultStringFieldNumber;
 const int IMLoginRes::kOnlineStatusFieldNumber;
 const int IMLoginRes::kUserInfoFieldNumber;
 const int IMLoginRes::kUserTokenFieldNumber;
+const int IMLoginRes::kVersionMaxFieldNumber;
+const int IMLoginRes::kVersionDownloadFieldNumber;
+const int IMLoginRes::kVersionFilesizeFieldNumber;
 #endif  // !_MSC_VER
 
 IMLoginRes::IMLoginRes()
@@ -962,6 +965,9 @@ void IMLoginRes::SharedCtor() {
   online_status_ = 1;
   user_info_ = NULL;
   user_token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  version_max_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  version_download_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -976,6 +982,15 @@ void IMLoginRes::SharedDtor() {
   }
   if (user_token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete user_token_;
+  }
+  if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_max_;
+  }
+  if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_download_;
+  }
+  if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete version_filesize_;
   }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -1017,7 +1032,7 @@ void IMLoginRes::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 63) {
+  if (_has_bits_[0 / 32] & 255) {
     ZR_(server_time_, result_code_);
     if (has_result_string()) {
       if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -1032,6 +1047,21 @@ void IMLoginRes::Clear() {
       if (user_token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_token_->clear();
       }
+    }
+    if (has_version_max()) {
+      if (version_max_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        version_max_->clear();
+      }
+    }
+    if (has_version_download()) {
+      if (version_download_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        version_download_->clear();
+      }
+    }
+  }
+  if (has_version_filesize()) {
+    if (version_filesize_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      version_filesize_->clear();
     }
   }
 
@@ -1147,6 +1177,45 @@ bool IMLoginRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(90)) goto parse_version_max;
+        break;
+      }
+
+      // optional string version_max = 11;
+      case 11: {
+        if (tag == 90) {
+         parse_version_max:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_version_max()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(98)) goto parse_version_download;
+        break;
+      }
+
+      // optional string version_download = 12;
+      case 12: {
+        if (tag == 98) {
+         parse_version_download:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_version_download()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(106)) goto parse_version_filesize;
+        break;
+      }
+
+      // optional string version_filesize = 13;
+      case 13: {
+        if (tag == 106) {
+         parse_version_filesize:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_version_filesize()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1211,6 +1280,24 @@ void IMLoginRes::SerializeWithCachedSizes(
       10, this->user_token(), output);
   }
 
+  // optional string version_max = 11;
+  if (has_version_max()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      11, this->version_max(), output);
+  }
+
+  // optional string version_download = 12;
+  if (has_version_download()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      12, this->version_download(), output);
+  }
+
+  // optional string version_filesize = 13;
+  if (has_version_filesize()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      13, this->version_filesize(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:IM.Login.IMLoginRes)
@@ -1260,6 +1347,29 @@ int IMLoginRes::ByteSize() const {
           this->user_token());
     }
 
+    // optional string version_max = 11;
+    if (has_version_max()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->version_max());
+    }
+
+    // optional string version_download = 12;
+    if (has_version_download()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->version_download());
+    }
+
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    // optional string version_filesize = 13;
+    if (has_version_filesize()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->version_filesize());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -1295,6 +1405,17 @@ void IMLoginRes::MergeFrom(const IMLoginRes& from) {
     if (from.has_user_token()) {
       set_user_token(from.user_token());
     }
+    if (from.has_version_max()) {
+      set_version_max(from.version_max());
+    }
+    if (from.has_version_download()) {
+      set_version_download(from.version_download());
+    }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    if (from.has_version_filesize()) {
+      set_version_filesize(from.version_filesize());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -1322,6 +1443,9 @@ void IMLoginRes::Swap(IMLoginRes* other) {
     std::swap(online_status_, other->online_status_);
     std::swap(user_info_, other->user_info_);
     std::swap(user_token_, other->user_token_);
+    std::swap(version_max_, other->version_max_);
+    std::swap(version_download_, other->version_download_);
+    std::swap(version_filesize_, other->version_filesize_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
