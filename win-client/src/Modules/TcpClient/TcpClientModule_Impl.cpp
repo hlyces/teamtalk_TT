@@ -221,7 +221,7 @@ void TcpClientModule_Impl::_sendPacket(google::protobuf::MessageLite* pbBody)
 
 void TcpClientModule_Impl::startHeartbeat()
 {
-	module::getEventManager()->scheduleTimerWithLambda(5, TRUE,
+	module::getEventManager()->scheduleTimerWithLambda(60, TRUE,
 		[=]()
 	{
 		imcore::IMLibCoreStartOperationWithLambda(

@@ -71,7 +71,7 @@ void FileTransferSocket::startHeartbeat()
 {
 	if (!m_pPingTimer)
 		m_pPingTimer = new PingFileSevTimer(this);
-	module::getEventManager()->scheduleTimer(m_pPingTimer, 5, TRUE);
+	module::getEventManager()->scheduleTimer(m_pPingTimer, 60, TRUE);
 }
 
 void FileTransferSocket::stopHeartbeat()
@@ -264,7 +264,7 @@ void FileTransferSocket::_filePullDataReqResponse(IN std::string& body)//发
 		module::getFileTransferModule()->asynNotifyObserver(module::KEY_FILESEVER_UPDATA_PROGRESSBAR
             , fileEntity.sTaskID);
 	}
-	else//传输完成
+	else if (imFilePullDataReq.trans_mode() == IM::BaseDefine::FILE_TYPE_ONLINE)//传输完成
 	{
 		if (fileEntity.pFileObject)
 		{
