@@ -277,6 +277,12 @@ void CRouteServConn::HandlePdu(CImPdu* pPdu)
 		case DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_REQ:
 			_HandleClientFriendNotifyRequest( pPdu);
 			break;
+		case DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY:
+			_HandleClientDelFriendNotify( pPdu);
+			break;
+		case DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_RES:
+			_HandleDBReverseAddFriendRes( pPdu);
+			break;
 
 		default:
 			log("unknown cmd id=%d ", pPdu->GetCommandId());
@@ -581,5 +587,48 @@ void CRouteServConn::_HandleClientFriendNotifyRequest(CImPdu* pPdu)
 		pToImUser->BroadcastPdu(pPdu);
 	}
 }
+
+void CRouteServConn::_HandleClientDelFriendNotify(CImPdu* pPdu)
+{
+	IM::Buddy::IMCommonOperFriendRes msg;
+	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+	
+	log(" user_id=%d friend_id=%d.", msg.user_id(), msg.friend_id());
+
+	//send to other client
+	CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(msg.user_id());
+	if (pFromImUser)
+	{
+		pPdu->SetCommandId(DFFX_CID_BUDDY_LIST_DELFRIEND_RES);
+		pFromImUser->BroadcastPdu(pPdu);
+	}
+	
+	//todo 2.send notify to myfriend
+	uint32_t to_user_id = msg.friend_id();
+	CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_user_id);
+	if (pToImUser)
+	{
+		pPdu->SetCommandId(DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY);
+		pToImUser->BroadcastPdu(pPdu);
+	}	
+
+}
+
+void CRouteServConn::_HandleDBReverseAddFriendRes(CImPdu* pPdu)
+{
+	IM::Buddy::IMCommonOperFriendRes msg;
+	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+	
+	log(" user_id=%d friend_id=%d.", msg.user_id(), msg.friend_id());
+
+	//send to other client
+	CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(msg.user_id());
+	if (pFromImUser)
+	{
+		pFromImUser->BroadcastPdu(pPdu);
+	}
+
+}
+
 
 

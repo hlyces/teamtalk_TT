@@ -73,6 +73,8 @@ private:
     void _changeSignInfoResponse(IN std::string& pbBody);//修改签名返回
     void _avatarChangeNotify(IN std::string& pbBody);//修改头像通知
     void _signInfoChangedNotify(IN std::string& pbBody);//修改签名通知
+
+	void _unkownMsg(IN std::string& pbBody);//未知消息
 	//@}
 
 	/**@name 工具函数*/

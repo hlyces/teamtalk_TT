@@ -26,7 +26,7 @@ static char g_current_save_path[BUFSIZ];
 static std::list<IM::BaseDefine::IpAddr> g_addr;
 uint16_t g_listen_port = 0;
 uint32_t g_task_timeout = 3600;
-#define SEGMENT_SIZE 65536
+#define SEGMENT_SIZE (65536*2)
 /// yunfan add end
 
 #define USE_OLD_MEMFILE 0
@@ -312,7 +312,7 @@ CFileConn::~CFileConn()
 
 void CFileConn::Close()
 {
-	log("close client, handle %d", m_handle);
+	log("close client, handle %d, m_user_id=%d", m_handle, m_user_id);
 
 	m_bAuth = false;
 
@@ -591,7 +591,7 @@ void CFileConn::_HandleClientFileLoginReq(CImPdu* pPdu)
 	{
 		// check thread id
 		pthread_create(&t->worker, NULL, _DoUpload, t);
-		log("create thread for offline upload task %s user %d thread id %d", task_id.c_str(), m_user_id, t->worker);
+		log("create thread for offline upload task %s user %d thread id %u", task_id.c_str(), m_user_id, t->worker);
 	}
 	/// yunfan add end
 
@@ -662,9 +662,9 @@ void CFileConn::_HandleMsgFileTransferReq(CImPdu* pPdu)
 	}
 
 	//file_size limited
-	if(msg.file_size()<=0 || msg.file_size()>50*1024*1024)
+	if(msg.file_size()<=0 || msg.file_size()>200*1024*1024)
 	{
-		log(" file_size > 50M || file_size<=0 file_size=%d.   ", msg.file_size());
+		log(" file_size > 200M || file_size<=0 file_size=%d.   ", msg.file_size());
 		SendPdu(&pdu);		
 		log("create task failed");
 		return; // create task failed
@@ -691,7 +691,8 @@ void CFileConn::_HandleMsgFileTransferReq(CImPdu* pPdu)
 	g_file_task_map.insert(make_pair((char*)task->task_id.c_str(), task));
 	pthread_rwlock_unlock(&g_file_task_map_lock);
 
-	log("create task succeed, task id %s, task type %d, from user %d, to user %d", task->task_id.c_str(), task->transfer_mode, task->from_user_id, task->to_user_id);
+	log("create task succeed, task id %s, task type %d, from user %d, to user %d file_size:%d",
+		task->task_id.c_str(), task->transfer_mode, task->from_user_id, task->to_user_id, task->file_size);
 
 	return;
 }

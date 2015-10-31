@@ -35,30 +35,21 @@ void protobuf_ShutdownFile_IM_2eBuddy_2eproto() {
   delete IMDepartmentReq::default_instance_;
   delete IMDepartmentRsp::default_instance_;
   delete IMAddFriendReq::default_instance_;
-  delete IMAddFriendRes::default_instance_;
   delete IMReverseAddFriendReq::default_instance_;
-  delete IMReverseAddFriendRes::default_instance_;
+  delete IMCommonOperFriendRes::default_instance_;
   delete IMDelFriendReq::default_instance_;
-  delete IMDelFriendRes::default_instance_;
   delete IMChgFriendRemarkReq::default_instance_;
-  delete IMChgFriendRemarkRes::default_instance_;
   delete IMCreateFriendGroupReq::default_instance_;
-  delete IMCreateFriendGroupRes::default_instance_;
+  delete IMCommonOperFriendGroupRes::default_instance_;
   delete IMDelFriendGroupReq::default_instance_;
-  delete IMDelFriendGroupRes::default_instance_;
   delete IMMoveFriendToGroupReq::default_instance_;
-  delete IMMoveFriendToGroupRes::default_instance_;
   delete IMChgFriendGroupNameReq::default_instance_;
-  delete IMChgFriendGroupNameRes::default_instance_;
   delete IMFriendNotifyReq::default_instance_;
   delete IMFriendNotifyRes::default_instance_;
   delete IMGetAddFriendReq::default_instance_;
-  delete AddFrienInfo::default_instance_;
-  delete RefuseAddFrienInfo::default_instance_;
-  delete AgreeAddFrienInfo::default_instance_;
+  delete IMCommonOperFrienInfo::default_instance_;
   delete IMGetAddFriendRes::default_instance_;
   delete IMFindUserInfoReq::default_instance_;
-  delete IMFindUserInfoRes::default_instance_;
 }
 
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -92,30 +83,21 @@ void protobuf_AddDesc_IM_2eBuddy_2eproto() {
   IMDepartmentReq::default_instance_ = new IMDepartmentReq();
   IMDepartmentRsp::default_instance_ = new IMDepartmentRsp();
   IMAddFriendReq::default_instance_ = new IMAddFriendReq();
-  IMAddFriendRes::default_instance_ = new IMAddFriendRes();
   IMReverseAddFriendReq::default_instance_ = new IMReverseAddFriendReq();
-  IMReverseAddFriendRes::default_instance_ = new IMReverseAddFriendRes();
+  IMCommonOperFriendRes::default_instance_ = new IMCommonOperFriendRes();
   IMDelFriendReq::default_instance_ = new IMDelFriendReq();
-  IMDelFriendRes::default_instance_ = new IMDelFriendRes();
   IMChgFriendRemarkReq::default_instance_ = new IMChgFriendRemarkReq();
-  IMChgFriendRemarkRes::default_instance_ = new IMChgFriendRemarkRes();
   IMCreateFriendGroupReq::default_instance_ = new IMCreateFriendGroupReq();
-  IMCreateFriendGroupRes::default_instance_ = new IMCreateFriendGroupRes();
+  IMCommonOperFriendGroupRes::default_instance_ = new IMCommonOperFriendGroupRes();
   IMDelFriendGroupReq::default_instance_ = new IMDelFriendGroupReq();
-  IMDelFriendGroupRes::default_instance_ = new IMDelFriendGroupRes();
   IMMoveFriendToGroupReq::default_instance_ = new IMMoveFriendToGroupReq();
-  IMMoveFriendToGroupRes::default_instance_ = new IMMoveFriendToGroupRes();
   IMChgFriendGroupNameReq::default_instance_ = new IMChgFriendGroupNameReq();
-  IMChgFriendGroupNameRes::default_instance_ = new IMChgFriendGroupNameRes();
   IMFriendNotifyReq::default_instance_ = new IMFriendNotifyReq();
   IMFriendNotifyRes::default_instance_ = new IMFriendNotifyRes();
   IMGetAddFriendReq::default_instance_ = new IMGetAddFriendReq();
-  AddFrienInfo::default_instance_ = new AddFrienInfo();
-  RefuseAddFrienInfo::default_instance_ = new RefuseAddFrienInfo();
-  AgreeAddFrienInfo::default_instance_ = new AgreeAddFrienInfo();
+  IMCommonOperFrienInfo::default_instance_ = new IMCommonOperFrienInfo();
   IMGetAddFriendRes::default_instance_ = new IMGetAddFriendRes();
   IMFindUserInfoReq::default_instance_ = new IMFindUserInfoReq();
-  IMFindUserInfoRes::default_instance_ = new IMFindUserInfoRes();
   IMRecentContactSessionReq::default_instance_->InitAsDefaultInstance();
   IMRecentContactSessionRsp::default_instance_->InitAsDefaultInstance();
   IMUserStatNotify::default_instance_->InitAsDefaultInstance();
@@ -134,30 +116,21 @@ void protobuf_AddDesc_IM_2eBuddy_2eproto() {
   IMDepartmentReq::default_instance_->InitAsDefaultInstance();
   IMDepartmentRsp::default_instance_->InitAsDefaultInstance();
   IMAddFriendReq::default_instance_->InitAsDefaultInstance();
-  IMAddFriendRes::default_instance_->InitAsDefaultInstance();
   IMReverseAddFriendReq::default_instance_->InitAsDefaultInstance();
-  IMReverseAddFriendRes::default_instance_->InitAsDefaultInstance();
+  IMCommonOperFriendRes::default_instance_->InitAsDefaultInstance();
   IMDelFriendReq::default_instance_->InitAsDefaultInstance();
-  IMDelFriendRes::default_instance_->InitAsDefaultInstance();
   IMChgFriendRemarkReq::default_instance_->InitAsDefaultInstance();
-  IMChgFriendRemarkRes::default_instance_->InitAsDefaultInstance();
   IMCreateFriendGroupReq::default_instance_->InitAsDefaultInstance();
-  IMCreateFriendGroupRes::default_instance_->InitAsDefaultInstance();
+  IMCommonOperFriendGroupRes::default_instance_->InitAsDefaultInstance();
   IMDelFriendGroupReq::default_instance_->InitAsDefaultInstance();
-  IMDelFriendGroupRes::default_instance_->InitAsDefaultInstance();
   IMMoveFriendToGroupReq::default_instance_->InitAsDefaultInstance();
-  IMMoveFriendToGroupRes::default_instance_->InitAsDefaultInstance();
   IMChgFriendGroupNameReq::default_instance_->InitAsDefaultInstance();
-  IMChgFriendGroupNameRes::default_instance_->InitAsDefaultInstance();
   IMFriendNotifyReq::default_instance_->InitAsDefaultInstance();
   IMFriendNotifyRes::default_instance_->InitAsDefaultInstance();
   IMGetAddFriendReq::default_instance_->InitAsDefaultInstance();
-  AddFrienInfo::default_instance_->InitAsDefaultInstance();
-  RefuseAddFrienInfo::default_instance_->InitAsDefaultInstance();
-  AgreeAddFrienInfo::default_instance_->InitAsDefaultInstance();
+  IMCommonOperFrienInfo::default_instance_->InitAsDefaultInstance();
   IMGetAddFriendRes::default_instance_->InitAsDefaultInstance();
   IMFindUserInfoReq::default_instance_->InitAsDefaultInstance();
-  IMFindUserInfoRes::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_IM_2eBuddy_2eproto);
 }
 
@@ -5523,288 +5496,6 @@ void IMAddFriendReq::Swap(IMAddFriendReq* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int IMAddFriendRes::kUserIdFieldNumber;
-const int IMAddFriendRes::kResultCodeFieldNumber;
-const int IMAddFriendRes::kAttachDataFieldNumber;
-#endif  // !_MSC_VER
-
-IMAddFriendRes::IMAddFriendRes()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMAddFriendRes)
-}
-
-void IMAddFriendRes::InitAsDefaultInstance() {
-}
-
-IMAddFriendRes::IMAddFriendRes(const IMAddFriendRes& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMAddFriendRes)
-}
-
-void IMAddFriendRes::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  result_code_ = 0u;
-  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-IMAddFriendRes::~IMAddFriendRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMAddFriendRes)
-  SharedDtor();
-}
-
-void IMAddFriendRes::SharedDtor() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void IMAddFriendRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const IMAddFriendRes& IMAddFriendRes::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-IMAddFriendRes* IMAddFriendRes::default_instance_ = NULL;
-
-IMAddFriendRes* IMAddFriendRes::New() const {
-  return new IMAddFriendRes;
-}
-
-void IMAddFriendRes::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMAddFriendRes*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(user_id_, result_code_);
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool IMAddFriendRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMAddFriendRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_result_code;
-        break;
-      }
-
-      // required uint32 result_code = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_result_code:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &result_code_)));
-          set_has_result_code();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(162)) goto parse_attach_data;
-        break;
-      }
-
-      // optional bytes attach_data = 20;
-      case 20: {
-        if (tag == 162) {
-         parse_attach_data:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMAddFriendRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMAddFriendRes)
-  return false;
-#undef DO_
-}
-
-void IMAddFriendRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMAddFriendRes)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // required uint32 result_code = 2;
-  if (has_result_code()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
-  }
-
-  // optional bytes attach_data = 20;
-  if (has_attach_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMAddFriendRes)
-}
-
-int IMAddFriendRes::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // required uint32 result_code = 2;
-    if (has_result_code()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->result_code());
-    }
-
-    // optional bytes attach_data = 20;
-    if (has_attach_data()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void IMAddFriendRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMAddFriendRes*>(&from));
-}
-
-void IMAddFriendRes::MergeFrom(const IMAddFriendRes& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_result_code()) {
-      set_result_code(from.result_code());
-    }
-    if (from.has_attach_data()) {
-      set_attach_data(from.attach_data());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void IMAddFriendRes::CopyFrom(const IMAddFriendRes& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool IMAddFriendRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void IMAddFriendRes::Swap(IMAddFriendRes* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    std::swap(result_code_, other->result_code_);
-    std::swap(attach_data_, other->attach_data_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string IMAddFriendRes::GetTypeName() const {
-  return "IM.Buddy.IMAddFriendRes";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
 const int IMReverseAddFriendReq::kFromUserIdFieldNumber;
 const int IMReverseAddFriendReq::kToUserIdFieldNumber;
 const int IMReverseAddFriendReq::kFriendresStatusTypeFieldNumber;
@@ -6239,44 +5930,46 @@ void IMReverseAddFriendReq::Swap(IMReverseAddFriendReq* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int IMReverseAddFriendRes::kUserIdFieldNumber;
-const int IMReverseAddFriendRes::kResultCodeFieldNumber;
-const int IMReverseAddFriendRes::kFriendIdFieldNumber;
-const int IMReverseAddFriendRes::kAttachDataFieldNumber;
+const int IMCommonOperFriendRes::kUserIdFieldNumber;
+const int IMCommonOperFriendRes::kResultCodeFieldNumber;
+const int IMCommonOperFriendRes::kFriendIdFieldNumber;
+const int IMCommonOperFriendRes::kFriendresStatusTypeFieldNumber;
+const int IMCommonOperFriendRes::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
-IMReverseAddFriendRes::IMReverseAddFriendRes()
+IMCommonOperFriendRes::IMCommonOperFriendRes()
   : ::google::protobuf::MessageLite() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(constructor:IM.Buddy.IMCommonOperFriendRes)
 }
 
-void IMReverseAddFriendRes::InitAsDefaultInstance() {
+void IMCommonOperFriendRes::InitAsDefaultInstance() {
 }
 
-IMReverseAddFriendRes::IMReverseAddFriendRes(const IMReverseAddFriendRes& from)
+IMCommonOperFriendRes::IMCommonOperFriendRes(const IMCommonOperFriendRes& from)
   : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMCommonOperFriendRes)
 }
 
-void IMReverseAddFriendRes::SharedCtor() {
+void IMCommonOperFriendRes::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   user_id_ = 0u;
   result_code_ = 0u;
   friend_id_ = 0u;
+  friendres_status_type_ = 0;
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-IMReverseAddFriendRes::~IMReverseAddFriendRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMReverseAddFriendRes)
+IMCommonOperFriendRes::~IMCommonOperFriendRes() {
+  // @@protoc_insertion_point(destructor:IM.Buddy.IMCommonOperFriendRes)
   SharedDtor();
 }
 
-void IMReverseAddFriendRes::SharedDtor() {
+void IMCommonOperFriendRes::SharedDtor() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete attach_data_;
   }
@@ -6288,12 +5981,12 @@ void IMReverseAddFriendRes::SharedDtor() {
   }
 }
 
-void IMReverseAddFriendRes::SetCachedSize(int size) const {
+void IMCommonOperFriendRes::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const IMReverseAddFriendRes& IMReverseAddFriendRes::default_instance() {
+const IMCommonOperFriendRes& IMCommonOperFriendRes::default_instance() {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   protobuf_AddDesc_IM_2eBuddy_2eproto();
 #else
@@ -6302,15 +5995,15 @@ const IMReverseAddFriendRes& IMReverseAddFriendRes::default_instance() {
   return *default_instance_;
 }
 
-IMReverseAddFriendRes* IMReverseAddFriendRes::default_instance_ = NULL;
+IMCommonOperFriendRes* IMCommonOperFriendRes::default_instance_ = NULL;
 
-IMReverseAddFriendRes* IMReverseAddFriendRes::New() const {
-  return new IMReverseAddFriendRes;
+IMCommonOperFriendRes* IMCommonOperFriendRes::New() const {
+  return new IMCommonOperFriendRes;
 }
 
-void IMReverseAddFriendRes::Clear() {
+void IMCommonOperFriendRes::Clear() {
 #define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMReverseAddFriendRes*>(16)->f) - \
+  &reinterpret_cast<IMCommonOperFriendRes*>(16)->f) - \
    reinterpret_cast<char*>(16))
 
 #define ZR_(first, last) do {                              \
@@ -6319,9 +6012,8 @@ void IMReverseAddFriendRes::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 15) {
-    ZR_(user_id_, result_code_);
-    friend_id_ = 0u;
+  if (_has_bits_[0 / 32] & 31) {
+    ZR_(user_id_, friendres_status_type_);
     if (has_attach_data()) {
       if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         attach_data_->clear();
@@ -6336,7 +6028,7 @@ void IMReverseAddFriendRes::Clear() {
   mutable_unknown_fields()->clear();
 }
 
-bool IMReverseAddFriendRes::MergePartialFromCodedStream(
+bool IMCommonOperFriendRes::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
@@ -6344,7 +6036,7 @@ bool IMReverseAddFriendRes::MergePartialFromCodedStream(
       mutable_unknown_fields());
   ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
       &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(parse_start:IM.Buddy.IMCommonOperFriendRes)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
     tag = p.first;
@@ -6390,6 +6082,27 @@ bool IMReverseAddFriendRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(88)) goto parse_friendres_status_type;
+        break;
+      }
+
+      // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+      case 11: {
+        if (tag == 88) {
+         parse_friendres_status_type:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::IM::BaseDefine::FriendResStatusType_IsValid(value)) {
+            set_friendres_status_type(static_cast< ::IM::BaseDefine::FriendResStatusType >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectTag(162)) goto parse_attach_data;
         break;
       }
@@ -6421,17 +6134,17 @@ bool IMReverseAddFriendRes::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(parse_success:IM.Buddy.IMCommonOperFriendRes)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMCommonOperFriendRes)
   return false;
 #undef DO_
 }
 
-void IMReverseAddFriendRes::SerializeWithCachedSizes(
+void IMCommonOperFriendRes::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMCommonOperFriendRes)
   // required uint32 user_id = 1;
   if (has_user_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
@@ -6447,6 +6160,12 @@ void IMReverseAddFriendRes::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->friend_id(), output);
   }
 
+  // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+  if (has_friendres_status_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      11, this->friendres_status_type(), output);
+  }
+
   // optional bytes attach_data = 20;
   if (has_attach_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
@@ -6455,10 +6174,10 @@ void IMReverseAddFriendRes::SerializeWithCachedSizes(
 
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMCommonOperFriendRes)
 }
 
-int IMReverseAddFriendRes::ByteSize() const {
+int IMCommonOperFriendRes::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -6483,6 +6202,12 @@ int IMReverseAddFriendRes::ByteSize() const {
           this->friend_id());
     }
 
+    // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+    if (has_friendres_status_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->friendres_status_type());
+    }
+
     // optional bytes attach_data = 20;
     if (has_attach_data()) {
       total_size += 2 +
@@ -6499,12 +6224,12 @@ int IMReverseAddFriendRes::ByteSize() const {
   return total_size;
 }
 
-void IMReverseAddFriendRes::CheckTypeAndMergeFrom(
+void IMCommonOperFriendRes::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMReverseAddFriendRes*>(&from));
+  MergeFrom(*::google::protobuf::down_cast<const IMCommonOperFriendRes*>(&from));
 }
 
-void IMReverseAddFriendRes::MergeFrom(const IMReverseAddFriendRes& from) {
+void IMCommonOperFriendRes::MergeFrom(const IMCommonOperFriendRes& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_user_id()) {
@@ -6516,6 +6241,9 @@ void IMReverseAddFriendRes::MergeFrom(const IMReverseAddFriendRes& from) {
     if (from.has_friend_id()) {
       set_friend_id(from.friend_id());
     }
+    if (from.has_friendres_status_type()) {
+      set_friendres_status_type(from.friendres_status_type());
+    }
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
     }
@@ -6523,23 +6251,24 @@ void IMReverseAddFriendRes::MergeFrom(const IMReverseAddFriendRes& from) {
   mutable_unknown_fields()->append(from.unknown_fields());
 }
 
-void IMReverseAddFriendRes::CopyFrom(const IMReverseAddFriendRes& from) {
+void IMCommonOperFriendRes::CopyFrom(const IMCommonOperFriendRes& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool IMReverseAddFriendRes::IsInitialized() const {
+bool IMCommonOperFriendRes::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
   return true;
 }
 
-void IMReverseAddFriendRes::Swap(IMReverseAddFriendRes* other) {
+void IMCommonOperFriendRes::Swap(IMCommonOperFriendRes* other) {
   if (other != this) {
     std::swap(user_id_, other->user_id_);
     std::swap(result_code_, other->result_code_);
     std::swap(friend_id_, other->friend_id_);
+    std::swap(friendres_status_type_, other->friendres_status_type_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
@@ -6547,8 +6276,8 @@ void IMReverseAddFriendRes::Swap(IMReverseAddFriendRes* other) {
   }
 }
 
-::std::string IMReverseAddFriendRes::GetTypeName() const {
-  return "IM.Buddy.IMReverseAddFriendRes";
+::std::string IMCommonOperFriendRes::GetTypeName() const {
+  return "IM.Buddy.IMCommonOperFriendRes";
 }
 
 
@@ -6831,322 +6560,6 @@ void IMDelFriendReq::Swap(IMDelFriendReq* other) {
 
 ::std::string IMDelFriendReq::GetTypeName() const {
   return "IM.Buddy.IMDelFriendReq";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int IMDelFriendRes::kUserIdFieldNumber;
-const int IMDelFriendRes::kResultCodeFieldNumber;
-const int IMDelFriendRes::kFriendIdFieldNumber;
-const int IMDelFriendRes::kAttachDataFieldNumber;
-#endif  // !_MSC_VER
-
-IMDelFriendRes::IMDelFriendRes()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMDelFriendRes)
-}
-
-void IMDelFriendRes::InitAsDefaultInstance() {
-}
-
-IMDelFriendRes::IMDelFriendRes(const IMDelFriendRes& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMDelFriendRes)
-}
-
-void IMDelFriendRes::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  result_code_ = 0u;
-  friend_id_ = 0u;
-  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-IMDelFriendRes::~IMDelFriendRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMDelFriendRes)
-  SharedDtor();
-}
-
-void IMDelFriendRes::SharedDtor() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void IMDelFriendRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const IMDelFriendRes& IMDelFriendRes::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-IMDelFriendRes* IMDelFriendRes::default_instance_ = NULL;
-
-IMDelFriendRes* IMDelFriendRes::New() const {
-  return new IMDelFriendRes;
-}
-
-void IMDelFriendRes::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMDelFriendRes*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 15) {
-    ZR_(user_id_, result_code_);
-    friend_id_ = 0u;
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool IMDelFriendRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMDelFriendRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_result_code;
-        break;
-      }
-
-      // required uint32 result_code = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_result_code:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &result_code_)));
-          set_has_result_code();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(80)) goto parse_friend_id;
-        break;
-      }
-
-      // optional uint32 friend_id = 10;
-      case 10: {
-        if (tag == 80) {
-         parse_friend_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &friend_id_)));
-          set_has_friend_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(162)) goto parse_attach_data;
-        break;
-      }
-
-      // optional bytes attach_data = 20;
-      case 20: {
-        if (tag == 162) {
-         parse_attach_data:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMDelFriendRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMDelFriendRes)
-  return false;
-#undef DO_
-}
-
-void IMDelFriendRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMDelFriendRes)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // required uint32 result_code = 2;
-  if (has_result_code()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
-  }
-
-  // optional uint32 friend_id = 10;
-  if (has_friend_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->friend_id(), output);
-  }
-
-  // optional bytes attach_data = 20;
-  if (has_attach_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMDelFriendRes)
-}
-
-int IMDelFriendRes::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // required uint32 result_code = 2;
-    if (has_result_code()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->result_code());
-    }
-
-    // optional uint32 friend_id = 10;
-    if (has_friend_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->friend_id());
-    }
-
-    // optional bytes attach_data = 20;
-    if (has_attach_data()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void IMDelFriendRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMDelFriendRes*>(&from));
-}
-
-void IMDelFriendRes::MergeFrom(const IMDelFriendRes& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_result_code()) {
-      set_result_code(from.result_code());
-    }
-    if (from.has_friend_id()) {
-      set_friend_id(from.friend_id());
-    }
-    if (from.has_attach_data()) {
-      set_attach_data(from.attach_data());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void IMDelFriendRes::CopyFrom(const IMDelFriendRes& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool IMDelFriendRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void IMDelFriendRes::Swap(IMDelFriendRes* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    std::swap(result_code_, other->result_code_);
-    std::swap(friend_id_, other->friend_id_);
-    std::swap(attach_data_, other->attach_data_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string IMDelFriendRes::GetTypeName() const {
-  return "IM.Buddy.IMDelFriendRes";
 }
 
 
@@ -7475,322 +6888,6 @@ void IMChgFriendRemarkReq::Swap(IMChgFriendRemarkReq* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int IMChgFriendRemarkRes::kUserIdFieldNumber;
-const int IMChgFriendRemarkRes::kResultCodeFieldNumber;
-const int IMChgFriendRemarkRes::kFriendIdFieldNumber;
-const int IMChgFriendRemarkRes::kAttachDataFieldNumber;
-#endif  // !_MSC_VER
-
-IMChgFriendRemarkRes::IMChgFriendRemarkRes()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMChgFriendRemarkRes)
-}
-
-void IMChgFriendRemarkRes::InitAsDefaultInstance() {
-}
-
-IMChgFriendRemarkRes::IMChgFriendRemarkRes(const IMChgFriendRemarkRes& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMChgFriendRemarkRes)
-}
-
-void IMChgFriendRemarkRes::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  result_code_ = 0u;
-  friend_id_ = 0u;
-  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-IMChgFriendRemarkRes::~IMChgFriendRemarkRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMChgFriendRemarkRes)
-  SharedDtor();
-}
-
-void IMChgFriendRemarkRes::SharedDtor() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void IMChgFriendRemarkRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const IMChgFriendRemarkRes& IMChgFriendRemarkRes::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-IMChgFriendRemarkRes* IMChgFriendRemarkRes::default_instance_ = NULL;
-
-IMChgFriendRemarkRes* IMChgFriendRemarkRes::New() const {
-  return new IMChgFriendRemarkRes;
-}
-
-void IMChgFriendRemarkRes::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMChgFriendRemarkRes*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 15) {
-    ZR_(user_id_, result_code_);
-    friend_id_ = 0u;
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool IMChgFriendRemarkRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMChgFriendRemarkRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_result_code;
-        break;
-      }
-
-      // required uint32 result_code = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_result_code:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &result_code_)));
-          set_has_result_code();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(80)) goto parse_friend_id;
-        break;
-      }
-
-      // optional uint32 friend_id = 10;
-      case 10: {
-        if (tag == 80) {
-         parse_friend_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &friend_id_)));
-          set_has_friend_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(162)) goto parse_attach_data;
-        break;
-      }
-
-      // optional bytes attach_data = 20;
-      case 20: {
-        if (tag == 162) {
-         parse_attach_data:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMChgFriendRemarkRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMChgFriendRemarkRes)
-  return false;
-#undef DO_
-}
-
-void IMChgFriendRemarkRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMChgFriendRemarkRes)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // required uint32 result_code = 2;
-  if (has_result_code()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
-  }
-
-  // optional uint32 friend_id = 10;
-  if (has_friend_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->friend_id(), output);
-  }
-
-  // optional bytes attach_data = 20;
-  if (has_attach_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMChgFriendRemarkRes)
-}
-
-int IMChgFriendRemarkRes::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // required uint32 result_code = 2;
-    if (has_result_code()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->result_code());
-    }
-
-    // optional uint32 friend_id = 10;
-    if (has_friend_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->friend_id());
-    }
-
-    // optional bytes attach_data = 20;
-    if (has_attach_data()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void IMChgFriendRemarkRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMChgFriendRemarkRes*>(&from));
-}
-
-void IMChgFriendRemarkRes::MergeFrom(const IMChgFriendRemarkRes& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_result_code()) {
-      set_result_code(from.result_code());
-    }
-    if (from.has_friend_id()) {
-      set_friend_id(from.friend_id());
-    }
-    if (from.has_attach_data()) {
-      set_attach_data(from.attach_data());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void IMChgFriendRemarkRes::CopyFrom(const IMChgFriendRemarkRes& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool IMChgFriendRemarkRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void IMChgFriendRemarkRes::Swap(IMChgFriendRemarkRes* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    std::swap(result_code_, other->result_code_);
-    std::swap(friend_id_, other->friend_id_);
-    std::swap(attach_data_, other->attach_data_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string IMChgFriendRemarkRes::GetTypeName() const {
-  return "IM.Buddy.IMChgFriendRemarkRes";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
 const int IMCreateFriendGroupReq::kUserIdFieldNumber;
 const int IMCreateFriendGroupReq::kGroupNameFieldNumber;
 const int IMCreateFriendGroupReq::kAttachDataFieldNumber;
@@ -8066,42 +7163,42 @@ void IMCreateFriendGroupReq::Swap(IMCreateFriendGroupReq* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int IMCreateFriendGroupRes::kUserIdFieldNumber;
-const int IMCreateFriendGroupRes::kGroupIdFieldNumber;
-const int IMCreateFriendGroupRes::kAttachDataFieldNumber;
+const int IMCommonOperFriendGroupRes::kUserIdFieldNumber;
+const int IMCommonOperFriendGroupRes::kResultCodeFieldNumber;
+const int IMCommonOperFriendGroupRes::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
-IMCreateFriendGroupRes::IMCreateFriendGroupRes()
+IMCommonOperFriendGroupRes::IMCommonOperFriendGroupRes()
   : ::google::protobuf::MessageLite() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(constructor:IM.Buddy.IMCommonOperFriendGroupRes)
 }
 
-void IMCreateFriendGroupRes::InitAsDefaultInstance() {
+void IMCommonOperFriendGroupRes::InitAsDefaultInstance() {
 }
 
-IMCreateFriendGroupRes::IMCreateFriendGroupRes(const IMCreateFriendGroupRes& from)
+IMCommonOperFriendGroupRes::IMCommonOperFriendGroupRes(const IMCommonOperFriendGroupRes& from)
   : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMCommonOperFriendGroupRes)
 }
 
-void IMCreateFriendGroupRes::SharedCtor() {
+void IMCommonOperFriendGroupRes::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   user_id_ = 0u;
-  group_id_ = 0u;
+  result_code_ = 0u;
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-IMCreateFriendGroupRes::~IMCreateFriendGroupRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMCreateFriendGroupRes)
+IMCommonOperFriendGroupRes::~IMCommonOperFriendGroupRes() {
+  // @@protoc_insertion_point(destructor:IM.Buddy.IMCommonOperFriendGroupRes)
   SharedDtor();
 }
 
-void IMCreateFriendGroupRes::SharedDtor() {
+void IMCommonOperFriendGroupRes::SharedDtor() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete attach_data_;
   }
@@ -8113,12 +7210,12 @@ void IMCreateFriendGroupRes::SharedDtor() {
   }
 }
 
-void IMCreateFriendGroupRes::SetCachedSize(int size) const {
+void IMCommonOperFriendGroupRes::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const IMCreateFriendGroupRes& IMCreateFriendGroupRes::default_instance() {
+const IMCommonOperFriendGroupRes& IMCommonOperFriendGroupRes::default_instance() {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   protobuf_AddDesc_IM_2eBuddy_2eproto();
 #else
@@ -8127,15 +7224,15 @@ const IMCreateFriendGroupRes& IMCreateFriendGroupRes::default_instance() {
   return *default_instance_;
 }
 
-IMCreateFriendGroupRes* IMCreateFriendGroupRes::default_instance_ = NULL;
+IMCommonOperFriendGroupRes* IMCommonOperFriendGroupRes::default_instance_ = NULL;
 
-IMCreateFriendGroupRes* IMCreateFriendGroupRes::New() const {
-  return new IMCreateFriendGroupRes;
+IMCommonOperFriendGroupRes* IMCommonOperFriendGroupRes::New() const {
+  return new IMCommonOperFriendGroupRes;
 }
 
-void IMCreateFriendGroupRes::Clear() {
+void IMCommonOperFriendGroupRes::Clear() {
 #define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMCreateFriendGroupRes*>(16)->f) - \
+  &reinterpret_cast<IMCommonOperFriendGroupRes*>(16)->f) - \
    reinterpret_cast<char*>(16))
 
 #define ZR_(first, last) do {                              \
@@ -8145,7 +7242,7 @@ void IMCreateFriendGroupRes::Clear() {
   } while (0)
 
   if (_has_bits_[0 / 32] & 7) {
-    ZR_(user_id_, group_id_);
+    ZR_(user_id_, result_code_);
     if (has_attach_data()) {
       if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         attach_data_->clear();
@@ -8160,7 +7257,7 @@ void IMCreateFriendGroupRes::Clear() {
   mutable_unknown_fields()->clear();
 }
 
-bool IMCreateFriendGroupRes::MergePartialFromCodedStream(
+bool IMCommonOperFriendGroupRes::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
@@ -8168,7 +7265,7 @@ bool IMCreateFriendGroupRes::MergePartialFromCodedStream(
       mutable_unknown_fields());
   ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
       &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(parse_start:IM.Buddy.IMCommonOperFriendGroupRes)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
     tag = p.first;
@@ -8184,18 +7281,18 @@ bool IMCreateFriendGroupRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_group_id;
+        if (input->ExpectTag(16)) goto parse_result_code;
         break;
       }
 
-      // required uint32 group_id = 2;
+      // required uint32 result_code = 2;
       case 2: {
         if (tag == 16) {
-         parse_group_id:
+         parse_result_code:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &group_id_)));
-          set_has_group_id();
+                 input, &result_code_)));
+          set_has_result_code();
         } else {
           goto handle_unusual;
         }
@@ -8230,25 +7327,25 @@ bool IMCreateFriendGroupRes::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(parse_success:IM.Buddy.IMCommonOperFriendGroupRes)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMCommonOperFriendGroupRes)
   return false;
 #undef DO_
 }
 
-void IMCreateFriendGroupRes::SerializeWithCachedSizes(
+void IMCommonOperFriendGroupRes::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMCommonOperFriendGroupRes)
   // required uint32 user_id = 1;
   if (has_user_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
   }
 
-  // required uint32 group_id = 2;
-  if (has_group_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->group_id(), output);
+  // required uint32 result_code = 2;
+  if (has_result_code()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
   }
 
   // optional bytes attach_data = 20;
@@ -8259,10 +7356,10 @@ void IMCreateFriendGroupRes::SerializeWithCachedSizes(
 
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMCommonOperFriendGroupRes)
 }
 
-int IMCreateFriendGroupRes::ByteSize() const {
+int IMCommonOperFriendGroupRes::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -8273,11 +7370,11 @@ int IMCreateFriendGroupRes::ByteSize() const {
           this->user_id());
     }
 
-    // required uint32 group_id = 2;
-    if (has_group_id()) {
+    // required uint32 result_code = 2;
+    if (has_result_code()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->group_id());
+          this->result_code());
     }
 
     // optional bytes attach_data = 20;
@@ -8296,19 +7393,19 @@ int IMCreateFriendGroupRes::ByteSize() const {
   return total_size;
 }
 
-void IMCreateFriendGroupRes::CheckTypeAndMergeFrom(
+void IMCommonOperFriendGroupRes::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMCreateFriendGroupRes*>(&from));
+  MergeFrom(*::google::protobuf::down_cast<const IMCommonOperFriendGroupRes*>(&from));
 }
 
-void IMCreateFriendGroupRes::MergeFrom(const IMCreateFriendGroupRes& from) {
+void IMCommonOperFriendGroupRes::MergeFrom(const IMCommonOperFriendGroupRes& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_user_id()) {
       set_user_id(from.user_id());
     }
-    if (from.has_group_id()) {
-      set_group_id(from.group_id());
+    if (from.has_result_code()) {
+      set_result_code(from.result_code());
     }
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
@@ -8317,22 +7414,22 @@ void IMCreateFriendGroupRes::MergeFrom(const IMCreateFriendGroupRes& from) {
   mutable_unknown_fields()->append(from.unknown_fields());
 }
 
-void IMCreateFriendGroupRes::CopyFrom(const IMCreateFriendGroupRes& from) {
+void IMCommonOperFriendGroupRes::CopyFrom(const IMCommonOperFriendGroupRes& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool IMCreateFriendGroupRes::IsInitialized() const {
+bool IMCommonOperFriendGroupRes::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
   return true;
 }
 
-void IMCreateFriendGroupRes::Swap(IMCreateFriendGroupRes* other) {
+void IMCommonOperFriendGroupRes::Swap(IMCommonOperFriendGroupRes* other) {
   if (other != this) {
     std::swap(user_id_, other->user_id_);
-    std::swap(group_id_, other->group_id_);
+    std::swap(result_code_, other->result_code_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
@@ -8340,8 +7437,8 @@ void IMCreateFriendGroupRes::Swap(IMCreateFriendGroupRes* other) {
   }
 }
 
-::std::string IMCreateFriendGroupRes::GetTypeName() const {
-  return "IM.Buddy.IMCreateFriendGroupRes";
+::std::string IMCommonOperFriendGroupRes::GetTypeName() const {
+  return "IM.Buddy.IMCommonOperFriendGroupRes";
 }
 
 
@@ -8624,288 +7721,6 @@ void IMDelFriendGroupReq::Swap(IMDelFriendGroupReq* other) {
 
 ::std::string IMDelFriendGroupReq::GetTypeName() const {
   return "IM.Buddy.IMDelFriendGroupReq";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int IMDelFriendGroupRes::kUserIdFieldNumber;
-const int IMDelFriendGroupRes::kResultCodeFieldNumber;
-const int IMDelFriendGroupRes::kAttachDataFieldNumber;
-#endif  // !_MSC_VER
-
-IMDelFriendGroupRes::IMDelFriendGroupRes()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMDelFriendGroupRes)
-}
-
-void IMDelFriendGroupRes::InitAsDefaultInstance() {
-}
-
-IMDelFriendGroupRes::IMDelFriendGroupRes(const IMDelFriendGroupRes& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMDelFriendGroupRes)
-}
-
-void IMDelFriendGroupRes::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  result_code_ = 0u;
-  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-IMDelFriendGroupRes::~IMDelFriendGroupRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMDelFriendGroupRes)
-  SharedDtor();
-}
-
-void IMDelFriendGroupRes::SharedDtor() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void IMDelFriendGroupRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const IMDelFriendGroupRes& IMDelFriendGroupRes::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-IMDelFriendGroupRes* IMDelFriendGroupRes::default_instance_ = NULL;
-
-IMDelFriendGroupRes* IMDelFriendGroupRes::New() const {
-  return new IMDelFriendGroupRes;
-}
-
-void IMDelFriendGroupRes::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMDelFriendGroupRes*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(user_id_, result_code_);
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool IMDelFriendGroupRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMDelFriendGroupRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_result_code;
-        break;
-      }
-
-      // required uint32 result_code = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_result_code:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &result_code_)));
-          set_has_result_code();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(162)) goto parse_attach_data;
-        break;
-      }
-
-      // optional bytes attach_data = 20;
-      case 20: {
-        if (tag == 162) {
-         parse_attach_data:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMDelFriendGroupRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMDelFriendGroupRes)
-  return false;
-#undef DO_
-}
-
-void IMDelFriendGroupRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMDelFriendGroupRes)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // required uint32 result_code = 2;
-  if (has_result_code()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
-  }
-
-  // optional bytes attach_data = 20;
-  if (has_attach_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMDelFriendGroupRes)
-}
-
-int IMDelFriendGroupRes::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // required uint32 result_code = 2;
-    if (has_result_code()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->result_code());
-    }
-
-    // optional bytes attach_data = 20;
-    if (has_attach_data()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void IMDelFriendGroupRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMDelFriendGroupRes*>(&from));
-}
-
-void IMDelFriendGroupRes::MergeFrom(const IMDelFriendGroupRes& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_result_code()) {
-      set_result_code(from.result_code());
-    }
-    if (from.has_attach_data()) {
-      set_attach_data(from.attach_data());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void IMDelFriendGroupRes::CopyFrom(const IMDelFriendGroupRes& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool IMDelFriendGroupRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void IMDelFriendGroupRes::Swap(IMDelFriendGroupRes* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    std::swap(result_code_, other->result_code_);
-    std::swap(attach_data_, other->attach_data_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string IMDelFriendGroupRes::GetTypeName() const {
-  return "IM.Buddy.IMDelFriendGroupRes";
 }
 
 
@@ -9233,288 +8048,6 @@ void IMMoveFriendToGroupReq::Swap(IMMoveFriendToGroupReq* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int IMMoveFriendToGroupRes::kUserIdFieldNumber;
-const int IMMoveFriendToGroupRes::kResultCodeFieldNumber;
-const int IMMoveFriendToGroupRes::kAttachDataFieldNumber;
-#endif  // !_MSC_VER
-
-IMMoveFriendToGroupRes::IMMoveFriendToGroupRes()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMMoveFriendToGroupRes)
-}
-
-void IMMoveFriendToGroupRes::InitAsDefaultInstance() {
-}
-
-IMMoveFriendToGroupRes::IMMoveFriendToGroupRes(const IMMoveFriendToGroupRes& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMMoveFriendToGroupRes)
-}
-
-void IMMoveFriendToGroupRes::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  result_code_ = 0u;
-  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-IMMoveFriendToGroupRes::~IMMoveFriendToGroupRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMMoveFriendToGroupRes)
-  SharedDtor();
-}
-
-void IMMoveFriendToGroupRes::SharedDtor() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void IMMoveFriendToGroupRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const IMMoveFriendToGroupRes& IMMoveFriendToGroupRes::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-IMMoveFriendToGroupRes* IMMoveFriendToGroupRes::default_instance_ = NULL;
-
-IMMoveFriendToGroupRes* IMMoveFriendToGroupRes::New() const {
-  return new IMMoveFriendToGroupRes;
-}
-
-void IMMoveFriendToGroupRes::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMMoveFriendToGroupRes*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(user_id_, result_code_);
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool IMMoveFriendToGroupRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMMoveFriendToGroupRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_result_code;
-        break;
-      }
-
-      // required uint32 result_code = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_result_code:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &result_code_)));
-          set_has_result_code();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(162)) goto parse_attach_data;
-        break;
-      }
-
-      // optional bytes attach_data = 20;
-      case 20: {
-        if (tag == 162) {
-         parse_attach_data:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMMoveFriendToGroupRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMMoveFriendToGroupRes)
-  return false;
-#undef DO_
-}
-
-void IMMoveFriendToGroupRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMMoveFriendToGroupRes)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // required uint32 result_code = 2;
-  if (has_result_code()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
-  }
-
-  // optional bytes attach_data = 20;
-  if (has_attach_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMMoveFriendToGroupRes)
-}
-
-int IMMoveFriendToGroupRes::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // required uint32 result_code = 2;
-    if (has_result_code()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->result_code());
-    }
-
-    // optional bytes attach_data = 20;
-    if (has_attach_data()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void IMMoveFriendToGroupRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMMoveFriendToGroupRes*>(&from));
-}
-
-void IMMoveFriendToGroupRes::MergeFrom(const IMMoveFriendToGroupRes& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_result_code()) {
-      set_result_code(from.result_code());
-    }
-    if (from.has_attach_data()) {
-      set_attach_data(from.attach_data());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void IMMoveFriendToGroupRes::CopyFrom(const IMMoveFriendToGroupRes& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool IMMoveFriendToGroupRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void IMMoveFriendToGroupRes::Swap(IMMoveFriendToGroupRes* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    std::swap(result_code_, other->result_code_);
-    std::swap(attach_data_, other->attach_data_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string IMMoveFriendToGroupRes::GetTypeName() const {
-  return "IM.Buddy.IMMoveFriendToGroupRes";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
 const int IMChgFriendGroupNameReq::kUserIdFieldNumber;
 const int IMChgFriendGroupNameReq::kGroupIdFieldNumber;
 const int IMChgFriendGroupNameReq::kGroupNameFieldNumber;
@@ -9831,288 +8364,6 @@ void IMChgFriendGroupNameReq::Swap(IMChgFriendGroupNameReq* other) {
 
 ::std::string IMChgFriendGroupNameReq::GetTypeName() const {
   return "IM.Buddy.IMChgFriendGroupNameReq";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int IMChgFriendGroupNameRes::kUserIdFieldNumber;
-const int IMChgFriendGroupNameRes::kResultCodeFieldNumber;
-const int IMChgFriendGroupNameRes::kAttachDataFieldNumber;
-#endif  // !_MSC_VER
-
-IMChgFriendGroupNameRes::IMChgFriendGroupNameRes()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMChgFriendGroupNameRes)
-}
-
-void IMChgFriendGroupNameRes::InitAsDefaultInstance() {
-}
-
-IMChgFriendGroupNameRes::IMChgFriendGroupNameRes(const IMChgFriendGroupNameRes& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMChgFriendGroupNameRes)
-}
-
-void IMChgFriendGroupNameRes::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  result_code_ = 0u;
-  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-IMChgFriendGroupNameRes::~IMChgFriendGroupNameRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMChgFriendGroupNameRes)
-  SharedDtor();
-}
-
-void IMChgFriendGroupNameRes::SharedDtor() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void IMChgFriendGroupNameRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const IMChgFriendGroupNameRes& IMChgFriendGroupNameRes::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-IMChgFriendGroupNameRes* IMChgFriendGroupNameRes::default_instance_ = NULL;
-
-IMChgFriendGroupNameRes* IMChgFriendGroupNameRes::New() const {
-  return new IMChgFriendGroupNameRes;
-}
-
-void IMChgFriendGroupNameRes::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<IMChgFriendGroupNameRes*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(user_id_, result_code_);
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool IMChgFriendGroupNameRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMChgFriendGroupNameRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_result_code;
-        break;
-      }
-
-      // required uint32 result_code = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_result_code:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &result_code_)));
-          set_has_result_code();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(162)) goto parse_attach_data;
-        break;
-      }
-
-      // optional bytes attach_data = 20;
-      case 20: {
-        if (tag == 162) {
-         parse_attach_data:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMChgFriendGroupNameRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMChgFriendGroupNameRes)
-  return false;
-#undef DO_
-}
-
-void IMChgFriendGroupNameRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMChgFriendGroupNameRes)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // required uint32 result_code = 2;
-  if (has_result_code()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
-  }
-
-  // optional bytes attach_data = 20;
-  if (has_attach_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMChgFriendGroupNameRes)
-}
-
-int IMChgFriendGroupNameRes::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // required uint32 result_code = 2;
-    if (has_result_code()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->result_code());
-    }
-
-    // optional bytes attach_data = 20;
-    if (has_attach_data()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void IMChgFriendGroupNameRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMChgFriendGroupNameRes*>(&from));
-}
-
-void IMChgFriendGroupNameRes::MergeFrom(const IMChgFriendGroupNameRes& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_result_code()) {
-      set_result_code(from.result_code());
-    }
-    if (from.has_attach_data()) {
-      set_attach_data(from.attach_data());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void IMChgFriendGroupNameRes::CopyFrom(const IMChgFriendGroupNameRes& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool IMChgFriendGroupNameRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void IMChgFriendGroupNameRes::Swap(IMChgFriendGroupNameRes* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    std::swap(result_code_, other->result_code_);
-    std::swap(attach_data_, other->attach_data_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string IMChgFriendGroupNameRes::GetTypeName() const {
-  return "IM.Buddy.IMChgFriendGroupNameRes";
 }
 
 
@@ -11062,36 +9313,36 @@ void IMGetAddFriendReq::Swap(IMGetAddFriendReq* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int AddFrienInfo::kFromUserIdFieldNumber;
-const int AddFrienInfo::kCreateTimeFieldNumber;
-const int AddFrienInfo::kExtraInfoFieldNumber;
-const int AddFrienInfo::kUserNicknameFieldNumber;
-const int AddFrienInfo::kUserHeadlinkFieldNumber;
-const int AddFrienInfo::kUserGenderFieldNumber;
-const int AddFrienInfo::kUserUidFieldNumber;
+const int IMCommonOperFrienInfo::kOperUserIdFieldNumber;
+const int IMCommonOperFrienInfo::kOperTimeFieldNumber;
+const int IMCommonOperFrienInfo::kExtraInfoFieldNumber;
+const int IMCommonOperFrienInfo::kUserNicknameFieldNumber;
+const int IMCommonOperFrienInfo::kUserHeadlinkFieldNumber;
+const int IMCommonOperFrienInfo::kUserGenderFieldNumber;
+const int IMCommonOperFrienInfo::kUserUidFieldNumber;
 #endif  // !_MSC_VER
 
-AddFrienInfo::AddFrienInfo()
+IMCommonOperFrienInfo::IMCommonOperFrienInfo()
   : ::google::protobuf::MessageLite() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.AddFrienInfo)
+  // @@protoc_insertion_point(constructor:IM.Buddy.IMCommonOperFrienInfo)
 }
 
-void AddFrienInfo::InitAsDefaultInstance() {
+void IMCommonOperFrienInfo::InitAsDefaultInstance() {
 }
 
-AddFrienInfo::AddFrienInfo(const AddFrienInfo& from)
+IMCommonOperFrienInfo::IMCommonOperFrienInfo(const IMCommonOperFrienInfo& from)
   : ::google::protobuf::MessageLite() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.AddFrienInfo)
+  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMCommonOperFrienInfo)
 }
 
-void AddFrienInfo::SharedCtor() {
+void IMCommonOperFrienInfo::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  from_user_id_ = 0u;
-  create_time_ = 0u;
+  oper_user_id_ = 0u;
+  oper_time_ = 0u;
   extra_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -11100,12 +9351,12 @@ void AddFrienInfo::SharedCtor() {
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-AddFrienInfo::~AddFrienInfo() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.AddFrienInfo)
+IMCommonOperFrienInfo::~IMCommonOperFrienInfo() {
+  // @@protoc_insertion_point(destructor:IM.Buddy.IMCommonOperFrienInfo)
   SharedDtor();
 }
 
-void AddFrienInfo::SharedDtor() {
+void IMCommonOperFrienInfo::SharedDtor() {
   if (extra_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete extra_info_;
   }
@@ -11123,12 +9374,12 @@ void AddFrienInfo::SharedDtor() {
   }
 }
 
-void AddFrienInfo::SetCachedSize(int size) const {
+void IMCommonOperFrienInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const AddFrienInfo& AddFrienInfo::default_instance() {
+const IMCommonOperFrienInfo& IMCommonOperFrienInfo::default_instance() {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   protobuf_AddDesc_IM_2eBuddy_2eproto();
 #else
@@ -11137,15 +9388,15 @@ const AddFrienInfo& AddFrienInfo::default_instance() {
   return *default_instance_;
 }
 
-AddFrienInfo* AddFrienInfo::default_instance_ = NULL;
+IMCommonOperFrienInfo* IMCommonOperFrienInfo::default_instance_ = NULL;
 
-AddFrienInfo* AddFrienInfo::New() const {
-  return new AddFrienInfo;
+IMCommonOperFrienInfo* IMCommonOperFrienInfo::New() const {
+  return new IMCommonOperFrienInfo;
 }
 
-void AddFrienInfo::Clear() {
+void IMCommonOperFrienInfo::Clear() {
 #define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<AddFrienInfo*>(16)->f) - \
+  &reinterpret_cast<IMCommonOperFrienInfo*>(16)->f) - \
    reinterpret_cast<char*>(16))
 
 #define ZR_(first, last) do {                              \
@@ -11155,7 +9406,7 @@ void AddFrienInfo::Clear() {
   } while (0)
 
   if (_has_bits_[0 / 32] & 127) {
-    ZR_(from_user_id_, create_time_);
+    ZR_(oper_user_id_, oper_time_);
     ZR_(user_gender_, user_uid_);
     if (has_extra_info()) {
       if (extra_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -11181,7 +9432,7 @@ void AddFrienInfo::Clear() {
   mutable_unknown_fields()->clear();
 }
 
-bool AddFrienInfo::MergePartialFromCodedStream(
+bool IMCommonOperFrienInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
@@ -11189,34 +9440,34 @@ bool AddFrienInfo::MergePartialFromCodedStream(
       mutable_unknown_fields());
   ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
       &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.AddFrienInfo)
+  // @@protoc_insertion_point(parse_start:IM.Buddy.IMCommonOperFrienInfo)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 from_user_id = 1;
+      // required uint32 oper_user_id = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &from_user_id_)));
-          set_has_from_user_id();
+                 input, &oper_user_id_)));
+          set_has_oper_user_id();
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_create_time;
+        if (input->ExpectTag(16)) goto parse_oper_time;
         break;
       }
 
-      // required uint32 create_time = 2;
+      // required uint32 oper_time = 2;
       case 2: {
         if (tag == 16) {
-         parse_create_time:
+         parse_oper_time:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &create_time_)));
-          set_has_create_time();
+                 input, &oper_time_)));
+          set_has_oper_time();
         } else {
           goto handle_unusual;
         }
@@ -11307,25 +9558,25 @@ bool AddFrienInfo::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.AddFrienInfo)
+  // @@protoc_insertion_point(parse_success:IM.Buddy.IMCommonOperFrienInfo)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.AddFrienInfo)
+  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMCommonOperFrienInfo)
   return false;
 #undef DO_
 }
 
-void AddFrienInfo::SerializeWithCachedSizes(
+void IMCommonOperFrienInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.AddFrienInfo)
-  // required uint32 from_user_id = 1;
-  if (has_from_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->from_user_id(), output);
+  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMCommonOperFrienInfo)
+  // required uint32 oper_user_id = 1;
+  if (has_oper_user_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->oper_user_id(), output);
   }
 
-  // required uint32 create_time = 2;
-  if (has_create_time()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->create_time(), output);
+  // required uint32 oper_time = 2;
+  if (has_oper_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->oper_time(), output);
   }
 
   // optional string extra_info = 3;
@@ -11358,25 +9609,25 @@ void AddFrienInfo::SerializeWithCachedSizes(
 
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.AddFrienInfo)
+  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMCommonOperFrienInfo)
 }
 
-int AddFrienInfo::ByteSize() const {
+int IMCommonOperFrienInfo::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 from_user_id = 1;
-    if (has_from_user_id()) {
+    // required uint32 oper_user_id = 1;
+    if (has_oper_user_id()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->from_user_id());
+          this->oper_user_id());
     }
 
-    // required uint32 create_time = 2;
-    if (has_create_time()) {
+    // required uint32 oper_time = 2;
+    if (has_oper_time()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->create_time());
+          this->oper_time());
     }
 
     // optional string extra_info = 3;
@@ -11423,19 +9674,19 @@ int AddFrienInfo::ByteSize() const {
   return total_size;
 }
 
-void AddFrienInfo::CheckTypeAndMergeFrom(
+void IMCommonOperFrienInfo::CheckTypeAndMergeFrom(
     const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AddFrienInfo*>(&from));
+  MergeFrom(*::google::protobuf::down_cast<const IMCommonOperFrienInfo*>(&from));
 }
 
-void AddFrienInfo::MergeFrom(const AddFrienInfo& from) {
+void IMCommonOperFrienInfo::MergeFrom(const IMCommonOperFrienInfo& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_from_user_id()) {
-      set_from_user_id(from.from_user_id());
+    if (from.has_oper_user_id()) {
+      set_oper_user_id(from.oper_user_id());
     }
-    if (from.has_create_time()) {
-      set_create_time(from.create_time());
+    if (from.has_oper_time()) {
+      set_oper_time(from.oper_time());
     }
     if (from.has_extra_info()) {
       set_extra_info(from.extra_info());
@@ -11456,22 +9707,22 @@ void AddFrienInfo::MergeFrom(const AddFrienInfo& from) {
   mutable_unknown_fields()->append(from.unknown_fields());
 }
 
-void AddFrienInfo::CopyFrom(const AddFrienInfo& from) {
+void IMCommonOperFrienInfo::CopyFrom(const IMCommonOperFrienInfo& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool AddFrienInfo::IsInitialized() const {
+bool IMCommonOperFrienInfo::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
   return true;
 }
 
-void AddFrienInfo::Swap(AddFrienInfo* other) {
+void IMCommonOperFrienInfo::Swap(IMCommonOperFrienInfo* other) {
   if (other != this) {
-    std::swap(from_user_id_, other->from_user_id_);
-    std::swap(create_time_, other->create_time_);
+    std::swap(oper_user_id_, other->oper_user_id_);
+    std::swap(oper_time_, other->oper_time_);
     std::swap(extra_info_, other->extra_info_);
     std::swap(user_nickname_, other->user_nickname_);
     std::swap(user_headlink_, other->user_headlink_);
@@ -11483,826 +9734,8 @@ void AddFrienInfo::Swap(AddFrienInfo* other) {
   }
 }
 
-::std::string AddFrienInfo::GetTypeName() const {
-  return "IM.Buddy.AddFrienInfo";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int RefuseAddFrienInfo::kRefuseUserIdFieldNumber;
-const int RefuseAddFrienInfo::kRespTimeFieldNumber;
-const int RefuseAddFrienInfo::kRefuseReasonFieldNumber;
-const int RefuseAddFrienInfo::kUserNicknameFieldNumber;
-const int RefuseAddFrienInfo::kUserHeadlinkFieldNumber;
-const int RefuseAddFrienInfo::kUserGenderFieldNumber;
-const int RefuseAddFrienInfo::kUserUidFieldNumber;
-#endif  // !_MSC_VER
-
-RefuseAddFrienInfo::RefuseAddFrienInfo()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.RefuseAddFrienInfo)
-}
-
-void RefuseAddFrienInfo::InitAsDefaultInstance() {
-}
-
-RefuseAddFrienInfo::RefuseAddFrienInfo(const RefuseAddFrienInfo& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.RefuseAddFrienInfo)
-}
-
-void RefuseAddFrienInfo::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  refuse_user_id_ = 0u;
-  resp_time_ = 0u;
-  refuse_reason_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  user_gender_ = 0u;
-  user_uid_ = 0u;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-RefuseAddFrienInfo::~RefuseAddFrienInfo() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.RefuseAddFrienInfo)
-  SharedDtor();
-}
-
-void RefuseAddFrienInfo::SharedDtor() {
-  if (refuse_reason_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete refuse_reason_;
-  }
-  if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_nickname_;
-  }
-  if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_headlink_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void RefuseAddFrienInfo::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const RefuseAddFrienInfo& RefuseAddFrienInfo::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-RefuseAddFrienInfo* RefuseAddFrienInfo::default_instance_ = NULL;
-
-RefuseAddFrienInfo* RefuseAddFrienInfo::New() const {
-  return new RefuseAddFrienInfo;
-}
-
-void RefuseAddFrienInfo::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<RefuseAddFrienInfo*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 127) {
-    ZR_(refuse_user_id_, resp_time_);
-    ZR_(user_gender_, user_uid_);
-    if (has_refuse_reason()) {
-      if (refuse_reason_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        refuse_reason_->clear();
-      }
-    }
-    if (has_user_nickname()) {
-      if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        user_nickname_->clear();
-      }
-    }
-    if (has_user_headlink()) {
-      if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        user_headlink_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool RefuseAddFrienInfo::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.RefuseAddFrienInfo)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 refuse_user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &refuse_user_id_)));
-          set_has_refuse_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_resp_time;
-        break;
-      }
-
-      // required uint32 resp_time = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_resp_time:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &resp_time_)));
-          set_has_resp_time();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_refuse_reason;
-        break;
-      }
-
-      // optional string refuse_reason = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_refuse_reason:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_refuse_reason()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_user_nickname;
-        break;
-      }
-
-      // optional string user_nickname = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_user_nickname:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_user_nickname()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(58)) goto parse_user_headlink;
-        break;
-      }
-
-      // optional string user_headlink = 7;
-      case 7: {
-        if (tag == 58) {
-         parse_user_headlink:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_user_headlink()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(64)) goto parse_user_gender;
-        break;
-      }
-
-      // optional uint32 user_gender = 8;
-      case 8: {
-        if (tag == 64) {
-         parse_user_gender:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_gender_)));
-          set_has_user_gender();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(72)) goto parse_user_uid;
-        break;
-      }
-
-      // optional uint32 user_uid = 9;
-      case 9: {
-        if (tag == 72) {
-         parse_user_uid:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_uid_)));
-          set_has_user_uid();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.RefuseAddFrienInfo)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.RefuseAddFrienInfo)
-  return false;
-#undef DO_
-}
-
-void RefuseAddFrienInfo::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.RefuseAddFrienInfo)
-  // required uint32 refuse_user_id = 1;
-  if (has_refuse_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->refuse_user_id(), output);
-  }
-
-  // required uint32 resp_time = 2;
-  if (has_resp_time()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->resp_time(), output);
-  }
-
-  // optional string refuse_reason = 3;
-  if (has_refuse_reason()) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->refuse_reason(), output);
-  }
-
-  // optional string user_nickname = 6;
-  if (has_user_nickname()) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->user_nickname(), output);
-  }
-
-  // optional string user_headlink = 7;
-  if (has_user_headlink()) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      7, this->user_headlink(), output);
-  }
-
-  // optional uint32 user_gender = 8;
-  if (has_user_gender()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->user_gender(), output);
-  }
-
-  // optional uint32 user_uid = 9;
-  if (has_user_uid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(9, this->user_uid(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.RefuseAddFrienInfo)
-}
-
-int RefuseAddFrienInfo::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 refuse_user_id = 1;
-    if (has_refuse_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->refuse_user_id());
-    }
-
-    // required uint32 resp_time = 2;
-    if (has_resp_time()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->resp_time());
-    }
-
-    // optional string refuse_reason = 3;
-    if (has_refuse_reason()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->refuse_reason());
-    }
-
-    // optional string user_nickname = 6;
-    if (has_user_nickname()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->user_nickname());
-    }
-
-    // optional string user_headlink = 7;
-    if (has_user_headlink()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->user_headlink());
-    }
-
-    // optional uint32 user_gender = 8;
-    if (has_user_gender()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_gender());
-    }
-
-    // optional uint32 user_uid = 9;
-    if (has_user_uid()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_uid());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void RefuseAddFrienInfo::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const RefuseAddFrienInfo*>(&from));
-}
-
-void RefuseAddFrienInfo::MergeFrom(const RefuseAddFrienInfo& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_refuse_user_id()) {
-      set_refuse_user_id(from.refuse_user_id());
-    }
-    if (from.has_resp_time()) {
-      set_resp_time(from.resp_time());
-    }
-    if (from.has_refuse_reason()) {
-      set_refuse_reason(from.refuse_reason());
-    }
-    if (from.has_user_nickname()) {
-      set_user_nickname(from.user_nickname());
-    }
-    if (from.has_user_headlink()) {
-      set_user_headlink(from.user_headlink());
-    }
-    if (from.has_user_gender()) {
-      set_user_gender(from.user_gender());
-    }
-    if (from.has_user_uid()) {
-      set_user_uid(from.user_uid());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void RefuseAddFrienInfo::CopyFrom(const RefuseAddFrienInfo& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RefuseAddFrienInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void RefuseAddFrienInfo::Swap(RefuseAddFrienInfo* other) {
-  if (other != this) {
-    std::swap(refuse_user_id_, other->refuse_user_id_);
-    std::swap(resp_time_, other->resp_time_);
-    std::swap(refuse_reason_, other->refuse_reason_);
-    std::swap(user_nickname_, other->user_nickname_);
-    std::swap(user_headlink_, other->user_headlink_);
-    std::swap(user_gender_, other->user_gender_);
-    std::swap(user_uid_, other->user_uid_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string RefuseAddFrienInfo::GetTypeName() const {
-  return "IM.Buddy.RefuseAddFrienInfo";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int AgreeAddFrienInfo::kAgreeUserIdFieldNumber;
-const int AgreeAddFrienInfo::kRespTimeFieldNumber;
-const int AgreeAddFrienInfo::kUserNicknameFieldNumber;
-const int AgreeAddFrienInfo::kUserHeadlinkFieldNumber;
-const int AgreeAddFrienInfo::kUserGenderFieldNumber;
-const int AgreeAddFrienInfo::kUserUidFieldNumber;
-#endif  // !_MSC_VER
-
-AgreeAddFrienInfo::AgreeAddFrienInfo()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.AgreeAddFrienInfo)
-}
-
-void AgreeAddFrienInfo::InitAsDefaultInstance() {
-}
-
-AgreeAddFrienInfo::AgreeAddFrienInfo(const AgreeAddFrienInfo& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.AgreeAddFrienInfo)
-}
-
-void AgreeAddFrienInfo::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  agree_user_id_ = 0u;
-  resp_time_ = 0u;
-  user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  user_gender_ = 0u;
-  user_uid_ = 0u;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-AgreeAddFrienInfo::~AgreeAddFrienInfo() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.AgreeAddFrienInfo)
-  SharedDtor();
-}
-
-void AgreeAddFrienInfo::SharedDtor() {
-  if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_nickname_;
-  }
-  if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_headlink_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void AgreeAddFrienInfo::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const AgreeAddFrienInfo& AgreeAddFrienInfo::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-AgreeAddFrienInfo* AgreeAddFrienInfo::default_instance_ = NULL;
-
-AgreeAddFrienInfo* AgreeAddFrienInfo::New() const {
-  return new AgreeAddFrienInfo;
-}
-
-void AgreeAddFrienInfo::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<AgreeAddFrienInfo*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 63) {
-    ZR_(agree_user_id_, resp_time_);
-    ZR_(user_gender_, user_uid_);
-    if (has_user_nickname()) {
-      if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        user_nickname_->clear();
-      }
-    }
-    if (has_user_headlink()) {
-      if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        user_headlink_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool AgreeAddFrienInfo::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.AgreeAddFrienInfo)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 agree_user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &agree_user_id_)));
-          set_has_agree_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_resp_time;
-        break;
-      }
-
-      // required uint32 resp_time = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_resp_time:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &resp_time_)));
-          set_has_resp_time();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_user_nickname;
-        break;
-      }
-
-      // optional string user_nickname = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_user_nickname:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_user_nickname()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(58)) goto parse_user_headlink;
-        break;
-      }
-
-      // optional string user_headlink = 7;
-      case 7: {
-        if (tag == 58) {
-         parse_user_headlink:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_user_headlink()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(64)) goto parse_user_gender;
-        break;
-      }
-
-      // optional uint32 user_gender = 8;
-      case 8: {
-        if (tag == 64) {
-         parse_user_gender:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_gender_)));
-          set_has_user_gender();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(72)) goto parse_user_uid;
-        break;
-      }
-
-      // optional uint32 user_uid = 9;
-      case 9: {
-        if (tag == 72) {
-         parse_user_uid:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_uid_)));
-          set_has_user_uid();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.AgreeAddFrienInfo)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.AgreeAddFrienInfo)
-  return false;
-#undef DO_
-}
-
-void AgreeAddFrienInfo::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.AgreeAddFrienInfo)
-  // required uint32 agree_user_id = 1;
-  if (has_agree_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->agree_user_id(), output);
-  }
-
-  // required uint32 resp_time = 2;
-  if (has_resp_time()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->resp_time(), output);
-  }
-
-  // optional string user_nickname = 6;
-  if (has_user_nickname()) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->user_nickname(), output);
-  }
-
-  // optional string user_headlink = 7;
-  if (has_user_headlink()) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      7, this->user_headlink(), output);
-  }
-
-  // optional uint32 user_gender = 8;
-  if (has_user_gender()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->user_gender(), output);
-  }
-
-  // optional uint32 user_uid = 9;
-  if (has_user_uid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(9, this->user_uid(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.AgreeAddFrienInfo)
-}
-
-int AgreeAddFrienInfo::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 agree_user_id = 1;
-    if (has_agree_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->agree_user_id());
-    }
-
-    // required uint32 resp_time = 2;
-    if (has_resp_time()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->resp_time());
-    }
-
-    // optional string user_nickname = 6;
-    if (has_user_nickname()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->user_nickname());
-    }
-
-    // optional string user_headlink = 7;
-    if (has_user_headlink()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->user_headlink());
-    }
-
-    // optional uint32 user_gender = 8;
-    if (has_user_gender()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_gender());
-    }
-
-    // optional uint32 user_uid = 9;
-    if (has_user_uid()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_uid());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void AgreeAddFrienInfo::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AgreeAddFrienInfo*>(&from));
-}
-
-void AgreeAddFrienInfo::MergeFrom(const AgreeAddFrienInfo& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_agree_user_id()) {
-      set_agree_user_id(from.agree_user_id());
-    }
-    if (from.has_resp_time()) {
-      set_resp_time(from.resp_time());
-    }
-    if (from.has_user_nickname()) {
-      set_user_nickname(from.user_nickname());
-    }
-    if (from.has_user_headlink()) {
-      set_user_headlink(from.user_headlink());
-    }
-    if (from.has_user_gender()) {
-      set_user_gender(from.user_gender());
-    }
-    if (from.has_user_uid()) {
-      set_user_uid(from.user_uid());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void AgreeAddFrienInfo::CopyFrom(const AgreeAddFrienInfo& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool AgreeAddFrienInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void AgreeAddFrienInfo::Swap(AgreeAddFrienInfo* other) {
-  if (other != this) {
-    std::swap(agree_user_id_, other->agree_user_id_);
-    std::swap(resp_time_, other->resp_time_);
-    std::swap(user_nickname_, other->user_nickname_);
-    std::swap(user_headlink_, other->user_headlink_);
-    std::swap(user_gender_, other->user_gender_);
-    std::swap(user_uid_, other->user_uid_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string AgreeAddFrienInfo::GetTypeName() const {
-  return "IM.Buddy.AgreeAddFrienInfo";
+::std::string IMCommonOperFrienInfo::GetTypeName() const {
+  return "IM.Buddy.IMCommonOperFrienInfo";
 }
 
 
@@ -12421,7 +9854,7 @@ bool IMGetAddFriendRes::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .IM.Buddy.AddFrienInfo addfriend_info_list = 2;
+      // repeated .IM.Buddy.IMCommonOperFrienInfo addfriend_info_list = 2;
       case 2: {
         if (tag == 18) {
          parse_addfriend_info_list:
@@ -12435,7 +9868,7 @@ bool IMGetAddFriendRes::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .IM.Buddy.AgreeAddFrienInfo agree_info_list = 3;
+      // repeated .IM.Buddy.IMCommonOperFrienInfo agree_info_list = 3;
       case 3: {
         if (tag == 26) {
          parse_agree_info_list:
@@ -12449,7 +9882,7 @@ bool IMGetAddFriendRes::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .IM.Buddy.RefuseAddFrienInfo refuse_info_list = 4;
+      // repeated .IM.Buddy.IMCommonOperFrienInfo refuse_info_list = 4;
       case 4: {
         if (tag == 34) {
          parse_refuse_info_list:
@@ -12506,19 +9939,19 @@ void IMGetAddFriendRes::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
   }
 
-  // repeated .IM.Buddy.AddFrienInfo addfriend_info_list = 2;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo addfriend_info_list = 2;
   for (int i = 0; i < this->addfriend_info_list_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->addfriend_info_list(i), output);
   }
 
-  // repeated .IM.Buddy.AgreeAddFrienInfo agree_info_list = 3;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo agree_info_list = 3;
   for (int i = 0; i < this->agree_info_list_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->agree_info_list(i), output);
   }
 
-  // repeated .IM.Buddy.RefuseAddFrienInfo refuse_info_list = 4;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo refuse_info_list = 4;
   for (int i = 0; i < this->refuse_info_list_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       4, this->refuse_info_list(i), output);
@@ -12554,7 +9987,7 @@ int IMGetAddFriendRes::ByteSize() const {
     }
 
   }
-  // repeated .IM.Buddy.AddFrienInfo addfriend_info_list = 2;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo addfriend_info_list = 2;
   total_size += 1 * this->addfriend_info_list_size();
   for (int i = 0; i < this->addfriend_info_list_size(); i++) {
     total_size +=
@@ -12562,7 +9995,7 @@ int IMGetAddFriendRes::ByteSize() const {
         this->addfriend_info_list(i));
   }
 
-  // repeated .IM.Buddy.AgreeAddFrienInfo agree_info_list = 3;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo agree_info_list = 3;
   total_size += 1 * this->agree_info_list_size();
   for (int i = 0; i < this->agree_info_list_size(); i++) {
     total_size +=
@@ -12570,7 +10003,7 @@ int IMGetAddFriendRes::ByteSize() const {
         this->agree_info_list(i));
   }
 
-  // repeated .IM.Buddy.RefuseAddFrienInfo refuse_info_list = 4;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo refuse_info_list = 4;
   total_size += 1 * this->refuse_info_list_size();
   for (int i = 0; i < this->refuse_info_list_size(); i++) {
     total_size +=
@@ -12912,274 +10345,6 @@ void IMFindUserInfoReq::Swap(IMFindUserInfoReq* other) {
 
 ::std::string IMFindUserInfoReq::GetTypeName() const {
   return "IM.Buddy.IMFindUserInfoReq";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int IMFindUserInfoRes::kUserIdFieldNumber;
-const int IMFindUserInfoRes::kUserinfoListFieldNumber;
-const int IMFindUserInfoRes::kAttachDataFieldNumber;
-#endif  // !_MSC_VER
-
-IMFindUserInfoRes::IMFindUserInfoRes()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.Buddy.IMFindUserInfoRes)
-}
-
-void IMFindUserInfoRes::InitAsDefaultInstance() {
-}
-
-IMFindUserInfoRes::IMFindUserInfoRes(const IMFindUserInfoRes& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.Buddy.IMFindUserInfoRes)
-}
-
-void IMFindUserInfoRes::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-IMFindUserInfoRes::~IMFindUserInfoRes() {
-  // @@protoc_insertion_point(destructor:IM.Buddy.IMFindUserInfoRes)
-  SharedDtor();
-}
-
-void IMFindUserInfoRes::SharedDtor() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void IMFindUserInfoRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const IMFindUserInfoRes& IMFindUserInfoRes::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBuddy_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBuddy_2eproto();
-#endif
-  return *default_instance_;
-}
-
-IMFindUserInfoRes* IMFindUserInfoRes::default_instance_ = NULL;
-
-IMFindUserInfoRes* IMFindUserInfoRes::New() const {
-  return new IMFindUserInfoRes;
-}
-
-void IMFindUserInfoRes::Clear() {
-  if (_has_bits_[0 / 32] & 5) {
-    user_id_ = 0u;
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
-    }
-  }
-  userinfo_list_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool IMFindUserInfoRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.Buddy.IMFindUserInfoRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_userinfo_list;
-        break;
-      }
-
-      // repeated .IM.BaseDefine.UserInfo userinfo_list = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_userinfo_list:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_userinfo_list()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_userinfo_list;
-        if (input->ExpectTag(162)) goto parse_attach_data;
-        break;
-      }
-
-      // optional bytes attach_data = 20;
-      case 20: {
-        if (tag == 162) {
-         parse_attach_data:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_attach_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.Buddy.IMFindUserInfoRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.Buddy.IMFindUserInfoRes)
-  return false;
-#undef DO_
-}
-
-void IMFindUserInfoRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.Buddy.IMFindUserInfoRes)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // repeated .IM.BaseDefine.UserInfo userinfo_list = 2;
-  for (int i = 0; i < this->userinfo_list_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->userinfo_list(i), output);
-  }
-
-  // optional bytes attach_data = 20;
-  if (has_attach_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      20, this->attach_data(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.Buddy.IMFindUserInfoRes)
-}
-
-int IMFindUserInfoRes::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // optional bytes attach_data = 20;
-    if (has_attach_data()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->attach_data());
-    }
-
-  }
-  // repeated .IM.BaseDefine.UserInfo userinfo_list = 2;
-  total_size += 1 * this->userinfo_list_size();
-  for (int i = 0; i < this->userinfo_list_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->userinfo_list(i));
-  }
-
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void IMFindUserInfoRes::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const IMFindUserInfoRes*>(&from));
-}
-
-void IMFindUserInfoRes::MergeFrom(const IMFindUserInfoRes& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  userinfo_list_.MergeFrom(from.userinfo_list_);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_attach_data()) {
-      set_attach_data(from.attach_data());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void IMFindUserInfoRes::CopyFrom(const IMFindUserInfoRes& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool IMFindUserInfoRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
-  if (!::google::protobuf::internal::AllAreInitialized(this->userinfo_list())) return false;
-  return true;
-}
-
-void IMFindUserInfoRes::Swap(IMFindUserInfoRes* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    userinfo_list_.Swap(&other->userinfo_list_);
-    std::swap(attach_data_, other->attach_data_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string IMFindUserInfoRes::GetTypeName() const {
-  return "IM.Buddy.IMFindUserInfoRes";
 }
 
 

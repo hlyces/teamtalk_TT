@@ -45,7 +45,11 @@ private:
 	void _HandleRemoveSessionNotify(CImPdu* pPdu);
 
 	void _HandleClientAddFriendRequest(CImPdu* pPdu);
+	void _HandleClientDelFriendNotify(CImPdu* pPdu);
+
 	void _HandleClientFriendNotifyRequest(CImPdu* pPdu);
+
+	void _HandleDBReverseAddFriendRes(CImPdu* pPdu);
 
 private:
 	bool 		m_bOpen;

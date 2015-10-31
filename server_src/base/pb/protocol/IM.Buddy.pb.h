@@ -2544,6 +2544,13 @@ class IMCommonOperFriendRes : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 friend_id() const;
   inline void set_friend_id(::google::protobuf::uint32 value);
 
+  // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+  inline bool has_friendres_status_type() const;
+  inline void clear_friendres_status_type();
+  static const int kFriendresStatusTypeFieldNumber = 11;
+  inline ::IM::BaseDefine::FriendResStatusType friendres_status_type() const;
+  inline void set_friendres_status_type(::IM::BaseDefine::FriendResStatusType value);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -2564,6 +2571,8 @@ class IMCommonOperFriendRes : public ::google::protobuf::MessageLite {
   inline void clear_has_result_code();
   inline void set_has_friend_id();
   inline void clear_has_friend_id();
+  inline void set_has_friendres_status_type();
+  inline void clear_has_friendres_status_type();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -2573,8 +2582,9 @@ class IMCommonOperFriendRes : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::google::protobuf::uint32 user_id_;
   ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
   ::google::protobuf::uint32 friend_id_;
+  int friendres_status_type_;
+  ::std::string* attach_data_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
   #else
@@ -7436,15 +7446,40 @@ inline void IMCommonOperFriendRes::set_friend_id(::google::protobuf::uint32 valu
   // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendRes.friend_id)
 }
 
-// optional bytes attach_data = 20;
-inline bool IMCommonOperFriendRes::has_attach_data() const {
+// optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+inline bool IMCommonOperFriendRes::has_friendres_status_type() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void IMCommonOperFriendRes::set_has_attach_data() {
+inline void IMCommonOperFriendRes::set_has_friendres_status_type() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void IMCommonOperFriendRes::clear_has_attach_data() {
+inline void IMCommonOperFriendRes::clear_has_friendres_status_type() {
   _has_bits_[0] &= ~0x00000008u;
+}
+inline void IMCommonOperFriendRes::clear_friendres_status_type() {
+  friendres_status_type_ = 0;
+  clear_has_friendres_status_type();
+}
+inline ::IM::BaseDefine::FriendResStatusType IMCommonOperFriendRes::friendres_status_type() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendRes.friendres_status_type)
+  return static_cast< ::IM::BaseDefine::FriendResStatusType >(friendres_status_type_);
+}
+inline void IMCommonOperFriendRes::set_friendres_status_type(::IM::BaseDefine::FriendResStatusType value) {
+  assert(::IM::BaseDefine::FriendResStatusType_IsValid(value));
+  set_has_friendres_status_type();
+  friendres_status_type_ = value;
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendRes.friendres_status_type)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMCommonOperFriendRes::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void IMCommonOperFriendRes::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void IMCommonOperFriendRes::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void IMCommonOperFriendRes::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {

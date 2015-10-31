@@ -177,6 +177,8 @@ message IMCommonOperFriendRes{
 	
 	optional uint32 friend_id = 10; //好友id
 	
+	optional IM.BaseDefine.FriendResStatusType friendres_status_type = 11;//同意或拒绝好友请求
+	
 	optional bytes attach_data = 20; //数据库响应时将原req返回
 }
 

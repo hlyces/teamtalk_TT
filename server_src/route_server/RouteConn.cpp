@@ -149,6 +149,8 @@ void CRouteConn::HandlePdu(CImPdu* pPdu)
         case DFFX_CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY:
 		case DFFX_CID_BUDDY_LIST_ADDFRIEND_REQ:
 		case DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_REQ:
+		case DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY:
+		case DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_RES:
             _BroadcastMsg(pPdu, this);
             break;
         

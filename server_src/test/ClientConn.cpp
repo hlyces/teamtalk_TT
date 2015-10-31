@@ -81,7 +81,7 @@ uint32_t ClientConn::login(const string &strName, const string &strPass)
     msg.set_password(strPass);
     msg.set_online_status(IM::BaseDefine::USER_STATUS_ONLINE);
     msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_IOS);
-    msg.set_client_version("1.0");
+    msg.set_client_version("100.0.0");
     cPdu.SetPBMsg(&msg);
     cPdu.SetServiceId(IM::BaseDefine::DFFX_SID_LOGIN);
     cPdu.SetCommandId(IM::BaseDefine::DFFX_CID_LOGIN_REQ_USERLOGIN);

@@ -52,30 +52,21 @@ class IMRemoveSessionNotify;
 class IMDepartmentReq;
 class IMDepartmentRsp;
 class IMAddFriendReq;
-class IMAddFriendRes;
 class IMReverseAddFriendReq;
-class IMReverseAddFriendRes;
+class IMCommonOperFriendRes;
 class IMDelFriendReq;
-class IMDelFriendRes;
 class IMChgFriendRemarkReq;
-class IMChgFriendRemarkRes;
 class IMCreateFriendGroupReq;
-class IMCreateFriendGroupRes;
+class IMCommonOperFriendGroupRes;
 class IMDelFriendGroupReq;
-class IMDelFriendGroupRes;
 class IMMoveFriendToGroupReq;
-class IMMoveFriendToGroupRes;
 class IMChgFriendGroupNameReq;
-class IMChgFriendGroupNameRes;
 class IMFriendNotifyReq;
 class IMFriendNotifyRes;
 class IMGetAddFriendReq;
-class AddFrienInfo;
-class RefuseAddFrienInfo;
-class AgreeAddFrienInfo;
+class IMCommonOperFrienInfo;
 class IMGetAddFriendRes;
 class IMFindUserInfoReq;
-class IMFindUserInfoRes;
 
 // ===================================================================
 
@@ -2305,122 +2296,6 @@ class IMAddFriendReq : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class IMAddFriendRes : public ::google::protobuf::MessageLite {
- public:
-  IMAddFriendRes();
-  virtual ~IMAddFriendRes();
-
-  IMAddFriendRes(const IMAddFriendRes& from);
-
-  inline IMAddFriendRes& operator=(const IMAddFriendRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const IMAddFriendRes& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const IMAddFriendRes* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(IMAddFriendRes* other);
-
-  // implements Message ----------------------------------------------
-
-  IMAddFriendRes* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMAddFriendRes& from);
-  void MergeFrom(const IMAddFriendRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 result_code = 2;
-  inline bool has_result_code() const;
-  inline void clear_result_code();
-  static const int kResultCodeFieldNumber = 2;
-  inline ::google::protobuf::uint32 result_code() const;
-  inline void set_result_code(::google::protobuf::uint32 value);
-
-  // optional bytes attach_data = 20;
-  inline bool has_attach_data() const;
-  inline void clear_attach_data();
-  static const int kAttachDataFieldNumber = 20;
-  inline const ::std::string& attach_data() const;
-  inline void set_attach_data(const ::std::string& value);
-  inline void set_attach_data(const char* value);
-  inline void set_attach_data(const void* value, size_t size);
-  inline ::std::string* mutable_attach_data();
-  inline ::std::string* release_attach_data();
-  inline void set_allocated_attach_data(::std::string* attach_data);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMAddFriendRes)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_result_code();
-  inline void clear_has_result_code();
-  inline void set_has_attach_data();
-  inline void clear_has_attach_data();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 user_id_;
-  ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static IMAddFriendRes* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class IMReverseAddFriendReq : public ::google::protobuf::MessageLite {
  public:
   IMReverseAddFriendReq();
@@ -2587,14 +2462,14 @@ class IMReverseAddFriendReq : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class IMReverseAddFriendRes : public ::google::protobuf::MessageLite {
+class IMCommonOperFriendRes : public ::google::protobuf::MessageLite {
  public:
-  IMReverseAddFriendRes();
-  virtual ~IMReverseAddFriendRes();
+  IMCommonOperFriendRes();
+  virtual ~IMCommonOperFriendRes();
 
-  IMReverseAddFriendRes(const IMReverseAddFriendRes& from);
+  IMCommonOperFriendRes(const IMCommonOperFriendRes& from);
 
-  inline IMReverseAddFriendRes& operator=(const IMReverseAddFriendRes& from) {
+  inline IMCommonOperFriendRes& operator=(const IMCommonOperFriendRes& from) {
     CopyFrom(from);
     return *this;
   }
@@ -2607,26 +2482,26 @@ class IMReverseAddFriendRes : public ::google::protobuf::MessageLite {
     return &_unknown_fields_;
   }
 
-  static const IMReverseAddFriendRes& default_instance();
+  static const IMCommonOperFriendRes& default_instance();
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   // Returns the internal default instance pointer. This function can
   // return NULL thus should not be used by the user. This is intended
   // for Protobuf internal code. Please use default_instance() declared
   // above instead.
-  static inline const IMReverseAddFriendRes* internal_default_instance() {
+  static inline const IMCommonOperFriendRes* internal_default_instance() {
     return default_instance_;
   }
   #endif
 
-  void Swap(IMReverseAddFriendRes* other);
+  void Swap(IMCommonOperFriendRes* other);
 
   // implements Message ----------------------------------------------
 
-  IMReverseAddFriendRes* New() const;
+  IMCommonOperFriendRes* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMReverseAddFriendRes& from);
-  void MergeFrom(const IMReverseAddFriendRes& from);
+  void CopyFrom(const IMCommonOperFriendRes& from);
+  void MergeFrom(const IMCommonOperFriendRes& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -2669,6 +2544,13 @@ class IMReverseAddFriendRes : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 friend_id() const;
   inline void set_friend_id(::google::protobuf::uint32 value);
 
+  // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+  inline bool has_friendres_status_type() const;
+  inline void clear_friendres_status_type();
+  static const int kFriendresStatusTypeFieldNumber = 11;
+  inline ::IM::BaseDefine::FriendResStatusType friendres_status_type() const;
+  inline void set_friendres_status_type(::IM::BaseDefine::FriendResStatusType value);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -2681,7 +2563,7 @@ class IMReverseAddFriendRes : public ::google::protobuf::MessageLite {
   inline ::std::string* release_attach_data();
   inline void set_allocated_attach_data(::std::string* attach_data);
 
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMReverseAddFriendRes)
+  // @@protoc_insertion_point(class_scope:IM.Buddy.IMCommonOperFriendRes)
  private:
   inline void set_has_user_id();
   inline void clear_has_user_id();
@@ -2689,6 +2571,8 @@ class IMReverseAddFriendRes : public ::google::protobuf::MessageLite {
   inline void clear_has_result_code();
   inline void set_has_friend_id();
   inline void clear_has_friend_id();
+  inline void set_has_friendres_status_type();
+  inline void clear_has_friendres_status_type();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -2698,8 +2582,9 @@ class IMReverseAddFriendRes : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::google::protobuf::uint32 user_id_;
   ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
   ::google::protobuf::uint32 friend_id_;
+  int friendres_status_type_;
+  ::std::string* attach_data_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
   #else
@@ -2709,7 +2594,7 @@ class IMReverseAddFriendRes : public ::google::protobuf::MessageLite {
   friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
 
   void InitAsDefaultInstance();
-  static IMReverseAddFriendRes* default_instance_;
+  static IMCommonOperFriendRes* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -2826,132 +2711,6 @@ class IMDelFriendReq : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static IMDelFriendReq* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class IMDelFriendRes : public ::google::protobuf::MessageLite {
- public:
-  IMDelFriendRes();
-  virtual ~IMDelFriendRes();
-
-  IMDelFriendRes(const IMDelFriendRes& from);
-
-  inline IMDelFriendRes& operator=(const IMDelFriendRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const IMDelFriendRes& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const IMDelFriendRes* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(IMDelFriendRes* other);
-
-  // implements Message ----------------------------------------------
-
-  IMDelFriendRes* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMDelFriendRes& from);
-  void MergeFrom(const IMDelFriendRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 result_code = 2;
-  inline bool has_result_code() const;
-  inline void clear_result_code();
-  static const int kResultCodeFieldNumber = 2;
-  inline ::google::protobuf::uint32 result_code() const;
-  inline void set_result_code(::google::protobuf::uint32 value);
-
-  // optional uint32 friend_id = 10;
-  inline bool has_friend_id() const;
-  inline void clear_friend_id();
-  static const int kFriendIdFieldNumber = 10;
-  inline ::google::protobuf::uint32 friend_id() const;
-  inline void set_friend_id(::google::protobuf::uint32 value);
-
-  // optional bytes attach_data = 20;
-  inline bool has_attach_data() const;
-  inline void clear_attach_data();
-  static const int kAttachDataFieldNumber = 20;
-  inline const ::std::string& attach_data() const;
-  inline void set_attach_data(const ::std::string& value);
-  inline void set_attach_data(const char* value);
-  inline void set_attach_data(const void* value, size_t size);
-  inline ::std::string* mutable_attach_data();
-  inline ::std::string* release_attach_data();
-  inline void set_allocated_attach_data(::std::string* attach_data);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMDelFriendRes)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_result_code();
-  inline void clear_has_result_code();
-  inline void set_has_friend_id();
-  inline void clear_has_friend_id();
-  inline void set_has_attach_data();
-  inline void clear_has_attach_data();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 user_id_;
-  ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
-  ::google::protobuf::uint32 friend_id_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static IMDelFriendRes* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -3086,132 +2845,6 @@ class IMChgFriendRemarkReq : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class IMChgFriendRemarkRes : public ::google::protobuf::MessageLite {
- public:
-  IMChgFriendRemarkRes();
-  virtual ~IMChgFriendRemarkRes();
-
-  IMChgFriendRemarkRes(const IMChgFriendRemarkRes& from);
-
-  inline IMChgFriendRemarkRes& operator=(const IMChgFriendRemarkRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const IMChgFriendRemarkRes& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const IMChgFriendRemarkRes* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(IMChgFriendRemarkRes* other);
-
-  // implements Message ----------------------------------------------
-
-  IMChgFriendRemarkRes* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMChgFriendRemarkRes& from);
-  void MergeFrom(const IMChgFriendRemarkRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 result_code = 2;
-  inline bool has_result_code() const;
-  inline void clear_result_code();
-  static const int kResultCodeFieldNumber = 2;
-  inline ::google::protobuf::uint32 result_code() const;
-  inline void set_result_code(::google::protobuf::uint32 value);
-
-  // optional uint32 friend_id = 10;
-  inline bool has_friend_id() const;
-  inline void clear_friend_id();
-  static const int kFriendIdFieldNumber = 10;
-  inline ::google::protobuf::uint32 friend_id() const;
-  inline void set_friend_id(::google::protobuf::uint32 value);
-
-  // optional bytes attach_data = 20;
-  inline bool has_attach_data() const;
-  inline void clear_attach_data();
-  static const int kAttachDataFieldNumber = 20;
-  inline const ::std::string& attach_data() const;
-  inline void set_attach_data(const ::std::string& value);
-  inline void set_attach_data(const char* value);
-  inline void set_attach_data(const void* value, size_t size);
-  inline ::std::string* mutable_attach_data();
-  inline ::std::string* release_attach_data();
-  inline void set_allocated_attach_data(::std::string* attach_data);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMChgFriendRemarkRes)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_result_code();
-  inline void clear_has_result_code();
-  inline void set_has_friend_id();
-  inline void clear_has_friend_id();
-  inline void set_has_attach_data();
-  inline void clear_has_attach_data();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 user_id_;
-  ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
-  ::google::protobuf::uint32 friend_id_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static IMChgFriendRemarkRes* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class IMCreateFriendGroupReq : public ::google::protobuf::MessageLite {
  public:
   IMCreateFriendGroupReq();
@@ -3333,14 +2966,14 @@ class IMCreateFriendGroupReq : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class IMCreateFriendGroupRes : public ::google::protobuf::MessageLite {
+class IMCommonOperFriendGroupRes : public ::google::protobuf::MessageLite {
  public:
-  IMCreateFriendGroupRes();
-  virtual ~IMCreateFriendGroupRes();
+  IMCommonOperFriendGroupRes();
+  virtual ~IMCommonOperFriendGroupRes();
 
-  IMCreateFriendGroupRes(const IMCreateFriendGroupRes& from);
+  IMCommonOperFriendGroupRes(const IMCommonOperFriendGroupRes& from);
 
-  inline IMCreateFriendGroupRes& operator=(const IMCreateFriendGroupRes& from) {
+  inline IMCommonOperFriendGroupRes& operator=(const IMCommonOperFriendGroupRes& from) {
     CopyFrom(from);
     return *this;
   }
@@ -3353,26 +2986,26 @@ class IMCreateFriendGroupRes : public ::google::protobuf::MessageLite {
     return &_unknown_fields_;
   }
 
-  static const IMCreateFriendGroupRes& default_instance();
+  static const IMCommonOperFriendGroupRes& default_instance();
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   // Returns the internal default instance pointer. This function can
   // return NULL thus should not be used by the user. This is intended
   // for Protobuf internal code. Please use default_instance() declared
   // above instead.
-  static inline const IMCreateFriendGroupRes* internal_default_instance() {
+  static inline const IMCommonOperFriendGroupRes* internal_default_instance() {
     return default_instance_;
   }
   #endif
 
-  void Swap(IMCreateFriendGroupRes* other);
+  void Swap(IMCommonOperFriendGroupRes* other);
 
   // implements Message ----------------------------------------------
 
-  IMCreateFriendGroupRes* New() const;
+  IMCommonOperFriendGroupRes* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMCreateFriendGroupRes& from);
-  void MergeFrom(const IMCreateFriendGroupRes& from);
+  void CopyFrom(const IMCommonOperFriendGroupRes& from);
+  void MergeFrom(const IMCommonOperFriendGroupRes& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -3401,12 +3034,12 @@ class IMCreateFriendGroupRes : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 user_id() const;
   inline void set_user_id(::google::protobuf::uint32 value);
 
-  // required uint32 group_id = 2;
-  inline bool has_group_id() const;
-  inline void clear_group_id();
-  static const int kGroupIdFieldNumber = 2;
-  inline ::google::protobuf::uint32 group_id() const;
-  inline void set_group_id(::google::protobuf::uint32 value);
+  // required uint32 result_code = 2;
+  inline bool has_result_code() const;
+  inline void clear_result_code();
+  static const int kResultCodeFieldNumber = 2;
+  inline ::google::protobuf::uint32 result_code() const;
+  inline void set_result_code(::google::protobuf::uint32 value);
 
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
@@ -3420,12 +3053,12 @@ class IMCreateFriendGroupRes : public ::google::protobuf::MessageLite {
   inline ::std::string* release_attach_data();
   inline void set_allocated_attach_data(::std::string* attach_data);
 
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMCreateFriendGroupRes)
+  // @@protoc_insertion_point(class_scope:IM.Buddy.IMCommonOperFriendGroupRes)
  private:
   inline void set_has_user_id();
   inline void clear_has_user_id();
-  inline void set_has_group_id();
-  inline void clear_has_group_id();
+  inline void set_has_result_code();
+  inline void clear_has_result_code();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -3434,7 +3067,7 @@ class IMCreateFriendGroupRes : public ::google::protobuf::MessageLite {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::uint32 user_id_;
-  ::google::protobuf::uint32 group_id_;
+  ::google::protobuf::uint32 result_code_;
   ::std::string* attach_data_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
@@ -3445,7 +3078,7 @@ class IMCreateFriendGroupRes : public ::google::protobuf::MessageLite {
   friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
 
   void InitAsDefaultInstance();
-  static IMCreateFriendGroupRes* default_instance_;
+  static IMCommonOperFriendGroupRes* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -3562,122 +3195,6 @@ class IMDelFriendGroupReq : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static IMDelFriendGroupReq* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class IMDelFriendGroupRes : public ::google::protobuf::MessageLite {
- public:
-  IMDelFriendGroupRes();
-  virtual ~IMDelFriendGroupRes();
-
-  IMDelFriendGroupRes(const IMDelFriendGroupRes& from);
-
-  inline IMDelFriendGroupRes& operator=(const IMDelFriendGroupRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const IMDelFriendGroupRes& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const IMDelFriendGroupRes* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(IMDelFriendGroupRes* other);
-
-  // implements Message ----------------------------------------------
-
-  IMDelFriendGroupRes* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMDelFriendGroupRes& from);
-  void MergeFrom(const IMDelFriendGroupRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 result_code = 2;
-  inline bool has_result_code() const;
-  inline void clear_result_code();
-  static const int kResultCodeFieldNumber = 2;
-  inline ::google::protobuf::uint32 result_code() const;
-  inline void set_result_code(::google::protobuf::uint32 value);
-
-  // optional bytes attach_data = 20;
-  inline bool has_attach_data() const;
-  inline void clear_attach_data();
-  static const int kAttachDataFieldNumber = 20;
-  inline const ::std::string& attach_data() const;
-  inline void set_attach_data(const ::std::string& value);
-  inline void set_attach_data(const char* value);
-  inline void set_attach_data(const void* value, size_t size);
-  inline ::std::string* mutable_attach_data();
-  inline ::std::string* release_attach_data();
-  inline void set_allocated_attach_data(::std::string* attach_data);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMDelFriendGroupRes)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_result_code();
-  inline void clear_has_result_code();
-  inline void set_has_attach_data();
-  inline void clear_has_attach_data();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 user_id_;
-  ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static IMDelFriendGroupRes* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -3810,122 +3327,6 @@ class IMMoveFriendToGroupReq : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class IMMoveFriendToGroupRes : public ::google::protobuf::MessageLite {
- public:
-  IMMoveFriendToGroupRes();
-  virtual ~IMMoveFriendToGroupRes();
-
-  IMMoveFriendToGroupRes(const IMMoveFriendToGroupRes& from);
-
-  inline IMMoveFriendToGroupRes& operator=(const IMMoveFriendToGroupRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const IMMoveFriendToGroupRes& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const IMMoveFriendToGroupRes* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(IMMoveFriendToGroupRes* other);
-
-  // implements Message ----------------------------------------------
-
-  IMMoveFriendToGroupRes* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMMoveFriendToGroupRes& from);
-  void MergeFrom(const IMMoveFriendToGroupRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 result_code = 2;
-  inline bool has_result_code() const;
-  inline void clear_result_code();
-  static const int kResultCodeFieldNumber = 2;
-  inline ::google::protobuf::uint32 result_code() const;
-  inline void set_result_code(::google::protobuf::uint32 value);
-
-  // optional bytes attach_data = 20;
-  inline bool has_attach_data() const;
-  inline void clear_attach_data();
-  static const int kAttachDataFieldNumber = 20;
-  inline const ::std::string& attach_data() const;
-  inline void set_attach_data(const ::std::string& value);
-  inline void set_attach_data(const char* value);
-  inline void set_attach_data(const void* value, size_t size);
-  inline ::std::string* mutable_attach_data();
-  inline ::std::string* release_attach_data();
-  inline void set_allocated_attach_data(::std::string* attach_data);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMMoveFriendToGroupRes)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_result_code();
-  inline void clear_has_result_code();
-  inline void set_has_attach_data();
-  inline void clear_has_attach_data();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 user_id_;
-  ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static IMMoveFriendToGroupRes* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class IMChgFriendGroupNameReq : public ::google::protobuf::MessageLite {
  public:
   IMChgFriendGroupNameReq();
@@ -4054,122 +3455,6 @@ class IMChgFriendGroupNameReq : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static IMChgFriendGroupNameReq* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class IMChgFriendGroupNameRes : public ::google::protobuf::MessageLite {
- public:
-  IMChgFriendGroupNameRes();
-  virtual ~IMChgFriendGroupNameRes();
-
-  IMChgFriendGroupNameRes(const IMChgFriendGroupNameRes& from);
-
-  inline IMChgFriendGroupNameRes& operator=(const IMChgFriendGroupNameRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const IMChgFriendGroupNameRes& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const IMChgFriendGroupNameRes* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(IMChgFriendGroupNameRes* other);
-
-  // implements Message ----------------------------------------------
-
-  IMChgFriendGroupNameRes* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMChgFriendGroupNameRes& from);
-  void MergeFrom(const IMChgFriendGroupNameRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 result_code = 2;
-  inline bool has_result_code() const;
-  inline void clear_result_code();
-  static const int kResultCodeFieldNumber = 2;
-  inline ::google::protobuf::uint32 result_code() const;
-  inline void set_result_code(::google::protobuf::uint32 value);
-
-  // optional bytes attach_data = 20;
-  inline bool has_attach_data() const;
-  inline void clear_attach_data();
-  static const int kAttachDataFieldNumber = 20;
-  inline const ::std::string& attach_data() const;
-  inline void set_attach_data(const ::std::string& value);
-  inline void set_attach_data(const char* value);
-  inline void set_attach_data(const void* value, size_t size);
-  inline ::std::string* mutable_attach_data();
-  inline ::std::string* release_attach_data();
-  inline void set_allocated_attach_data(::std::string* attach_data);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMChgFriendGroupNameRes)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_result_code();
-  inline void clear_has_result_code();
-  inline void set_has_attach_data();
-  inline void clear_has_attach_data();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 user_id_;
-  ::google::protobuf::uint32 result_code_;
-  ::std::string* attach_data_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static IMChgFriendGroupNameRes* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -4556,14 +3841,14 @@ class IMGetAddFriendReq : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class AddFrienInfo : public ::google::protobuf::MessageLite {
+class IMCommonOperFrienInfo : public ::google::protobuf::MessageLite {
  public:
-  AddFrienInfo();
-  virtual ~AddFrienInfo();
+  IMCommonOperFrienInfo();
+  virtual ~IMCommonOperFrienInfo();
 
-  AddFrienInfo(const AddFrienInfo& from);
+  IMCommonOperFrienInfo(const IMCommonOperFrienInfo& from);
 
-  inline AddFrienInfo& operator=(const AddFrienInfo& from) {
+  inline IMCommonOperFrienInfo& operator=(const IMCommonOperFrienInfo& from) {
     CopyFrom(from);
     return *this;
   }
@@ -4576,26 +3861,26 @@ class AddFrienInfo : public ::google::protobuf::MessageLite {
     return &_unknown_fields_;
   }
 
-  static const AddFrienInfo& default_instance();
+  static const IMCommonOperFrienInfo& default_instance();
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   // Returns the internal default instance pointer. This function can
   // return NULL thus should not be used by the user. This is intended
   // for Protobuf internal code. Please use default_instance() declared
   // above instead.
-  static inline const AddFrienInfo* internal_default_instance() {
+  static inline const IMCommonOperFrienInfo* internal_default_instance() {
     return default_instance_;
   }
   #endif
 
-  void Swap(AddFrienInfo* other);
+  void Swap(IMCommonOperFrienInfo* other);
 
   // implements Message ----------------------------------------------
 
-  AddFrienInfo* New() const;
+  IMCommonOperFrienInfo* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const AddFrienInfo& from);
-  void MergeFrom(const AddFrienInfo& from);
+  void CopyFrom(const IMCommonOperFrienInfo& from);
+  void MergeFrom(const IMCommonOperFrienInfo& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -4617,19 +3902,19 @@ class AddFrienInfo : public ::google::protobuf::MessageLite {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 from_user_id = 1;
-  inline bool has_from_user_id() const;
-  inline void clear_from_user_id();
-  static const int kFromUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 from_user_id() const;
-  inline void set_from_user_id(::google::protobuf::uint32 value);
+  // required uint32 oper_user_id = 1;
+  inline bool has_oper_user_id() const;
+  inline void clear_oper_user_id();
+  static const int kOperUserIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 oper_user_id() const;
+  inline void set_oper_user_id(::google::protobuf::uint32 value);
 
-  // required uint32 create_time = 2;
-  inline bool has_create_time() const;
-  inline void clear_create_time();
-  static const int kCreateTimeFieldNumber = 2;
-  inline ::google::protobuf::uint32 create_time() const;
-  inline void set_create_time(::google::protobuf::uint32 value);
+  // required uint32 oper_time = 2;
+  inline bool has_oper_time() const;
+  inline void clear_oper_time();
+  static const int kOperTimeFieldNumber = 2;
+  inline ::google::protobuf::uint32 oper_time() const;
+  inline void set_oper_time(::google::protobuf::uint32 value);
 
   // optional string extra_info = 3;
   inline bool has_extra_info() const;
@@ -4681,12 +3966,12 @@ class AddFrienInfo : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 user_uid() const;
   inline void set_user_uid(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:IM.Buddy.AddFrienInfo)
+  // @@protoc_insertion_point(class_scope:IM.Buddy.IMCommonOperFrienInfo)
  private:
-  inline void set_has_from_user_id();
-  inline void clear_has_from_user_id();
-  inline void set_has_create_time();
-  inline void clear_has_create_time();
+  inline void set_has_oper_user_id();
+  inline void clear_has_oper_user_id();
+  inline void set_has_oper_time();
+  inline void clear_has_oper_time();
   inline void set_has_extra_info();
   inline void clear_has_extra_info();
   inline void set_has_user_nickname();
@@ -4702,8 +3987,8 @@ class AddFrienInfo : public ::google::protobuf::MessageLite {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::uint32 from_user_id_;
-  ::google::protobuf::uint32 create_time_;
+  ::google::protobuf::uint32 oper_user_id_;
+  ::google::protobuf::uint32 oper_time_;
   ::std::string* extra_info_;
   ::std::string* user_nickname_;
   ::std::string* user_headlink_;
@@ -4718,324 +4003,7 @@ class AddFrienInfo : public ::google::protobuf::MessageLite {
   friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
 
   void InitAsDefaultInstance();
-  static AddFrienInfo* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class RefuseAddFrienInfo : public ::google::protobuf::MessageLite {
- public:
-  RefuseAddFrienInfo();
-  virtual ~RefuseAddFrienInfo();
-
-  RefuseAddFrienInfo(const RefuseAddFrienInfo& from);
-
-  inline RefuseAddFrienInfo& operator=(const RefuseAddFrienInfo& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const RefuseAddFrienInfo& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const RefuseAddFrienInfo* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(RefuseAddFrienInfo* other);
-
-  // implements Message ----------------------------------------------
-
-  RefuseAddFrienInfo* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const RefuseAddFrienInfo& from);
-  void MergeFrom(const RefuseAddFrienInfo& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 refuse_user_id = 1;
-  inline bool has_refuse_user_id() const;
-  inline void clear_refuse_user_id();
-  static const int kRefuseUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 refuse_user_id() const;
-  inline void set_refuse_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 resp_time = 2;
-  inline bool has_resp_time() const;
-  inline void clear_resp_time();
-  static const int kRespTimeFieldNumber = 2;
-  inline ::google::protobuf::uint32 resp_time() const;
-  inline void set_resp_time(::google::protobuf::uint32 value);
-
-  // optional string refuse_reason = 3;
-  inline bool has_refuse_reason() const;
-  inline void clear_refuse_reason();
-  static const int kRefuseReasonFieldNumber = 3;
-  inline const ::std::string& refuse_reason() const;
-  inline void set_refuse_reason(const ::std::string& value);
-  inline void set_refuse_reason(const char* value);
-  inline void set_refuse_reason(const char* value, size_t size);
-  inline ::std::string* mutable_refuse_reason();
-  inline ::std::string* release_refuse_reason();
-  inline void set_allocated_refuse_reason(::std::string* refuse_reason);
-
-  // optional string user_nickname = 6;
-  inline bool has_user_nickname() const;
-  inline void clear_user_nickname();
-  static const int kUserNicknameFieldNumber = 6;
-  inline const ::std::string& user_nickname() const;
-  inline void set_user_nickname(const ::std::string& value);
-  inline void set_user_nickname(const char* value);
-  inline void set_user_nickname(const char* value, size_t size);
-  inline ::std::string* mutable_user_nickname();
-  inline ::std::string* release_user_nickname();
-  inline void set_allocated_user_nickname(::std::string* user_nickname);
-
-  // optional string user_headlink = 7;
-  inline bool has_user_headlink() const;
-  inline void clear_user_headlink();
-  static const int kUserHeadlinkFieldNumber = 7;
-  inline const ::std::string& user_headlink() const;
-  inline void set_user_headlink(const ::std::string& value);
-  inline void set_user_headlink(const char* value);
-  inline void set_user_headlink(const char* value, size_t size);
-  inline ::std::string* mutable_user_headlink();
-  inline ::std::string* release_user_headlink();
-  inline void set_allocated_user_headlink(::std::string* user_headlink);
-
-  // optional uint32 user_gender = 8;
-  inline bool has_user_gender() const;
-  inline void clear_user_gender();
-  static const int kUserGenderFieldNumber = 8;
-  inline ::google::protobuf::uint32 user_gender() const;
-  inline void set_user_gender(::google::protobuf::uint32 value);
-
-  // optional uint32 user_uid = 9;
-  inline bool has_user_uid() const;
-  inline void clear_user_uid();
-  static const int kUserUidFieldNumber = 9;
-  inline ::google::protobuf::uint32 user_uid() const;
-  inline void set_user_uid(::google::protobuf::uint32 value);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.RefuseAddFrienInfo)
- private:
-  inline void set_has_refuse_user_id();
-  inline void clear_has_refuse_user_id();
-  inline void set_has_resp_time();
-  inline void clear_has_resp_time();
-  inline void set_has_refuse_reason();
-  inline void clear_has_refuse_reason();
-  inline void set_has_user_nickname();
-  inline void clear_has_user_nickname();
-  inline void set_has_user_headlink();
-  inline void clear_has_user_headlink();
-  inline void set_has_user_gender();
-  inline void clear_has_user_gender();
-  inline void set_has_user_uid();
-  inline void clear_has_user_uid();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 refuse_user_id_;
-  ::google::protobuf::uint32 resp_time_;
-  ::std::string* refuse_reason_;
-  ::std::string* user_nickname_;
-  ::std::string* user_headlink_;
-  ::google::protobuf::uint32 user_gender_;
-  ::google::protobuf::uint32 user_uid_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static RefuseAddFrienInfo* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class AgreeAddFrienInfo : public ::google::protobuf::MessageLite {
- public:
-  AgreeAddFrienInfo();
-  virtual ~AgreeAddFrienInfo();
-
-  AgreeAddFrienInfo(const AgreeAddFrienInfo& from);
-
-  inline AgreeAddFrienInfo& operator=(const AgreeAddFrienInfo& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const AgreeAddFrienInfo& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const AgreeAddFrienInfo* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(AgreeAddFrienInfo* other);
-
-  // implements Message ----------------------------------------------
-
-  AgreeAddFrienInfo* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const AgreeAddFrienInfo& from);
-  void MergeFrom(const AgreeAddFrienInfo& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 agree_user_id = 1;
-  inline bool has_agree_user_id() const;
-  inline void clear_agree_user_id();
-  static const int kAgreeUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 agree_user_id() const;
-  inline void set_agree_user_id(::google::protobuf::uint32 value);
-
-  // required uint32 resp_time = 2;
-  inline bool has_resp_time() const;
-  inline void clear_resp_time();
-  static const int kRespTimeFieldNumber = 2;
-  inline ::google::protobuf::uint32 resp_time() const;
-  inline void set_resp_time(::google::protobuf::uint32 value);
-
-  // optional string user_nickname = 6;
-  inline bool has_user_nickname() const;
-  inline void clear_user_nickname();
-  static const int kUserNicknameFieldNumber = 6;
-  inline const ::std::string& user_nickname() const;
-  inline void set_user_nickname(const ::std::string& value);
-  inline void set_user_nickname(const char* value);
-  inline void set_user_nickname(const char* value, size_t size);
-  inline ::std::string* mutable_user_nickname();
-  inline ::std::string* release_user_nickname();
-  inline void set_allocated_user_nickname(::std::string* user_nickname);
-
-  // optional string user_headlink = 7;
-  inline bool has_user_headlink() const;
-  inline void clear_user_headlink();
-  static const int kUserHeadlinkFieldNumber = 7;
-  inline const ::std::string& user_headlink() const;
-  inline void set_user_headlink(const ::std::string& value);
-  inline void set_user_headlink(const char* value);
-  inline void set_user_headlink(const char* value, size_t size);
-  inline ::std::string* mutable_user_headlink();
-  inline ::std::string* release_user_headlink();
-  inline void set_allocated_user_headlink(::std::string* user_headlink);
-
-  // optional uint32 user_gender = 8;
-  inline bool has_user_gender() const;
-  inline void clear_user_gender();
-  static const int kUserGenderFieldNumber = 8;
-  inline ::google::protobuf::uint32 user_gender() const;
-  inline void set_user_gender(::google::protobuf::uint32 value);
-
-  // optional uint32 user_uid = 9;
-  inline bool has_user_uid() const;
-  inline void clear_user_uid();
-  static const int kUserUidFieldNumber = 9;
-  inline ::google::protobuf::uint32 user_uid() const;
-  inline void set_user_uid(::google::protobuf::uint32 value);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.AgreeAddFrienInfo)
- private:
-  inline void set_has_agree_user_id();
-  inline void clear_has_agree_user_id();
-  inline void set_has_resp_time();
-  inline void clear_has_resp_time();
-  inline void set_has_user_nickname();
-  inline void clear_has_user_nickname();
-  inline void set_has_user_headlink();
-  inline void clear_has_user_headlink();
-  inline void set_has_user_gender();
-  inline void clear_has_user_gender();
-  inline void set_has_user_uid();
-  inline void clear_has_user_uid();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 agree_user_id_;
-  ::google::protobuf::uint32 resp_time_;
-  ::std::string* user_nickname_;
-  ::std::string* user_headlink_;
-  ::google::protobuf::uint32 user_gender_;
-  ::google::protobuf::uint32 user_uid_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static AgreeAddFrienInfo* default_instance_;
+  static IMCommonOperFrienInfo* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -5107,40 +4075,40 @@ class IMGetAddFriendRes : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 user_id() const;
   inline void set_user_id(::google::protobuf::uint32 value);
 
-  // repeated .IM.Buddy.AddFrienInfo addfriend_info_list = 2;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo addfriend_info_list = 2;
   inline int addfriend_info_list_size() const;
   inline void clear_addfriend_info_list();
   static const int kAddfriendInfoListFieldNumber = 2;
-  inline const ::IM::Buddy::AddFrienInfo& addfriend_info_list(int index) const;
-  inline ::IM::Buddy::AddFrienInfo* mutable_addfriend_info_list(int index);
-  inline ::IM::Buddy::AddFrienInfo* add_addfriend_info_list();
-  inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AddFrienInfo >&
+  inline const ::IM::Buddy::IMCommonOperFrienInfo& addfriend_info_list(int index) const;
+  inline ::IM::Buddy::IMCommonOperFrienInfo* mutable_addfriend_info_list(int index);
+  inline ::IM::Buddy::IMCommonOperFrienInfo* add_addfriend_info_list();
+  inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >&
       addfriend_info_list() const;
-  inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AddFrienInfo >*
+  inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >*
       mutable_addfriend_info_list();
 
-  // repeated .IM.Buddy.AgreeAddFrienInfo agree_info_list = 3;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo agree_info_list = 3;
   inline int agree_info_list_size() const;
   inline void clear_agree_info_list();
   static const int kAgreeInfoListFieldNumber = 3;
-  inline const ::IM::Buddy::AgreeAddFrienInfo& agree_info_list(int index) const;
-  inline ::IM::Buddy::AgreeAddFrienInfo* mutable_agree_info_list(int index);
-  inline ::IM::Buddy::AgreeAddFrienInfo* add_agree_info_list();
-  inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AgreeAddFrienInfo >&
+  inline const ::IM::Buddy::IMCommonOperFrienInfo& agree_info_list(int index) const;
+  inline ::IM::Buddy::IMCommonOperFrienInfo* mutable_agree_info_list(int index);
+  inline ::IM::Buddy::IMCommonOperFrienInfo* add_agree_info_list();
+  inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >&
       agree_info_list() const;
-  inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AgreeAddFrienInfo >*
+  inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >*
       mutable_agree_info_list();
 
-  // repeated .IM.Buddy.RefuseAddFrienInfo refuse_info_list = 4;
+  // repeated .IM.Buddy.IMCommonOperFrienInfo refuse_info_list = 4;
   inline int refuse_info_list_size() const;
   inline void clear_refuse_info_list();
   static const int kRefuseInfoListFieldNumber = 4;
-  inline const ::IM::Buddy::RefuseAddFrienInfo& refuse_info_list(int index) const;
-  inline ::IM::Buddy::RefuseAddFrienInfo* mutable_refuse_info_list(int index);
-  inline ::IM::Buddy::RefuseAddFrienInfo* add_refuse_info_list();
-  inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::RefuseAddFrienInfo >&
+  inline const ::IM::Buddy::IMCommonOperFrienInfo& refuse_info_list(int index) const;
+  inline ::IM::Buddy::IMCommonOperFrienInfo* mutable_refuse_info_list(int index);
+  inline ::IM::Buddy::IMCommonOperFrienInfo* add_refuse_info_list();
+  inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >&
       refuse_info_list() const;
-  inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::RefuseAddFrienInfo >*
+  inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >*
       mutable_refuse_info_list();
 
   // optional bytes attach_data = 20;
@@ -5166,9 +4134,9 @@ class IMGetAddFriendRes : public ::google::protobuf::MessageLite {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AddFrienInfo > addfriend_info_list_;
-  ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AgreeAddFrienInfo > agree_info_list_;
-  ::google::protobuf::RepeatedPtrField< ::IM::Buddy::RefuseAddFrienInfo > refuse_info_list_;
+  ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo > addfriend_info_list_;
+  ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo > agree_info_list_;
+  ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo > refuse_info_list_;
   ::std::string* attach_data_;
   ::google::protobuf::uint32 user_id_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -5302,125 +4270,6 @@ class IMFindUserInfoReq : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static IMFindUserInfoReq* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class IMFindUserInfoRes : public ::google::protobuf::MessageLite {
- public:
-  IMFindUserInfoRes();
-  virtual ~IMFindUserInfoRes();
-
-  IMFindUserInfoRes(const IMFindUserInfoRes& from);
-
-  inline IMFindUserInfoRes& operator=(const IMFindUserInfoRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const IMFindUserInfoRes& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const IMFindUserInfoRes* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(IMFindUserInfoRes* other);
-
-  // implements Message ----------------------------------------------
-
-  IMFindUserInfoRes* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const IMFindUserInfoRes& from);
-  void MergeFrom(const IMFindUserInfoRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // repeated .IM.BaseDefine.UserInfo userinfo_list = 2;
-  inline int userinfo_list_size() const;
-  inline void clear_userinfo_list();
-  static const int kUserinfoListFieldNumber = 2;
-  inline const ::IM::BaseDefine::UserInfo& userinfo_list(int index) const;
-  inline ::IM::BaseDefine::UserInfo* mutable_userinfo_list(int index);
-  inline ::IM::BaseDefine::UserInfo* add_userinfo_list();
-  inline const ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserInfo >&
-      userinfo_list() const;
-  inline ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserInfo >*
-      mutable_userinfo_list();
-
-  // optional bytes attach_data = 20;
-  inline bool has_attach_data() const;
-  inline void clear_attach_data();
-  static const int kAttachDataFieldNumber = 20;
-  inline const ::std::string& attach_data() const;
-  inline void set_attach_data(const ::std::string& value);
-  inline void set_attach_data(const char* value);
-  inline void set_attach_data(const void* value, size_t size);
-  inline ::std::string* mutable_attach_data();
-  inline ::std::string* release_attach_data();
-  inline void set_allocated_attach_data(::std::string* attach_data);
-
-  // @@protoc_insertion_point(class_scope:IM.Buddy.IMFindUserInfoRes)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_attach_data();
-  inline void clear_has_attach_data();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserInfo > userinfo_list_;
-  ::std::string* attach_data_;
-  ::google::protobuf::uint32 user_id_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBuddy_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBuddy_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBuddy_2eproto();
-
-  void InitAsDefaultInstance();
-  static IMFindUserInfoRes* default_instance_;
 };
 // ===================================================================
 
@@ -8194,134 +7043,6 @@ inline void IMAddFriendReq::set_allocated_attach_data(::std::string* attach_data
 
 // -------------------------------------------------------------------
 
-// IMAddFriendRes
-
-// required uint32 user_id = 1;
-inline bool IMAddFriendRes::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void IMAddFriendRes::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void IMAddFriendRes::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void IMAddFriendRes::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 IMAddFriendRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMAddFriendRes.user_id)
-  return user_id_;
-}
-inline void IMAddFriendRes::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMAddFriendRes.user_id)
-}
-
-// required uint32 result_code = 2;
-inline bool IMAddFriendRes::has_result_code() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void IMAddFriendRes::set_has_result_code() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void IMAddFriendRes::clear_has_result_code() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void IMAddFriendRes::clear_result_code() {
-  result_code_ = 0u;
-  clear_has_result_code();
-}
-inline ::google::protobuf::uint32 IMAddFriendRes::result_code() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMAddFriendRes.result_code)
-  return result_code_;
-}
-inline void IMAddFriendRes::set_result_code(::google::protobuf::uint32 value) {
-  set_has_result_code();
-  result_code_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMAddFriendRes.result_code)
-}
-
-// optional bytes attach_data = 20;
-inline bool IMAddFriendRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void IMAddFriendRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void IMAddFriendRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void IMAddFriendRes::clear_attach_data() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_->clear();
-  }
-  clear_has_attach_data();
-}
-inline const ::std::string& IMAddFriendRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMAddFriendRes.attach_data)
-  return *attach_data_;
-}
-inline void IMAddFriendRes::set_attach_data(const ::std::string& value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMAddFriendRes.attach_data)
-}
-inline void IMAddFriendRes::set_attach_data(const char* value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMAddFriendRes.attach_data)
-}
-inline void IMAddFriendRes::set_attach_data(const void* value, size_t size) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMAddFriendRes.attach_data)
-}
-inline ::std::string* IMAddFriendRes::mutable_attach_data() {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMAddFriendRes.attach_data)
-  return attach_data_;
-}
-inline ::std::string* IMAddFriendRes::release_attach_data() {
-  clear_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = attach_data_;
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void IMAddFriendRes::set_allocated_attach_data(::std::string* attach_data) {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  if (attach_data) {
-    set_has_attach_data();
-    attach_data_ = attach_data;
-  } else {
-    clear_has_attach_data();
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMAddFriendRes.attach_data)
-}
-
-// -------------------------------------------------------------------
-
 // IMReverseAddFriendReq
 
 // required uint32 from_user_id = 1;
@@ -8651,133 +7372,158 @@ inline void IMReverseAddFriendReq::set_allocated_attach_data(::std::string* atta
 
 // -------------------------------------------------------------------
 
-// IMReverseAddFriendRes
+// IMCommonOperFriendRes
 
 // required uint32 user_id = 1;
-inline bool IMReverseAddFriendRes::has_user_id() const {
+inline bool IMCommonOperFriendRes::has_user_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void IMReverseAddFriendRes::set_has_user_id() {
+inline void IMCommonOperFriendRes::set_has_user_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void IMReverseAddFriendRes::clear_has_user_id() {
+inline void IMCommonOperFriendRes::clear_has_user_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void IMReverseAddFriendRes::clear_user_id() {
+inline void IMCommonOperFriendRes::clear_user_id() {
   user_id_ = 0u;
   clear_has_user_id();
 }
-inline ::google::protobuf::uint32 IMReverseAddFriendRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMReverseAddFriendRes.user_id)
+inline ::google::protobuf::uint32 IMCommonOperFriendRes::user_id() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendRes.user_id)
   return user_id_;
 }
-inline void IMReverseAddFriendRes::set_user_id(::google::protobuf::uint32 value) {
+inline void IMCommonOperFriendRes::set_user_id(::google::protobuf::uint32 value) {
   set_has_user_id();
   user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMReverseAddFriendRes.user_id)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendRes.user_id)
 }
 
 // required uint32 result_code = 2;
-inline bool IMReverseAddFriendRes::has_result_code() const {
+inline bool IMCommonOperFriendRes::has_result_code() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void IMReverseAddFriendRes::set_has_result_code() {
+inline void IMCommonOperFriendRes::set_has_result_code() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void IMReverseAddFriendRes::clear_has_result_code() {
+inline void IMCommonOperFriendRes::clear_has_result_code() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void IMReverseAddFriendRes::clear_result_code() {
+inline void IMCommonOperFriendRes::clear_result_code() {
   result_code_ = 0u;
   clear_has_result_code();
 }
-inline ::google::protobuf::uint32 IMReverseAddFriendRes::result_code() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMReverseAddFriendRes.result_code)
+inline ::google::protobuf::uint32 IMCommonOperFriendRes::result_code() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendRes.result_code)
   return result_code_;
 }
-inline void IMReverseAddFriendRes::set_result_code(::google::protobuf::uint32 value) {
+inline void IMCommonOperFriendRes::set_result_code(::google::protobuf::uint32 value) {
   set_has_result_code();
   result_code_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMReverseAddFriendRes.result_code)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendRes.result_code)
 }
 
 // optional uint32 friend_id = 10;
-inline bool IMReverseAddFriendRes::has_friend_id() const {
+inline bool IMCommonOperFriendRes::has_friend_id() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void IMReverseAddFriendRes::set_has_friend_id() {
+inline void IMCommonOperFriendRes::set_has_friend_id() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void IMReverseAddFriendRes::clear_has_friend_id() {
+inline void IMCommonOperFriendRes::clear_has_friend_id() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void IMReverseAddFriendRes::clear_friend_id() {
+inline void IMCommonOperFriendRes::clear_friend_id() {
   friend_id_ = 0u;
   clear_has_friend_id();
 }
-inline ::google::protobuf::uint32 IMReverseAddFriendRes::friend_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMReverseAddFriendRes.friend_id)
+inline ::google::protobuf::uint32 IMCommonOperFriendRes::friend_id() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendRes.friend_id)
   return friend_id_;
 }
-inline void IMReverseAddFriendRes::set_friend_id(::google::protobuf::uint32 value) {
+inline void IMCommonOperFriendRes::set_friend_id(::google::protobuf::uint32 value) {
   set_has_friend_id();
   friend_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMReverseAddFriendRes.friend_id)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendRes.friend_id)
+}
+
+// optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+inline bool IMCommonOperFriendRes::has_friendres_status_type() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void IMCommonOperFriendRes::set_has_friendres_status_type() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void IMCommonOperFriendRes::clear_has_friendres_status_type() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void IMCommonOperFriendRes::clear_friendres_status_type() {
+  friendres_status_type_ = 0;
+  clear_has_friendres_status_type();
+}
+inline ::IM::BaseDefine::FriendResStatusType IMCommonOperFriendRes::friendres_status_type() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendRes.friendres_status_type)
+  return static_cast< ::IM::BaseDefine::FriendResStatusType >(friendres_status_type_);
+}
+inline void IMCommonOperFriendRes::set_friendres_status_type(::IM::BaseDefine::FriendResStatusType value) {
+  assert(::IM::BaseDefine::FriendResStatusType_IsValid(value));
+  set_has_friendres_status_type();
+  friendres_status_type_ = value;
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendRes.friendres_status_type)
 }
 
 // optional bytes attach_data = 20;
-inline bool IMReverseAddFriendRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+inline bool IMCommonOperFriendRes::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void IMReverseAddFriendRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000008u;
+inline void IMCommonOperFriendRes::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000010u;
 }
-inline void IMReverseAddFriendRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000008u;
+inline void IMCommonOperFriendRes::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000010u;
 }
-inline void IMReverseAddFriendRes::clear_attach_data() {
+inline void IMCommonOperFriendRes::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_->clear();
   }
   clear_has_attach_data();
 }
-inline const ::std::string& IMReverseAddFriendRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMReverseAddFriendRes.attach_data)
+inline const ::std::string& IMCommonOperFriendRes::attach_data() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendRes.attach_data)
   return *attach_data_;
 }
-inline void IMReverseAddFriendRes::set_attach_data(const ::std::string& value) {
+inline void IMCommonOperFriendRes::set_attach_data(const ::std::string& value) {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
   attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMReverseAddFriendRes.attach_data)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendRes.attach_data)
 }
-inline void IMReverseAddFriendRes::set_attach_data(const char* value) {
+inline void IMCommonOperFriendRes::set_attach_data(const char* value) {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
   attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMReverseAddFriendRes.attach_data)
+  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMCommonOperFriendRes.attach_data)
 }
-inline void IMReverseAddFriendRes::set_attach_data(const void* value, size_t size) {
+inline void IMCommonOperFriendRes::set_attach_data(const void* value, size_t size) {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
   attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMReverseAddFriendRes.attach_data)
+  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMCommonOperFriendRes.attach_data)
 }
-inline ::std::string* IMReverseAddFriendRes::mutable_attach_data() {
+inline ::std::string* IMCommonOperFriendRes::mutable_attach_data() {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMReverseAddFriendRes.attach_data)
+  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMCommonOperFriendRes.attach_data)
   return attach_data_;
 }
-inline ::std::string* IMReverseAddFriendRes::release_attach_data() {
+inline ::std::string* IMCommonOperFriendRes::release_attach_data() {
   clear_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
@@ -8787,7 +7533,7 @@ inline ::std::string* IMReverseAddFriendRes::release_attach_data() {
     return temp;
   }
 }
-inline void IMReverseAddFriendRes::set_allocated_attach_data(::std::string* attach_data) {
+inline void IMCommonOperFriendRes::set_allocated_attach_data(::std::string* attach_data) {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete attach_data_;
   }
@@ -8798,7 +7544,7 @@ inline void IMReverseAddFriendRes::set_allocated_attach_data(::std::string* atta
     clear_has_attach_data();
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMReverseAddFriendRes.attach_data)
+  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMCommonOperFriendRes.attach_data)
 }
 
 // -------------------------------------------------------------------
@@ -8927,158 +7673,6 @@ inline void IMDelFriendReq::set_allocated_attach_data(::std::string* attach_data
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMDelFriendReq.attach_data)
-}
-
-// -------------------------------------------------------------------
-
-// IMDelFriendRes
-
-// required uint32 user_id = 1;
-inline bool IMDelFriendRes::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void IMDelFriendRes::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void IMDelFriendRes::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void IMDelFriendRes::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 IMDelFriendRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMDelFriendRes.user_id)
-  return user_id_;
-}
-inline void IMDelFriendRes::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMDelFriendRes.user_id)
-}
-
-// required uint32 result_code = 2;
-inline bool IMDelFriendRes::has_result_code() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void IMDelFriendRes::set_has_result_code() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void IMDelFriendRes::clear_has_result_code() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void IMDelFriendRes::clear_result_code() {
-  result_code_ = 0u;
-  clear_has_result_code();
-}
-inline ::google::protobuf::uint32 IMDelFriendRes::result_code() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMDelFriendRes.result_code)
-  return result_code_;
-}
-inline void IMDelFriendRes::set_result_code(::google::protobuf::uint32 value) {
-  set_has_result_code();
-  result_code_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMDelFriendRes.result_code)
-}
-
-// optional uint32 friend_id = 10;
-inline bool IMDelFriendRes::has_friend_id() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void IMDelFriendRes::set_has_friend_id() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void IMDelFriendRes::clear_has_friend_id() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void IMDelFriendRes::clear_friend_id() {
-  friend_id_ = 0u;
-  clear_has_friend_id();
-}
-inline ::google::protobuf::uint32 IMDelFriendRes::friend_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMDelFriendRes.friend_id)
-  return friend_id_;
-}
-inline void IMDelFriendRes::set_friend_id(::google::protobuf::uint32 value) {
-  set_has_friend_id();
-  friend_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMDelFriendRes.friend_id)
-}
-
-// optional bytes attach_data = 20;
-inline bool IMDelFriendRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void IMDelFriendRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void IMDelFriendRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void IMDelFriendRes::clear_attach_data() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_->clear();
-  }
-  clear_has_attach_data();
-}
-inline const ::std::string& IMDelFriendRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMDelFriendRes.attach_data)
-  return *attach_data_;
-}
-inline void IMDelFriendRes::set_attach_data(const ::std::string& value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMDelFriendRes.attach_data)
-}
-inline void IMDelFriendRes::set_attach_data(const char* value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMDelFriendRes.attach_data)
-}
-inline void IMDelFriendRes::set_attach_data(const void* value, size_t size) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMDelFriendRes.attach_data)
-}
-inline ::std::string* IMDelFriendRes::mutable_attach_data() {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMDelFriendRes.attach_data)
-  return attach_data_;
-}
-inline ::std::string* IMDelFriendRes::release_attach_data() {
-  clear_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = attach_data_;
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void IMDelFriendRes::set_allocated_attach_data(::std::string* attach_data) {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  if (attach_data) {
-    set_has_attach_data();
-    attach_data_ = attach_data;
-  } else {
-    clear_has_attach_data();
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMDelFriendRes.attach_data)
 }
 
 // -------------------------------------------------------------------
@@ -9287,158 +7881,6 @@ inline void IMChgFriendRemarkReq::set_allocated_attach_data(::std::string* attac
 
 // -------------------------------------------------------------------
 
-// IMChgFriendRemarkRes
-
-// required uint32 user_id = 1;
-inline bool IMChgFriendRemarkRes::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void IMChgFriendRemarkRes::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void IMChgFriendRemarkRes::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void IMChgFriendRemarkRes::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 IMChgFriendRemarkRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMChgFriendRemarkRes.user_id)
-  return user_id_;
-}
-inline void IMChgFriendRemarkRes::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMChgFriendRemarkRes.user_id)
-}
-
-// required uint32 result_code = 2;
-inline bool IMChgFriendRemarkRes::has_result_code() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void IMChgFriendRemarkRes::set_has_result_code() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void IMChgFriendRemarkRes::clear_has_result_code() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void IMChgFriendRemarkRes::clear_result_code() {
-  result_code_ = 0u;
-  clear_has_result_code();
-}
-inline ::google::protobuf::uint32 IMChgFriendRemarkRes::result_code() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMChgFriendRemarkRes.result_code)
-  return result_code_;
-}
-inline void IMChgFriendRemarkRes::set_result_code(::google::protobuf::uint32 value) {
-  set_has_result_code();
-  result_code_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMChgFriendRemarkRes.result_code)
-}
-
-// optional uint32 friend_id = 10;
-inline bool IMChgFriendRemarkRes::has_friend_id() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void IMChgFriendRemarkRes::set_has_friend_id() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void IMChgFriendRemarkRes::clear_has_friend_id() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void IMChgFriendRemarkRes::clear_friend_id() {
-  friend_id_ = 0u;
-  clear_has_friend_id();
-}
-inline ::google::protobuf::uint32 IMChgFriendRemarkRes::friend_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMChgFriendRemarkRes.friend_id)
-  return friend_id_;
-}
-inline void IMChgFriendRemarkRes::set_friend_id(::google::protobuf::uint32 value) {
-  set_has_friend_id();
-  friend_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMChgFriendRemarkRes.friend_id)
-}
-
-// optional bytes attach_data = 20;
-inline bool IMChgFriendRemarkRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void IMChgFriendRemarkRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void IMChgFriendRemarkRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void IMChgFriendRemarkRes::clear_attach_data() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_->clear();
-  }
-  clear_has_attach_data();
-}
-inline const ::std::string& IMChgFriendRemarkRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMChgFriendRemarkRes.attach_data)
-  return *attach_data_;
-}
-inline void IMChgFriendRemarkRes::set_attach_data(const ::std::string& value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMChgFriendRemarkRes.attach_data)
-}
-inline void IMChgFriendRemarkRes::set_attach_data(const char* value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMChgFriendRemarkRes.attach_data)
-}
-inline void IMChgFriendRemarkRes::set_attach_data(const void* value, size_t size) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMChgFriendRemarkRes.attach_data)
-}
-inline ::std::string* IMChgFriendRemarkRes::mutable_attach_data() {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMChgFriendRemarkRes.attach_data)
-  return attach_data_;
-}
-inline ::std::string* IMChgFriendRemarkRes::release_attach_data() {
-  clear_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = attach_data_;
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void IMChgFriendRemarkRes::set_allocated_attach_data(::std::string* attach_data) {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  if (attach_data) {
-    set_has_attach_data();
-    attach_data_ = attach_data;
-  } else {
-    clear_has_attach_data();
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMChgFriendRemarkRes.attach_data)
-}
-
-// -------------------------------------------------------------------
-
 // IMCreateFriendGroupReq
 
 // required uint32 user_id = 1;
@@ -9619,109 +8061,109 @@ inline void IMCreateFriendGroupReq::set_allocated_attach_data(::std::string* att
 
 // -------------------------------------------------------------------
 
-// IMCreateFriendGroupRes
+// IMCommonOperFriendGroupRes
 
 // required uint32 user_id = 1;
-inline bool IMCreateFriendGroupRes::has_user_id() const {
+inline bool IMCommonOperFriendGroupRes::has_user_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void IMCreateFriendGroupRes::set_has_user_id() {
+inline void IMCommonOperFriendGroupRes::set_has_user_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void IMCreateFriendGroupRes::clear_has_user_id() {
+inline void IMCommonOperFriendGroupRes::clear_has_user_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void IMCreateFriendGroupRes::clear_user_id() {
+inline void IMCommonOperFriendGroupRes::clear_user_id() {
   user_id_ = 0u;
   clear_has_user_id();
 }
-inline ::google::protobuf::uint32 IMCreateFriendGroupRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMCreateFriendGroupRes.user_id)
+inline ::google::protobuf::uint32 IMCommonOperFriendGroupRes::user_id() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendGroupRes.user_id)
   return user_id_;
 }
-inline void IMCreateFriendGroupRes::set_user_id(::google::protobuf::uint32 value) {
+inline void IMCommonOperFriendGroupRes::set_user_id(::google::protobuf::uint32 value) {
   set_has_user_id();
   user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMCreateFriendGroupRes.user_id)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendGroupRes.user_id)
 }
 
-// required uint32 group_id = 2;
-inline bool IMCreateFriendGroupRes::has_group_id() const {
+// required uint32 result_code = 2;
+inline bool IMCommonOperFriendGroupRes::has_result_code() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void IMCreateFriendGroupRes::set_has_group_id() {
+inline void IMCommonOperFriendGroupRes::set_has_result_code() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void IMCreateFriendGroupRes::clear_has_group_id() {
+inline void IMCommonOperFriendGroupRes::clear_has_result_code() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void IMCreateFriendGroupRes::clear_group_id() {
-  group_id_ = 0u;
-  clear_has_group_id();
+inline void IMCommonOperFriendGroupRes::clear_result_code() {
+  result_code_ = 0u;
+  clear_has_result_code();
 }
-inline ::google::protobuf::uint32 IMCreateFriendGroupRes::group_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMCreateFriendGroupRes.group_id)
-  return group_id_;
+inline ::google::protobuf::uint32 IMCommonOperFriendGroupRes::result_code() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendGroupRes.result_code)
+  return result_code_;
 }
-inline void IMCreateFriendGroupRes::set_group_id(::google::protobuf::uint32 value) {
-  set_has_group_id();
-  group_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMCreateFriendGroupRes.group_id)
+inline void IMCommonOperFriendGroupRes::set_result_code(::google::protobuf::uint32 value) {
+  set_has_result_code();
+  result_code_ = value;
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendGroupRes.result_code)
 }
 
 // optional bytes attach_data = 20;
-inline bool IMCreateFriendGroupRes::has_attach_data() const {
+inline bool IMCommonOperFriendGroupRes::has_attach_data() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void IMCreateFriendGroupRes::set_has_attach_data() {
+inline void IMCommonOperFriendGroupRes::set_has_attach_data() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void IMCreateFriendGroupRes::clear_has_attach_data() {
+inline void IMCommonOperFriendGroupRes::clear_has_attach_data() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void IMCreateFriendGroupRes::clear_attach_data() {
+inline void IMCommonOperFriendGroupRes::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_->clear();
   }
   clear_has_attach_data();
 }
-inline const ::std::string& IMCreateFriendGroupRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMCreateFriendGroupRes.attach_data)
+inline const ::std::string& IMCommonOperFriendGroupRes::attach_data() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFriendGroupRes.attach_data)
   return *attach_data_;
 }
-inline void IMCreateFriendGroupRes::set_attach_data(const ::std::string& value) {
+inline void IMCommonOperFriendGroupRes::set_attach_data(const ::std::string& value) {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
   attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMCreateFriendGroupRes.attach_data)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFriendGroupRes.attach_data)
 }
-inline void IMCreateFriendGroupRes::set_attach_data(const char* value) {
+inline void IMCommonOperFriendGroupRes::set_attach_data(const char* value) {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
   attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMCreateFriendGroupRes.attach_data)
+  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMCommonOperFriendGroupRes.attach_data)
 }
-inline void IMCreateFriendGroupRes::set_attach_data(const void* value, size_t size) {
+inline void IMCommonOperFriendGroupRes::set_attach_data(const void* value, size_t size) {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
   attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMCreateFriendGroupRes.attach_data)
+  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMCommonOperFriendGroupRes.attach_data)
 }
-inline ::std::string* IMCreateFriendGroupRes::mutable_attach_data() {
+inline ::std::string* IMCommonOperFriendGroupRes::mutable_attach_data() {
   set_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     attach_data_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMCreateFriendGroupRes.attach_data)
+  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMCommonOperFriendGroupRes.attach_data)
   return attach_data_;
 }
-inline ::std::string* IMCreateFriendGroupRes::release_attach_data() {
+inline ::std::string* IMCommonOperFriendGroupRes::release_attach_data() {
   clear_has_attach_data();
   if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
@@ -9731,7 +8173,7 @@ inline ::std::string* IMCreateFriendGroupRes::release_attach_data() {
     return temp;
   }
 }
-inline void IMCreateFriendGroupRes::set_allocated_attach_data(::std::string* attach_data) {
+inline void IMCommonOperFriendGroupRes::set_allocated_attach_data(::std::string* attach_data) {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete attach_data_;
   }
@@ -9742,7 +8184,7 @@ inline void IMCreateFriendGroupRes::set_allocated_attach_data(::std::string* att
     clear_has_attach_data();
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMCreateFriendGroupRes.attach_data)
+  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMCommonOperFriendGroupRes.attach_data)
 }
 
 // -------------------------------------------------------------------
@@ -9871,134 +8313,6 @@ inline void IMDelFriendGroupReq::set_allocated_attach_data(::std::string* attach
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMDelFriendGroupReq.attach_data)
-}
-
-// -------------------------------------------------------------------
-
-// IMDelFriendGroupRes
-
-// required uint32 user_id = 1;
-inline bool IMDelFriendGroupRes::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void IMDelFriendGroupRes::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void IMDelFriendGroupRes::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void IMDelFriendGroupRes::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 IMDelFriendGroupRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMDelFriendGroupRes.user_id)
-  return user_id_;
-}
-inline void IMDelFriendGroupRes::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMDelFriendGroupRes.user_id)
-}
-
-// required uint32 result_code = 2;
-inline bool IMDelFriendGroupRes::has_result_code() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void IMDelFriendGroupRes::set_has_result_code() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void IMDelFriendGroupRes::clear_has_result_code() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void IMDelFriendGroupRes::clear_result_code() {
-  result_code_ = 0u;
-  clear_has_result_code();
-}
-inline ::google::protobuf::uint32 IMDelFriendGroupRes::result_code() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMDelFriendGroupRes.result_code)
-  return result_code_;
-}
-inline void IMDelFriendGroupRes::set_result_code(::google::protobuf::uint32 value) {
-  set_has_result_code();
-  result_code_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMDelFriendGroupRes.result_code)
-}
-
-// optional bytes attach_data = 20;
-inline bool IMDelFriendGroupRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void IMDelFriendGroupRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void IMDelFriendGroupRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void IMDelFriendGroupRes::clear_attach_data() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_->clear();
-  }
-  clear_has_attach_data();
-}
-inline const ::std::string& IMDelFriendGroupRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMDelFriendGroupRes.attach_data)
-  return *attach_data_;
-}
-inline void IMDelFriendGroupRes::set_attach_data(const ::std::string& value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMDelFriendGroupRes.attach_data)
-}
-inline void IMDelFriendGroupRes::set_attach_data(const char* value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMDelFriendGroupRes.attach_data)
-}
-inline void IMDelFriendGroupRes::set_attach_data(const void* value, size_t size) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMDelFriendGroupRes.attach_data)
-}
-inline ::std::string* IMDelFriendGroupRes::mutable_attach_data() {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMDelFriendGroupRes.attach_data)
-  return attach_data_;
-}
-inline ::std::string* IMDelFriendGroupRes::release_attach_data() {
-  clear_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = attach_data_;
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void IMDelFriendGroupRes::set_allocated_attach_data(::std::string* attach_data) {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  if (attach_data) {
-    set_has_attach_data();
-    attach_data_ = attach_data;
-  } else {
-    clear_has_attach_data();
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMDelFriendGroupRes.attach_data)
 }
 
 // -------------------------------------------------------------------
@@ -10157,134 +8471,6 @@ inline void IMMoveFriendToGroupReq::set_allocated_attach_data(::std::string* att
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMMoveFriendToGroupReq.attach_data)
-}
-
-// -------------------------------------------------------------------
-
-// IMMoveFriendToGroupRes
-
-// required uint32 user_id = 1;
-inline bool IMMoveFriendToGroupRes::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void IMMoveFriendToGroupRes::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void IMMoveFriendToGroupRes::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void IMMoveFriendToGroupRes::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 IMMoveFriendToGroupRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMMoveFriendToGroupRes.user_id)
-  return user_id_;
-}
-inline void IMMoveFriendToGroupRes::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMMoveFriendToGroupRes.user_id)
-}
-
-// required uint32 result_code = 2;
-inline bool IMMoveFriendToGroupRes::has_result_code() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void IMMoveFriendToGroupRes::set_has_result_code() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void IMMoveFriendToGroupRes::clear_has_result_code() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void IMMoveFriendToGroupRes::clear_result_code() {
-  result_code_ = 0u;
-  clear_has_result_code();
-}
-inline ::google::protobuf::uint32 IMMoveFriendToGroupRes::result_code() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMMoveFriendToGroupRes.result_code)
-  return result_code_;
-}
-inline void IMMoveFriendToGroupRes::set_result_code(::google::protobuf::uint32 value) {
-  set_has_result_code();
-  result_code_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMMoveFriendToGroupRes.result_code)
-}
-
-// optional bytes attach_data = 20;
-inline bool IMMoveFriendToGroupRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void IMMoveFriendToGroupRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void IMMoveFriendToGroupRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void IMMoveFriendToGroupRes::clear_attach_data() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_->clear();
-  }
-  clear_has_attach_data();
-}
-inline const ::std::string& IMMoveFriendToGroupRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMMoveFriendToGroupRes.attach_data)
-  return *attach_data_;
-}
-inline void IMMoveFriendToGroupRes::set_attach_data(const ::std::string& value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMMoveFriendToGroupRes.attach_data)
-}
-inline void IMMoveFriendToGroupRes::set_attach_data(const char* value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMMoveFriendToGroupRes.attach_data)
-}
-inline void IMMoveFriendToGroupRes::set_attach_data(const void* value, size_t size) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMMoveFriendToGroupRes.attach_data)
-}
-inline ::std::string* IMMoveFriendToGroupRes::mutable_attach_data() {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMMoveFriendToGroupRes.attach_data)
-  return attach_data_;
-}
-inline ::std::string* IMMoveFriendToGroupRes::release_attach_data() {
-  clear_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = attach_data_;
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void IMMoveFriendToGroupRes::set_allocated_attach_data(::std::string* attach_data) {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  if (attach_data) {
-    set_has_attach_data();
-    attach_data_ = attach_data;
-  } else {
-    clear_has_attach_data();
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMMoveFriendToGroupRes.attach_data)
 }
 
 // -------------------------------------------------------------------
@@ -10489,134 +8675,6 @@ inline void IMChgFriendGroupNameReq::set_allocated_attach_data(::std::string* at
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMChgFriendGroupNameReq.attach_data)
-}
-
-// -------------------------------------------------------------------
-
-// IMChgFriendGroupNameRes
-
-// required uint32 user_id = 1;
-inline bool IMChgFriendGroupNameRes::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void IMChgFriendGroupNameRes::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void IMChgFriendGroupNameRes::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void IMChgFriendGroupNameRes::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 IMChgFriendGroupNameRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMChgFriendGroupNameRes.user_id)
-  return user_id_;
-}
-inline void IMChgFriendGroupNameRes::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMChgFriendGroupNameRes.user_id)
-}
-
-// required uint32 result_code = 2;
-inline bool IMChgFriendGroupNameRes::has_result_code() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void IMChgFriendGroupNameRes::set_has_result_code() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void IMChgFriendGroupNameRes::clear_has_result_code() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void IMChgFriendGroupNameRes::clear_result_code() {
-  result_code_ = 0u;
-  clear_has_result_code();
-}
-inline ::google::protobuf::uint32 IMChgFriendGroupNameRes::result_code() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMChgFriendGroupNameRes.result_code)
-  return result_code_;
-}
-inline void IMChgFriendGroupNameRes::set_result_code(::google::protobuf::uint32 value) {
-  set_has_result_code();
-  result_code_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMChgFriendGroupNameRes.result_code)
-}
-
-// optional bytes attach_data = 20;
-inline bool IMChgFriendGroupNameRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void IMChgFriendGroupNameRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void IMChgFriendGroupNameRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void IMChgFriendGroupNameRes::clear_attach_data() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_->clear();
-  }
-  clear_has_attach_data();
-}
-inline const ::std::string& IMChgFriendGroupNameRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMChgFriendGroupNameRes.attach_data)
-  return *attach_data_;
-}
-inline void IMChgFriendGroupNameRes::set_attach_data(const ::std::string& value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMChgFriendGroupNameRes.attach_data)
-}
-inline void IMChgFriendGroupNameRes::set_attach_data(const char* value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMChgFriendGroupNameRes.attach_data)
-}
-inline void IMChgFriendGroupNameRes::set_attach_data(const void* value, size_t size) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMChgFriendGroupNameRes.attach_data)
-}
-inline ::std::string* IMChgFriendGroupNameRes::mutable_attach_data() {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMChgFriendGroupNameRes.attach_data)
-  return attach_data_;
-}
-inline ::std::string* IMChgFriendGroupNameRes::release_attach_data() {
-  clear_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = attach_data_;
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void IMChgFriendGroupNameRes::set_allocated_attach_data(::std::string* attach_data) {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  if (attach_data) {
-    set_has_attach_data();
-    attach_data_ = attach_data;
-  } else {
-    clear_has_attach_data();
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMChgFriendGroupNameRes.attach_data)
 }
 
 // -------------------------------------------------------------------
@@ -11130,109 +9188,109 @@ inline void IMGetAddFriendReq::set_allocated_attach_data(::std::string* attach_d
 
 // -------------------------------------------------------------------
 
-// AddFrienInfo
+// IMCommonOperFrienInfo
 
-// required uint32 from_user_id = 1;
-inline bool AddFrienInfo::has_from_user_id() const {
+// required uint32 oper_user_id = 1;
+inline bool IMCommonOperFrienInfo::has_oper_user_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void AddFrienInfo::set_has_from_user_id() {
+inline void IMCommonOperFrienInfo::set_has_oper_user_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void AddFrienInfo::clear_has_from_user_id() {
+inline void IMCommonOperFrienInfo::clear_has_oper_user_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void AddFrienInfo::clear_from_user_id() {
-  from_user_id_ = 0u;
-  clear_has_from_user_id();
+inline void IMCommonOperFrienInfo::clear_oper_user_id() {
+  oper_user_id_ = 0u;
+  clear_has_oper_user_id();
 }
-inline ::google::protobuf::uint32 AddFrienInfo::from_user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AddFrienInfo.from_user_id)
-  return from_user_id_;
+inline ::google::protobuf::uint32 IMCommonOperFrienInfo::oper_user_id() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFrienInfo.oper_user_id)
+  return oper_user_id_;
 }
-inline void AddFrienInfo::set_from_user_id(::google::protobuf::uint32 value) {
-  set_has_from_user_id();
-  from_user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AddFrienInfo.from_user_id)
+inline void IMCommonOperFrienInfo::set_oper_user_id(::google::protobuf::uint32 value) {
+  set_has_oper_user_id();
+  oper_user_id_ = value;
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFrienInfo.oper_user_id)
 }
 
-// required uint32 create_time = 2;
-inline bool AddFrienInfo::has_create_time() const {
+// required uint32 oper_time = 2;
+inline bool IMCommonOperFrienInfo::has_oper_time() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void AddFrienInfo::set_has_create_time() {
+inline void IMCommonOperFrienInfo::set_has_oper_time() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void AddFrienInfo::clear_has_create_time() {
+inline void IMCommonOperFrienInfo::clear_has_oper_time() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void AddFrienInfo::clear_create_time() {
-  create_time_ = 0u;
-  clear_has_create_time();
+inline void IMCommonOperFrienInfo::clear_oper_time() {
+  oper_time_ = 0u;
+  clear_has_oper_time();
 }
-inline ::google::protobuf::uint32 AddFrienInfo::create_time() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AddFrienInfo.create_time)
-  return create_time_;
+inline ::google::protobuf::uint32 IMCommonOperFrienInfo::oper_time() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFrienInfo.oper_time)
+  return oper_time_;
 }
-inline void AddFrienInfo::set_create_time(::google::protobuf::uint32 value) {
-  set_has_create_time();
-  create_time_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AddFrienInfo.create_time)
+inline void IMCommonOperFrienInfo::set_oper_time(::google::protobuf::uint32 value) {
+  set_has_oper_time();
+  oper_time_ = value;
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFrienInfo.oper_time)
 }
 
 // optional string extra_info = 3;
-inline bool AddFrienInfo::has_extra_info() const {
+inline bool IMCommonOperFrienInfo::has_extra_info() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void AddFrienInfo::set_has_extra_info() {
+inline void IMCommonOperFrienInfo::set_has_extra_info() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void AddFrienInfo::clear_has_extra_info() {
+inline void IMCommonOperFrienInfo::clear_has_extra_info() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void AddFrienInfo::clear_extra_info() {
+inline void IMCommonOperFrienInfo::clear_extra_info() {
   if (extra_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     extra_info_->clear();
   }
   clear_has_extra_info();
 }
-inline const ::std::string& AddFrienInfo::extra_info() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AddFrienInfo.extra_info)
+inline const ::std::string& IMCommonOperFrienInfo::extra_info() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFrienInfo.extra_info)
   return *extra_info_;
 }
-inline void AddFrienInfo::set_extra_info(const ::std::string& value) {
+inline void IMCommonOperFrienInfo::set_extra_info(const ::std::string& value) {
   set_has_extra_info();
   if (extra_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     extra_info_ = new ::std::string;
   }
   extra_info_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.AddFrienInfo.extra_info)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFrienInfo.extra_info)
 }
-inline void AddFrienInfo::set_extra_info(const char* value) {
+inline void IMCommonOperFrienInfo::set_extra_info(const char* value) {
   set_has_extra_info();
   if (extra_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     extra_info_ = new ::std::string;
   }
   extra_info_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.AddFrienInfo.extra_info)
+  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMCommonOperFrienInfo.extra_info)
 }
-inline void AddFrienInfo::set_extra_info(const char* value, size_t size) {
+inline void IMCommonOperFrienInfo::set_extra_info(const char* value, size_t size) {
   set_has_extra_info();
   if (extra_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     extra_info_ = new ::std::string;
   }
   extra_info_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.AddFrienInfo.extra_info)
+  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMCommonOperFrienInfo.extra_info)
 }
-inline ::std::string* AddFrienInfo::mutable_extra_info() {
+inline ::std::string* IMCommonOperFrienInfo::mutable_extra_info() {
   set_has_extra_info();
   if (extra_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     extra_info_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.AddFrienInfo.extra_info)
+  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMCommonOperFrienInfo.extra_info)
   return extra_info_;
 }
-inline ::std::string* AddFrienInfo::release_extra_info() {
+inline ::std::string* IMCommonOperFrienInfo::release_extra_info() {
   clear_has_extra_info();
   if (extra_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
@@ -11242,7 +9300,7 @@ inline ::std::string* AddFrienInfo::release_extra_info() {
     return temp;
   }
 }
-inline void AddFrienInfo::set_allocated_extra_info(::std::string* extra_info) {
+inline void IMCommonOperFrienInfo::set_allocated_extra_info(::std::string* extra_info) {
   if (extra_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete extra_info_;
   }
@@ -11253,62 +9311,62 @@ inline void AddFrienInfo::set_allocated_extra_info(::std::string* extra_info) {
     clear_has_extra_info();
     extra_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.AddFrienInfo.extra_info)
+  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMCommonOperFrienInfo.extra_info)
 }
 
 // optional string user_nickname = 6;
-inline bool AddFrienInfo::has_user_nickname() const {
+inline bool IMCommonOperFrienInfo::has_user_nickname() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void AddFrienInfo::set_has_user_nickname() {
+inline void IMCommonOperFrienInfo::set_has_user_nickname() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void AddFrienInfo::clear_has_user_nickname() {
+inline void IMCommonOperFrienInfo::clear_has_user_nickname() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void AddFrienInfo::clear_user_nickname() {
+inline void IMCommonOperFrienInfo::clear_user_nickname() {
   if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_nickname_->clear();
   }
   clear_has_user_nickname();
 }
-inline const ::std::string& AddFrienInfo::user_nickname() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AddFrienInfo.user_nickname)
+inline const ::std::string& IMCommonOperFrienInfo::user_nickname() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFrienInfo.user_nickname)
   return *user_nickname_;
 }
-inline void AddFrienInfo::set_user_nickname(const ::std::string& value) {
+inline void IMCommonOperFrienInfo::set_user_nickname(const ::std::string& value) {
   set_has_user_nickname();
   if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_nickname_ = new ::std::string;
   }
   user_nickname_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.AddFrienInfo.user_nickname)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFrienInfo.user_nickname)
 }
-inline void AddFrienInfo::set_user_nickname(const char* value) {
+inline void IMCommonOperFrienInfo::set_user_nickname(const char* value) {
   set_has_user_nickname();
   if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_nickname_ = new ::std::string;
   }
   user_nickname_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.AddFrienInfo.user_nickname)
+  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMCommonOperFrienInfo.user_nickname)
 }
-inline void AddFrienInfo::set_user_nickname(const char* value, size_t size) {
+inline void IMCommonOperFrienInfo::set_user_nickname(const char* value, size_t size) {
   set_has_user_nickname();
   if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_nickname_ = new ::std::string;
   }
   user_nickname_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.AddFrienInfo.user_nickname)
+  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMCommonOperFrienInfo.user_nickname)
 }
-inline ::std::string* AddFrienInfo::mutable_user_nickname() {
+inline ::std::string* IMCommonOperFrienInfo::mutable_user_nickname() {
   set_has_user_nickname();
   if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_nickname_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.AddFrienInfo.user_nickname)
+  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMCommonOperFrienInfo.user_nickname)
   return user_nickname_;
 }
-inline ::std::string* AddFrienInfo::release_user_nickname() {
+inline ::std::string* IMCommonOperFrienInfo::release_user_nickname() {
   clear_has_user_nickname();
   if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
@@ -11318,7 +9376,7 @@ inline ::std::string* AddFrienInfo::release_user_nickname() {
     return temp;
   }
 }
-inline void AddFrienInfo::set_allocated_user_nickname(::std::string* user_nickname) {
+inline void IMCommonOperFrienInfo::set_allocated_user_nickname(::std::string* user_nickname) {
   if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete user_nickname_;
   }
@@ -11329,62 +9387,62 @@ inline void AddFrienInfo::set_allocated_user_nickname(::std::string* user_nickna
     clear_has_user_nickname();
     user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.AddFrienInfo.user_nickname)
+  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMCommonOperFrienInfo.user_nickname)
 }
 
 // optional string user_headlink = 7;
-inline bool AddFrienInfo::has_user_headlink() const {
+inline bool IMCommonOperFrienInfo::has_user_headlink() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void AddFrienInfo::set_has_user_headlink() {
+inline void IMCommonOperFrienInfo::set_has_user_headlink() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void AddFrienInfo::clear_has_user_headlink() {
+inline void IMCommonOperFrienInfo::clear_has_user_headlink() {
   _has_bits_[0] &= ~0x00000010u;
 }
-inline void AddFrienInfo::clear_user_headlink() {
+inline void IMCommonOperFrienInfo::clear_user_headlink() {
   if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_headlink_->clear();
   }
   clear_has_user_headlink();
 }
-inline const ::std::string& AddFrienInfo::user_headlink() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AddFrienInfo.user_headlink)
+inline const ::std::string& IMCommonOperFrienInfo::user_headlink() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFrienInfo.user_headlink)
   return *user_headlink_;
 }
-inline void AddFrienInfo::set_user_headlink(const ::std::string& value) {
+inline void IMCommonOperFrienInfo::set_user_headlink(const ::std::string& value) {
   set_has_user_headlink();
   if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_headlink_ = new ::std::string;
   }
   user_headlink_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.AddFrienInfo.user_headlink)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFrienInfo.user_headlink)
 }
-inline void AddFrienInfo::set_user_headlink(const char* value) {
+inline void IMCommonOperFrienInfo::set_user_headlink(const char* value) {
   set_has_user_headlink();
   if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_headlink_ = new ::std::string;
   }
   user_headlink_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.AddFrienInfo.user_headlink)
+  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMCommonOperFrienInfo.user_headlink)
 }
-inline void AddFrienInfo::set_user_headlink(const char* value, size_t size) {
+inline void IMCommonOperFrienInfo::set_user_headlink(const char* value, size_t size) {
   set_has_user_headlink();
   if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_headlink_ = new ::std::string;
   }
   user_headlink_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.AddFrienInfo.user_headlink)
+  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMCommonOperFrienInfo.user_headlink)
 }
-inline ::std::string* AddFrienInfo::mutable_user_headlink() {
+inline ::std::string* IMCommonOperFrienInfo::mutable_user_headlink() {
   set_has_user_headlink();
   if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     user_headlink_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.AddFrienInfo.user_headlink)
+  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMCommonOperFrienInfo.user_headlink)
   return user_headlink_;
 }
-inline ::std::string* AddFrienInfo::release_user_headlink() {
+inline ::std::string* IMCommonOperFrienInfo::release_user_headlink() {
   clear_has_user_headlink();
   if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
@@ -11394,7 +9452,7 @@ inline ::std::string* AddFrienInfo::release_user_headlink() {
     return temp;
   }
 }
-inline void AddFrienInfo::set_allocated_user_headlink(::std::string* user_headlink) {
+inline void IMCommonOperFrienInfo::set_allocated_user_headlink(::std::string* user_headlink) {
   if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete user_headlink_;
   }
@@ -11405,635 +9463,55 @@ inline void AddFrienInfo::set_allocated_user_headlink(::std::string* user_headli
     clear_has_user_headlink();
     user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.AddFrienInfo.user_headlink)
+  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMCommonOperFrienInfo.user_headlink)
 }
 
 // optional uint32 user_gender = 8;
-inline bool AddFrienInfo::has_user_gender() const {
+inline bool IMCommonOperFrienInfo::has_user_gender() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void AddFrienInfo::set_has_user_gender() {
+inline void IMCommonOperFrienInfo::set_has_user_gender() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void AddFrienInfo::clear_has_user_gender() {
+inline void IMCommonOperFrienInfo::clear_has_user_gender() {
   _has_bits_[0] &= ~0x00000020u;
 }
-inline void AddFrienInfo::clear_user_gender() {
+inline void IMCommonOperFrienInfo::clear_user_gender() {
   user_gender_ = 0u;
   clear_has_user_gender();
 }
-inline ::google::protobuf::uint32 AddFrienInfo::user_gender() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AddFrienInfo.user_gender)
+inline ::google::protobuf::uint32 IMCommonOperFrienInfo::user_gender() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFrienInfo.user_gender)
   return user_gender_;
 }
-inline void AddFrienInfo::set_user_gender(::google::protobuf::uint32 value) {
+inline void IMCommonOperFrienInfo::set_user_gender(::google::protobuf::uint32 value) {
   set_has_user_gender();
   user_gender_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AddFrienInfo.user_gender)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFrienInfo.user_gender)
 }
 
 // optional uint32 user_uid = 9;
-inline bool AddFrienInfo::has_user_uid() const {
+inline bool IMCommonOperFrienInfo::has_user_uid() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
-inline void AddFrienInfo::set_has_user_uid() {
+inline void IMCommonOperFrienInfo::set_has_user_uid() {
   _has_bits_[0] |= 0x00000040u;
 }
-inline void AddFrienInfo::clear_has_user_uid() {
+inline void IMCommonOperFrienInfo::clear_has_user_uid() {
   _has_bits_[0] &= ~0x00000040u;
 }
-inline void AddFrienInfo::clear_user_uid() {
+inline void IMCommonOperFrienInfo::clear_user_uid() {
   user_uid_ = 0u;
   clear_has_user_uid();
 }
-inline ::google::protobuf::uint32 AddFrienInfo::user_uid() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AddFrienInfo.user_uid)
+inline ::google::protobuf::uint32 IMCommonOperFrienInfo::user_uid() const {
+  // @@protoc_insertion_point(field_get:IM.Buddy.IMCommonOperFrienInfo.user_uid)
   return user_uid_;
 }
-inline void AddFrienInfo::set_user_uid(::google::protobuf::uint32 value) {
+inline void IMCommonOperFrienInfo::set_user_uid(::google::protobuf::uint32 value) {
   set_has_user_uid();
   user_uid_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AddFrienInfo.user_uid)
-}
-
-// -------------------------------------------------------------------
-
-// RefuseAddFrienInfo
-
-// required uint32 refuse_user_id = 1;
-inline bool RefuseAddFrienInfo::has_refuse_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void RefuseAddFrienInfo::set_has_refuse_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void RefuseAddFrienInfo::clear_has_refuse_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void RefuseAddFrienInfo::clear_refuse_user_id() {
-  refuse_user_id_ = 0u;
-  clear_has_refuse_user_id();
-}
-inline ::google::protobuf::uint32 RefuseAddFrienInfo::refuse_user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.RefuseAddFrienInfo.refuse_user_id)
-  return refuse_user_id_;
-}
-inline void RefuseAddFrienInfo::set_refuse_user_id(::google::protobuf::uint32 value) {
-  set_has_refuse_user_id();
-  refuse_user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.RefuseAddFrienInfo.refuse_user_id)
-}
-
-// required uint32 resp_time = 2;
-inline bool RefuseAddFrienInfo::has_resp_time() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void RefuseAddFrienInfo::set_has_resp_time() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void RefuseAddFrienInfo::clear_has_resp_time() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void RefuseAddFrienInfo::clear_resp_time() {
-  resp_time_ = 0u;
-  clear_has_resp_time();
-}
-inline ::google::protobuf::uint32 RefuseAddFrienInfo::resp_time() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.RefuseAddFrienInfo.resp_time)
-  return resp_time_;
-}
-inline void RefuseAddFrienInfo::set_resp_time(::google::protobuf::uint32 value) {
-  set_has_resp_time();
-  resp_time_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.RefuseAddFrienInfo.resp_time)
-}
-
-// optional string refuse_reason = 3;
-inline bool RefuseAddFrienInfo::has_refuse_reason() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void RefuseAddFrienInfo::set_has_refuse_reason() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void RefuseAddFrienInfo::clear_has_refuse_reason() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void RefuseAddFrienInfo::clear_refuse_reason() {
-  if (refuse_reason_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    refuse_reason_->clear();
-  }
-  clear_has_refuse_reason();
-}
-inline const ::std::string& RefuseAddFrienInfo::refuse_reason() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.RefuseAddFrienInfo.refuse_reason)
-  return *refuse_reason_;
-}
-inline void RefuseAddFrienInfo::set_refuse_reason(const ::std::string& value) {
-  set_has_refuse_reason();
-  if (refuse_reason_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    refuse_reason_ = new ::std::string;
-  }
-  refuse_reason_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.RefuseAddFrienInfo.refuse_reason)
-}
-inline void RefuseAddFrienInfo::set_refuse_reason(const char* value) {
-  set_has_refuse_reason();
-  if (refuse_reason_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    refuse_reason_ = new ::std::string;
-  }
-  refuse_reason_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.RefuseAddFrienInfo.refuse_reason)
-}
-inline void RefuseAddFrienInfo::set_refuse_reason(const char* value, size_t size) {
-  set_has_refuse_reason();
-  if (refuse_reason_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    refuse_reason_ = new ::std::string;
-  }
-  refuse_reason_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.RefuseAddFrienInfo.refuse_reason)
-}
-inline ::std::string* RefuseAddFrienInfo::mutable_refuse_reason() {
-  set_has_refuse_reason();
-  if (refuse_reason_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    refuse_reason_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.RefuseAddFrienInfo.refuse_reason)
-  return refuse_reason_;
-}
-inline ::std::string* RefuseAddFrienInfo::release_refuse_reason() {
-  clear_has_refuse_reason();
-  if (refuse_reason_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = refuse_reason_;
-    refuse_reason_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void RefuseAddFrienInfo::set_allocated_refuse_reason(::std::string* refuse_reason) {
-  if (refuse_reason_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete refuse_reason_;
-  }
-  if (refuse_reason) {
-    set_has_refuse_reason();
-    refuse_reason_ = refuse_reason;
-  } else {
-    clear_has_refuse_reason();
-    refuse_reason_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.RefuseAddFrienInfo.refuse_reason)
-}
-
-// optional string user_nickname = 6;
-inline bool RefuseAddFrienInfo::has_user_nickname() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void RefuseAddFrienInfo::set_has_user_nickname() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void RefuseAddFrienInfo::clear_has_user_nickname() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void RefuseAddFrienInfo::clear_user_nickname() {
-  if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_->clear();
-  }
-  clear_has_user_nickname();
-}
-inline const ::std::string& RefuseAddFrienInfo::user_nickname() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.RefuseAddFrienInfo.user_nickname)
-  return *user_nickname_;
-}
-inline void RefuseAddFrienInfo::set_user_nickname(const ::std::string& value) {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  user_nickname_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.RefuseAddFrienInfo.user_nickname)
-}
-inline void RefuseAddFrienInfo::set_user_nickname(const char* value) {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  user_nickname_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.RefuseAddFrienInfo.user_nickname)
-}
-inline void RefuseAddFrienInfo::set_user_nickname(const char* value, size_t size) {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  user_nickname_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.RefuseAddFrienInfo.user_nickname)
-}
-inline ::std::string* RefuseAddFrienInfo::mutable_user_nickname() {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.RefuseAddFrienInfo.user_nickname)
-  return user_nickname_;
-}
-inline ::std::string* RefuseAddFrienInfo::release_user_nickname() {
-  clear_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = user_nickname_;
-    user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void RefuseAddFrienInfo::set_allocated_user_nickname(::std::string* user_nickname) {
-  if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_nickname_;
-  }
-  if (user_nickname) {
-    set_has_user_nickname();
-    user_nickname_ = user_nickname;
-  } else {
-    clear_has_user_nickname();
-    user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.RefuseAddFrienInfo.user_nickname)
-}
-
-// optional string user_headlink = 7;
-inline bool RefuseAddFrienInfo::has_user_headlink() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void RefuseAddFrienInfo::set_has_user_headlink() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void RefuseAddFrienInfo::clear_has_user_headlink() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void RefuseAddFrienInfo::clear_user_headlink() {
-  if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_->clear();
-  }
-  clear_has_user_headlink();
-}
-inline const ::std::string& RefuseAddFrienInfo::user_headlink() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.RefuseAddFrienInfo.user_headlink)
-  return *user_headlink_;
-}
-inline void RefuseAddFrienInfo::set_user_headlink(const ::std::string& value) {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  user_headlink_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.RefuseAddFrienInfo.user_headlink)
-}
-inline void RefuseAddFrienInfo::set_user_headlink(const char* value) {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  user_headlink_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.RefuseAddFrienInfo.user_headlink)
-}
-inline void RefuseAddFrienInfo::set_user_headlink(const char* value, size_t size) {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  user_headlink_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.RefuseAddFrienInfo.user_headlink)
-}
-inline ::std::string* RefuseAddFrienInfo::mutable_user_headlink() {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.RefuseAddFrienInfo.user_headlink)
-  return user_headlink_;
-}
-inline ::std::string* RefuseAddFrienInfo::release_user_headlink() {
-  clear_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = user_headlink_;
-    user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void RefuseAddFrienInfo::set_allocated_user_headlink(::std::string* user_headlink) {
-  if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_headlink_;
-  }
-  if (user_headlink) {
-    set_has_user_headlink();
-    user_headlink_ = user_headlink;
-  } else {
-    clear_has_user_headlink();
-    user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.RefuseAddFrienInfo.user_headlink)
-}
-
-// optional uint32 user_gender = 8;
-inline bool RefuseAddFrienInfo::has_user_gender() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void RefuseAddFrienInfo::set_has_user_gender() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void RefuseAddFrienInfo::clear_has_user_gender() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void RefuseAddFrienInfo::clear_user_gender() {
-  user_gender_ = 0u;
-  clear_has_user_gender();
-}
-inline ::google::protobuf::uint32 RefuseAddFrienInfo::user_gender() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.RefuseAddFrienInfo.user_gender)
-  return user_gender_;
-}
-inline void RefuseAddFrienInfo::set_user_gender(::google::protobuf::uint32 value) {
-  set_has_user_gender();
-  user_gender_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.RefuseAddFrienInfo.user_gender)
-}
-
-// optional uint32 user_uid = 9;
-inline bool RefuseAddFrienInfo::has_user_uid() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
-}
-inline void RefuseAddFrienInfo::set_has_user_uid() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void RefuseAddFrienInfo::clear_has_user_uid() {
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline void RefuseAddFrienInfo::clear_user_uid() {
-  user_uid_ = 0u;
-  clear_has_user_uid();
-}
-inline ::google::protobuf::uint32 RefuseAddFrienInfo::user_uid() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.RefuseAddFrienInfo.user_uid)
-  return user_uid_;
-}
-inline void RefuseAddFrienInfo::set_user_uid(::google::protobuf::uint32 value) {
-  set_has_user_uid();
-  user_uid_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.RefuseAddFrienInfo.user_uid)
-}
-
-// -------------------------------------------------------------------
-
-// AgreeAddFrienInfo
-
-// required uint32 agree_user_id = 1;
-inline bool AgreeAddFrienInfo::has_agree_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void AgreeAddFrienInfo::set_has_agree_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void AgreeAddFrienInfo::clear_has_agree_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void AgreeAddFrienInfo::clear_agree_user_id() {
-  agree_user_id_ = 0u;
-  clear_has_agree_user_id();
-}
-inline ::google::protobuf::uint32 AgreeAddFrienInfo::agree_user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AgreeAddFrienInfo.agree_user_id)
-  return agree_user_id_;
-}
-inline void AgreeAddFrienInfo::set_agree_user_id(::google::protobuf::uint32 value) {
-  set_has_agree_user_id();
-  agree_user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AgreeAddFrienInfo.agree_user_id)
-}
-
-// required uint32 resp_time = 2;
-inline bool AgreeAddFrienInfo::has_resp_time() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void AgreeAddFrienInfo::set_has_resp_time() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void AgreeAddFrienInfo::clear_has_resp_time() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void AgreeAddFrienInfo::clear_resp_time() {
-  resp_time_ = 0u;
-  clear_has_resp_time();
-}
-inline ::google::protobuf::uint32 AgreeAddFrienInfo::resp_time() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AgreeAddFrienInfo.resp_time)
-  return resp_time_;
-}
-inline void AgreeAddFrienInfo::set_resp_time(::google::protobuf::uint32 value) {
-  set_has_resp_time();
-  resp_time_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AgreeAddFrienInfo.resp_time)
-}
-
-// optional string user_nickname = 6;
-inline bool AgreeAddFrienInfo::has_user_nickname() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void AgreeAddFrienInfo::set_has_user_nickname() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void AgreeAddFrienInfo::clear_has_user_nickname() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void AgreeAddFrienInfo::clear_user_nickname() {
-  if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_->clear();
-  }
-  clear_has_user_nickname();
-}
-inline const ::std::string& AgreeAddFrienInfo::user_nickname() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AgreeAddFrienInfo.user_nickname)
-  return *user_nickname_;
-}
-inline void AgreeAddFrienInfo::set_user_nickname(const ::std::string& value) {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  user_nickname_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.AgreeAddFrienInfo.user_nickname)
-}
-inline void AgreeAddFrienInfo::set_user_nickname(const char* value) {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  user_nickname_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.AgreeAddFrienInfo.user_nickname)
-}
-inline void AgreeAddFrienInfo::set_user_nickname(const char* value, size_t size) {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  user_nickname_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.AgreeAddFrienInfo.user_nickname)
-}
-inline ::std::string* AgreeAddFrienInfo::mutable_user_nickname() {
-  set_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_nickname_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.AgreeAddFrienInfo.user_nickname)
-  return user_nickname_;
-}
-inline ::std::string* AgreeAddFrienInfo::release_user_nickname() {
-  clear_has_user_nickname();
-  if (user_nickname_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = user_nickname_;
-    user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void AgreeAddFrienInfo::set_allocated_user_nickname(::std::string* user_nickname) {
-  if (user_nickname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_nickname_;
-  }
-  if (user_nickname) {
-    set_has_user_nickname();
-    user_nickname_ = user_nickname;
-  } else {
-    clear_has_user_nickname();
-    user_nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.AgreeAddFrienInfo.user_nickname)
-}
-
-// optional string user_headlink = 7;
-inline bool AgreeAddFrienInfo::has_user_headlink() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void AgreeAddFrienInfo::set_has_user_headlink() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void AgreeAddFrienInfo::clear_has_user_headlink() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void AgreeAddFrienInfo::clear_user_headlink() {
-  if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_->clear();
-  }
-  clear_has_user_headlink();
-}
-inline const ::std::string& AgreeAddFrienInfo::user_headlink() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AgreeAddFrienInfo.user_headlink)
-  return *user_headlink_;
-}
-inline void AgreeAddFrienInfo::set_user_headlink(const ::std::string& value) {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  user_headlink_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.AgreeAddFrienInfo.user_headlink)
-}
-inline void AgreeAddFrienInfo::set_user_headlink(const char* value) {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  user_headlink_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.AgreeAddFrienInfo.user_headlink)
-}
-inline void AgreeAddFrienInfo::set_user_headlink(const char* value, size_t size) {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  user_headlink_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.AgreeAddFrienInfo.user_headlink)
-}
-inline ::std::string* AgreeAddFrienInfo::mutable_user_headlink() {
-  set_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    user_headlink_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.AgreeAddFrienInfo.user_headlink)
-  return user_headlink_;
-}
-inline ::std::string* AgreeAddFrienInfo::release_user_headlink() {
-  clear_has_user_headlink();
-  if (user_headlink_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = user_headlink_;
-    user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void AgreeAddFrienInfo::set_allocated_user_headlink(::std::string* user_headlink) {
-  if (user_headlink_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete user_headlink_;
-  }
-  if (user_headlink) {
-    set_has_user_headlink();
-    user_headlink_ = user_headlink;
-  } else {
-    clear_has_user_headlink();
-    user_headlink_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.AgreeAddFrienInfo.user_headlink)
-}
-
-// optional uint32 user_gender = 8;
-inline bool AgreeAddFrienInfo::has_user_gender() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void AgreeAddFrienInfo::set_has_user_gender() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void AgreeAddFrienInfo::clear_has_user_gender() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void AgreeAddFrienInfo::clear_user_gender() {
-  user_gender_ = 0u;
-  clear_has_user_gender();
-}
-inline ::google::protobuf::uint32 AgreeAddFrienInfo::user_gender() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AgreeAddFrienInfo.user_gender)
-  return user_gender_;
-}
-inline void AgreeAddFrienInfo::set_user_gender(::google::protobuf::uint32 value) {
-  set_has_user_gender();
-  user_gender_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AgreeAddFrienInfo.user_gender)
-}
-
-// optional uint32 user_uid = 9;
-inline bool AgreeAddFrienInfo::has_user_uid() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void AgreeAddFrienInfo::set_has_user_uid() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void AgreeAddFrienInfo::clear_has_user_uid() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void AgreeAddFrienInfo::clear_user_uid() {
-  user_uid_ = 0u;
-  clear_has_user_uid();
-}
-inline ::google::protobuf::uint32 AgreeAddFrienInfo::user_uid() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.AgreeAddFrienInfo.user_uid)
-  return user_uid_;
-}
-inline void AgreeAddFrienInfo::set_user_uid(::google::protobuf::uint32 value) {
-  set_has_user_uid();
-  user_uid_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.AgreeAddFrienInfo.user_uid)
+  // @@protoc_insertion_point(field_set:IM.Buddy.IMCommonOperFrienInfo.user_uid)
 }
 
 // -------------------------------------------------------------------
@@ -12064,91 +9542,91 @@ inline void IMGetAddFriendRes::set_user_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:IM.Buddy.IMGetAddFriendRes.user_id)
 }
 
-// repeated .IM.Buddy.AddFrienInfo addfriend_info_list = 2;
+// repeated .IM.Buddy.IMCommonOperFrienInfo addfriend_info_list = 2;
 inline int IMGetAddFriendRes::addfriend_info_list_size() const {
   return addfriend_info_list_.size();
 }
 inline void IMGetAddFriendRes::clear_addfriend_info_list() {
   addfriend_info_list_.Clear();
 }
-inline const ::IM::Buddy::AddFrienInfo& IMGetAddFriendRes::addfriend_info_list(int index) const {
+inline const ::IM::Buddy::IMCommonOperFrienInfo& IMGetAddFriendRes::addfriend_info_list(int index) const {
   // @@protoc_insertion_point(field_get:IM.Buddy.IMGetAddFriendRes.addfriend_info_list)
   return addfriend_info_list_.Get(index);
 }
-inline ::IM::Buddy::AddFrienInfo* IMGetAddFriendRes::mutable_addfriend_info_list(int index) {
+inline ::IM::Buddy::IMCommonOperFrienInfo* IMGetAddFriendRes::mutable_addfriend_info_list(int index) {
   // @@protoc_insertion_point(field_mutable:IM.Buddy.IMGetAddFriendRes.addfriend_info_list)
   return addfriend_info_list_.Mutable(index);
 }
-inline ::IM::Buddy::AddFrienInfo* IMGetAddFriendRes::add_addfriend_info_list() {
+inline ::IM::Buddy::IMCommonOperFrienInfo* IMGetAddFriendRes::add_addfriend_info_list() {
   // @@protoc_insertion_point(field_add:IM.Buddy.IMGetAddFriendRes.addfriend_info_list)
   return addfriend_info_list_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AddFrienInfo >&
+inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >&
 IMGetAddFriendRes::addfriend_info_list() const {
   // @@protoc_insertion_point(field_list:IM.Buddy.IMGetAddFriendRes.addfriend_info_list)
   return addfriend_info_list_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AddFrienInfo >*
+inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >*
 IMGetAddFriendRes::mutable_addfriend_info_list() {
   // @@protoc_insertion_point(field_mutable_list:IM.Buddy.IMGetAddFriendRes.addfriend_info_list)
   return &addfriend_info_list_;
 }
 
-// repeated .IM.Buddy.AgreeAddFrienInfo agree_info_list = 3;
+// repeated .IM.Buddy.IMCommonOperFrienInfo agree_info_list = 3;
 inline int IMGetAddFriendRes::agree_info_list_size() const {
   return agree_info_list_.size();
 }
 inline void IMGetAddFriendRes::clear_agree_info_list() {
   agree_info_list_.Clear();
 }
-inline const ::IM::Buddy::AgreeAddFrienInfo& IMGetAddFriendRes::agree_info_list(int index) const {
+inline const ::IM::Buddy::IMCommonOperFrienInfo& IMGetAddFriendRes::agree_info_list(int index) const {
   // @@protoc_insertion_point(field_get:IM.Buddy.IMGetAddFriendRes.agree_info_list)
   return agree_info_list_.Get(index);
 }
-inline ::IM::Buddy::AgreeAddFrienInfo* IMGetAddFriendRes::mutable_agree_info_list(int index) {
+inline ::IM::Buddy::IMCommonOperFrienInfo* IMGetAddFriendRes::mutable_agree_info_list(int index) {
   // @@protoc_insertion_point(field_mutable:IM.Buddy.IMGetAddFriendRes.agree_info_list)
   return agree_info_list_.Mutable(index);
 }
-inline ::IM::Buddy::AgreeAddFrienInfo* IMGetAddFriendRes::add_agree_info_list() {
+inline ::IM::Buddy::IMCommonOperFrienInfo* IMGetAddFriendRes::add_agree_info_list() {
   // @@protoc_insertion_point(field_add:IM.Buddy.IMGetAddFriendRes.agree_info_list)
   return agree_info_list_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AgreeAddFrienInfo >&
+inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >&
 IMGetAddFriendRes::agree_info_list() const {
   // @@protoc_insertion_point(field_list:IM.Buddy.IMGetAddFriendRes.agree_info_list)
   return agree_info_list_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::AgreeAddFrienInfo >*
+inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >*
 IMGetAddFriendRes::mutable_agree_info_list() {
   // @@protoc_insertion_point(field_mutable_list:IM.Buddy.IMGetAddFriendRes.agree_info_list)
   return &agree_info_list_;
 }
 
-// repeated .IM.Buddy.RefuseAddFrienInfo refuse_info_list = 4;
+// repeated .IM.Buddy.IMCommonOperFrienInfo refuse_info_list = 4;
 inline int IMGetAddFriendRes::refuse_info_list_size() const {
   return refuse_info_list_.size();
 }
 inline void IMGetAddFriendRes::clear_refuse_info_list() {
   refuse_info_list_.Clear();
 }
-inline const ::IM::Buddy::RefuseAddFrienInfo& IMGetAddFriendRes::refuse_info_list(int index) const {
+inline const ::IM::Buddy::IMCommonOperFrienInfo& IMGetAddFriendRes::refuse_info_list(int index) const {
   // @@protoc_insertion_point(field_get:IM.Buddy.IMGetAddFriendRes.refuse_info_list)
   return refuse_info_list_.Get(index);
 }
-inline ::IM::Buddy::RefuseAddFrienInfo* IMGetAddFriendRes::mutable_refuse_info_list(int index) {
+inline ::IM::Buddy::IMCommonOperFrienInfo* IMGetAddFriendRes::mutable_refuse_info_list(int index) {
   // @@protoc_insertion_point(field_mutable:IM.Buddy.IMGetAddFriendRes.refuse_info_list)
   return refuse_info_list_.Mutable(index);
 }
-inline ::IM::Buddy::RefuseAddFrienInfo* IMGetAddFriendRes::add_refuse_info_list() {
+inline ::IM::Buddy::IMCommonOperFrienInfo* IMGetAddFriendRes::add_refuse_info_list() {
   // @@protoc_insertion_point(field_add:IM.Buddy.IMGetAddFriendRes.refuse_info_list)
   return refuse_info_list_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::RefuseAddFrienInfo >&
+inline const ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >&
 IMGetAddFriendRes::refuse_info_list() const {
   // @@protoc_insertion_point(field_list:IM.Buddy.IMGetAddFriendRes.refuse_info_list)
   return refuse_info_list_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::RefuseAddFrienInfo >*
+inline ::google::protobuf::RepeatedPtrField< ::IM::Buddy::IMCommonOperFrienInfo >*
 IMGetAddFriendRes::mutable_refuse_info_list() {
   // @@protoc_insertion_point(field_mutable_list:IM.Buddy.IMGetAddFriendRes.refuse_info_list)
   return &refuse_info_list_;
@@ -12408,140 +9886,6 @@ inline void IMFindUserInfoReq::set_allocated_attach_data(::std::string* attach_d
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMFindUserInfoReq.attach_data)
-}
-
-// -------------------------------------------------------------------
-
-// IMFindUserInfoRes
-
-// required uint32 user_id = 1;
-inline bool IMFindUserInfoRes::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void IMFindUserInfoRes::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void IMFindUserInfoRes::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void IMFindUserInfoRes::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 IMFindUserInfoRes::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMFindUserInfoRes.user_id)
-  return user_id_;
-}
-inline void IMFindUserInfoRes::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMFindUserInfoRes.user_id)
-}
-
-// repeated .IM.BaseDefine.UserInfo userinfo_list = 2;
-inline int IMFindUserInfoRes::userinfo_list_size() const {
-  return userinfo_list_.size();
-}
-inline void IMFindUserInfoRes::clear_userinfo_list() {
-  userinfo_list_.Clear();
-}
-inline const ::IM::BaseDefine::UserInfo& IMFindUserInfoRes::userinfo_list(int index) const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMFindUserInfoRes.userinfo_list)
-  return userinfo_list_.Get(index);
-}
-inline ::IM::BaseDefine::UserInfo* IMFindUserInfoRes::mutable_userinfo_list(int index) {
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMFindUserInfoRes.userinfo_list)
-  return userinfo_list_.Mutable(index);
-}
-inline ::IM::BaseDefine::UserInfo* IMFindUserInfoRes::add_userinfo_list() {
-  // @@protoc_insertion_point(field_add:IM.Buddy.IMFindUserInfoRes.userinfo_list)
-  return userinfo_list_.Add();
-}
-inline const ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserInfo >&
-IMFindUserInfoRes::userinfo_list() const {
-  // @@protoc_insertion_point(field_list:IM.Buddy.IMFindUserInfoRes.userinfo_list)
-  return userinfo_list_;
-}
-inline ::google::protobuf::RepeatedPtrField< ::IM::BaseDefine::UserInfo >*
-IMFindUserInfoRes::mutable_userinfo_list() {
-  // @@protoc_insertion_point(field_mutable_list:IM.Buddy.IMFindUserInfoRes.userinfo_list)
-  return &userinfo_list_;
-}
-
-// optional bytes attach_data = 20;
-inline bool IMFindUserInfoRes::has_attach_data() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void IMFindUserInfoRes::set_has_attach_data() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void IMFindUserInfoRes::clear_has_attach_data() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void IMFindUserInfoRes::clear_attach_data() {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_->clear();
-  }
-  clear_has_attach_data();
-}
-inline const ::std::string& IMFindUserInfoRes::attach_data() const {
-  // @@protoc_insertion_point(field_get:IM.Buddy.IMFindUserInfoRes.attach_data)
-  return *attach_data_;
-}
-inline void IMFindUserInfoRes::set_attach_data(const ::std::string& value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set:IM.Buddy.IMFindUserInfoRes.attach_data)
-}
-inline void IMFindUserInfoRes::set_attach_data(const char* value) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:IM.Buddy.IMFindUserInfoRes.attach_data)
-}
-inline void IMFindUserInfoRes::set_attach_data(const void* value, size_t size) {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  attach_data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:IM.Buddy.IMFindUserInfoRes.attach_data)
-}
-inline ::std::string* IMFindUserInfoRes::mutable_attach_data() {
-  set_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    attach_data_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:IM.Buddy.IMFindUserInfoRes.attach_data)
-  return attach_data_;
-}
-inline ::std::string* IMFindUserInfoRes::release_attach_data() {
-  clear_has_attach_data();
-  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = attach_data_;
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void IMFindUserInfoRes::set_allocated_attach_data(::std::string* attach_data) {
-  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete attach_data_;
-  }
-  if (attach_data) {
-    set_has_attach_data();
-    attach_data_ = attach_data;
-  } else {
-    clear_has_attach_data();
-    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:IM.Buddy.IMFindUserInfoRes.attach_data)
 }
 
 

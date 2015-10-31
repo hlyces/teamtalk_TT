@@ -70,6 +70,9 @@ void UserListModule_Impl::onPacket(imcore::TTPBHeader& header, std::string& pbBo
 	case IM::BaseDefine::DFFX_CID_BUDDY_LIST_DEPARTMENT_RESPONSE:
 		_departmentResponse(pbBody);
 		break;
+	case IM::BaseDefine::DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_RES:
+		_unkownMsg(pbBody);
+		break;
 //     case IM::BaseDefine::BuddyListCmdID::DFFX_CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY:
 //         _avatarChangeNotify(pbBody);
 //         break;
@@ -934,6 +937,16 @@ void UserListModule_Impl::tcpChangeMySignInfo(IN const std::string sSignInfo)
 //             , &imChangeSignInfoReq);
 //     }
 //     );
+}
+
+void UserListModule_Impl::_unkownMsg(IN std::string& pbBody)
+{
+	IM::Buddy::IMCommonOperFriendRes imRes;
+	if (!imRes.ParseFromString(pbBody))
+	{
+		LOG__(ERR, _T("ParseFromString failed:%s"), util::stringToCString(pbBody));
+		return;
+	}
 }
 
 

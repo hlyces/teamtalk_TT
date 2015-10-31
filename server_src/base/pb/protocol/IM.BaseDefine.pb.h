@@ -119,11 +119,12 @@ enum BuddyListCmdID {
   DFFX_CID_BUDDY_LIST_GETADDFRIEND_REQ = 548,
   DFFX_CID_BUDDY_LIST_GETADDFRIEND_RES = 549,
   DFFX_CID_BUDDY_LIST_FINDUSERINFO_REQ = 550,
-  DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES = 551
+  DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES = 551,
+  DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY = 552
 };
 bool BuddyListCmdID_IsValid(int value);
 const BuddyListCmdID BuddyListCmdID_MIN = DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST;
-const BuddyListCmdID BuddyListCmdID_MAX = DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES;
+const BuddyListCmdID BuddyListCmdID_MAX = DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY;
 const int BuddyListCmdID_ARRAYSIZE = BuddyListCmdID_MAX + 1;
 
 enum MessageCmdID {
@@ -1180,6 +1181,13 @@ class UnreadInfo : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 latest_msg_from_user_id() const;
   inline void set_latest_msg_from_user_id(::google::protobuf::uint32 value);
 
+  // optional uint32 latest_msg_time = 10;
+  inline bool has_latest_msg_time() const;
+  inline void clear_latest_msg_time();
+  static const int kLatestMsgTimeFieldNumber = 10;
+  inline ::google::protobuf::uint32 latest_msg_time() const;
+  inline void set_latest_msg_time(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:IM.BaseDefine.UnreadInfo)
  private:
   inline void set_has_session_id();
@@ -1196,6 +1204,8 @@ class UnreadInfo : public ::google::protobuf::MessageLite {
   inline void clear_has_latest_msg_type();
   inline void set_has_latest_msg_from_user_id();
   inline void clear_has_latest_msg_from_user_id();
+  inline void set_has_latest_msg_time();
+  inline void clear_has_latest_msg_time();
 
   ::std::string _unknown_fields_;
 
@@ -1208,6 +1218,7 @@ class UnreadInfo : public ::google::protobuf::MessageLite {
   ::std::string* latest_msg_data_;
   int latest_msg_type_;
   ::google::protobuf::uint32 latest_msg_from_user_id_;
+  ::google::protobuf::uint32 latest_msg_time_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBaseDefine_2eproto_impl();
   #else
@@ -3599,6 +3610,30 @@ inline void UnreadInfo::set_latest_msg_from_user_id(::google::protobuf::uint32 v
   set_has_latest_msg_from_user_id();
   latest_msg_from_user_id_ = value;
   // @@protoc_insertion_point(field_set:IM.BaseDefine.UnreadInfo.latest_msg_from_user_id)
+}
+
+// optional uint32 latest_msg_time = 10;
+inline bool UnreadInfo::has_latest_msg_time() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void UnreadInfo::set_has_latest_msg_time() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void UnreadInfo::clear_has_latest_msg_time() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void UnreadInfo::clear_latest_msg_time() {
+  latest_msg_time_ = 0u;
+  clear_has_latest_msg_time();
+}
+inline ::google::protobuf::uint32 UnreadInfo::latest_msg_time() const {
+  // @@protoc_insertion_point(field_get:IM.BaseDefine.UnreadInfo.latest_msg_time)
+  return latest_msg_time_;
+}
+inline void UnreadInfo::set_latest_msg_time(::google::protobuf::uint32 value) {
+  set_has_latest_msg_time();
+  latest_msg_time_ = value;
+  // @@protoc_insertion_point(field_set:IM.BaseDefine.UnreadInfo.latest_msg_time)
 }
 
 // -------------------------------------------------------------------

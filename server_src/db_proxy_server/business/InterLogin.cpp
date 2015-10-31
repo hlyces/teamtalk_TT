@@ -378,6 +378,8 @@ bool CInterLoginStrategy::veryfyVersion( int nClientType, const string& strClien
 						bRet = false;
 						break;
 			    	}
+					else if(atoi(clientVersion.GetItem(i)) > atoi(serverVersion.GetItem(i)))
+						break;
 			    }
 				
 

@@ -72,80 +72,67 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
+	CPushConfig* pPushConfigThread;
+	CPushThread* pPushThread;
+	CNotifyClientGrabThread* pClientPushThread;
+	CNotifyLawyerGrabThread* pLawyerPushThread ;
+	CEntrushThread* pEntrushThread;
+	CTopUP_withDrawalThread* pTopUP_withDrawalThread;
+	CMyTimerThread* pMyTimerThread;
+
 	CStrExplode push_thread_list(push_thread, ';');	
 	for (uint32_t i = 0; i < push_thread_list.GetItemCnt(); i++)	
 	{		
 		if(strcmp(push_thread_list.GetItem(i), "CPushConfig") == 0)		
 		{			
 			//读取配置表线程			
-			CPushConfig* pPushConfigThread = new CPushConfig();		
+			pPushConfigThread = new CPushConfig();	
+			log("new pPushConfigThread");
 		}		
 		if(strcmp(push_thread_list.GetItem(i), "CPushThread") == 0)		
 		{			
 			//读取订单消息表并发送订单给律师端			
-			CPushThread* pPushThread = new CPushThread();				
-			pPushThread->setGPClient(*pClient);		}		
+			pPushThread = new CPushThread();				
+			pPushThread->setGPClient(*pClient);	
+			log("new pPushThread");
+		}		
 		if(strcmp(push_thread_list.GetItem(i), "CNotifyClientGrabThread") == 0)		
 		{			
 			//将抢单消息通知客户端			
-			CNotifyClientGrabThread* pClientPushThread = new CNotifyClientGrabThread();			
-			pClientPushThread->setGPClient(*pClient);		
+			pClientPushThread = new CNotifyClientGrabThread();	
+			pClientPushThread->setGPClient(*pClient);	
+			log("new pClientPushThread");
 		}		
 		if(strcmp(push_thread_list.GetItem(i), "CNotifyLawyerGrabThread") == 0)		
 		{			
 			//将抢单单结果通知给律师端			
-			CNotifyLawyerGrabThread* pLawyerPushThread = new CNotifyLawyerGrabThread();				
-			pLawyerPushThread->setGPClient(*pClient);		
+			pLawyerPushThread = new CNotifyLawyerGrabThread();		
+			pLawyerPushThread->setGPClient(*pClient);	
+			log("new pLawyerPushThread");
 		}		
 		if(strcmp(push_thread_list.GetItem(i), "CEntrushThread") == 0)		
 		{			
 				//委托订单处理			
-			CEntrushThread* pEntrushThread = new CEntrushThread();			
-			pEntrushThread->setGPClient(*pClient);		
+			pEntrushThread = new CEntrushThread();		
+			pEntrushThread->setGPClient(*pClient);	
+			log("new pEntrushThread");
 		}	
 		if(strcmp(push_thread_list.GetItem(i), "CTopUP_withDrawalThread") == 0)	
 		{			
 			//充值提现处理		
-			CTopUP_withDrawalThread* pTopUP_withDrawalThread = new CTopUP_withDrawalThread();			
-			pTopUP_withDrawalThread->setGPClient(*pClient);		
+			pTopUP_withDrawalThread = new CTopUP_withDrawalThread();	
+			pTopUP_withDrawalThread->setGPClient(*pClient);	
+			log("new pTopUP_withDrawalThread");
 		}		
 		if(strcmp(push_thread_list.GetItem(i), "CMyTimerThread") == 0)	
 		{			
 			//清空过期vip用户及过期清单		
-			CMyTimerThread* pMyTimerThread = new CMyTimerThread();	
+			pMyTimerThread = new CMyTimerThread();	
+			log("new pMyTimerThread");
 		}	
 	}
 
 
-	
-/*	//读取配置表线程
-	CPushConfig* pPushConfigThread = new CPushConfig();	
-	
-	//读取订单消息表并发送订单给律师端
-	CPushThread* pPushThread = new CPushThread();	
-	pPushThread->setGPClient(*pClient);
-
-	//将抢单消息通知客户端
-	CNotifyClientGrabThread* pClientPushThread = new CNotifyClientGrabThread();
-	pClientPushThread->setGPClient(*pClient);
-
-	//将抢单单结果通知给律师端
-	CNotifyLawyerGrabThread* pLawyerPushThread = new CNotifyLawyerGrabThread();
-	pLawyerPushThread->setGPClient(*pClient);
-
-	//委托订单处理
-	CEntrushThread* pEntrushThread = new CEntrushThread();
-	pEntrushThread->setGPClient(*pClient);
-
-	//充值提现处理
-	CTopUP_withDrawalThread* pTopUP_withDrawalThread = new CTopUP_withDrawalThread();
-	pTopUP_withDrawalThread->setGPClient(*pClient);
-
-
-	//清空过期vip用户及过期清单
-	CMyTimerThread* pMyTimerThread = new CMyTimerThread();
-*/
-	
 	printf("now enter the event loop...\n");
     writePid();
 	netlib_eventloop(10);
@@ -155,11 +142,72 @@ int main(int argc, char* argv[])
 		delete pClient;
 		pClient = NULL;
 	}
-	
-	if(pPushThread)
-	{
-		delete pPushThread;
-		pPushThread = NULL;
+
+	for (uint32_t i = 0; i < push_thread_list.GetItemCnt(); i++)	
+	{		
+		if(strcmp(push_thread_list.GetItem(i), "CPushConfig") == 0)		
+		{		
+			if(pPushConfigThread)
+			{
+				delete pPushConfigThread;
+				pPushConfigThread = NULL;
+				log("free pPushConfigThread");
+			}
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CPushThread") == 0)		
+		{		
+			if(pPushThread)
+			{
+				delete pPushThread;
+				pPushThread = NULL;
+				log("free pPushThread");
+			}
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CNotifyClientGrabThread") == 0)		
+		{				
+			if(pClientPushThread)
+			{
+				delete pClientPushThread;
+				pClientPushThread = NULL;
+				log("free pClientPushThread");
+			}
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CNotifyLawyerGrabThread") == 0)		
+		{
+			if(pLawyerPushThread)
+			{
+				delete pLawyerPushThread;
+				pLawyerPushThread = NULL;
+				log("free pLawyerPushThread");
+			}
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CEntrushThread") == 0)		
+		{				
+			if(pEntrushThread)
+			{
+				delete pEntrushThread;
+				pEntrushThread = NULL;
+				log("free pEntrushThread");
+			}
+		}	
+		if(strcmp(push_thread_list.GetItem(i), "CTopUP_withDrawalThread") == 0)	
+		{			
+			if(pTopUP_withDrawalThread)
+			{
+				delete pTopUP_withDrawalThread;
+				pTopUP_withDrawalThread = NULL;
+				log("free pTopUP_withDrawalThread");
+			}
+		}		
+		if(strcmp(push_thread_list.GetItem(i), "CMyTimerThread") == 0)	
+		{			
+			if(pMyTimerThread)
+			{
+				delete pMyTimerThread;
+				pMyTimerThread = NULL;
+				log("free pMyTimerThread");
+			}
+		}	
 	}
 
 	return 0;

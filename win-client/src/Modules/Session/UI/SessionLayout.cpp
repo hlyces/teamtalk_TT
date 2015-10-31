@@ -213,7 +213,7 @@ void SessionLayout::_AsynSendReadAck(IN MessageEntity& msg)
 		[=]()mutable
 	{
 		std::string OriginSessionId = msg.getOriginSessionId();
-		IM::Message::IMMsgDataReadAck imMsgDataReadAck;
+		IM::Message::IMMsgDataAck imMsgDataReadAck;
 		imMsgDataReadAck.set_user_id(module::getSysConfigModule()->userId());
 		imMsgDataReadAck.set_session_id(util::stringToInt32(OriginSessionId));
 		imMsgDataReadAck.set_msg_id(msg.msgId);

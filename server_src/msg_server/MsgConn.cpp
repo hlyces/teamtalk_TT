@@ -921,6 +921,12 @@ void CMsgConn::_HandleClientP2PCmdMsg(CImPdu* pPdu)
 
 	log("HandleClientP2PCmdMsg, %u->%u, cmd_msg: %s ", from_user_id, to_user_id, cmd_msg.c_str());
 
+	if(from_user_id == to_user_id)
+	{
+		log("fromId can't equal userId!");
+		return ;
+	}
+
 	CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(GetUserId());
 	CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_user_id);
 

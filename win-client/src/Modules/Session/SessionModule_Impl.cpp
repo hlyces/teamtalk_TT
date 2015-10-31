@@ -132,7 +132,7 @@ BOOL SessionModule_Impl::_banGroupMSG(IN MessageEntity msg)
 		imcore::IMLibCoreStartOperationWithLambda(
 			[=]()mutable
 		{
-			IM::Message::IMMsgDataReadAck imMsgDataReadAck;
+			IM::Message::IMMsgDataAck imMsgDataReadAck;
 			imMsgDataReadAck.set_user_id(module::getSysConfigModule()->userId());
 			std::string sid = msg.getOriginSessionId();
 			imMsgDataReadAck.set_session_id(util::stringToInt32(sid));
@@ -483,7 +483,7 @@ void SessionModule_Impl::_sessionMsgUnreadCntResponse(IN string& pbBody)
 
 void SessionModule_Impl::_sessionMsgReadNotify(IN string& pbBody)
 {
-	IM::Message::IMMsgDataReadNotify imMsgDataReadNotify;
+	IM::Message::IMMsgDataAck imMsgDataReadNotify;
 	if (!imMsgDataReadNotify.ParseFromString(pbBody))
 	{
 		LOG__(ERR, _T("ParseFromString failed£º%s"), util::stringToCString(pbBody));

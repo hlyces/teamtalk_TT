@@ -1118,7 +1118,19 @@ void CDBServConn::_HandleClientReverseAddFriendRespone(CImPdu* pPdu)
 
 	if(0==msg.result_code())
 	{
-		//
+		//send to other client
+		CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(user_id);
+		if (pFromImUser)
+		{
+			pFromImUser->BroadcastPdu(pPdu, pMsgConn);
+		}
+
+		//send to route
+		CRouteServConn* pRouteConn = get_route_serv_conn();
+		if (pRouteConn)
+		{
+			pRouteConn->SendPdu(pPdu);
+		}
 	}
 }
 
@@ -1142,6 +1154,29 @@ void CDBServConn::_HandleClientDelFriendRespone(CImPdu* pPdu)
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
+	}
+	
+	if(msg.result_code()==0)			
+	{
+		//send to other client
+		CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(from_user_id);
+		if (pFromImUser)
+		{
+			pFromImUser->BroadcastPdu(pPdu, pMsgConn);
+		}
+
+		//todo 2.send notify to myfriend
+		pPdu->SetCommandId(DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY);
+		CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(msg.friend_id());
+		if (pToImUser)
+		{				
+			pToImUser->BroadcastPdu(pPdu);
+		}
+		CRouteServConn* pRouteConn = get_route_serv_conn();
+		if (pRouteConn)
+		{
+			pRouteConn->SendPdu(pPdu);
+		}
 	}
 
 }

@@ -37,7 +37,6 @@ class IpAddr;
 class UserInfo;
 class ContactSessionInfo;
 class UserStat;
-class ServerUserStat;
 class UnreadInfo;
 class MsgInfo;
 class GroupVersionInfo;
@@ -120,11 +119,12 @@ enum BuddyListCmdID {
   DFFX_CID_BUDDY_LIST_GETADDFRIEND_REQ = 548,
   DFFX_CID_BUDDY_LIST_GETADDFRIEND_RES = 549,
   DFFX_CID_BUDDY_LIST_FINDUSERINFO_REQ = 550,
-  DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES = 551
+  DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES = 551,
+  DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY = 552
 };
 bool BuddyListCmdID_IsValid(int value);
 const BuddyListCmdID BuddyListCmdID_MIN = DFFX_CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST;
-const BuddyListCmdID BuddyListCmdID_MAX = DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES;
+const BuddyListCmdID BuddyListCmdID_MAX = DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY;
 const int BuddyListCmdID_ARRAYSIZE = BuddyListCmdID_MAX + 1;
 
 enum MessageCmdID {
@@ -272,14 +272,6 @@ bool KickReasonType_IsValid(int value);
 const KickReasonType KickReasonType_MIN = KICK_REASON_DUPLICATE_USER;
 const KickReasonType KickReasonType_MAX = KICK_REASON_MOBILE_KICK;
 const int KickReasonType_ARRAYSIZE = KickReasonType_MAX + 1;
-
-enum OnlineListType {
-  ONLINE_LIST_TYPE_FRIEND_LIST = 1
-};
-bool OnlineListType_IsValid(int value);
-const OnlineListType OnlineListType_MIN = ONLINE_LIST_TYPE_FRIEND_LIST;
-const OnlineListType OnlineListType_MAX = ONLINE_LIST_TYPE_FRIEND_LIST;
-const int OnlineListType_ARRAYSIZE = OnlineListType_MAX + 1;
 
 enum UserStatType {
   USER_STATUS_ONLINE = 1,
@@ -1074,117 +1066,6 @@ class UserStat : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class ServerUserStat : public ::google::protobuf::MessageLite {
- public:
-  ServerUserStat();
-  virtual ~ServerUserStat();
-
-  ServerUserStat(const ServerUserStat& from);
-
-  inline ServerUserStat& operator=(const ServerUserStat& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ServerUserStat& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const ServerUserStat* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(ServerUserStat* other);
-
-  // implements Message ----------------------------------------------
-
-  ServerUserStat* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const ServerUserStat& from);
-  void MergeFrom(const ServerUserStat& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 user_id = 1;
-  inline bool has_user_id() const;
-  inline void clear_user_id();
-  static const int kUserIdFieldNumber = 1;
-  inline ::google::protobuf::uint32 user_id() const;
-  inline void set_user_id(::google::protobuf::uint32 value);
-
-  // required .IM.BaseDefine.UserStatType status = 2;
-  inline bool has_status() const;
-  inline void clear_status();
-  static const int kStatusFieldNumber = 2;
-  inline ::IM::BaseDefine::UserStatType status() const;
-  inline void set_status(::IM::BaseDefine::UserStatType value);
-
-  // required .IM.BaseDefine.ClientType client_type = 3;
-  inline bool has_client_type() const;
-  inline void clear_client_type();
-  static const int kClientTypeFieldNumber = 3;
-  inline ::IM::BaseDefine::ClientType client_type() const;
-  inline void set_client_type(::IM::BaseDefine::ClientType value);
-
-  // @@protoc_insertion_point(class_scope:IM.BaseDefine.ServerUserStat)
- private:
-  inline void set_has_user_id();
-  inline void clear_has_user_id();
-  inline void set_has_status();
-  inline void clear_has_status();
-  inline void set_has_client_type();
-  inline void clear_has_client_type();
-
-  ::std::string _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 user_id_;
-  int status_;
-  int client_type_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_IM_2eBaseDefine_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_IM_2eBaseDefine_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_IM_2eBaseDefine_2eproto();
-  friend void protobuf_ShutdownFile_IM_2eBaseDefine_2eproto();
-
-  void InitAsDefaultInstance();
-  static ServerUserStat* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class UnreadInfo : public ::google::protobuf::MessageLite {
  public:
   UnreadInfo();
@@ -1300,6 +1181,13 @@ class UnreadInfo : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 latest_msg_from_user_id() const;
   inline void set_latest_msg_from_user_id(::google::protobuf::uint32 value);
 
+  // optional uint32 latest_msg_time = 10;
+  inline bool has_latest_msg_time() const;
+  inline void clear_latest_msg_time();
+  static const int kLatestMsgTimeFieldNumber = 10;
+  inline ::google::protobuf::uint32 latest_msg_time() const;
+  inline void set_latest_msg_time(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:IM.BaseDefine.UnreadInfo)
  private:
   inline void set_has_session_id();
@@ -1316,6 +1204,8 @@ class UnreadInfo : public ::google::protobuf::MessageLite {
   inline void clear_has_latest_msg_type();
   inline void set_has_latest_msg_from_user_id();
   inline void clear_has_latest_msg_from_user_id();
+  inline void set_has_latest_msg_time();
+  inline void clear_has_latest_msg_time();
 
   ::std::string _unknown_fields_;
 
@@ -1328,6 +1218,7 @@ class UnreadInfo : public ::google::protobuf::MessageLite {
   ::std::string* latest_msg_data_;
   int latest_msg_type_;
   ::google::protobuf::uint32 latest_msg_from_user_id_;
+  ::google::protobuf::uint32 latest_msg_time_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eBaseDefine_2eproto_impl();
   #else
@@ -3497,84 +3388,6 @@ inline void UserStat::set_client_type(::IM::BaseDefine::ClientType value) {
 
 // -------------------------------------------------------------------
 
-// ServerUserStat
-
-// required uint32 user_id = 1;
-inline bool ServerUserStat::has_user_id() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void ServerUserStat::set_has_user_id() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void ServerUserStat::clear_has_user_id() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void ServerUserStat::clear_user_id() {
-  user_id_ = 0u;
-  clear_has_user_id();
-}
-inline ::google::protobuf::uint32 ServerUserStat::user_id() const {
-  // @@protoc_insertion_point(field_get:IM.BaseDefine.ServerUserStat.user_id)
-  return user_id_;
-}
-inline void ServerUserStat::set_user_id(::google::protobuf::uint32 value) {
-  set_has_user_id();
-  user_id_ = value;
-  // @@protoc_insertion_point(field_set:IM.BaseDefine.ServerUserStat.user_id)
-}
-
-// required .IM.BaseDefine.UserStatType status = 2;
-inline bool ServerUserStat::has_status() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void ServerUserStat::set_has_status() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void ServerUserStat::clear_has_status() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void ServerUserStat::clear_status() {
-  status_ = 1;
-  clear_has_status();
-}
-inline ::IM::BaseDefine::UserStatType ServerUserStat::status() const {
-  // @@protoc_insertion_point(field_get:IM.BaseDefine.ServerUserStat.status)
-  return static_cast< ::IM::BaseDefine::UserStatType >(status_);
-}
-inline void ServerUserStat::set_status(::IM::BaseDefine::UserStatType value) {
-  assert(::IM::BaseDefine::UserStatType_IsValid(value));
-  set_has_status();
-  status_ = value;
-  // @@protoc_insertion_point(field_set:IM.BaseDefine.ServerUserStat.status)
-}
-
-// required .IM.BaseDefine.ClientType client_type = 3;
-inline bool ServerUserStat::has_client_type() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void ServerUserStat::set_has_client_type() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void ServerUserStat::clear_has_client_type() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void ServerUserStat::clear_client_type() {
-  client_type_ = 1;
-  clear_has_client_type();
-}
-inline ::IM::BaseDefine::ClientType ServerUserStat::client_type() const {
-  // @@protoc_insertion_point(field_get:IM.BaseDefine.ServerUserStat.client_type)
-  return static_cast< ::IM::BaseDefine::ClientType >(client_type_);
-}
-inline void ServerUserStat::set_client_type(::IM::BaseDefine::ClientType value) {
-  assert(::IM::BaseDefine::ClientType_IsValid(value));
-  set_has_client_type();
-  client_type_ = value;
-  // @@protoc_insertion_point(field_set:IM.BaseDefine.ServerUserStat.client_type)
-}
-
-// -------------------------------------------------------------------
-
 // UnreadInfo
 
 // required uint32 session_id = 1;
@@ -3797,6 +3610,30 @@ inline void UnreadInfo::set_latest_msg_from_user_id(::google::protobuf::uint32 v
   set_has_latest_msg_from_user_id();
   latest_msg_from_user_id_ = value;
   // @@protoc_insertion_point(field_set:IM.BaseDefine.UnreadInfo.latest_msg_from_user_id)
+}
+
+// optional uint32 latest_msg_time = 10;
+inline bool UnreadInfo::has_latest_msg_time() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void UnreadInfo::set_has_latest_msg_time() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void UnreadInfo::clear_has_latest_msg_time() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void UnreadInfo::clear_latest_msg_time() {
+  latest_msg_time_ = 0u;
+  clear_has_latest_msg_time();
+}
+inline ::google::protobuf::uint32 UnreadInfo::latest_msg_time() const {
+  // @@protoc_insertion_point(field_get:IM.BaseDefine.UnreadInfo.latest_msg_time)
+  return latest_msg_time_;
+}
+inline void UnreadInfo::set_latest_msg_time(::google::protobuf::uint32 value) {
+  set_has_latest_msg_time();
+  latest_msg_time_ = value;
+  // @@protoc_insertion_point(field_set:IM.BaseDefine.UnreadInfo.latest_msg_time)
 }
 
 // -------------------------------------------------------------------

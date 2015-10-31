@@ -42,7 +42,8 @@ namespace DB_PROXY {
             for(auto it= lsUnreadCount.begin(); it!=lsUnreadCount.end(); ++it)
             {
                 IM::BaseDefine::UnreadInfo* pInfo = msgResp.add_unreadinfo_list();
-    //            *pInfo = *it;
+                *pInfo = *it;
+                /*
                 pInfo->set_session_id(it->session_id());
                 pInfo->set_session_type(it->session_type());
                 pInfo->set_unread_cnt(it->unread_cnt());
@@ -50,6 +51,7 @@ namespace DB_PROXY {
                 pInfo->set_latest_msg_data(it->latest_msg_data());
                 pInfo->set_latest_msg_type(it->latest_msg_type());
                 pInfo->set_latest_msg_from_user_id(it->latest_msg_from_user_id());
+                */
             }
             
             

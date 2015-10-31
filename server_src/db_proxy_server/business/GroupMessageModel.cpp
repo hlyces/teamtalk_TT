@@ -376,13 +376,15 @@ void CGroupMessageModel::getUnreadMsgCount(uint32_t nUserId, uint32_t &nTotalCnt
                 uint32_t nMsgId;
                 IM::BaseDefine::MsgType nType;
                 uint32_t nFromId;
-                getLastMsg(nGroupId, nMsgId, strMsgData, nType, nFromId);
+				uint32_t nCreateTime = 0;
+                getLastMsg(nGroupId, nMsgId, strMsgData, nType, nFromId, nCreateTime);
                 if(IM::BaseDefine::MsgType_IsValid(nType))
                 {
                     cUnreadInfo.set_latest_msg_id(nMsgId);
                     cUnreadInfo.set_latest_msg_data(strMsgData);
                     cUnreadInfo.set_latest_msg_type(nType);
                     cUnreadInfo.set_latest_msg_from_user_id(nFromId);
+					cUnreadInfo.set_latest_msg_time(nCreateTime);
                     lsUnreadCount.push_back(cUnreadInfo);
                 }
                 else
@@ -433,7 +435,8 @@ uint32_t CGroupMessageModel::getMsgId(uint32_t nGroupId)
  *  @param strMsgData 最后一条消息的内容,引用
  *  @param nMsgType   最后一条消息的类型,引用
  */
-void CGroupMessageModel::getLastMsg(uint32_t nGroupId, uint32_t &nMsgId, string &strMsgData, IM::BaseDefine::MsgType &nMsgType, uint32_t& nFromId)
+void CGroupMessageModel::getLastMsg(uint32_t nGroupId, uint32_t &nMsgId, 
+	string &strMsgData, IM::BaseDefine::MsgType &nMsgType, uint32_t& nFromId, uint32_t& nCreateTime)
 {
     string strTableName = "IMGroupMessage_" + int2string(nGroupId % 8);
     
@@ -441,7 +444,7 @@ void CGroupMessageModel::getLastMsg(uint32_t nGroupId, uint32_t &nMsgId, string 
     CDBConn* pDBConn = pDBManager->GetDBConn("dffxIMDB_slave");
     if (pDBConn)
     {
-        string strSql = "select msgId, type,userId, content from " + strTableName + " where groupId = " + int2string(nGroupId) + " and status = 0 order by created desc, id desc limit 1";
+        string strSql = "select msgId, type,userId, content,created from " + strTableName + " where groupId = " + int2string(nGroupId) + " and status = 0 order by created desc, id desc limit 1";
         
         CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
         if (pResultSet)
@@ -459,6 +462,7 @@ void CGroupMessageModel::getLastMsg(uint32_t nGroupId, uint32_t &nMsgId, string 
                 {
                     strMsgData = pResultSet->GetString("content");
                 }
+				nCreateTime = pResultSet->GetInt("created");
             }
             pResultSet->Clear();
         }

@@ -112,7 +112,7 @@ bool CPushModel::getLawyerList(OrderMsg cOrderMsg, list<uint32_t >& lsLawyerUid 
 	string strCase = "";
 	if(cOrderMsg.msg_case == CONSULT|| cOrderMsg.msg_case == DOCUMENTS)
 	{
-		strCase = "select t1.user_uid from dffx_user t1, dffx_user_lawyerskill  t2 where  t1.user_uid = t2.lawyer_uid and  \
+		strCase = "select t1.user_uid from dffx_user t1, dffx_user_lawyerskill  t2 where t1.user_ischeck = 2 and  t1.user_uid = t2.lawyer_uid and  \
 					t1.user_type = 2 and t2.lawyer_skillid  = " + int2string(cOrderMsg.msg_skillid) ; 
 	}
 	else if(cOrderMsg.msg_case == LAWSUIT)
@@ -125,13 +125,13 @@ bool CPushModel::getLawyerList(OrderMsg cOrderMsg, list<uint32_t >& lsLawyerUid 
 		if(SEXULIMITE == cOrderMsg.msg_sex)
 		{
 			strCase = "select t1.user_uid from dffx_user t1, dffx_user_lawyerskill  t2 , dffx_user_lawyer t3 where  \
-						t1.user_uid = t2.lawyer_uid and t2.lawyer_uid = t3.lawyer_uid and t1.user_type = 2  and t2.lawyer_skillid  =" + int2string(cOrderMsg.msg_skillid) \
+						t1.user_ischeck = 2 and t1.user_uid = t2.lawyer_uid and t2.lawyer_uid = t3.lawyer_uid and t1.user_type = 2  and t2.lawyer_skillid  =" + int2string(cOrderMsg.msg_skillid) \
 		                + " and ("+ "  t3.lawyer_worktime <= " +  long2string(start_work_time) +  "  )";
 		}
 		else
 		{
 			strCase = "select t1.user_uid from dffx_user t1, dffx_user_lawyerskill  t2 , dffx_user_lawyer t3 where  \
-						t1.user_uid = t2.lawyer_uid and t2.lawyer_uid = t3.lawyer_uid and t1.user_type = 2 and t1.user_sex = "+ int2string(cOrderMsg.msg_sex) \
+						t1.user_ischeck = 2 and t1.user_uid = t2.lawyer_uid and t2.lawyer_uid = t3.lawyer_uid and t1.user_type = 2 and t1.user_sex = "+ int2string(cOrderMsg.msg_sex) \
 						+ " and t2.lawyer_skillid  =" + int2string(cOrderMsg.msg_skillid) \
 		                + " and ("+ "  t3.lawyer_worktime <= " +  long2string(start_work_time) +  "  )";
 		}    
@@ -142,12 +142,12 @@ bool CPushModel::getLawyerList(OrderMsg cOrderMsg, list<uint32_t >& lsLawyerUid 
 		if(SEXULIMITE == cOrderMsg.msg_sex)
 		{
 			strCase = "select t1.user_uid from dffx_user t1, dffx_user_lawyerskill  t2  where  \
-						t1.user_uid = t2.lawyer_uid and t1.user_type = 2 and t2.lawyer_skillid  =" + int2string(cOrderMsg.msg_skillid) ; 
+						t1.user_ischeck = 2 and t1.user_uid = t2.lawyer_uid and t1.user_type = 2 and t2.lawyer_skillid  =" + int2string(cOrderMsg.msg_skillid) ; 
 		}
 		else
 		{
 			strCase = "select t1.user_uid from dffx_user t1, dffx_user_lawyerskill  t2  where  \
-						t1.user_uid = t2.lawyer_uid and t1.user_type = 2 and t1.user_sex = "	\
+						t1.user_ischeck = 2 and t1.user_uid = t2.lawyer_uid and t1.user_type = 2 and t1.user_sex = "	\
 						+ int2string(cOrderMsg.msg_sex) + " and t2.lawyer_skillid  =" + int2string(cOrderMsg.msg_skillid) ; 
 		}
 		
@@ -530,7 +530,7 @@ bool CPushModel::getLawyerGrabResult(list<GrabRecord >& lsGrabRecord )
 	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
 	if (pDBConn) 
 	{
-		string strSql = "select * from dffx_order_grabrecord where grab_status = 4 or grab_status = 5 limit 300";
+		string strSql = "select *,UNIX_TIMESTAMP(grab_orderendtime) as endtime from dffx_order_grabrecord where grab_status = 4 or grab_status = 5 limit 300";
 		log("strSql = %s", strSql.c_str());
 		
 		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
@@ -547,7 +547,7 @@ bool CPushModel::getLawyerGrabResult(list<GrabRecord >& lsGrabRecord )
 				cGrabRecord.grab_orderid   = pResultSet->GetInt("grab_orderid");
 				cGrabRecord.grab_status= pResultSet->GetInt("grab_status");
 				cGrabRecord.grab_ordersn   = pResultSet->GetString("grab_ordersn");
-				cGrabRecord.grab_orderendtime   = pResultSet->GetString("grab_orderendtime");
+				cGrabRecord.grab_orderendtime   = 1000 * pResultSet->GetLong("endtime");
 				cGrabRecord.grab_context  = pResultSet->GetString("grab_context");
 				
 				lsGrabRecord.push_back(cGrabRecord);
@@ -787,14 +787,15 @@ bool CPushModel::updateTopUP_withDrawal(list<TopUP_withDrawal> lsTopUP_withDrawa
 
 
 
+
 //更新过期用户状态
-#define SQL_SELECT_VIP_EXPRI_STATUS  "SELECT vipvalid_uid  FROM dffx_user_vipvalid WHERE NOW() > vipvalid_endtime and vipvalid_status = 1 "
-#define SQL_UPDATE_USERTABLE_VIP_EXPRI_STATUS  "UPDATE dffx_user SET user_isvip = 0 WHERE user_isvip = 2 AND  user_uid IN "
+#define SQL_SELECT_VIP_EXPRI_STATUS  "SELECT vipvalid_uid  FROM dffx_user_vipvalid WHERE 1000 * unix_timestamp() > vipvalid_endtime and vipvalid_status > 0 limit 100"
+#define SQL_UPDATE_USERTABLE_VIP_EXPRI_STATUS  "UPDATE dffx_user SET user_isvip = 0 WHERE user_isvip > 0 AND  user_uid IN "
 #define SQL_UPDATE_VIP_EXPRI_STATUS  "UPDATE dffx_user_vipvalid SET vipvalid_status = 0 WHERE vipvalid_uid IN "
 //更新过期订单状态
-#define SQL_SELECT_ORDER_EXPRT        "SELECT valid_orderid FROM dffx_order_valid  WHERE  NOW() > valid_time"
-#define SQL_UPDATE_ORDER_EXPRI_STATUS  "UPDATE dffx_order SET order_status = -3 WHERE (order_status= 1 OR order_status= 3) AND  id IN "
-#define SQL_UPDATE_ORDER_MSG_EXPRI_STATUS  "UPDATE dffx_order_msg SET msg_status = -3 WHERE (msg_status= 1 OR msg_status= 3) AND  msg_orderid IN "
+#define SQL_SELECT_ORDER_EXPRT        "SELECT valid_orderid FROM dffx_order_valid  WHERE  NOW() > valid_time limit 100"
+#define SQL_UPDATE_ORDER_EXPRI_STATUS  "UPDATE dffx_order SET order_status = -3 ,order_updatetime = 1000 * unix_timestamp() WHERE (order_status= 1  OR order_status= 2 OR order_status= 3) AND  id IN "
+#define SQL_UPDATE_ORDER_MSG_EXPRI_STATUS  "UPDATE dffx_order_msg SET msg_status = -3 WHERE (msg_status= 1  OR msg_status= 2 OR msg_status= 3) AND  msg_orderid IN "
 #define SQL_DELETE_ORDER_EXPRT        "DELETE FROM dffx_order_valid  WHERE  valid_orderid in "
 
 
@@ -830,23 +831,25 @@ void CPushModel::updateVipExp()
 		}
 
 		strSql = SQL_UPDATE_USERTABLE_VIP_EXPRI_STATUS + expIdStr;
+		log("strSql = %s ", strSql.c_str());
 		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
-		if(!bRet)
+	/*	if(!bRet)
 		{
 			log("SQL failed:%s", strSql.c_str());
 			pDBManger->RelDBConn(pDBConn);
 			return ;
 		}
-
+*/
 		strSql = SQL_UPDATE_VIP_EXPRI_STATUS + expIdStr;
 		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
-		if(!bRet)
+		log("strSql = %s ", strSql.c_str());
+	/*	if(!bRet)
 		{
 			log("SQL failed:%s", strSql.c_str());
 			pDBManger->RelDBConn(pDBConn);
 			return ;
 		}
-		
+	*/
 		pDBManger->RelDBConn(pDBConn);
 	}
 	else
@@ -869,6 +872,7 @@ void  CPushModel::updateOrderExp()
 		string strValidOrderid = "(";
 		
 		string strSql = SQL_SELECT_ORDER_EXPRT;
+		log("strSql = %s ", strSql.c_str());
 		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
 		if(pResultSet)
 		{ 		
@@ -888,35 +892,38 @@ void  CPushModel::updateOrderExp()
 		}
 
 
-		strSql = SQL_UPDATE_ORDER_EXPRI_STATUS + strValidOrderid;
+		strSql = SQL_UPDATE_ORDER_EXPRI_STATUS + strValidOrderid ;
+		log("strSql = %s ", strSql.c_str());
 		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
-		if(!bRet)
+	/*	if(!bRet)
 		{
 			log("SQL failed:%s", strSql.c_str());
 			pDBManger->RelDBConn(pDBConn);
 			return ;
 		}
-		
+	*/	
 		strSql = SQL_UPDATE_ORDER_MSG_EXPRI_STATUS + strValidOrderid;
+		log("strSql = %s ", strSql.c_str());
 		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
-		if(!bRet)
+	/*	if(!bRet)
 		{
 			log("SQL failed:%s", strSql.c_str());
 			pDBManger->RelDBConn(pDBConn);
 			return ;
 		}
-
+*/
 		
 		strSql = SQL_DELETE_ORDER_EXPRT + strValidOrderid;
+		log("strSql = %s ", strSql.c_str());
 		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
-		if(!bRet)
+	/*	if(!bRet)
 		{
 			log("SQL failed:%s", strSql.c_str());
 			pDBManger->RelDBConn(pDBConn);
 			return ;
 		}
 
-	
+	*/
 		pDBManger->RelDBConn(pDBConn);
 	}
 	else

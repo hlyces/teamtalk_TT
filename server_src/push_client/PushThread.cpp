@@ -297,8 +297,8 @@ void CNotifyLawyerGrabThread::OnThreadTick()
 		}
 		
 		string strMsg = "{\"orderSn\":\"" + lsIter->grab_ordersn + "\", \"orderId\":" + int2string(lsIter->grab_orderid) + ", \"orderUserId\":" + \
-						int2string(lsIter->grab_useruid) + ", \"caseEtime\":\"" + lsIter->grab_orderendtime \
-						+ "\", \"grabStatus\":" + int2string(intResult) + ", \"grabMessage\":\"" + strResult + "\", \"grabContext\":[" + lsIter->grab_context+ "]}";	
+						int2string(lsIter->grab_useruid) + ", \"caseEtime\":" + long2string(lsIter->grab_orderendtime )\
+						+ ", \"grabStatus\":" + int2string(intResult) + ", \"grabMessage\":\"" + strResult + "\", \"grabContext\":[" + lsIter->grab_context+ "]}";	
 
 		CAutoLock cAutoLock(&g_csLock);
 		g_pClient->sendMsg(lsIter->grab_lawyeruid, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_RESULT, strMsg);

@@ -21,7 +21,6 @@ void protobuf_ShutdownFile_IM_2eBaseDefine_2eproto() {
   delete UserInfo::default_instance_;
   delete ContactSessionInfo::default_instance_;
   delete UserStat::default_instance_;
-  delete ServerUserStat::default_instance_;
   delete UnreadInfo::default_instance_;
   delete MsgInfo::default_instance_;
   delete GroupVersionInfo::default_instance_;
@@ -49,7 +48,6 @@ void protobuf_AddDesc_IM_2eBaseDefine_2eproto() {
   UserInfo::default_instance_ = new UserInfo();
   ContactSessionInfo::default_instance_ = new ContactSessionInfo();
   UserStat::default_instance_ = new UserStat();
-  ServerUserStat::default_instance_ = new ServerUserStat();
   UnreadInfo::default_instance_ = new UnreadInfo();
   MsgInfo::default_instance_ = new MsgInfo();
   GroupVersionInfo::default_instance_ = new GroupVersionInfo();
@@ -63,7 +61,6 @@ void protobuf_AddDesc_IM_2eBaseDefine_2eproto() {
   UserInfo::default_instance_->InitAsDefaultInstance();
   ContactSessionInfo::default_instance_->InitAsDefaultInstance();
   UserStat::default_instance_->InitAsDefaultInstance();
-  ServerUserStat::default_instance_->InitAsDefaultInstance();
   UnreadInfo::default_instance_->InitAsDefaultInstance();
   MsgInfo::default_instance_->InitAsDefaultInstance();
   GroupVersionInfo::default_instance_->InitAsDefaultInstance();
@@ -166,6 +163,7 @@ bool BuddyListCmdID_IsValid(int value) {
     case 549:
     case 550:
     case 551:
+    case 552:
       return true;
     default:
       return false;
@@ -321,15 +319,6 @@ bool KickReasonType_IsValid(int value) {
   switch(value) {
     case 1:
     case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
-bool OnlineListType_IsValid(int value) {
-  switch(value) {
-    case 1:
       return true;
     default:
       return false;
@@ -2203,280 +2192,6 @@ void UserStat::Swap(UserStat* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int ServerUserStat::kUserIdFieldNumber;
-const int ServerUserStat::kStatusFieldNumber;
-const int ServerUserStat::kClientTypeFieldNumber;
-#endif  // !_MSC_VER
-
-ServerUserStat::ServerUserStat()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:IM.BaseDefine.ServerUserStat)
-}
-
-void ServerUserStat::InitAsDefaultInstance() {
-}
-
-ServerUserStat::ServerUserStat(const ServerUserStat& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:IM.BaseDefine.ServerUserStat)
-}
-
-void ServerUserStat::SharedCtor() {
-  _cached_size_ = 0;
-  user_id_ = 0u;
-  status_ = 1;
-  client_type_ = 1;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-ServerUserStat::~ServerUserStat() {
-  // @@protoc_insertion_point(destructor:IM.BaseDefine.ServerUserStat)
-  SharedDtor();
-}
-
-void ServerUserStat::SharedDtor() {
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void ServerUserStat::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ServerUserStat& ServerUserStat::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_IM_2eBaseDefine_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eBaseDefine_2eproto();
-#endif
-  return *default_instance_;
-}
-
-ServerUserStat* ServerUserStat::default_instance_ = NULL;
-
-ServerUserStat* ServerUserStat::New() const {
-  return new ServerUserStat;
-}
-
-void ServerUserStat::Clear() {
-  if (_has_bits_[0 / 32] & 7) {
-    user_id_ = 0u;
-    status_ = 1;
-    client_type_ = 1;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->clear();
-}
-
-bool ServerUserStat::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::StringOutputStream unknown_fields_string(
-      mutable_unknown_fields());
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string);
-  // @@protoc_insertion_point(parse_start:IM.BaseDefine.ServerUserStat)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &user_id_)));
-          set_has_user_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_status;
-        break;
-      }
-
-      // required .IM.BaseDefine.UserStatType status = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_status:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::IM::BaseDefine::UserStatType_IsValid(value)) {
-            set_status(static_cast< ::IM::BaseDefine::UserStatType >(value));
-          } else {
-            unknown_fields_stream.WriteVarint32(tag);
-            unknown_fields_stream.WriteVarint32(value);
-          }
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_client_type;
-        break;
-      }
-
-      // required .IM.BaseDefine.ClientType client_type = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_client_type:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (::IM::BaseDefine::ClientType_IsValid(value)) {
-            set_client_type(static_cast< ::IM::BaseDefine::ClientType >(value));
-          } else {
-            unknown_fields_stream.WriteVarint32(tag);
-            unknown_fields_stream.WriteVarint32(value);
-          }
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:IM.BaseDefine.ServerUserStat)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:IM.BaseDefine.ServerUserStat)
-  return false;
-#undef DO_
-}
-
-void ServerUserStat::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:IM.BaseDefine.ServerUserStat)
-  // required uint32 user_id = 1;
-  if (has_user_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
-  }
-
-  // required .IM.BaseDefine.UserStatType status = 2;
-  if (has_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->status(), output);
-  }
-
-  // required .IM.BaseDefine.ClientType client_type = 3;
-  if (has_client_type()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->client_type(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   unknown_fields().size());
-  // @@protoc_insertion_point(serialize_end:IM.BaseDefine.ServerUserStat)
-}
-
-int ServerUserStat::ByteSize() const {
-  int total_size = 0;
-
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
-    if (has_user_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->user_id());
-    }
-
-    // required .IM.BaseDefine.UserStatType status = 2;
-    if (has_status()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
-    }
-
-    // required .IM.BaseDefine.ClientType client_type = 3;
-    if (has_client_type()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->client_type());
-    }
-
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void ServerUserStat::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const ServerUserStat*>(&from));
-}
-
-void ServerUserStat::MergeFrom(const ServerUserStat& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_user_id()) {
-      set_user_id(from.user_id());
-    }
-    if (from.has_status()) {
-      set_status(from.status());
-    }
-    if (from.has_client_type()) {
-      set_client_type(from.client_type());
-    }
-  }
-  mutable_unknown_fields()->append(from.unknown_fields());
-}
-
-void ServerUserStat::CopyFrom(const ServerUserStat& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ServerUserStat::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
-
-  return true;
-}
-
-void ServerUserStat::Swap(ServerUserStat* other) {
-  if (other != this) {
-    std::swap(user_id_, other->user_id_);
-    std::swap(status_, other->status_);
-    std::swap(client_type_, other->client_type_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.swap(other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string ServerUserStat::GetTypeName() const {
-  return "IM.BaseDefine.ServerUserStat";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
 const int UnreadInfo::kSessionIdFieldNumber;
 const int UnreadInfo::kSessionTypeFieldNumber;
 const int UnreadInfo::kUnreadCntFieldNumber;
@@ -2484,6 +2199,7 @@ const int UnreadInfo::kLatestMsgIdFieldNumber;
 const int UnreadInfo::kLatestMsgDataFieldNumber;
 const int UnreadInfo::kLatestMsgTypeFieldNumber;
 const int UnreadInfo::kLatestMsgFromUserIdFieldNumber;
+const int UnreadInfo::kLatestMsgTimeFieldNumber;
 #endif  // !_MSC_VER
 
 UnreadInfo::UnreadInfo()
@@ -2512,6 +2228,7 @@ void UnreadInfo::SharedCtor() {
   latest_msg_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   latest_msg_type_ = 1;
   latest_msg_from_user_id_ = 0u;
+  latest_msg_time_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2563,8 +2280,9 @@ void UnreadInfo::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 127) {
+  if (_has_bits_[0 / 32] & 255) {
     ZR_(unread_cnt_, latest_msg_id_);
+    ZR_(latest_msg_from_user_id_, latest_msg_time_);
     session_id_ = 0u;
     session_type_ = 1;
     if (has_latest_msg_data()) {
@@ -2573,7 +2291,6 @@ void UnreadInfo::Clear() {
       }
     }
     latest_msg_type_ = 1;
-    latest_msg_from_user_id_ = 0u;
   }
 
 #undef OFFSET_OF_FIELD_
@@ -2707,6 +2424,21 @@ bool UnreadInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(80)) goto parse_latest_msg_time;
+        break;
+      }
+
+      // optional uint32 latest_msg_time = 10;
+      case 10: {
+        if (tag == 80) {
+         parse_latest_msg_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &latest_msg_time_)));
+          set_has_latest_msg_time();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2774,6 +2506,11 @@ void UnreadInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->latest_msg_from_user_id(), output);
   }
 
+  // optional uint32 latest_msg_time = 10;
+  if (has_latest_msg_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->latest_msg_time(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:IM.BaseDefine.UnreadInfo)
@@ -2830,6 +2567,13 @@ int UnreadInfo::ByteSize() const {
           this->latest_msg_from_user_id());
     }
 
+    // optional uint32 latest_msg_time = 10;
+    if (has_latest_msg_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->latest_msg_time());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -2868,6 +2612,9 @@ void UnreadInfo::MergeFrom(const UnreadInfo& from) {
     if (from.has_latest_msg_from_user_id()) {
       set_latest_msg_from_user_id(from.latest_msg_from_user_id());
     }
+    if (from.has_latest_msg_time()) {
+      set_latest_msg_time(from.latest_msg_time());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2893,6 +2640,7 @@ void UnreadInfo::Swap(UnreadInfo* other) {
     std::swap(latest_msg_data_, other->latest_msg_data_);
     std::swap(latest_msg_type_, other->latest_msg_type_);
     std::swap(latest_msg_from_user_id_, other->latest_msg_from_user_id_);
+    std::swap(latest_msg_time_, other->latest_msg_time_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

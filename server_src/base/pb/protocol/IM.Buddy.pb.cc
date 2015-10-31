@@ -5933,6 +5933,7 @@ void IMReverseAddFriendReq::Swap(IMReverseAddFriendReq* other) {
 const int IMCommonOperFriendRes::kUserIdFieldNumber;
 const int IMCommonOperFriendRes::kResultCodeFieldNumber;
 const int IMCommonOperFriendRes::kFriendIdFieldNumber;
+const int IMCommonOperFriendRes::kFriendresStatusTypeFieldNumber;
 const int IMCommonOperFriendRes::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
@@ -5958,6 +5959,7 @@ void IMCommonOperFriendRes::SharedCtor() {
   user_id_ = 0u;
   result_code_ = 0u;
   friend_id_ = 0u;
+  friendres_status_type_ = 0;
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -6010,9 +6012,8 @@ void IMCommonOperFriendRes::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 15) {
-    ZR_(user_id_, result_code_);
-    friend_id_ = 0u;
+  if (_has_bits_[0 / 32] & 31) {
+    ZR_(user_id_, friendres_status_type_);
     if (has_attach_data()) {
       if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         attach_data_->clear();
@@ -6081,6 +6082,27 @@ bool IMCommonOperFriendRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(88)) goto parse_friendres_status_type;
+        break;
+      }
+
+      // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+      case 11: {
+        if (tag == 88) {
+         parse_friendres_status_type:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::IM::BaseDefine::FriendResStatusType_IsValid(value)) {
+            set_friendres_status_type(static_cast< ::IM::BaseDefine::FriendResStatusType >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectTag(162)) goto parse_attach_data;
         break;
       }
@@ -6138,6 +6160,12 @@ void IMCommonOperFriendRes::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->friend_id(), output);
   }
 
+  // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+  if (has_friendres_status_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      11, this->friendres_status_type(), output);
+  }
+
   // optional bytes attach_data = 20;
   if (has_attach_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
@@ -6174,6 +6202,12 @@ int IMCommonOperFriendRes::ByteSize() const {
           this->friend_id());
     }
 
+    // optional .IM.BaseDefine.FriendResStatusType friendres_status_type = 11;
+    if (has_friendres_status_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->friendres_status_type());
+    }
+
     // optional bytes attach_data = 20;
     if (has_attach_data()) {
       total_size += 2 +
@@ -6207,6 +6241,9 @@ void IMCommonOperFriendRes::MergeFrom(const IMCommonOperFriendRes& from) {
     if (from.has_friend_id()) {
       set_friend_id(from.friend_id());
     }
+    if (from.has_friendres_status_type()) {
+      set_friendres_status_type(from.friendres_status_type());
+    }
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
     }
@@ -6231,6 +6268,7 @@ void IMCommonOperFriendRes::Swap(IMCommonOperFriendRes* other) {
     std::swap(user_id_, other->user_id_);
     std::swap(result_code_, other->result_code_);
     std::swap(friend_id_, other->friend_id_);
+    std::swap(friendres_status_type_, other->friendres_status_type_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);

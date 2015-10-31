@@ -76,7 +76,7 @@ typedef struct GrabRecord{
 	uint32_t grab_status;
 	uint32_t grab_useruid;
 	uint32_t grab_lawyeruid;
-	string   grab_orderendtime;
+	uint64_t   grab_orderendtime;
 	string	 grab_ordersn;
 	string   grab_context;
 }GrabRecord; 

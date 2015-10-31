@@ -238,6 +238,7 @@ namespace DB_PROXY
 			msgResp.set_result_code(result);
 			msgResp.set_friend_id(to_user_id);
 			msgResp.set_attach_data(msg.attach_data());
+			msgResp.set_friendres_status_type(msg.friendres_status_type());
 
 			pPduRes->SetPBMsg(&msgResp);
 			pPduRes->SetSeqNum(pPdu->GetSeqNum());

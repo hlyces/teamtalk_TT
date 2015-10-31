@@ -76,6 +76,7 @@ enum BuddyListCmdID{
 	DFFX_CID_BUDDY_LIST_FINDUSERINFO_REQ             		 = 0x0226;	//用法宝号或手机号查找用户信息请求
 	DFFX_CID_BUDDY_LIST_FINDUSERINFO_RES           			 = 0x0227;  //用法宝号或手机号查找用户信息应答
 	
+	DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY           			 = 0x0228;  //被好友删除的通知，无需回响应
 	//end by hyh
 }
 
@@ -384,6 +385,8 @@ message UnreadInfo{		//未读消息数据结构，其中seession_id定义的有�
 	required bytes latest_msg_data = 5;		//某个会话最新msg_data
     required MsgType latest_msg_type = 6;
     required uint32 latest_msg_from_user_id = 7;        //发送得用户id
+	
+	optional uint32 latest_msg_time = 10;	//会话时间
 }
 
 message MsgInfo{		//消息数据结构，session_id同上。

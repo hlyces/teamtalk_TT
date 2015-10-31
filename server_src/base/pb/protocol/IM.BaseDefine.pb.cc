@@ -163,6 +163,7 @@ bool BuddyListCmdID_IsValid(int value) {
     case 549:
     case 550:
     case 551:
+    case 552:
       return true;
     default:
       return false;
@@ -2198,6 +2199,7 @@ const int UnreadInfo::kLatestMsgIdFieldNumber;
 const int UnreadInfo::kLatestMsgDataFieldNumber;
 const int UnreadInfo::kLatestMsgTypeFieldNumber;
 const int UnreadInfo::kLatestMsgFromUserIdFieldNumber;
+const int UnreadInfo::kLatestMsgTimeFieldNumber;
 #endif  // !_MSC_VER
 
 UnreadInfo::UnreadInfo()
@@ -2226,6 +2228,7 @@ void UnreadInfo::SharedCtor() {
   latest_msg_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   latest_msg_type_ = 1;
   latest_msg_from_user_id_ = 0u;
+  latest_msg_time_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2277,8 +2280,9 @@ void UnreadInfo::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 127) {
+  if (_has_bits_[0 / 32] & 255) {
     ZR_(unread_cnt_, latest_msg_id_);
+    ZR_(latest_msg_from_user_id_, latest_msg_time_);
     session_id_ = 0u;
     session_type_ = 1;
     if (has_latest_msg_data()) {
@@ -2287,7 +2291,6 @@ void UnreadInfo::Clear() {
       }
     }
     latest_msg_type_ = 1;
-    latest_msg_from_user_id_ = 0u;
   }
 
 #undef OFFSET_OF_FIELD_
@@ -2421,6 +2424,21 @@ bool UnreadInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(80)) goto parse_latest_msg_time;
+        break;
+      }
+
+      // optional uint32 latest_msg_time = 10;
+      case 10: {
+        if (tag == 80) {
+         parse_latest_msg_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &latest_msg_time_)));
+          set_has_latest_msg_time();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2488,6 +2506,11 @@ void UnreadInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->latest_msg_from_user_id(), output);
   }
 
+  // optional uint32 latest_msg_time = 10;
+  if (has_latest_msg_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->latest_msg_time(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:IM.BaseDefine.UnreadInfo)
@@ -2544,6 +2567,13 @@ int UnreadInfo::ByteSize() const {
           this->latest_msg_from_user_id());
     }
 
+    // optional uint32 latest_msg_time = 10;
+    if (has_latest_msg_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->latest_msg_time());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -2582,6 +2612,9 @@ void UnreadInfo::MergeFrom(const UnreadInfo& from) {
     if (from.has_latest_msg_from_user_id()) {
       set_latest_msg_from_user_id(from.latest_msg_from_user_id());
     }
+    if (from.has_latest_msg_time()) {
+      set_latest_msg_time(from.latest_msg_time());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2607,6 +2640,7 @@ void UnreadInfo::Swap(UnreadInfo* other) {
     std::swap(latest_msg_data_, other->latest_msg_data_);
     std::swap(latest_msg_type_, other->latest_msg_type_);
     std::swap(latest_msg_from_user_id_, other->latest_msg_from_user_id_);
+    std::swap(latest_msg_time_, other->latest_msg_time_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

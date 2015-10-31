@@ -43,10 +43,10 @@ void CFileHandler::HandleClientFileRequest(CMsgConn* pMsgConn, CImPdu* pPdu)
 
 	//todo ... are they friends???
 
-    //file_size limited 50M
-    if(file_size > 50*1024*1024 || file_size<=0)
+    //file_size limited 200M
+    if(file_size > 200*1024*1024 || file_size<=0)
     {
-        log("HandleClientFileRequest, file_size > 50M || file_size<=0 file_size=%d.   ", file_size);
+        log("HandleClientFileRequest, file_size > 200M || file_size<=0 file_size=%d.   ", file_size);
 		IM::File::IMFileRsp msg2;
 		msg2.set_result_code(1);
 		msg2.set_from_user_id(from_id);

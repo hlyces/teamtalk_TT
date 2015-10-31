@@ -223,13 +223,15 @@ void CMessageModel::getUnreadMsgCount(uint32_t nUserId, uint32_t &nTotalCnt, lis
                 uint32_t nMsgId = 0;
                 string strMsgData;
                 IM::BaseDefine::MsgType nMsgType;
-                getLastMsg(cUnreadInfo.session_id(), nUserId, nMsgId, strMsgData, nMsgType);
+				uint32_t nCreateTime = 0;
+                getLastMsg(cUnreadInfo.session_id(), nUserId, nMsgId, strMsgData, nMsgType, nCreateTime);
                 if(IM::BaseDefine::MsgType_IsValid(nMsgType))
                 {
                     cUnreadInfo.set_latest_msg_id(nMsgId);
                     cUnreadInfo.set_latest_msg_data(strMsgData);
                     cUnreadInfo.set_latest_msg_type(nMsgType);
                     cUnreadInfo.set_latest_msg_from_user_id(cUnreadInfo.session_id());
+					cUnreadInfo.set_latest_msg_time(nCreateTime);
                     lsUnreadCount.push_back(cUnreadInfo);
                     nTotalCnt += cUnreadInfo.unread_cnt();
                 }
@@ -274,7 +276,8 @@ uint32_t CMessageModel::getMsgId(uint32_t nRelateId)
  *  @param nMsgType   <#nMsgType description#>
  *  @param nStatus    0获取未被删除的，1获取所有的，默认获取未被删除的
  */
-void CMessageModel::getLastMsg(uint32_t nFromId, uint32_t nToId, uint32_t& nMsgId, string& strMsgData, IM::BaseDefine::MsgType& nMsgType, uint32_t nStatus)
+void CMessageModel::getLastMsg(uint32_t nFromId, uint32_t nToId, uint32_t& nMsgId,
+	string& strMsgData, IM::BaseDefine::MsgType& nMsgType, uint32_t& nCreateTime)
 {
     uint32_t nRelateId = CRelationModel::getInstance()->getRelationId(nFromId, nToId, false);
     
@@ -286,7 +289,7 @@ void CMessageModel::getLastMsg(uint32_t nFromId, uint32_t nToId, uint32_t& nMsgI
         if (pDBConn)
         {
             string strTableName = "IMMessage_" + int2string(nRelateId % 8);
-            string strSql = "select msgId,type,content from " + strTableName + " force index (idx_relateId_status_created) where relateId= " + int2string(nRelateId) + " and status = 0 order by created desc, id desc limit 1";
+            string strSql = "select msgId,type,content,created from " + strTableName + " force index (idx_relateId_status_created) where relateId= " + int2string(nRelateId) + " and status = 0 order by created desc, id desc limit 1";
             CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
             if (pResultSet)
             {
@@ -304,6 +307,7 @@ void CMessageModel::getLastMsg(uint32_t nFromId, uint32_t nToId, uint32_t& nMsgI
                     {
                         strMsgData = pResultSet->GetString("content");
                     }
+					nCreateTime = pResultSet->GetInt("created");
                 }
                 pResultSet->Clear();
             }
@@ -469,6 +473,7 @@ bool CMessageModel::cleanMsgList(uint32_t nUserId, uint32_t nPeerId)
         {
             log("relateId=%d failed:%s", nRelateId, strSql.c_str());			
         }
+		pDBManager->RelDBConn( pDBConn);
     }
 
 	return bRet;

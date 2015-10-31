@@ -448,14 +448,15 @@ void CSessionModel::fillSessionMsg(uint32_t nUserId, list<IM::BaseDefine::Contac
         string strMsgData;
         IM::BaseDefine::MsgType nMsgType;
         uint32_t nFromId = 0;
+		uint32_t nCreateTime = 0;
         if( it->session_type() == IM::BaseDefine::SESSION_TYPE_SINGLE)
         {
             nFromId = it->session_id();
-            CMessageModel::getInstance()->getLastMsg(it->session_id(), nUserId, nMsgId, strMsgData, nMsgType);
+            CMessageModel::getInstance()->getLastMsg(it->session_id(), nUserId, nMsgId, strMsgData, nMsgType, nCreateTime);
         }
         else
         {
-            CGroupMessageModel::getInstance()->getLastMsg(it->session_id(), nMsgId, strMsgData, nMsgType, nFromId);
+            CGroupMessageModel::getInstance()->getLastMsg(it->session_id(), nMsgId, strMsgData, nMsgType, nFromId, nCreateTime);
         }
         if(!IM::BaseDefine::MsgType_IsValid(nMsgType))
         {
@@ -467,6 +468,7 @@ void CSessionModel::fillSessionMsg(uint32_t nUserId, list<IM::BaseDefine::Contac
             it->set_latest_msg_id(nMsgId);
             it->set_latest_msg_data(strMsgData);
             it->set_latest_msg_type(nMsgType);
+			it->set_updated_time(nCreateTime);
             ++it;
         }
     }
