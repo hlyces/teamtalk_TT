@@ -708,6 +708,22 @@ bool CUserModel::reverseAddFriend(IM::Buddy::IMReverseAddFriendReq& reverseAddFr
 		
 		pResultSet->Clear();
 		
+		//
+      	strSql = "SELECT * FROM IMFxUserRelationPrivate WHERE status=1 AND user_uid=" + int2string(friend_id) + " AND friend_friendid=" + int2string(user_id);
+		pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+        if(!pResultSet)
+        {//if A did not send addFriend Req
+        	log("reverseAddFriend Failed %s", strSql.c_str());
+			break;
+        }
+		else if(!pResultSet->Next())
+		{
+			pResultSet->Clear();
+			log("reverseAddFriend Failed %s", strSql.c_str());
+			break;
+		}
+		
+		pResultSet->Clear();
 		
 		if(friendres_status_type==IM::BaseDefine::FRIENDRES_STATUS_REFUSE)
 		{//refuse
@@ -751,23 +767,6 @@ bool CUserModel::reverseAddFriend(IM::Buddy::IMReverseAddFriendReq& reverseAddFr
 		}
 		
 		//agree		
-		//
-      	strSql = "SELECT * FROM IMFxUserRelationPrivate WHERE status=1 AND user_uid=" + int2string(friend_id) + " AND friend_friendid=" + int2string(user_id);
-		pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
-        if(!pResultSet)
-        {//if A did not send addFriend Req
-        	log("reverseAddFriend Failed %s", strSql.c_str());
-			break;
-        }
-		else if(!pResultSet->Next())
-		{
-			pResultSet->Clear();
-			log("reverseAddFriend Failed %s", strSql.c_str());
-			break;
-		}
-		
-		pResultSet->Clear();
-
 		//A + B:被同意但未通知
 		strSql = "UPDATE IMFxUserRelationPrivate SET status=4 ,update_time=" + strNowtime \
 				+ " WHERE user_uid=" + int2string(friend_id) + " AND friend_friendid=" + int2string(user_id);
