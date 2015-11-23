@@ -24,6 +24,7 @@
 #include "IM.Server.pb.h"
 #include "ImPduBase.h"
 #include "public_define.h"
+#include "json/json.h"
 using namespace IM::BaseDefine;
 
 static ConnMap_t g_db_server_conn_map;
@@ -37,6 +38,11 @@ static CFileHandler* s_file_handler = NULL;
 
 
 extern CAes *pAes;
+
+extern int g_nMsgServer_Id ;
+extern bool g_bIsSendRestart_Notify ;
+extern int g_nSendRestart_Time ;
+
 
 static void db_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
@@ -183,6 +189,7 @@ void CDBServConn::Connect(const char* server_ip, uint16_t server_port, uint32_t 
 
 void CDBServConn::Close()
 {
+	log("CDBServConn close, from handle=%d ", m_handle);
 	// reset server information for the next connect
 	serv_reset<CDBServConn>(g_db_server_list, g_db_server_count, m_serv_idx);
 
@@ -200,6 +207,23 @@ void CDBServConn::OnConfirm()
 	log("connect to db server success");
 	m_bOpen = true;
 	g_db_server_list[m_serv_idx].reconnect_cnt = MIN_RECONNECT_CNT / 2;
+
+	//send restart notify to db	
+	if(!g_bIsSendRestart_Notify)
+	{
+		g_bIsSendRestart_Notify = true;
+		
+		IM::Server::IMMsgServerRestartNotify msg;
+		msg.set_oprt_status(1);
+		msg.set_msg_server_id(g_nMsgServer_Id);
+		msg.set_cur_time(g_nSendRestart_Time);
+		
+		CImPdu pdu;
+		pdu.SetPBMsg(&msg);
+		pdu.SetServiceId(DFFX_SID_OTHER);
+		pdu.SetCommandId(DFFX_CID_OTHER_MSGSRVRESTART_NOTIFY);
+		SendPdu(&pdu);
+	}
 }
 
 void CDBServConn::OnClose()
@@ -229,6 +253,7 @@ void CDBServConn::OnTimer(uint64_t curr_tick)
 
 void CDBServConn::HandlePdu(CImPdu* pPdu)
 {
+	log("cmdId = %d", pPdu->GetCommandId());
 	switch (pPdu->GetCommandId())
 	{
 		case DFFX_CID_OTHER_HEARTBEAT:
@@ -357,6 +382,10 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 		//cleanMsgList
 		case DFFX_CID_MSG_CLEAN_MSGLIST_RES:
 			_HandleClientCleanMsgListRespone(pPdu);
+			break;
+
+		case DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST:
+			_HanddleClientOrderStatusReadMsgBraodcast(pPdu);
 			break;
 
 		default:
@@ -659,16 +688,17 @@ void CDBServConn::_HandleMsgData(CImPdu *pPdu)
 	}
 
 	//push_server
-	/*
+	CPduAttachData attach_data2(ATTACH_TYPE_PDU_FOR_PUSH_MSG, 0, pPdu->GetBodyLength(), pPdu->GetBodyData());
+	
 	IM::Server::IMGetDeviceTokenReq msg3;
 	msg3.add_user_id(to_user_id);
-	msg3.set_attach_data(pPdu->GetBodyData(), pPdu->GetBodyLength());
+	msg3.set_attach_data( attach_data2.GetBuffer(), attach_data2.GetLength());
 	CImPdu pdu2;
 	pdu2.SetPBMsg(&msg3);
 	pdu2.SetServiceId(DFFX_SID_OTHER);
 	pdu2.SetCommandId(DFFX_CID_OTHER_GET_DEVICE_TOKEN_REQ);
 	SendPdu(&pdu2);
-	*/
+	
 }
 
 void CDBServConn::_HandleGetLatestMsgIDRsp(CImPdu *pPdu)
@@ -828,53 +858,115 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 	IM::Server::IMGetDeviceTokenRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
-	IM::Message::IMMsgData msg2;
-	CHECK_PB_PARSE_MSG(msg2.ParseFromArray(msg.attach_data().c_str(), msg.attach_data().length()));
-	string msg_data = msg2.msg_data();
-	uint32_t msg_type = msg2.msg_type();
-	uint32_t from_id = msg2.from_user_id();
-	uint32_t to_id = msg2.to_session_id();
-	//MSG_TYPE_ORDER_PUSH MSG_TYPE_ORDER_GRAB MSG_TYPE_ORDER_RESULT
-// MSG_TYPE_ORDER_ENTRUST MSG_TYPE_ORDER_ACCEPT	MSG_TYPE_ORDER_CANCEL	
-	if (msg_type == IM::BaseDefine::MSG_TYPE_SINGLE_TEXT || msg_type == IM::BaseDefine::MSG_TYPE_GROUP_TEXT \
-	    || msg_type == IM::BaseDefine::MSG_TYPE_ORDER_PUSH \ 
-	    || msg_type == IM::BaseDefine::MSG_TYPE_ORDER_GRAB \
-	    || msg_type == IM::BaseDefine::MSG_TYPE_ORDER_RESULT \
-	    || msg_type == IM::BaseDefine::MSG_TYPE_LOCATION_SHARING \
-	    || msg_type == IM::BaseDefine::MSG_TYPE_FILE_TRANSFER \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
+	string msg_data="";
+	jsonxx::Object json_obj;
+	uint32_t from_id = 0;
+		
+	CPduAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
+	if (attach_data.GetType() == ATTACH_TYPE_PDU_FOR_PUSH_MSG)
 	{
-		//msg_data =
-		char* msg_out = NULL;
-		uint32_t msg_out_len = 0;
-		if (pAes->Decrypt(msg_data.c_str(), msg_data.length(), &msg_out, msg_out_len) == 0)
+		//
+		IM::Message::IMMsgData msg2;
+		CHECK_PB_PARSE_MSG(msg2.ParseFromArray( attach_data.GetPdu(), attach_data.GetPduLength()));
+		msg_data = msg2.msg_data();
+		uint32_t msg_type = msg2.msg_type();
+		from_id = msg2.from_user_id();
+		uint32_t to_id = msg2.to_session_id();
+
 		{
-			msg_data = string(msg_out, msg_out_len);
+			char* msg_out = NULL;
+			uint32_t msg_out_len = 0;
+			if (pAes->Decrypt(msg_data.c_str(), msg_data.length(), &msg_out, msg_out_len) == 0)
+			{
+				msg_data = string(msg_out, msg_out_len);
+			}
+			else
+			{
+				log("HandleGetDeviceTokenResponse, decrypt msg failed, from_id: %u, to_id: %u, msg_type: %u.", from_id, to_id, msg_type);
+				return;
+			}
+			pAes->Free(msg_out);	
 		}
-		else
+
+		string tmp_msgdata = msg_data;
+
+		build_push_flash(msg_data, msg2.msg_type(), from_id);
+		//{
+		//    "msg_type": 1,
+		//    "from_id": "1345232",
+		//    "group_type": "12353",
+		//}
+
+		json_obj << "cmd_id" << (uint32_t)DFFX_CID_MSG_DATA;
+		json_obj << "msg_type" << (uint32_t)msg2.msg_type();
+		json_obj << "from_id" << from_id;
+		if (CHECK_MSG_TYPE_GROUP(msg2.msg_type()))
 		{
-			log("HandleGetDeviceTokenResponse, decrypt msg failed, from_id: %u, to_id: %u, msg_type: %u.", from_id, to_id, msg_type);
-			return;
+			json_obj << "group_id" << to_id;
 		}
-		pAes->Free(msg_out);
+
+		if(CHECK_MSG_TYPE_PUSH(msg_type))
+		{
+			Json::Reader reader(Json::Features::strictMode());	
+			Json::Value value;
+			int caseType;
+			int orderStatus;
+			if (reader.parse(tmp_msgdata, value)) 
+			{  
+				if(msg_type == IM::BaseDefine::MSG_TYPE_ORDER_PUSH
+					|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST)
+				{		
+					caseType = value["caseType"].asInt(); 
+					json_obj << "caseType" << caseType;
+				}
+				if(msg_type == IM::BaseDefine::MsgType::MSG_TYPE_ORDER_GRAB
+					|| msg_type == IM::BaseDefine::MsgType::MSG_TYPE_ORDER_RESULT
+					|| msg_type == IM::BaseDefine::MsgType::MSG_TYPE_ORDER_CANCEL
+					|| msg_type == IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ACCEPT)
+				{
+					orderStatus = value["grabStatus"].asInt();
+					json_obj << "orderStatus" << orderStatus;
+				}
+				if(msg_type == IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ALLCANCEL
+					|| msg_type == IM::BaseDefine::MsgType::MSG_TYPE_TOPUP_WITHDRAWAL
+					|| msg_type == IM::BaseDefine::MsgType::MSG_TYPE_USER_CHECK)
+				{
+					orderStatus = value["resultStatus"].asInt();
+					json_obj << "orderStatus" << orderStatus;
+				}
+			} 
+			else
+			{
+				log("json parse error!");
+			}
+		}
+	}
+	else if(attach_data.GetType() == ATTACH_TYPE_PDU_FOR_PUSH_ADDFRIEND)
+	{
+		//
+		IM::Buddy::IMAddFriendReq msg2;
+		CHECK_PB_PARSE_MSG(msg2.ParseFromArray( attach_data.GetPdu(), attach_data.GetPduLength()));
+		from_id = msg2.from_user_id();
+		
+		msg_data = "您有一条新消息";
+
+		json_obj << "cmd_id" << (uint32_t)DFFX_CID_BUDDY_LIST_ADDFRIEND_REQ;
+		json_obj << "from_id" << from_id;
+	}
+	else if(attach_data.GetType() == ATTACH_TYPE_PDU_FOR_PUSH_FRIENDNOTIFY)
+	{
+		//
+		IM::Buddy::IMFriendNotifyReq msg2;
+		CHECK_PB_PARSE_MSG(msg2.ParseFromArray( attach_data.GetPdu(), attach_data.GetPduLength()));
+		from_id = msg2.from_user_id();
+		
+		msg_data = "您有一条新消息";
+
+		json_obj << "cmd_id" << (uint32_t)DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_REQ;
+		json_obj << "from_id" << from_id;
+		json_obj << "status_type" << (uint32_t)msg2.friendres_status_type();
 	}
 
-	build_ios_push_flash(msg_data, msg2.msg_type(), from_id);
-	//{
-	//    "msg_type": 1,
-	//    "from_id": "1345232",
-	//    "group_type": "12353",
-	//}
-	jsonxx::Object json_obj;
-	json_obj << "msg_type" << (uint32_t)msg2.msg_type();
-	json_obj << "from_id" << from_id;
-	if (CHECK_MSG_TYPE_GROUP(msg2.msg_type()))
-	{
-		json_obj << "group_id" << to_id;
-	}
 
 	uint32_t user_token_cnt = msg.user_token_info_size();
 	log("HandleGetDeviceTokenResponse, user_token_cnt = %u.", user_token_cnt);
@@ -983,7 +1075,7 @@ void CDBServConn::_HandleClientAddFriendGroupResponse(CImPdu* pPdu)
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)
 	{
-		//todo 1.send ack back
+		// 1.send ack back
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
@@ -1006,7 +1098,7 @@ void CDBServConn::_HandleClientDelFriendGroupResponse(CImPdu* pPdu)
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)
 	{
-		//todo 1.send ack back
+		// 1.send ack back
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
@@ -1030,7 +1122,7 @@ void CDBServConn::_HandleClientMoveFrinedGroupResponse(CImPdu* pPdu)
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)
 	{
-		//todo 1.send ack back
+		// 1.send ack back
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
@@ -1054,7 +1146,7 @@ void CDBServConn::_HandleClientChgFriendGroupResponse(CImPdu* pPdu)
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)
 	{
-		//todo 1.send ack back
+		// 1.send ack back
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
@@ -1081,7 +1173,7 @@ void CDBServConn::_HandleClientAddFriendRespone(CImPdu* pPdu)
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)
 	{
-		//todo 1.send ack back
+		// 1.send ack back
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
@@ -1150,7 +1242,7 @@ void CDBServConn::_HandleClientDelFriendRespone(CImPdu* pPdu)
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)
 	{
-		//todo 1.send ack back
+		// 1.send ack back
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
@@ -1165,7 +1257,7 @@ void CDBServConn::_HandleClientDelFriendRespone(CImPdu* pPdu)
 			pFromImUser->BroadcastPdu(pPdu, pMsgConn);
 		}
 
-		//todo 2.send notify to myfriend
+		// 2.send notify to myfriend
 		pPdu->SetCommandId(DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY);
 		CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(msg.friend_id());
 		if (pToImUser)
@@ -1197,7 +1289,7 @@ void CDBServConn::_HandleClientChgFriendRemarkRespone(CImPdu* pPdu)
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)
 	{
-		//todo 1.send ack back
+		// 1.send ack back
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
@@ -1284,7 +1376,7 @@ void CDBServConn::_HandleAddFriendReq(CImPdu* pPdu)
 
 	log(" from_user_id=%d to_user_id=%d.", msg.from_user_id(), msg.to_user_id());		
 
-	//todo 2.send req to myfriend
+	// 2.send req to myfriend
 	CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(msg.to_user_id());
 	if (pToImUser)
 	{
@@ -1295,6 +1387,19 @@ void CDBServConn::_HandleAddFriendReq(CImPdu* pPdu)
 	{
 		pRouteConn->SendPdu(pPdu);
 	}
+
+	//push_server
+	CPduAttachData attach_data(ATTACH_TYPE_PDU_FOR_PUSH_ADDFRIEND, 0, pPdu->GetBodyLength(), pPdu->GetBodyData());
+	
+	IM::Server::IMGetDeviceTokenReq msg3;
+	msg3.add_user_id(msg.to_user_id());
+	msg3.set_attach_data( attach_data.GetBuffer(), attach_data.GetLength());
+	CImPdu pdu2;
+	pdu2.SetPBMsg(&msg3);
+	pdu2.SetServiceId(DFFX_SID_OTHER);
+	pdu2.SetCommandId(DFFX_CID_OTHER_GET_DEVICE_TOKEN_REQ);
+	SendPdu(&pdu2);
+	
 }
 
 void CDBServConn::_HandleFriendNotifyReq(CImPdu* pPdu)
@@ -1316,6 +1421,18 @@ void CDBServConn::_HandleFriendNotifyReq(CImPdu* pPdu)
 	{
 		pRouteConn->SendPdu(pPdu);
 	}
+
+	//push_server
+	CPduAttachData attach_data(ATTACH_TYPE_PDU_FOR_PUSH_FRIENDNOTIFY, 0, pPdu->GetBodyLength(), pPdu->GetBodyData());
+	
+	IM::Server::IMGetDeviceTokenReq msg3;
+	msg3.add_user_id(msg.to_user_id());
+	msg3.set_attach_data( attach_data.GetBuffer(), attach_data.GetLength());
+	CImPdu pdu2;
+	pdu2.SetPBMsg(&msg3);
+	pdu2.SetServiceId(DFFX_SID_OTHER);
+	pdu2.SetCommandId(DFFX_CID_OTHER_GET_DEVICE_TOKEN_REQ);
+	SendPdu(&pdu2);
 }
 
 void CDBServConn::_HandleClientCleanMsgListRespone(CImPdu* pPdu)
@@ -1337,6 +1454,30 @@ void CDBServConn::_HandleClientCleanMsgListRespone(CImPdu* pPdu)
 		msg.clear_attach_data();
 		pPdu->SetPBMsg( &msg);
 		pMsgConn->SendPdu(pPdu);
+	}
+}
+
+
+
+void CDBServConn::_HanddleClientOrderStatusReadMsgBraodcast(CImPdu* pPdu)
+{
+	IM::Message::IMOrderStatusRead msg;
+	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+
+	CImPdu pdu;	
+	pdu.SetPBMsg(&msg);	
+	pdu.SetServiceId(DFFX_SID_MSG);	
+	pdu.SetCommandId(DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST);
+	CImUser* pUser = CImUserManager::GetInstance()->GetImUserById(msg.user_id());
+	if (pUser)	
+	{		
+		pUser->BroadcastPdu(&pdu);
+	}
+	
+	CRouteServConn* pRouteConn = get_route_serv_conn();
+	if (pRouteConn)
+	{
+		pRouteConn->SendPdu(pPdu);
 	}
 }
 

@@ -43,15 +43,14 @@ message IMLoginRes{
 	optional string version_filesize = 13; //安装包大小
 }
 
-//delete not used
-//message IMLogoutReq{
+message IMLogoutReq{
 	//cmd id:		0x0105
-//}
+}
 
-//message IMLogoutRsp{
+message IMLogoutRsp{
 	//cmd id:		0x0106
-	//required uint32 result_code = 1;
-//}
+	required uint32 result_code = 1;
+}
 
 message IMKickUser{
 	//cmd id:		0x0107

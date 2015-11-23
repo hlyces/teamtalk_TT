@@ -92,6 +92,36 @@ private:
 
 };
 
+class CWaitPayment : public CEventThread
+{
+public:
+	CWaitPayment();
+	virtual ~CWaitPayment();
+    
+ 	virtual void OnThreadTick(void);
+
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
+	
+private:
+	CClient* g_pClient;
+
+};
+
+class CCancelOrComplete: public CEventThread
+{
+public:
+	CCancelOrComplete();
+	virtual ~CCancelOrComplete();
+    
+ 	virtual void OnThreadTick(void);
+
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
+	
+private:
+	CClient* g_pClient;
+
+};
+
 
 class CTopUP_withDrawalThread : public CEventThread
 {
@@ -108,6 +138,21 @@ private:
 
 };
 
+
+class CCheckUser : public CEventThread
+{
+public:
+	CCheckUser();
+	virtual ~CCheckUser();
+    
+ 	virtual void OnThreadTick(void);
+
+	void setGPClient(CClient& pClient){ g_pClient = &pClient;}
+	
+private:
+	CClient* g_pClient;
+
+};
 
 
 class CMyTimerThread : public CEventThread

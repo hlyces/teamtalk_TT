@@ -129,6 +129,7 @@ void CFileServConn::Connect(const char* server_ip, uint16_t server_port, uint32_
 
 void CFileServConn::Close()
 {
+	log("CFileServConn close, from handle=%d ", m_handle);
 	serv_reset<CFileServConn>(g_file_server_list, g_file_server_count, m_serv_idx);
 
 	m_bOpen = false;

@@ -64,8 +64,8 @@
     typedef int	SOCKET;
     typedef int BOOL;
 #ifndef  __APPLE__
-    const int TRUE = 1;
-    const int FALSE = 0;
+    #define TRUE 1
+    #define FALSE 0
 #endif
     const int SOCKET_ERROR	= -1;
     const int INVALID_SOCKET = -1;

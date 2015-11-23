@@ -21,6 +21,8 @@ extern string strDiscovery;
 extern string strHeadlinkUrl;
 extern string strWebServiceUrl;
 extern string strMapUrl;
+extern string strIOSWebServiceUrl;
+
 
 
 
@@ -138,6 +140,8 @@ int CHttpConn::Send(void* data, int len)
 
 void CHttpConn::Close()
 {
+	log("http server  conn onclose, from m_conn_handle=%d ", m_conn_handle);
+
     m_state = CONN_STATE_CLOSED;
     
     g_http_conn_map.erase(m_conn_handle);
@@ -233,6 +237,8 @@ void CHttpConn::OnWrite()
 
 void CHttpConn::OnClose()
 {
+	log("httpconn onclose, from handle=%d ", m_conn_handle);
+
     Close();
 }
 
@@ -310,6 +316,7 @@ void CHttpConn::_HandleMsgServRequest(string& url, string& post_data)
 		value["webServicePrior"] = strWebServiceUrl;
 		value["mapUrlPrior"] = strMapUrl;
         value["discovery"] = strDiscovery;
+		value["iosWebServicePrior"] = strIOSWebServiceUrl;
         
         string strContent = value.toStyledString();
         char* szContent = new char[HTTP_RESPONSE_HTML_MAX];

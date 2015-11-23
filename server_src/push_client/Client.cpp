@@ -61,7 +61,7 @@ void CClient::connect()
         PROMPTION;
         return;
     }
-    Json::Reader reader;
+    Json::Reader reader(Json::Features::strictMode());
     Json::Value value;
     if(!reader.parse(strResp, value))
     {
@@ -114,12 +114,14 @@ void CClient::onConnect()
 
 void CClient::close()
 {
+	log("close from name=%s\n", m_strName.c_str());
     g_pConn->Close();
 	g_pConn = NULL;
 }
 
 void CClient::onClose()
 {
+	log("onclose from handle=%d\n", m_nHandle);
     g_pConn = NULL;
 	g_bLogined = false;
 }

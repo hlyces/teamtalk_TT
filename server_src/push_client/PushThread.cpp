@@ -361,7 +361,7 @@ void CEntrushThread::OnThreadTick()
 		if(lsIter->msg_status == ENTRUSTORDER)
 		{
 			CAutoLock cAutoLock(&g_csLock);
-			 //委托通知客户端
+			 //委托通知律师端
 			g_pClient->sendMsg(lsIter->msg_lawyer, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ENTRUST, lsIter->msg_context);
 		}
 		else if(lsIter->msg_status == ORDERCANCEL)
@@ -398,6 +398,138 @@ void CEntrushThread::OnThreadTick()
 
 	usleep(500000);
 }
+
+
+
+CWaitPayment::CWaitPayment()
+{
+	g_pClient = NULL;
+	StartThread();
+}
+
+CWaitPayment::~CWaitPayment()
+{
+
+}
+
+/*
+
+*/
+void CWaitPayment::OnThreadTick()
+{	
+	log("*************CWaitPayment******************");
+	if(g_pClient == NULL || !g_pClient->g_bLogined || 
+		!g_pClient->g_pConn)
+	{
+		sleep(3);
+		return;
+	}
+
+	CPushModel* pPush = CPushModel::getInstance();
+
+	list<OrderStatusChg> lsOrderStatusChg;
+	lsOrderStatusChg.clear();
+	
+	pPush->getWaitPayment(lsOrderStatusChg);
+	if(lsOrderStatusChg.size() == 0)
+	{
+		sleep(5);
+		return ;
+	}
+
+	list<OrderStatusChg >::iterator lsIter;
+	for(lsIter = lsOrderStatusChg.begin(); lsIter != lsOrderStatusChg.end(); lsIter++)
+	{
+		string strResult = "请付款";
+		int    intResult;
+
+		string strMsg = "{\"LawyerId\":" + int2string(lsIter->msg_lawyer) +  ", \"OrderId\":" + int2string(lsIter->msg_orderid)  + "}";
+		
+		CAutoLock cAutoLock(&g_csLock);
+		//等待付款通知客户端
+		g_pClient->sendMsg(lsIter->msg_user, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_WAITPAYMENT, strMsg);
+	
+		usleep(100);
+	}
+
+	pPush->updateWaitPayment(lsOrderStatusChg);
+
+	usleep(500000);
+}
+
+
+
+CCancelOrComplete::CCancelOrComplete()
+{
+	g_pClient = NULL;
+	StartThread();
+}
+
+CCancelOrComplete::~CCancelOrComplete()
+{
+
+}
+
+/*
+
+*/
+void CCancelOrComplete::OnThreadTick()
+{	
+	log("*************CCancelOrComplete******************");
+	if(g_pClient == NULL || !g_pClient->g_bLogined || 
+		!g_pClient->g_pConn)
+	{
+		sleep(3);
+		return;
+	}
+
+	CPushModel* pPush = CPushModel::getInstance();
+
+	list<OrderStatusChg> lsOrderStatusChg;
+	lsOrderStatusChg.clear();
+	
+	pPush->getCancelOrCompleteTolawyer(lsOrderStatusChg);
+	if(lsOrderStatusChg.size() == 0)
+	{
+		sleep(5);
+		return ;
+	}
+
+	list<OrderStatusChg >::iterator lsIter;
+	for(lsIter = lsOrderStatusChg.begin(); lsIter != lsOrderStatusChg.end(); lsIter++)
+	{
+		string strResult = "";
+		int    intResult;
+
+		if(lsIter->msg_status == UserCancel)
+		{
+			intResult = IM::BaseDefine::USER_CANCEL;
+		}
+		else if(lsIter->msg_status == ValidCancel)
+		{
+			intResult = IM::BaseDefine::VALID_CANCEL;
+		}
+		else if(lsIter->msg_status == Complete)
+		{
+			intResult = IM::BaseDefine::ORDER_COMPLETE;
+		}
+	
+		string strMsg = "{\"UserId\":" + int2string(lsIter->msg_user) +  ", \"OrderId\":" + int2string(lsIter->msg_orderid)  \
+						+ ", \"resultStatus\":" + int2string(intResult)  + "}";
+		
+		CAutoLock cAutoLock(&g_csLock);
+		//通知律师端订单变化
+		g_pClient->sendMsg(lsIter->msg_lawyer, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ALLCANCEL, strMsg);
+	
+		usleep(100);
+	}
+
+	pPush->updateCancelOrCompleteTolawyer(lsOrderStatusChg);
+
+	usleep(500000);
+}
+
+
 
 
 CTopUP_withDrawalThread::CTopUP_withDrawalThread()
@@ -490,6 +622,80 @@ void CTopUP_withDrawalThread::OnThreadTick()
 
 }
 
+
+CCheckUser::CCheckUser()
+{
+	g_pClient = NULL;
+	StartThread();
+}
+
+CCheckUser::~CCheckUser()
+{
+
+}
+
+/*
+	1.获取提现或者充值的消息id
+	2.发送给提现或者充值用户
+	3.更新充值或提现推送表(dffx_common_pushresult)
+*/
+void CCheckUser::OnThreadTick()
+{	
+	log("*************CCheckUser******************");
+	if(g_pClient == NULL || !g_pClient->g_bLogined || 
+		!g_pClient->g_pConn)
+	{
+		log("exit!");
+		sleep(3);
+		return;
+	}
+
+	CPushModel* pPush = CPushModel::getInstance();
+
+	list<CheckUser > lsCheckUser;
+	lsCheckUser.clear();
+	
+	pPush->getCheckUser(lsCheckUser);
+
+	if(lsCheckUser.size() == 0)
+	{
+		sleep(5);
+		return ;
+	}
+
+	list<CheckUser >::iterator lsIter;
+	for(lsIter = lsCheckUser.begin(); lsIter != lsCheckUser.end(); lsIter++)
+	{
+		string strResult = "";
+		int    intResult;
+
+		if(lsIter->check_status== CHECKSUCCESS) //失败
+		{
+			intResult = IM::BaseDefine::CHECK_SUCCESS;
+			strResult += "身份认证成功";
+		}
+		else if(lsIter->check_status == CHECKFAILED) //成功
+		{
+			intResult = IM::BaseDefine::CHECK_FAILED;
+			strResult += "身份认证失败";	
+		}
+
+		string strMsg = "{\"UserId\":" + int2string(lsIter->check_userid) +  ", \"resultStatus\":" + int2string(intResult) + \
+						", \"resultMessage\":\"" + strResult + "\"}";
+				
+		CAutoLock cAutoLock(&g_csLock);
+		log("userid = %d", lsIter->check_userid);
+		g_pClient->sendMsg(lsIter->check_userid, IM::BaseDefine::MsgType::MSG_TYPE_USER_CHECK, strMsg);
+		
+		usleep(100);
+	}
+
+	
+	pPush->delCheckUser(lsCheckUser);
+
+	usleep(500000);
+
+}
 
 
 CMyTimerThread::CMyTimerThread()

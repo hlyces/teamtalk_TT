@@ -42,6 +42,11 @@ static bool g_log_msg_toggle = true;	// 是否把收到的MsgData写入Log的开
 static CFileHandler* s_file_handler = NULL;
 static CGroupChat* s_group_chat = NULL;
 
+extern int g_nMsgServer_Id ;
+extern bool g_bIsSendRestart_Notify ;
+extern int g_nSendRestart_Time ;
+
+
 void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 	ConnMap_t::iterator it_old;
@@ -176,15 +181,17 @@ void CMsgConn::SendUserStatusUpdate(uint32_t user_status)
 		IM::Server::IMUserStatusUpdate msg2;
 		msg2.set_user_status(::IM::BaseDefine::USER_STATUS_OFFLINE);
 		msg2.set_user_id(pImUser->GetUserId());
-		msg2.set_user_uid(pImUser->GetUserUid());
+		msg2.set_user_uid(pImUser->GetUserUid());		
 		msg2.set_client_type((::IM::BaseDefine::ClientType)m_client_type);
+		msg2.set_msg_server_id(g_nMsgServer_Id);
+		msg2.set_cur_time(time(NULL));
 		CImPdu pdu2;
 		pdu2.SetPBMsg(&msg2);
 		pdu2.SetServiceId(DFFX_SID_OTHER);
 		pdu2.SetCommandId(DFFX_CID_OTHER_USER_STATUS_UPDATE);
 		send_to_all_route_server(&pdu2);
 
-		//todo send to db
+		// send to db
 		CDBServConn* pDbConn = get_db_serv_conn();
 		if (pDbConn
 		    && !IsKickOff())
@@ -304,6 +311,7 @@ void CMsgConn::OnTimer(uint64_t curr_tick)
 
 void CMsgConn::HandlePdu(CImPdu* pPdu)
 {
+	log("cmdId = %d", pPdu->GetCommandId());
 	// request authorization check
 	if (pPdu->GetCommandId() != DFFX_CID_LOGIN_REQ_USERLOGIN
 	    && (!IsOpen() || IsKickOff()))
@@ -455,6 +463,11 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
 			_HandleClientCleanMsgListRequest(pPdu);
 			break;
 
+		//订单已读消息
+		case DFFX_CID_MSG_ORDERSTATUS_READ:
+			_HanddleClientOrderStatusReadMsg(pPdu);
+			break;
+
 		default:
 			log("wrong msg, cmd id=%d, user id=%u. ", pPdu->GetCommandId(), GetUserId());
 			break;
@@ -547,6 +560,9 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
 	msg2.set_client_type(msg.client_type());
     msg2.set_client_ip(m_peer_ip);
 	msg2.set_client_version(m_client_version);
+	msg2.set_online_status(IM::BaseDefine::UserStatType(m_online_status));
+	msg2.set_msg_server_id(g_nMsgServer_Id);
+	msg2.set_cur_time(time(NULL));
 
 	msg2.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
 	CImPdu pdu;
@@ -559,7 +575,7 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleLoginOutRequest(CImPdu *pPdu)
 {
-/*
+
 	log("HandleLoginOutRequest, user_id=%d, client_type=%u. ", GetUserId(), GetClientType());
 	CDBServConn* pDBConn = get_db_serv_conn();
 	if (pDBConn)
@@ -584,7 +600,7 @@ void CMsgConn::_HandleLoginOutRequest(CImPdu *pPdu)
 	pdu2.SetSeqNum(pPdu->GetSeqNum());
 	SendPdu(&pdu2);
 	Close();
-	*/
+	
 }
 
 void CMsgConn::_HandleKickPCClient(CImPdu *pPdu)
@@ -716,6 +732,9 @@ void CMsgConn::_HandleClientMsgData(CImPdu* pPdu)
 		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST \
 		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT \
 		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_USER_CHECK \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT \
+		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL \
 		|| msg_type == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
 	{
 		CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_session_id);
@@ -729,25 +748,43 @@ void CMsgConn::_HandleClientMsgData(CImPdu* pPdu)
 		{
 			pRouteConn->SendPdu(pPdu);
 		}
+		else
+			log("pRouteConn is NULL!!!");
 	
 		CDBServConn* pDbConn = get_db_serv_conn_for_push();
 		if (pDbConn)
 		{
 			pDbConn->SendPdu(pPdu);
+
+			//ack
+			IM::Message::IMMsgDataAck msg2;
+			msg2.set_user_id(from_user_id);
+			msg2.set_msg_id(msg_id);
+			msg2.set_session_id(to_session_id);
+			msg2.set_session_type(::IM::BaseDefine::SESSION_TYPE_SINGLE);
+			msg2.set_is_black(msg.is_black());
+			CImPdu pdu;
+			pdu.SetPBMsg(&msg2);
+			pdu.SetServiceId(DFFX_SID_MSG);
+			pdu.SetCommandId(DFFX_CID_MSG_DATA_ACK);
+			pdu.SetSeqNum(pPdu->GetSeqNum());
+			SendPdu(&pdu);
+
+			//push_server
+			CPduAttachData attach_data2(ATTACH_TYPE_PDU_FOR_PUSH_MSG, 0, pPdu->GetBodyLength(), pPdu->GetBodyData());
+			
+			IM::Server::IMGetDeviceTokenReq msg3;
+			msg3.add_user_id(to_session_id);
+			msg.clear_attach_data();
+			msg3.set_attach_data( attach_data2.GetBuffer(), attach_data2.GetLength());
+			CImPdu pdu2;
+			pdu2.SetPBMsg(&msg3);
+			pdu2.SetServiceId(DFFX_SID_OTHER);
+			pdu2.SetCommandId(DFFX_CID_OTHER_GET_DEVICE_TOKEN_REQ);
+			pDbConn->SendPdu(&pdu2);
 		}
-	
-		IM::Message::IMMsgDataAck msg2;
-		msg2.set_user_id(from_user_id);
-		msg2.set_msg_id(msg_id);
-		msg2.set_session_id(to_session_id);
-		msg2.set_session_type(::IM::BaseDefine::SESSION_TYPE_SINGLE);
-		msg2.set_is_black(msg.is_black());
-		CImPdu pdu;
-		pdu.SetPBMsg(&msg2);
-		pdu.SetServiceId(DFFX_SID_MSG);
-		pdu.SetCommandId(DFFX_CID_MSG_DATA_ACK);
-		pdu.SetSeqNum(pPdu->GetSeqNum());
-		SendPdu(&pdu);
+		else
+			log("pDbConn is NULL!!!");
 
 	}
 	else
@@ -758,7 +795,40 @@ void CMsgConn::_HandleClientMsgData(CImPdu* pPdu)
 		{
 			pDbConn->SendPdu(pPdu);
 		}
+		else
+			log("pDbConn is NULL!!!");
 	}
+}
+
+void CMsgConn::_HanddleClientOrderStatusReadMsg(CImPdu* pPdu)
+{
+	IM::Message::IMOrderStatusRead msg;
+	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+
+	msg.set_user_id(GetUserId());
+	uint32_t user_id = msg.user_id();
+	uint32_t order_id = msg.order_id();
+/*
+	CImPdu pdu;	
+	pdu.SetPBMsg(&msg);	
+	pdu.SetServiceId(DFFX_SID_MSG);	
+	pdu.SetCommandId(DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST);
+	CImUser* pUser = CImUserManager::GetInstance()->GetImUserById(GetUserId());
+	if (pUser)	
+	{		
+		pUser->BroadcastPdu(&pdu, this);
+	}
+*/
+	// send to DB storage server
+	CDBServConn* pDbConn = get_db_serv_conn();
+	if (pDbConn)
+	{
+		log("CDBServConn   user_id = %d order_id = %d orderlist_is_null = %d", user_id, order_id, msg.orderlist_is_null());
+		pDbConn->SendPdu(pPdu);
+	}
+	else
+		log("pDbConn is NULL!!!");
+
 }
 
 void CMsgConn::_HandleClientMsgDataAck(CImPdu* pPdu)
@@ -1112,7 +1182,7 @@ void CMsgConn::_HandleClientAddFriendRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientAddFriendRequest, user_id=%u to_user_id=%u ", GetUserId(), msg.to_user_id());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1143,7 +1213,7 @@ void CMsgConn::_HandleClientReverseAddFriendRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientReverseAddFriendRequest, user_id=%u to_user_id=%u ", GetUserId(), msg.to_user_id());
 	CDBServConn* pDBConn = get_db_serv_conn();
 	if (pDBConn)
@@ -1183,7 +1253,7 @@ void CMsgConn::_HandleClientDelFriendRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientDelFriendRequest, user_id=%u del_user_id=%u ", GetUserId(), msg.del_user_id());
 	CDBServConn* pDBConn = get_db_serv_conn();
 	if (pDBConn)
@@ -1206,7 +1276,7 @@ void CMsgConn::_HandleClientChgFriendmarkRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientChgFriendmarkRequest, user_id=%u friend_id=%u friend_nick=%s", GetUserId() \
 		, msg.friend_id(), msg.friend_nick().c_str());
 	
@@ -1229,7 +1299,7 @@ void CMsgConn::_HandleClientAddFriendGroupRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientAddFriendGroupRequest, user_id=%u group_name=%s", GetUserId(), msg.group_name().c_str());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1251,7 +1321,7 @@ void CMsgConn::_HandleClientDelFriendGroupRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientDelFriendGroupRequest, user_id=%u group_id=%u ", GetUserId(), msg.group_id());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1274,7 +1344,7 @@ void CMsgConn::_HandleClientMoveFrinedGroupRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientMoveFrinedGroupRequest, user_id=%u group_id=%u friendCnt=%d", GetUserId() \
 		, msg.group_id(), msg.friend_id_list().size());
 	
@@ -1298,7 +1368,7 @@ void CMsgConn::_HandleClientChgFriendGroupRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientChgFriendGroupRequest, user_id=%u group_id=%u group_name=%s ", GetUserId(), msg.group_id(), msg.group_name().c_str());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1320,7 +1390,7 @@ void CMsgConn::_HandleClientGetAddFriendRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientGetAddFriendRequest, user_id=%u ", GetUserId());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1341,7 +1411,7 @@ void CMsgConn::_HandleClientFindUserInfoRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log("_HandleClientFindUserInfoRequest, user_id=%u find_string=%s ", GetUserId(), msg.find_string().c_str());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1361,7 +1431,7 @@ void CMsgConn::_HandleClientCleanMsgListRequest(CImPdu* pPdu)
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
-	//todo 1.send msg to db
+	// 1.send msg to db
 	log(" user_id=%u session_id=%u session_type=%u ", GetUserId(), msg.session_id(), msg.session_type());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();

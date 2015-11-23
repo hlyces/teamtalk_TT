@@ -99,6 +99,9 @@ enum MessageCmdID{
 	
 	DFFX_CID_MSG_CLEAN_MSGLIST_REQ       = 0x030f;	// 清空聊天记录请求
     DFFX_CID_MSG_CLEAN_MSGLIST_RES       = 0x0310;  // 清空聊天记录应答
+	
+	DFFX_CID_MSG_ORDERSTATUS_READ		 	= 0x0311; //订单已读消息
+	DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST = 0x0312; //订单已读广播
 }
 
 // command id for group message                     //暂时不用
@@ -169,6 +172,8 @@ enum InternalCmdId{
 	
 	DFFX_CID_OTHER_GETFRIENDSID_REQ       		  = 0x0817;	//获取所有好友的id,(服务器内部消息)
 	DFFX_CID_OTHER_GETFRIENDSID_RES         	  = 0x0818; //
+	
+	DFFX_CID_OTHER_MSGSRVRESTART_NOTIFY          = 0x0819; //msg_server重启
 }
 
 //订单推送消息状态码
@@ -183,6 +188,11 @@ enum OrderMsgStatus{
 	TOPUP_FAILED			= 7; //充值失败通知客户端（包括律师端与公众端）
 	WITHDRAWAL_SUCCESS		= 8; //提现成功通知客户端（包括律师端与公众端）
 	WITHDRAWAL_FAILED		= 9; //提现失败通知客户端（包括律师端与公众端）
+	CHECK_SUCCESS	 		= 10; //用户信息认证通知客户端（包括律师端与公众端）
+	CHECK_FAILED			= 11; //用户信息认证失败通知客户端（包括律师端与公众端）
+	USER_CANCEL				= 12; //用户撤销订单通知律师端
+	VALID_CANCEL			= 13; //过期撤销订单通知律师端
+	ORDER_COMPLETE			= 14; //订单完成通知律师端
 }
 
 
@@ -220,19 +230,23 @@ enum SessionType{
 }
 
 enum MsgType{						//消息类型： 单聊文本，单聊音频，群聊文本，群聊音频
-	MSG_TYPE_SINGLE_TEXT    = 0x01;
-    MSG_TYPE_SINGLE_AUDIO   = 0x02;
-    MSG_TYPE_GROUP_TEXT     = 0x11;
-    MSG_TYPE_GROUP_AUDIO    = 0x12;
-	MSG_TYPE_ORDER_PUSH		= 0x21; //推送给律师订单消息
-	MSG_TYPE_ORDER_GRAB		= 0x22;	//推送给客户，律师的抢单状况
-	MSG_TYPE_ORDER_RESULT	= 0x23;	//通知律师抢单结果
-	MSG_TYPE_ORDER_ENTRUST	= 0x24; //订单委托
-	MSG_TYPE_ORDER_ACCEPT	= 0x25;	//订单受理
-	MSG_TYPE_ORDER_CANCEL	= 0x26; //订单取消
-	MSG_TYPE_TOPUP_WITHDRAWAL = 0X27; //推送提现或充值消息给用户
+	MSG_TYPE_SINGLE_TEXT  		= 0x01;
+    MSG_TYPE_SINGLE_AUDIO 		= 0x02;
+    MSG_TYPE_GROUP_TEXT  		= 0x11;
+    MSG_TYPE_GROUP_AUDIO 		= 0x12;
+	MSG_TYPE_ORDER_PUSH			= 0x21; //推送给律师订单消息
+	MSG_TYPE_ORDER_GRAB			= 0x22;	//推送给客户，律师的抢单状况
+	MSG_TYPE_ORDER_RESULT		= 0x23;	//通知律师抢单结果
+	MSG_TYPE_ORDER_ENTRUST		= 0x24; //订单委托
+	MSG_TYPE_ORDER_ACCEPT		= 0x25;	//委托订单受理
+	MSG_TYPE_ORDER_CANCEL		= 0x26; //委托订单取消
+	MSG_TYPE_TOPUP_WITHDRAWAL	= 0X27; //推送提现或充值消息给用户
+	MSG_TYPE_USER_CHECK			= 0X28; //用户身份认证消息
+	MSG_TYPE_ORDER_WAITPAYMENT	= 0x29; //订单等待付款通知客户端
+	MSG_TYPE_ORDER_ALLCANCEL	= 0x2a;	//通知律师端所有的撤销订单（包括过期撤销与用户撤销）
+	MSG_TYPE_ORDER_COMPLETE		= 0X2b; //订单完成通知律师端	
 	MSG_TYPE_LOCATION_SHARING	= 0x31;	//位置分享消息
-	MSG_TYPE_FILE_TRANSFER	= 0x32;	//文件消息
+	MSG_TYPE_FILE_TRANSFER		= 0x32;	//文件消息
 
 }
 

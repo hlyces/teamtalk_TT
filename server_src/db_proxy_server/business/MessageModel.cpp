@@ -222,7 +222,7 @@ void CMessageModel::getUnreadMsgCount(uint32_t nUserId, uint32_t &nTotalCnt, lis
                 cUnreadInfo.set_session_type(IM::BaseDefine::SESSION_TYPE_SINGLE);
                 uint32_t nMsgId = 0;
                 string strMsgData;
-                IM::BaseDefine::MsgType nMsgType;
+                IM::BaseDefine::MsgType nMsgType = IM::BaseDefine::MsgType(0);
 				uint32_t nCreateTime = 0;
                 getLastMsg(cUnreadInfo.session_id(), nUserId, nMsgId, strMsgData, nMsgType, nCreateTime);
                 if(IM::BaseDefine::MsgType_IsValid(nMsgType))

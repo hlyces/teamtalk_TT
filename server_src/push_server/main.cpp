@@ -11,7 +11,9 @@
 #include "timer/Timer.hpp"
 #include <sys/signal.h>
 #include "version.h"
+#include "util.h"
 
+/*
 void writePid()
 {
     uint32_t curPid;
@@ -27,7 +29,7 @@ void writePid()
     fwrite(szPid, strlen(szPid), 1, f);
     fclose(f);
 }
-
+*/
 
 int main(int argc, const char * argv[]) {
     // insert code here...

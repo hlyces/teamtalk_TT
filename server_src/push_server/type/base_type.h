@@ -37,8 +37,10 @@ typedef int				socklen_t;
 #else
 typedef unsigned char	uchar_t;
 typedef int BOOL;
-const int TRUE = 1;
-const int FALSE = 0;
+
+
+#define TRUE 1
+#define FALSE 0
 
 #ifndef NULL
 #define NULL 0

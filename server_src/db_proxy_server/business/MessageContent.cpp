@@ -182,6 +182,9 @@ namespace DB_PROXY
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
 							|| nMsgType== IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL
+							|| nMsgType== IM::BaseDefine::MSG_TYPE_USER_CHECK
+							|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT
+							|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_LOCATION_SHARING
 					        || nMsgType== IM::BaseDefine::MSG_TYPE_FILE_TRANSFER)
 					{
@@ -220,7 +223,8 @@ namespace DB_PROXY
 									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_RESULT
 									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
 									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL)
+									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
+									   || nMsgType== IM::BaseDefine::MSG_TYPE_USER_CHECK)
 									{
 										CacheConn* pCacheConn = NULL;
 										CAutoCache autoCache( "login_token", &pCacheConn);
@@ -327,8 +331,11 @@ namespace DB_PROXY
 					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_RESULT
 					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
 					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_CANCEL)
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_USER_CHECK
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL
+					   && nMsgType != IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
 					{
 						msg.set_msg_id(nMsgId);
 						pPduResp->SetPBMsg(&msg);

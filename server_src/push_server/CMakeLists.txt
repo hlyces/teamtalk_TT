@@ -18,7 +18,7 @@ ADD_DEFINITIONS( -g -W -Wall -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DAC_HAS_INFO
 -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL
 -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11)
 
-INCLUDE_DIRECTORIES(./ ../base ../base/pb/protocol ../base/pb ../base/slog)
+INCLUDE_DIRECTORIES(./ ../base ../base/pb/protocol ../base/jsoncpp/ ../base/pb ../base/slog)
 LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/ ${CMAKE_CURRENT_SOURCE_DIR}/../base ${PB_LIB_DIR} 
 ${CMAKE_CURRENT_SOURCE_DIR}/../base/slog/lib)
 
@@ -27,4 +27,4 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../base/slog/lib)
 # ${SRC_LIST3}
 ADD_EXECUTABLE(push_server ${SRC_LIST1} ${SRC_LIST2})
 
-TARGET_LINK_LIBRARIES(push_server pthread base protobuf-lite ssl slog)
+TARGET_LINK_LIBRARIES(push_server pthread base protobuf-lite ssl slog crypto curl)

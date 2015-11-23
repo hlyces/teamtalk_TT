@@ -462,6 +462,8 @@ int CHttpConn::Send(void* data, int len)
 
 void CHttpConn::Close()
 {
+	log("CHttpConn close, from m_conn_handle=%d m_sock_handle=%d", m_conn_handle, m_sock_handle);
+
     m_state = CONN_STATE_CLOSED;
 
     g_http_conn_map.erase(m_conn_handle);
@@ -600,6 +602,7 @@ void CHttpConn::OnWrite()
 
 void CHttpConn::OnClose()
 {
+	log("CHttpConn onclose, from m_conn_handle=%d ", m_conn_handle);
     Close();
 }
 
@@ -607,7 +610,7 @@ void CHttpConn::OnTimer(uint64_t curr_tick)
 {
     if (curr_tick > m_last_recv_tick + HTTP_CONN_TIMEOUT)
     {
-        log("HttpConn timeout, handle=%d", m_conn_handle);
+        log("HttpConn timeout, m_conn_handle=%d", m_conn_handle);
         Close();
     }
 }
@@ -655,5 +658,6 @@ void CHttpConn::SendResponsePduList()
 
 void CHttpConn::OnSendComplete()
 {
+	log("OnSendComplete");
     Close();
 }

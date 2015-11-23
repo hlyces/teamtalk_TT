@@ -62,7 +62,7 @@ void CClient::connect()
         PROMPTION;
         return;
     }
-    Json::Reader reader;
+    Json::Reader reader(Json::Features::strictMode());
     Json::Value value;
     if(!reader.parse(strResp, value))
     {
@@ -311,6 +311,12 @@ uint32_t CClient::cleanMsg( uint32_t session_id)
 	return g_pConn->cleanMsg(nFromId, session_id);
 }
 
+uint32_t CClient::orderStatusRead(uint32_t order_id)
+{
+	uint32_t nFromId = m_cSelfInfo.user_id();
+	log("user_id = %d", nFromId);
+	return g_pConn->orderStatusRead(nFromId, order_id);
+}
 
 uint32_t CClient::getFriendGroup()
 {

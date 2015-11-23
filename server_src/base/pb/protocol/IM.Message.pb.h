@@ -44,6 +44,7 @@ class IMGetMsgListReq;
 class IMGetMsgListRsp;
 class IMCleanMsgListReq;
 class IMCleanMsgListRsp;
+class IMOrderStatusRead;
 
 // ===================================================================
 
@@ -1310,6 +1311,132 @@ class IMCleanMsgListRsp : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static IMCleanMsgListRsp* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IMOrderStatusRead : public ::google::protobuf::MessageLite {
+ public:
+  IMOrderStatusRead();
+  virtual ~IMOrderStatusRead();
+
+  IMOrderStatusRead(const IMOrderStatusRead& from);
+
+  inline IMOrderStatusRead& operator=(const IMOrderStatusRead& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMOrderStatusRead& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMOrderStatusRead* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMOrderStatusRead* other);
+
+  // implements Message ----------------------------------------------
+
+  IMOrderStatusRead* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMOrderStatusRead& from);
+  void MergeFrom(const IMOrderStatusRead& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 user_id = 1;
+  inline bool has_user_id() const;
+  inline void clear_user_id();
+  static const int kUserIdFieldNumber = 1;
+  inline ::google::protobuf::uint32 user_id() const;
+  inline void set_user_id(::google::protobuf::uint32 value);
+
+  // required uint32 order_id = 2;
+  inline bool has_order_id() const;
+  inline void clear_order_id();
+  static const int kOrderIdFieldNumber = 2;
+  inline ::google::protobuf::uint32 order_id() const;
+  inline void set_order_id(::google::protobuf::uint32 value);
+
+  // required uint32 orderlist_is_null = 3;
+  inline bool has_orderlist_is_null() const;
+  inline void clear_orderlist_is_null();
+  static const int kOrderlistIsNullFieldNumber = 3;
+  inline ::google::protobuf::uint32 orderlist_is_null() const;
+  inline void set_orderlist_is_null(::google::protobuf::uint32 value);
+
+  // optional bytes attach_data = 20;
+  inline bool has_attach_data() const;
+  inline void clear_attach_data();
+  static const int kAttachDataFieldNumber = 20;
+  inline const ::std::string& attach_data() const;
+  inline void set_attach_data(const ::std::string& value);
+  inline void set_attach_data(const char* value);
+  inline void set_attach_data(const void* value, size_t size);
+  inline ::std::string* mutable_attach_data();
+  inline ::std::string* release_attach_data();
+  inline void set_allocated_attach_data(::std::string* attach_data);
+
+  // @@protoc_insertion_point(class_scope:IM.Message.IMOrderStatusRead)
+ private:
+  inline void set_has_user_id();
+  inline void clear_has_user_id();
+  inline void set_has_order_id();
+  inline void clear_has_order_id();
+  inline void set_has_orderlist_is_null();
+  inline void clear_has_orderlist_is_null();
+  inline void set_has_attach_data();
+  inline void clear_has_attach_data();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 user_id_;
+  ::google::protobuf::uint32 order_id_;
+  ::std::string* attach_data_;
+  ::google::protobuf::uint32 orderlist_is_null_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eMessage_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eMessage_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eMessage_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eMessage_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMOrderStatusRead* default_instance_;
 };
 // ===================================================================
 
@@ -2770,6 +2897,158 @@ inline void IMCleanMsgListRsp::set_allocated_attach_data(::std::string* attach_d
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Message.IMCleanMsgListRsp.attach_data)
+}
+
+// -------------------------------------------------------------------
+
+// IMOrderStatusRead
+
+// required uint32 user_id = 1;
+inline bool IMOrderStatusRead::has_user_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IMOrderStatusRead::set_has_user_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IMOrderStatusRead::clear_has_user_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IMOrderStatusRead::clear_user_id() {
+  user_id_ = 0u;
+  clear_has_user_id();
+}
+inline ::google::protobuf::uint32 IMOrderStatusRead::user_id() const {
+  // @@protoc_insertion_point(field_get:IM.Message.IMOrderStatusRead.user_id)
+  return user_id_;
+}
+inline void IMOrderStatusRead::set_user_id(::google::protobuf::uint32 value) {
+  set_has_user_id();
+  user_id_ = value;
+  // @@protoc_insertion_point(field_set:IM.Message.IMOrderStatusRead.user_id)
+}
+
+// required uint32 order_id = 2;
+inline bool IMOrderStatusRead::has_order_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IMOrderStatusRead::set_has_order_id() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IMOrderStatusRead::clear_has_order_id() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IMOrderStatusRead::clear_order_id() {
+  order_id_ = 0u;
+  clear_has_order_id();
+}
+inline ::google::protobuf::uint32 IMOrderStatusRead::order_id() const {
+  // @@protoc_insertion_point(field_get:IM.Message.IMOrderStatusRead.order_id)
+  return order_id_;
+}
+inline void IMOrderStatusRead::set_order_id(::google::protobuf::uint32 value) {
+  set_has_order_id();
+  order_id_ = value;
+  // @@protoc_insertion_point(field_set:IM.Message.IMOrderStatusRead.order_id)
+}
+
+// required uint32 orderlist_is_null = 3;
+inline bool IMOrderStatusRead::has_orderlist_is_null() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void IMOrderStatusRead::set_has_orderlist_is_null() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void IMOrderStatusRead::clear_has_orderlist_is_null() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void IMOrderStatusRead::clear_orderlist_is_null() {
+  orderlist_is_null_ = 0u;
+  clear_has_orderlist_is_null();
+}
+inline ::google::protobuf::uint32 IMOrderStatusRead::orderlist_is_null() const {
+  // @@protoc_insertion_point(field_get:IM.Message.IMOrderStatusRead.orderlist_is_null)
+  return orderlist_is_null_;
+}
+inline void IMOrderStatusRead::set_orderlist_is_null(::google::protobuf::uint32 value) {
+  set_has_orderlist_is_null();
+  orderlist_is_null_ = value;
+  // @@protoc_insertion_point(field_set:IM.Message.IMOrderStatusRead.orderlist_is_null)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMOrderStatusRead::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void IMOrderStatusRead::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void IMOrderStatusRead::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void IMOrderStatusRead::clear_attach_data() {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_->clear();
+  }
+  clear_has_attach_data();
+}
+inline const ::std::string& IMOrderStatusRead::attach_data() const {
+  // @@protoc_insertion_point(field_get:IM.Message.IMOrderStatusRead.attach_data)
+  return *attach_data_;
+}
+inline void IMOrderStatusRead::set_attach_data(const ::std::string& value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Message.IMOrderStatusRead.attach_data)
+}
+inline void IMOrderStatusRead::set_attach_data(const char* value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Message.IMOrderStatusRead.attach_data)
+}
+inline void IMOrderStatusRead::set_attach_data(const void* value, size_t size) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Message.IMOrderStatusRead.attach_data)
+}
+inline ::std::string* IMOrderStatusRead::mutable_attach_data() {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Message.IMOrderStatusRead.attach_data)
+  return attach_data_;
+}
+inline ::std::string* IMOrderStatusRead::release_attach_data() {
+  clear_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = attach_data_;
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMOrderStatusRead::set_allocated_attach_data(::std::string* attach_data) {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
+  }
+  if (attach_data) {
+    set_has_attach_data();
+    attach_data_ = attach_data;
+  } else {
+    clear_has_attach_data();
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Message.IMOrderStatusRead.attach_data)
 }
 
 

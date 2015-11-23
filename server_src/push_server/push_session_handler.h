@@ -13,6 +13,11 @@
 #include "socket/base_handler.hpp"
 #include "pdu_msg.h"
 
+#include "HttpClient.h"
+#include "EncDec.h"
+#include "json/json.h"
+
+
 class CPushSessionHandler : public CBaseHandler
 {
 public:
@@ -28,6 +33,7 @@ public:
 private:
     void _HandlePushMsg(const char* szBuf, int32_t nBufSize);
     void _HandleHeartBeat(const char* szBuf, int32_t nBufSize);
+	string _SignUmeng(const string& method,const string& url,const string& post_body,const string& app_master_secret);
 private:
     uint64_t m_NotificationID;
     CPduMsg m_Msg;

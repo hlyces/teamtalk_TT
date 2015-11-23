@@ -133,7 +133,8 @@ private:
 
 	void _HandleClientCleanMsgListRequest(CImPdu* pPdu);
 
-
+	void _HanddleClientOrderStatusReadMsg(CImPdu* pPdu);
+	
 
 private:
 	string          m_login_name;        //登录名拼音

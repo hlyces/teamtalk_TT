@@ -121,12 +121,16 @@ void CHandlerMap::Init()
 	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_BUDDY_LIST_STATUS_NOTIFY), DB_PROXY::notifyUserStatus));
 	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_OTHER_GETFRIENDSID_REQ), DB_PROXY::getFriendsidReq));
 	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_OTHER_USER_STATUS_UPDATE), DB_PROXY::userStatusUpdate));
+	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_OTHER_MSGSRVRESTART_NOTIFY), DB_PROXY::msgServerRestart));
 	
 
 	//handle file
 	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_FILE_HAS_OFFLINE_REQ), DB_PROXY::hasOfflineFile));
 	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_FILE_ADD_OFFLINE_REQ), DB_PROXY::addOfflineFile));
 	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_FILE_DEL_OFFLINE_REQ), DB_PROXY::delOfflineFile)); 
+
+	//handle order status read
+	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_MSG_ORDERSTATUS_READ), DB_PROXY::orderstatusread));
 }
    
 

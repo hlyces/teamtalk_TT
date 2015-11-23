@@ -125,6 +125,8 @@ int CHttpConn::Send(void* data, int len)
 
 void CHttpConn::Close()
 {
+	log("http server  conn onclose, from m_conn_handle=%d ", m_conn_handle);
+	
     if (m_state != CONN_STATE_CLOSED) {
         m_state = CONN_STATE_CLOSED;
         

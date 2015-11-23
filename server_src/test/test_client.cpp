@@ -290,6 +290,12 @@ void exec_cmd()
 
 		printf("cleanMsg had sent\n");
 	}
+	else if(strcmp(g_cmd_string[0].c_str(), "orderStatus") == 0)
+	{
+		g_pClient->orderStatusRead(string2int(g_cmd_string[1].c_str()));
+
+		printf("orderStatusRead had sent\n");
+	}
     else {
 		print_help();
 	}

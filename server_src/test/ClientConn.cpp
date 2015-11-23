@@ -800,6 +800,9 @@ void ClientConn::_HandleMsgData(CImPdu* pPdu)
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_USER_CHECK 
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
         {
             nSessionType = IM::BaseDefine::SESSION_TYPE_SINGLE;
@@ -1193,6 +1196,24 @@ uint32_t ClientConn::cleanMsg(uint32_t from_user_id, uint32_t session_id)
 	SendPdu(&cPdu);
 	return nSeqNo;
 
+}
+
+uint32_t ClientConn::orderStatusRead(uint32_t from_user_id, uint32_t order_id)
+{
+	CImPdu cPdu;
+	IM::Message::IMOrderStatusRead msg;
+	msg.set_user_id(from_user_id);
+	msg.set_order_id(order_id);
+	msg.set_orderlist_is_null(2);
+	log("user_id = %d order_id=%d ", from_user_id, order_id);
+	
+	cPdu.SetPBMsg(&msg);
+	cPdu.SetServiceId(IM::BaseDefine::DFFX_SID_MSG);
+	cPdu.SetCommandId(IM::BaseDefine::DFFX_CID_MSG_ORDERSTATUS_READ);
+	uint32_t nSeqNo = m_pSeqAlloctor->getSeq(ALLOCTOR_PACKET);
+	cPdu.SetSeqNum(nSeqNo);
+	SendPdu(&cPdu);
+	return nSeqNo;	
 }
 
 uint32_t ClientConn::getFriendGroup(uint32_t from_user_id)

@@ -18,6 +18,7 @@
 #include "UserModel.h"
 #include "IM.Buddy.pb.h"
 #include "IM.BaseDefine.pb.h"
+#include "IM.Message.pb.h"
 
 #include "../AutoPool.h"
 #include "IM.Server.pb.h"
@@ -194,7 +195,7 @@ namespace DB_PROXY
 
 			if(!result)
 			{
-				//todo 2.send req to myfriend
+				// 2.send req to myfriend
 				msg.clear_friend_groupid();
 				msg.clear_friend_remark();
 				CImPdu* pPduReq = new CImPdu;
@@ -248,7 +249,7 @@ namespace DB_PROXY
 
 			if(!result && friendres_status_type!=IM::BaseDefine::FRIENDRES_STATUS_IGNORE)
 			{
-				//todo 2.send notify to myfriend
+				// 2.send notify to myfriend
 				CImPdu* pPduNotify = new CImPdu;
 
 				msgNotify.set_from_user_id(msg.from_user_id());
@@ -289,7 +290,7 @@ namespace DB_PROXY
 
 			log("fromUserId=%u, toDelUserId=%d", from_user_id, to_user_id);
 
-			//todo 1.send ack back
+			// 1.send ack back
 			msgResp.set_user_id(from_user_id);
 			msgResp.set_result_code(result);
 			msgResp.set_friend_id(to_user_id);
@@ -321,7 +322,7 @@ namespace DB_PROXY
 			log("from_user_id=%u, to_user_id=%d  friend_nick = %s", from_user_id, to_user_id, friend_nick.c_str());
 
 			CImPdu* pPduRes = new CImPdu;
-			//todo 1.send ack back
+			// 1.send ack back
 			msgResp.set_user_id(from_user_id);
 			msgResp.set_result_code(result);
 			msgResp.set_friend_id(to_user_id);
@@ -404,7 +405,7 @@ namespace DB_PROXY
 				result = 1;
 			log("delete friend froup:::UserId=%u, groupId=%d ", from_user_id, group_id);
 
-			//todo resp
+			// resp
 			msgResp.set_user_id(from_user_id);
 			msgResp.set_result_code(result);
 			msgResp.set_attach_data(msg.attach_data());
@@ -439,7 +440,7 @@ namespace DB_PROXY
 				result = 1;
 			log("move friend froup:::UserId=%u, groupId=%d ", from_user_id, group_id);
 
-			//todo resp
+			// resp
 			msgResp.set_user_id(from_user_id);
 			msgResp.set_result_code(result);
 			msgResp.set_attach_data(msg.attach_data());
@@ -471,7 +472,7 @@ namespace DB_PROXY
 				result = 1;
 			log("chgFriendGroupName:::UserId=%u, groupId=%d ", from_user_id, group_id);
 
-			//todo resp
+			// resp
 			msgResp.set_user_id(from_user_id);
 			msgResp.set_result_code(result);
 			msgResp.set_attach_data(msg.attach_data());
@@ -670,7 +671,7 @@ namespace DB_PROXY
 	}
 
 	void userStatusUpdate(CImPdu* pPdu, uint32_t conn_uuid)
-	{
+	{		
 		IM::Server::IMUserStatusUpdate msg;
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
@@ -684,6 +685,15 @@ namespace DB_PROXY
 			if(status!=IM::BaseDefine::USER_STATUS_OFFLINE
 			   || user_uid < 10000)
 				return;
+			
+			// .. update
+			//pc_status,mobile_status,pc_msgserver_id,mobile_msgserver_id,pc_logintime,mobile_logintime
+			uint32_t msg_server_id = msg.msg_server_id();
+			uint32_t cur_time = msg.cur_time();
+			if( !CUserModel::getInstance()->updateUserStatus( user_uid, (int)status, msg_server_id, (int)client_type, cur_time))
+			{
+				log("!!!error:status=%d msg_server_id:%d cur_time:%d", (int)status, msg_server_id, cur_time);			
+			}
 
 			//
 			CacheConn* pCacheConn = NULL;
@@ -712,6 +722,59 @@ namespace DB_PROXY
 		{
 			log("parse pb failed");
 		}
+	}
+
+	void msgServerRestart(CImPdu* pPdu, uint32_t conn_uuid)
+	{		
+		IM::Server::IMMsgServerRestartNotify msg;
+		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
+		{
+			uint32_t oprt_status = msg.oprt_status();
+			uint32_t msg_server_id = msg.msg_server_id();
+			uint32_t cur_time = msg.cur_time();			
+
+			log("oprt_status=%d msg_server_id:%d cur_time:%d", oprt_status, msg_server_id, cur_time);
+			
+			if( !CUserModel::getInstance()->msgServerRestart(msg_server_id, cur_time))
+			{
+				log("!!!error:oprt_status=%d msg_server_id:%d cur_time:%d", oprt_status, msg_server_id, cur_time);			
+			}
+		}
+		else
+		{
+			log("parse pb failed");
+		}
+	}
+
+	void orderstatusread(CImPdu* pPdu, uint32_t conn_uuid)
+	{
+		IM::Message::IMOrderStatusRead msg;
+		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
+		{
+			uint32_t user_id = msg.user_id();
+			uint32_t order_id = msg.order_id();		
+			bool	 is_null;
+		//	log("user_id=%d order_id:%d ", user_id, order_id);
+			
+			if( !CUserModel::getInstance()->orderstatusread(user_id, order_id, is_null))
+			{
+				log("!!!error:user_id=%d order_id:%d ", user_id, order_id, is_null);			
+			}
+
+			msg.set_orderlist_is_null(is_null);
+		}
+		else
+		{
+			log("parse pb failed");
+		}
+		 log("   user_id = %d order_id = %d orderlist_is_null = %d", msg.user_id(), msg.order_id(), msg.orderlist_is_null());
+		
+		CImPdu* pPduRes = new CImPdu;
+		pPduRes->SetPBMsg(&msg);
+		pPduRes->SetSeqNum(pPdu->GetSeqNum());
+		pPduRes->SetServiceId(IM::BaseDefine::DFFX_SID_MSG);
+		pPduRes->SetCommandId(IM::BaseDefine::DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST);
+		CProxyConn::AddResponsePdu(conn_uuid, pPduRes);
 	}
 };
 

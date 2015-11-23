@@ -43,6 +43,10 @@ namespace DB_PROXY {
 	void getFriendsidReq(CImPdu* pPdu, uint32_t conn_uuid);
 	void userStatusUpdate(CImPdu* pPdu, uint32_t conn_uuid);
 
+	void msgServerRestart(CImPdu* pPdu, uint32_t conn_uuid);
+
+	void orderstatusread(CImPdu* pPdu, uint32_t conn_uuid);
+
 };
 
 

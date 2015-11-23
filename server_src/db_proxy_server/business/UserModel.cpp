@@ -168,7 +168,7 @@ void CUserModel::getFriendsList(uint32_t& nLastTime, uint32_t user_id, list<IM::
     CDBConn* pDBConn = pDBManager->GetDBConn("dffxIMDB_slave");
     if (pDBConn)
     {   
-    	//todo if friend_groupid is wrong then update it to default 1
+    	// if friend_groupid is wrong then update it to default 1
 		string  strSql = "UPDATE IMFxUserRelationPrivate t1 SET friend_groupid = 1 WHERE t1.user_uid="+int2string(user_id)+\ 
 		" AND NOT EXISTS (SELECT t2.`group_id` FROM IMFxUserRelationGroup t2 WHERE t2.`group_id`=t1.`friend_groupid` AND t2.`user_uid`=t1.`user_uid`)";
 		
@@ -238,7 +238,7 @@ void CUserModel::getFriendsList(uint32_t& nLastTime, uint32_t user_id, list<IM::
 				}
             }
 
-			//todo delete the status=0,-1		
+			// delete the status=0,-1		
 			strSql = "DELETE FROM IMFxUserRelationPrivate WHERE (status=0 or status=-1) AND user_uid="+int2string(user_id);
 			pDBConn->ExecuteUpdate(strSql.c_str());
 			
@@ -1035,7 +1035,7 @@ bool CUserModel::delFriendGroup(IM::Buddy::IMDelFriendGroupReq& delGroup)
 			break;
         }
 
-		//todo default group 
+		// default group 
 		//SELECT group_id FROM IMFxUserRelationGroup WHERE flag=1 AND user_uid=7
 		
 		strSql = "update IMFxUserRelationPrivate set friend_groupid = 1 where friend_groupid= " \
@@ -1489,6 +1489,108 @@ bool CUserModel::isInBlackGroup(uint32_t nUserId, uint32_t nFriendId)
 	}
 
 	return bRet;
+}
+
+bool CUserModel::msgServerRestart(uint32_t msg_server_id, uint32_t cur_time)
+{
+	bool bRet = false;
+	
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_master");
+
+	if (pDBConn) 
+	{
+		//friend_groupid=0
+		string strSql = "UPDATE IMFxUser SET pc_status=2 WHERE pc_msgserver_id="+int2string(msg_server_id)\
+			+"  AND pc_logintime<"+int2string(cur_time)+" ;";			
+
+		log("strSql=%s", strSql.c_str());
+		
+		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
+
+		strSql = "UPDATE IMFxUser SET mobile_status=2 WHERE mobile_msgserver_id="\
+			+int2string(msg_server_id)+"  AND mobile_logintime<"+int2string(cur_time)+" ;";
+
+		log("strSql=%s", strSql.c_str());
+
+		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
+		
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffxIMDB_master");
+	}
+
+	return bRet;
+
+}
+bool CUserModel::updateUserStatus(uint32_t user_uid,uint32_t status,uint32_t msg_server_id,uint32_t client_type,uint32_t cur_time)
+{
+	bool bRet = false;
+	
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_master");
+
+	if (pDBConn) 
+	{
+		//friend_groupid=0
+		string strSql = "";
+
+		if(CHECK_CLIENT_TYPE_PC(client_type))
+		{
+			strSql = "UPDATE IMFxUser SET pc_status="+int2string(status)+", pc_msgserver_id="+int2string(msg_server_id)\
+				+"	, pc_logintime="+int2string(cur_time)+" WHERE user_uid="+int2string(user_uid)+";";
+		}
+		else
+		{
+			strSql = "UPDATE IMFxUser SET mobile_status="+int2string(status)+" , mobile_msgserver_id="\
+				+int2string(msg_server_id)+"  , mobile_logintime="+int2string(cur_time)+" WHERE user_uid="+int2string(user_uid)+";";
+		}
+
+		log("strSql=%s", strSql.c_str());
+		
+		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
+		
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffxIMDB_master");
+	}
+
+	return bRet;
+
+}
+
+
+bool CUserModel::orderstatusread(uint32_t user_id, uint32_t order_id, bool& is_null)
+{
+		bool bRet = false;
+		CacheConn* pCacheConn = NULL;	
+		CAutoCache autoCache( "unread", &pCacheConn);		
+		if(pCacheConn)	
+		{	
+			string strTableKey = "order_prompt_message_" + int2string(user_id);			
+			bRet = pCacheConn->hdel( strTableKey, int2string(order_id));		
+			if(bRet==-1)			
+			{			
+				log("redis set failed %s", strTableKey.c_str());	
+				return bRet;
+			}
+			bRet = true;
+			
+			int nRet = pCacheConn->isExists(strTableKey);
+			if(nRet == false)
+			{
+				is_null = 1;
+			}
+			else
+			{
+				is_null = 0;
+			}
+		}
+		return bRet;
 }
 
 

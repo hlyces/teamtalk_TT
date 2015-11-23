@@ -55,7 +55,10 @@ namespace DB_PROXY {
 					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_RESULT || \
 					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST || \
 					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT || \
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL ||
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL ||	\
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_USER_CHECK ||	\
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT ||	\
+					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL ||	\
 					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
 				{
 					continue;

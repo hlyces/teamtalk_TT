@@ -68,6 +68,9 @@ public:
 
 	uint32_t cleanMsg(uint32_t from_user_id, uint32_t session_id);
 
+	
+	uint32_t orderStatusRead(uint32_t from_user_id, uint32_t order_id);
+
 	uint32_t getFriendGroup(uint32_t from_user_id);
     
 public:

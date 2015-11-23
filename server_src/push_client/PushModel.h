@@ -53,6 +53,13 @@ typedef struct OrderEntrust{
 	string   msg_context;
 }OrderEntrust;
 
+typedef struct OrderStatusChg{
+	uint32_t id;
+	uint32_t msg_orderid;
+	uint32_t msg_lawyer;
+	uint32_t msg_user;
+	uint32_t msg_status;
+}OrderStatusChg;
 
 
 /*grab_status判断抢单的状态
@@ -80,6 +87,12 @@ typedef struct GrabRecord{
 	string	 grab_ordersn;
 	string   grab_context;
 }GrabRecord; 
+
+typedef struct CheckUser{
+	uint32_t check_id;
+	uint32_t check_userid;
+	uint16_t check_status;
+}CheckUser;
 
 
 //top-up withdrawal
@@ -158,6 +171,17 @@ enum LawyerSSex{
 	FEMALE	   = 2,
 };
 
+enum UserCheckResult{
+	CHECKSUCCESS = 0,
+	CHECKFAILED  = 1,
+};
+
+enum AllCancelOrComplete{
+	ValidCancel = -3,
+	UserCancel 	= -1,
+	Complete 	=  0,
+};
+
 class CPushModel {
 public:
 	virtual ~CPushModel();
@@ -186,6 +210,15 @@ public:
 	bool handleEntrustOrder(list<OrderEntrust >& lsOrderEntrust);
 	bool updateEntrustOrder(list<OrderEntrust > lsOrderEntrust);
 
+	//订单等待付款(律师申请付款)通知客户端
+	bool getWaitPayment(list<OrderStatusChg >& lsOrderStatusChg);
+	bool updateWaitPayment(list<OrderStatusChg > lsOrderStatusChg);
+
+	//订单撤销与完成通知律师端
+	bool getCancelOrCompleteTolawyer(list<OrderStatusChg >& lsOrderStatusChg);
+	bool updateCancelOrCompleteTolawyer(list<OrderStatusChg > lsOrderStatusChg);
+
+
 	//充值或提现状态消息推送
 	bool getTopUP_withDrawal(list<TopUP_withDrawal>& lsTopUP_withDrawal);
 	bool updateTopUP_withDrawal(list<TopUP_withDrawal> lsTopUP_withDrawal);
@@ -196,6 +229,10 @@ public:
 
 	//订单过期
 	void updateOrderExp();
+
+	//用户认证结果
+	bool getCheckUser(list<CheckUser>& lsCheckUser);
+	bool delCheckUser(list<CheckUser>& lsCheckUser);
 
 	//获取推送配置 dffx_common_skillpushtime;
 	void getPushConfig();

@@ -20,7 +20,7 @@
 #include "IM.Server.pb.h"
 #include "Base64.h"
 #include "InterLogin.h"
-
+#include "UserModel.h"
 
 
 CInterLoginStrategy g_loginStrategy;
@@ -136,6 +136,15 @@ void doLogin(CImPdu* pPdu, uint32_t conn_uuid)
                 g_loginStrategy.insertLogLogin( acctInfo, msg.client_type(), msg.client_ip());
 
 				g_loginStrategy.updateInviteRecord( acctInfo);
+
+				// .. update
+				//pc_status,mobile_status,pc_msgserver_id,mobile_msgserver_id,pc_logintime,mobile_logintime
+				if( !CUserModel::getInstance()->updateUserStatus( pUser->user_uid(), (int)msg.online_status()
+					, msg.msg_server_id(), (int)msg.client_type(), msg.cur_time()))
+				{
+					log("!!!error:user_uid=%d status=%d msg_server_id:%d cur_time:%d", pUser->user_uid()
+						, (int)msg.online_status(), msg.msg_server_id(), msg.cur_time());			
+				}
 			}
 			else
 			{

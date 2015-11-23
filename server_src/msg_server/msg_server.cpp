@@ -20,6 +20,10 @@
 
 CAes *pAes;
 
+int g_nMsgServer_Id = -1;
+bool g_bIsSendRestart_Notify = false;
+int g_nSendRestart_Time = time(NULL);
+
 // for client connect in
 void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
@@ -51,6 +55,17 @@ int main(int argc, char* argv[])
 
 	CConfigFileReader config_file("msgserver.conf");
 
+	char* msgserver_id = config_file.GetConfigName("MsgServerId");
+	if(!msgserver_id)
+	{
+		log("config file MsgServerId miss, exit... ");
+		return -1;
+	}
+	
+	g_nMsgServer_Id = atoi(msgserver_id);
+	g_bIsSendRestart_Notify = false;
+	g_nSendRestart_Time = time(NULL);
+	
 	char* listen_ip = config_file.GetConfigName("ListenIP");
 	char* str_listen_port = config_file.GetConfigName("ListenPort");
 	char* ip_addr1 = config_file.GetConfigName("IpAddr1");	// 电信IP
@@ -157,7 +172,7 @@ int main(int argc, char* argv[])
 	init_route_serv_conn(route_server_list, route_server_count);
 
 	//push_server
-	//init_push_serv_conn(push_server_list, push_server_count);
+	init_push_serv_conn(push_server_list, push_server_count);
 	printf("now enter the event loop...\n");
 
 	writePid();

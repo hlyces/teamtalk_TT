@@ -156,6 +156,7 @@ uint32_t ClientConn::sendMsgAck(uint32_t nUserId, uint32_t nPeerId, IM::BaseDefi
 
 void ClientConn::Close()
 {
+	log("clientconn close from handle = %d\n", m_handle);
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
 		g_client_conn_map.erase(m_handle);
@@ -279,6 +280,9 @@ void ClientConn::_HandleMsgData(CImPdu* pPdu)
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_USER_CHECK 
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT
+			|| nMsgType == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL
 			|| nMsgType== IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
         {
             nSessionType = IM::BaseDefine::SESSION_TYPE_SINGLE;

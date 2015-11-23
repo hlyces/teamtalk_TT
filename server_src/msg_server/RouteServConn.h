@@ -51,6 +51,8 @@ private:
 
 	void _HandleDBReverseAddFriendRes(CImPdu* pPdu);
 
+	void _HanddleClientOrderStatusReadMsgBraodcast(CImPdu* pPdu);
+
 private:
 	bool 		m_bOpen;
 	uint32_t	m_serv_idx;

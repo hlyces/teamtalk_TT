@@ -93,6 +93,7 @@ void CLoginConn::OnConnect2(net_handle_t handle, int conn_type)
 
 void CLoginConn::OnClose()
 {
+	log("login  conn onclose, from handle=%d ", m_handle);
 	Close();
 }
 

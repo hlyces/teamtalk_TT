@@ -374,7 +374,7 @@ void CGroupMessageModel::getUnreadMsgCount(uint32_t nUserId, uint32_t &nTotalCnt
                 nTotalCnt += nCount;
                 string strMsgData;
                 uint32_t nMsgId;
-                IM::BaseDefine::MsgType nType;
+                IM::BaseDefine::MsgType nType = IM::BaseDefine::MsgType(0);
                 uint32_t nFromId;
 				uint32_t nCreateTime = 0;
                 getLastMsg(nGroupId, nMsgId, strMsgData, nType, nFromId, nCreateTime);

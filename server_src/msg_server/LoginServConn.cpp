@@ -121,6 +121,7 @@ void CLoginServConn::Connect(const char* server_ip, uint16_t server_port, uint32
 
 void CLoginServConn::Close()
 {
+	log("CLoginServConn close, from handle=%d ", m_handle);
 	serv_reset<CLoginServConn>(g_login_server_list, g_login_server_count, m_serv_idx);
 
 	if (m_handle != NETLIB_INVALID_HANDLE)

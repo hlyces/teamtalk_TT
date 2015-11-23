@@ -188,6 +188,8 @@ bool MessageCmdID_IsValid(int value) {
     case 782:
     case 783:
     case 784:
+    case 785:
+    case 786:
       return true;
     default:
       return false;
@@ -275,6 +277,7 @@ bool InternalCmdId_IsValid(int value) {
     case 2070:
     case 2071:
     case 2072:
+    case 2073:
       return true;
     default:
       return false;
@@ -293,6 +296,11 @@ bool OrderMsgStatus_IsValid(int value) {
     case 7:
     case 8:
     case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
       return true;
     default:
       return false;
@@ -359,6 +367,10 @@ bool MsgType_IsValid(int value) {
     case 37:
     case 38:
     case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
     case 49:
     case 50:
       return true;

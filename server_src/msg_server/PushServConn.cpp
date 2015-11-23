@@ -11,6 +11,7 @@
 #include "IM.Server.pb.h"
 #include "IM.Other.pb.h"
 #include "IM.BaseDefine.pb.h"
+#include "json/json.h"
 using namespace IM::BaseDefine;
 
 #define IOS_PUSH_FLASH_MAX_LENGTH    40
@@ -54,40 +55,163 @@ void init_push_serv_conn(serv_info_t* server_list, uint32_t server_count)
 	netlib_register_timer(push_server_conn_timer_callback, NULL, 1000);
 }
 
-void build_ios_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
+void build_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
 {
+	/*
 	string pic_prefix = "&$#@~^@[{:";
 	string pic_suffix = ":}]&$~@#@";
 	size_t pos_prefix = flash.find(pic_prefix);
 	size_t pos_suffix = flash.find(pic_suffix);
 
-	string comm_flash = "您收到了一条消息";
+	string comm_flash = "您有一条新消息";
 	//如果是带有图片链接的话，将消息体改变
 	if (pos_prefix != string::npos && pos_suffix != string::npos && pos_prefix < pos_suffix)
 	{
 		flash = comm_flash;
 	}
-	else
+	else	
 	{
 		CImUser* pImUser = CImUserManager::GetInstance()->GetImUserById(from_id);
 		if (pImUser)
 		{
 			string nick_name = pImUser->GetNickName();
+			*/
 			string msg_tmp;
 			if (msg_type == IM::BaseDefine::MSG_TYPE_GROUP_AUDIO )
 			{
-				msg_tmp.append(nick_name);
-				msg_tmp.append("在群聊中发送了一条语音消息");
+				//msg_tmp.append(nick_name);
+				msg_tmp.append("您有一条新消息");
 			}
 			else if (msg_type == IM::BaseDefine::MSG_TYPE_SINGLE_AUDIO)
 			{
-				msg_tmp.append(nick_name);
-				msg_tmp.append("给您发送了一条语音消息");
+				//msg_tmp.append(nick_name);
+				msg_tmp.append("您有一条新消息");
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_SINGLE_TEXT \
+				|| msg_type == IM::BaseDefine::MSG_TYPE_GROUP_TEXT)
+			{
+				msg_tmp.append("您有一条新消息");
+			}
+			else if(msg_type == IM::BaseDefine::MSG_TYPE_ORDER_PUSH)
+			{
+				msg_tmp.append("有新订单，快来抢单");
+			}
+			else if(msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST)
+			{
+				msg_tmp.append("您有新的案件委托");
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_GRAB)
+			{
+				Json::Reader reader(Json::Features::strictMode());  
+   				Json::Value value;
+				int grabStatus;
+   				if (reader.parse(flash, value)) 
+   				{  
+				    grabStatus = value["grabStatus"].asInt(); 
+				
+
+					if(grabStatus == IM::BaseDefine::LAWSUIT_ATTENDANCE_GRAB)
+					{
+						msg_tmp.append("您的订单已有律师受理");
+					}
+					else if(grabStatus == IM::BaseDefine::CONSULT_DOCUMENTS_GRAB)
+					{
+						msg_tmp.append("您的订单有新动态");
+					}
+				} 
+				else
+				{
+					msg_tmp.append("您有一条新消息");
+					log("json parse error!");
+				}
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT \
+					|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT \
+					|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL)
+			{
+				msg_tmp.append("您的订单有新动态");
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_RESULT)
+			{
+				Json::Reader reader(Json::Features::strictMode());  
+   				Json::Value value;
+				int grabStatus;
+   				if (reader.parse(flash, value)) 
+   				{  
+				    grabStatus = value["grabStatus"].asInt(); 
+				
+					if(grabStatus == IM::BaseDefine::GRAB_FAID)
+					{
+						msg_tmp.append("抢单失败，订单已被抢");
+					}
+					else if(grabStatus == IM::BaseDefine::GRAB_SUCCESS)
+					{
+						msg_tmp.append("您的订单有新动态");
+					}
+   				}
+				else
+				{
+					msg_tmp.append("您有一条新消息");
+					log("json parse error!");
+				}
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL)
+			{
+				msg_tmp.append("您的订单有新动态");
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_USER_CHECK)
+			{
+				Json::Reader reader(Json::Features::strictMode());  
+   				Json::Value value;
+				int resultStatus;
+   				if (reader.parse(flash, value)) 
+   				{  
+				    resultStatus = value["resultStatus"].asInt();  
+
+					if(resultStatus == IM::BaseDefine::CHECK_SUCCESS)
+					{
+						msg_tmp.append("认证成功，可以抢单啦!");
+					}
+					else if(resultStatus == IM::BaseDefine::CHECK_FAILED)
+					{
+						msg_tmp.append("认证失败，资料未通过认证。");
+					}
+   				}
+				else
+				{
+					msg_tmp.append("您有一条新消息");
+					log("json parse error!");
+				}
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
+			{
+				Json::Reader reader(Json::Features::strictMode());  
+   				Json::Value value;
+				int resultStatus;
+   				if (reader.parse(flash, value)) 
+   				{  
+				    resultStatus = value["resultStatus"].asInt(); 
+
+					if(resultStatus == IM::BaseDefine::WITHDRAWAL_FAILED)
+					{
+						msg_tmp.append("您的提现金额已到账");
+					}
+					else if(resultStatus == IM::BaseDefine::WITHDRAWAL_SUCCESS)
+					{
+						msg_tmp.append("提现失败，银行卡信息有误");
+					}
+   				}
+				else
+				{
+					msg_tmp.append("您有一条新消息");
+					log("json parse error!");
+				}
+
 			}
 			else
 			{
-				msg_tmp.append(nick_name);
-				msg_tmp.append(":");
+				//msg_tmp.append(nick_name);
+				//msg_tmp.append(":");
 				msg_tmp.append(flash);
 			}
 			flash = msg_tmp;
@@ -95,15 +219,60 @@ void build_ios_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
 			if (flash.length() > flash_max_length)
 			{
 				string flash_tmp = flash.substr(0, flash_max_length);
+				//
+				int nRealCnt = flash_max_length;
+				if((unsigned char)(flash_tmp[flash_max_length-1]) >= 0xC0) //11000000
+				{//cut this char
+					nRealCnt -= 1;
+				}
+				else if((unsigned char)(flash_tmp[flash_max_length-1]) >= 0x80)//10000000
+				{//cut n char
+					for(int i=1;i<6;i++)
+					{
+						if((unsigned char)(flash_tmp[flash_max_length-1-i]) >= 0xFC)//11111100
+						{							
+							nRealCnt = (i+1)==6? nRealCnt : nRealCnt-(i+1);
+							break;
+						}
+						else if((unsigned char)(flash_tmp[flash_max_length-1-i]) >= 0xF8)//11111000
+						{							
+							nRealCnt = (i+1)==5? nRealCnt : nRealCnt-(i+1);
+							break;
+						}
+						else if((unsigned char)(flash_tmp[flash_max_length-1-i]) >= 0xF0)//11110000
+						{							
+							nRealCnt = (i+1)==4? nRealCnt : nRealCnt-(i+1);
+							break;
+						}
+						else if((unsigned char)(flash_tmp[flash_max_length-1-i]) >= 0xE0)//11100000
+						{							
+							nRealCnt = (i+1)==3? nRealCnt : nRealCnt-(i+1);
+							break;
+						}
+						else if((unsigned char)(flash_tmp[flash_max_length-1-i]) >= 0xC0)//11000000
+						{							
+							nRealCnt = (i+1)==2? nRealCnt : nRealCnt-(i+1);
+							break;
+						}
+						else
+						{
+							continue;
+						}
+					}
+				} 
+				flash_tmp = flash.substr(0, nRealCnt);
+				
 				flash_tmp.append("...");
 				flash = flash_tmp;
+				log("from_id = %d msg_type = %d flash = %s", from_id, msg_type, flash.c_str());
 			}
-		}
+		/*}
 		else
 		{
 			flash = comm_flash;
 		}
 	}
+	*/
 }
 
 CPushServConn* get_push_serv_conn()
@@ -146,6 +315,7 @@ void CPushServConn::Connect(const char* server_ip, uint16_t server_port, uint32_
 
 void CPushServConn::Close()
 {
+	log("CPushServConn close, from handle=%d ", m_handle);
 	// reset server information for the next connect
 	serv_reset<CPushServConn>(g_push_server_list, g_push_server_count, m_serv_idx);
 

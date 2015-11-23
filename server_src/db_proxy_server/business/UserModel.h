@@ -55,6 +55,11 @@ public:
 
 	//black
 	bool isInBlackGroup(uint32_t nUserId, uint32_t nFriendId);
+
+	bool msgServerRestart(uint32_t msg_server_id, uint32_t cur_time);
+	bool updateUserStatus(uint32_t user_uid,uint32_t status,uint32_t msg_server_id,uint32_t client_type,uint32_t cur_time);
+
+	bool orderstatusread(uint32_t user_id, uint32_t order_id, bool& is_null);
 	
 private:
     CUserModel();

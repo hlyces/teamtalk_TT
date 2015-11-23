@@ -39,6 +39,7 @@ void protobuf_ShutdownFile_IM_2eServer_2eproto() {
   delete IMFileServerIPRsp::default_instance_;
   delete IMGetFriendsidReq::default_instance_;
   delete IMGetFriendsidRes::default_instance_;
+  delete IMMsgServerRestartNotify::default_instance_;
 }
 
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -76,6 +77,7 @@ void protobuf_AddDesc_IM_2eServer_2eproto() {
   IMFileServerIPRsp::default_instance_ = new IMFileServerIPRsp();
   IMGetFriendsidReq::default_instance_ = new IMGetFriendsidReq();
   IMGetFriendsidRes::default_instance_ = new IMGetFriendsidRes();
+  IMMsgServerRestartNotify::default_instance_ = new IMMsgServerRestartNotify();
   IMStopReceivePacket::default_instance_->InitAsDefaultInstance();
   IMValidateReq::default_instance_->InitAsDefaultInstance();
   IMValidateRsp::default_instance_->InitAsDefaultInstance();
@@ -98,6 +100,7 @@ void protobuf_AddDesc_IM_2eServer_2eproto() {
   IMFileServerIPRsp::default_instance_->InitAsDefaultInstance();
   IMGetFriendsidReq::default_instance_->InitAsDefaultInstance();
   IMGetFriendsidRes::default_instance_->InitAsDefaultInstance();
+  IMMsgServerRestartNotify::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_IM_2eServer_2eproto);
 }
 
@@ -316,6 +319,9 @@ const int IMValidateReq::kPasswordFieldNumber;
 const int IMValidateReq::kClientTypeFieldNumber;
 const int IMValidateReq::kClientIpFieldNumber;
 const int IMValidateReq::kClientVersionFieldNumber;
+const int IMValidateReq::kOnlineStatusFieldNumber;
+const int IMValidateReq::kMsgServerIdFieldNumber;
+const int IMValidateReq::kCurTimeFieldNumber;
 const int IMValidateReq::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
@@ -343,6 +349,9 @@ void IMValidateReq::SharedCtor() {
   client_type_ = 1;
   client_ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  online_status_ = 1;
+  msg_server_id_ = 0u;
+  cur_time_ = 0u;
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -397,7 +406,18 @@ IMValidateReq* IMValidateReq::New() const {
 }
 
 void IMValidateReq::Clear() {
-  if (_has_bits_[0 / 32] & 63) {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<IMValidateReq*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 255) {
+    ZR_(msg_server_id_, cur_time_);
     if (has_user_name()) {
       if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_name_->clear();
@@ -419,12 +439,17 @@ void IMValidateReq::Clear() {
         client_version_->clear();
       }
     }
-    if (has_attach_data()) {
-      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        attach_data_->clear();
-      }
+    online_status_ = 1;
+  }
+  if (has_attach_data()) {
+    if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      attach_data_->clear();
     }
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->clear();
 }
@@ -511,6 +536,57 @@ bool IMValidateReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(104)) goto parse_online_status;
+        break;
+      }
+
+      // optional .IM.BaseDefine.UserStatType online_status = 13;
+      case 13: {
+        if (tag == 104) {
+         parse_online_status:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::IM::BaseDefine::UserStatType_IsValid(value)) {
+            set_online_status(static_cast< ::IM::BaseDefine::UserStatType >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(112)) goto parse_msg_server_id;
+        break;
+      }
+
+      // optional uint32 msg_server_id = 14;
+      case 14: {
+        if (tag == 112) {
+         parse_msg_server_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &msg_server_id_)));
+          set_has_msg_server_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(120)) goto parse_cur_time;
+        break;
+      }
+
+      // optional uint32 cur_time = 15;
+      case 15: {
+        if (tag == 120) {
+         parse_cur_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cur_time_)));
+          set_has_cur_time();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectTag(162)) goto parse_attach_data;
         break;
       }
@@ -583,6 +659,22 @@ void IMValidateReq::SerializeWithCachedSizes(
       12, this->client_version(), output);
   }
 
+  // optional .IM.BaseDefine.UserStatType online_status = 13;
+  if (has_online_status()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      13, this->online_status(), output);
+  }
+
+  // optional uint32 msg_server_id = 14;
+  if (has_msg_server_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(14, this->msg_server_id(), output);
+  }
+
+  // optional uint32 cur_time = 15;
+  if (has_cur_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(15, this->cur_time(), output);
+  }
+
   // optional bytes attach_data = 20;
   if (has_attach_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
@@ -632,6 +724,28 @@ int IMValidateReq::ByteSize() const {
           this->client_version());
     }
 
+    // optional .IM.BaseDefine.UserStatType online_status = 13;
+    if (has_online_status()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->online_status());
+    }
+
+    // optional uint32 msg_server_id = 14;
+    if (has_msg_server_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->msg_server_id());
+    }
+
+    // optional uint32 cur_time = 15;
+    if (has_cur_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cur_time());
+    }
+
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     // optional bytes attach_data = 20;
     if (has_attach_data()) {
       total_size += 2 +
@@ -671,6 +785,17 @@ void IMValidateReq::MergeFrom(const IMValidateReq& from) {
     if (from.has_client_version()) {
       set_client_version(from.client_version());
     }
+    if (from.has_online_status()) {
+      set_online_status(from.online_status());
+    }
+    if (from.has_msg_server_id()) {
+      set_msg_server_id(from.msg_server_id());
+    }
+    if (from.has_cur_time()) {
+      set_cur_time(from.cur_time());
+    }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
     }
@@ -697,6 +822,9 @@ void IMValidateReq::Swap(IMValidateReq* other) {
     std::swap(client_type_, other->client_type_);
     std::swap(client_ip_, other->client_ip_);
     std::swap(client_version_, other->client_version_);
+    std::swap(online_status_, other->online_status_);
+    std::swap(msg_server_id_, other->msg_server_id_);
+    std::swap(cur_time_, other->cur_time_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
@@ -2485,6 +2613,8 @@ const int IMUserStatusUpdate::kUserStatusFieldNumber;
 const int IMUserStatusUpdate::kUserIdFieldNumber;
 const int IMUserStatusUpdate::kClientTypeFieldNumber;
 const int IMUserStatusUpdate::kUserUidFieldNumber;
+const int IMUserStatusUpdate::kMsgServerIdFieldNumber;
+const int IMUserStatusUpdate::kCurTimeFieldNumber;
 #endif  // !_MSC_VER
 
 IMUserStatusUpdate::IMUserStatusUpdate()
@@ -2509,6 +2639,8 @@ void IMUserStatusUpdate::SharedCtor() {
   user_id_ = 0u;
   client_type_ = 1;
   user_uid_ = 0u;
+  msg_server_id_ = 0u;
+  cur_time_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2557,10 +2689,10 @@ void IMUserStatusUpdate::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 15) {
+  if (_has_bits_[0 / 32] & 63) {
     ZR_(user_status_, user_id_);
+    ZR_(user_uid_, cur_time_);
     client_type_ = 1;
-    user_uid_ = 0u;
   }
 
 #undef OFFSET_OF_FIELD_
@@ -2645,6 +2777,36 @@ bool IMUserStatusUpdate::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(88)) goto parse_msg_server_id;
+        break;
+      }
+
+      // optional uint32 msg_server_id = 11;
+      case 11: {
+        if (tag == 88) {
+         parse_msg_server_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &msg_server_id_)));
+          set_has_msg_server_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(96)) goto parse_cur_time;
+        break;
+      }
+
+      // optional uint32 cur_time = 12;
+      case 12: {
+        if (tag == 96) {
+         parse_cur_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cur_time_)));
+          set_has_cur_time();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2695,6 +2857,16 @@ void IMUserStatusUpdate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->user_uid(), output);
   }
 
+  // optional uint32 msg_server_id = 11;
+  if (has_msg_server_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(11, this->msg_server_id(), output);
+  }
+
+  // optional uint32 cur_time = 12;
+  if (has_cur_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(12, this->cur_time(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:IM.Server.IMUserStatusUpdate)
@@ -2731,6 +2903,20 @@ int IMUserStatusUpdate::ByteSize() const {
           this->user_uid());
     }
 
+    // optional uint32 msg_server_id = 11;
+    if (has_msg_server_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->msg_server_id());
+    }
+
+    // optional uint32 cur_time = 12;
+    if (has_cur_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cur_time());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -2760,6 +2946,12 @@ void IMUserStatusUpdate::MergeFrom(const IMUserStatusUpdate& from) {
     if (from.has_user_uid()) {
       set_user_uid(from.user_uid());
     }
+    if (from.has_msg_server_id()) {
+      set_msg_server_id(from.msg_server_id());
+    }
+    if (from.has_cur_time()) {
+      set_cur_time(from.cur_time());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -2782,6 +2974,8 @@ void IMUserStatusUpdate::Swap(IMUserStatusUpdate* other) {
     std::swap(user_id_, other->user_id_);
     std::swap(client_type_, other->client_type_);
     std::swap(user_uid_, other->user_uid_);
+    std::swap(msg_server_id_, other->msg_server_id_);
+    std::swap(cur_time_, other->cur_time_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -6212,6 +6406,277 @@ void IMGetFriendsidRes::Swap(IMGetFriendsidRes* other) {
 
 ::std::string IMGetFriendsidRes::GetTypeName() const {
   return "IM.Server.IMGetFriendsidRes";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int IMMsgServerRestartNotify::kOprtStatusFieldNumber;
+const int IMMsgServerRestartNotify::kMsgServerIdFieldNumber;
+const int IMMsgServerRestartNotify::kCurTimeFieldNumber;
+#endif  // !_MSC_VER
+
+IMMsgServerRestartNotify::IMMsgServerRestartNotify()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:IM.Server.IMMsgServerRestartNotify)
+}
+
+void IMMsgServerRestartNotify::InitAsDefaultInstance() {
+}
+
+IMMsgServerRestartNotify::IMMsgServerRestartNotify(const IMMsgServerRestartNotify& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:IM.Server.IMMsgServerRestartNotify)
+}
+
+void IMMsgServerRestartNotify::SharedCtor() {
+  _cached_size_ = 0;
+  oprt_status_ = 0u;
+  msg_server_id_ = 0u;
+  cur_time_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+IMMsgServerRestartNotify::~IMMsgServerRestartNotify() {
+  // @@protoc_insertion_point(destructor:IM.Server.IMMsgServerRestartNotify)
+  SharedDtor();
+}
+
+void IMMsgServerRestartNotify::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void IMMsgServerRestartNotify::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const IMMsgServerRestartNotify& IMMsgServerRestartNotify::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_IM_2eServer_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eServer_2eproto();
+#endif
+  return *default_instance_;
+}
+
+IMMsgServerRestartNotify* IMMsgServerRestartNotify::default_instance_ = NULL;
+
+IMMsgServerRestartNotify* IMMsgServerRestartNotify::New() const {
+  return new IMMsgServerRestartNotify;
+}
+
+void IMMsgServerRestartNotify::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<IMMsgServerRestartNotify*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(oprt_status_, cur_time_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->clear();
+}
+
+bool IMMsgServerRestartNotify::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
+  // @@protoc_insertion_point(parse_start:IM.Server.IMMsgServerRestartNotify)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 oprt_status = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &oprt_status_)));
+          set_has_oprt_status();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_msg_server_id;
+        break;
+      }
+
+      // optional uint32 msg_server_id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_msg_server_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &msg_server_id_)));
+          set_has_msg_server_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_cur_time;
+        break;
+      }
+
+      // optional uint32 cur_time = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_cur_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &cur_time_)));
+          set_has_cur_time();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:IM.Server.IMMsgServerRestartNotify)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:IM.Server.IMMsgServerRestartNotify)
+  return false;
+#undef DO_
+}
+
+void IMMsgServerRestartNotify::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:IM.Server.IMMsgServerRestartNotify)
+  // optional uint32 oprt_status = 1;
+  if (has_oprt_status()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->oprt_status(), output);
+  }
+
+  // optional uint32 msg_server_id = 2;
+  if (has_msg_server_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->msg_server_id(), output);
+  }
+
+  // optional uint32 cur_time = 3;
+  if (has_cur_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->cur_time(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
+  // @@protoc_insertion_point(serialize_end:IM.Server.IMMsgServerRestartNotify)
+}
+
+int IMMsgServerRestartNotify::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 oprt_status = 1;
+    if (has_oprt_status()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->oprt_status());
+    }
+
+    // optional uint32 msg_server_id = 2;
+    if (has_msg_server_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->msg_server_id());
+    }
+
+    // optional uint32 cur_time = 3;
+    if (has_cur_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->cur_time());
+    }
+
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IMMsgServerRestartNotify::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const IMMsgServerRestartNotify*>(&from));
+}
+
+void IMMsgServerRestartNotify::MergeFrom(const IMMsgServerRestartNotify& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_oprt_status()) {
+      set_oprt_status(from.oprt_status());
+    }
+    if (from.has_msg_server_id()) {
+      set_msg_server_id(from.msg_server_id());
+    }
+    if (from.has_cur_time()) {
+      set_cur_time(from.cur_time());
+    }
+  }
+  mutable_unknown_fields()->append(from.unknown_fields());
+}
+
+void IMMsgServerRestartNotify::CopyFrom(const IMMsgServerRestartNotify& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IMMsgServerRestartNotify::IsInitialized() const {
+
+  return true;
+}
+
+void IMMsgServerRestartNotify::Swap(IMMsgServerRestartNotify* other) {
+  if (other != this) {
+    std::swap(oprt_status_, other->oprt_status_);
+    std::swap(msg_server_id_, other->msg_server_id_);
+    std::swap(cur_time_, other->cur_time_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.swap(other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string IMMsgServerRestartNotify::GetTypeName() const {
+  return "IM.Server.IMMsgServerRestartNotify";
 }
 
 

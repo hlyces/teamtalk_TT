@@ -2,9 +2,6 @@
 //  push_session_handler.cpp
 //  my_push_server
 //
-//  Created by luoning on 14-11-11.
-//  Copyright (c) 2014年 luoning. All rights reserved.
-//
 
 #include "push_session_handler.h"
 #include "push_define.h"
@@ -12,6 +9,7 @@
 #include "apns_msg.h"
 #include "timer/Timer.hpp"
 #include "IM.Server.pb.h"
+
 
 void CPushSessionHandler::OnClose(uint32_t nsockid)
 {
@@ -93,21 +91,90 @@ void CPushSessionHandler::_HandlePushMsg(const char* szBuf, int32_t nBufSize)
     }
     string strFlash = msg.flash();
     string strUserData = msg.push_data();
-    apns_client_ptr pClient = CSessionManager::GetInstance()->GetAPNSClient();
-    if (pClient)
+    apns_client_ptr pApnsClient = CSessionManager::GetInstance()->GetAPNSClient();	
+    
+    IM::Server::IMPushToUserRsp msg2;
+    for (uint32_t i = 0; i < msg.user_token_list_size(); i++)
     {
-        IM::Server::IMPushToUserRsp msg2;
-        for (uint32_t i = 0; i < msg.user_token_list_size(); i++)
-        {
-            IM::BaseDefine::PushResult* push_result = msg2.add_push_result_list();
-            IM::BaseDefine::UserTokenInfo user_token = msg.user_token_list(i);
-            if (user_token.user_type() != IM::BaseDefine::CLIENT_TYPE_IOS) {
-                push_result->set_user_token(user_token.token());
-                push_result->set_result_code(1);
-                continue;
-            }
+        IM::BaseDefine::PushResult* push_result = msg2.add_push_result_list();
+        IM::BaseDefine::UserTokenInfo user_token = msg.user_token_list(i);
+        if (user_token.user_type() == IM::BaseDefine::CLIENT_TYPE_ANDROID) {
+			
+			//todo android push...
+			m_NotificationID++;
+			
+			PUSH_SERVER_INFO("HandlePushMsg, token: %s, push count: %d, push_type:%d, notification id: %u.", 
+				user_token.token().c_str(), user_token.push_count(),
+                user_token.push_type(), m_NotificationID);
+
+			Json::Value root;
+			root["appkey"] = "564bd725e0f55aac2600be43";
+			root["timestamp"] = (int)time(NULL);
+			root["type"] = "unicast";
+			root["device_tokens"] = user_token.token().c_str();
+			root["production_mode"] = "true";
+			root["description"] = "";
+
+			Json::Value payload;
+			payload["display_type"]="notification";
+			payload["extra"]=strUserData.c_str();
+			
+			Json::Value body;
+			body["ticker"]="东方法信";
+			body["title"]="东方法信";
+			body["text"]=strFlash.c_str();
+
+			body["play_vibrate"]="true";
+			body["play_lights"]="true";
+			body["play_sound"]="true";
+
+			body["after_open"]="go_app";
+
+			payload["body"] = body;
+
+			root["payload"] = payload;
+
+			string strPost = root.toStyledString();
+
+			CHttpClient httpClient;
+			string strUrl = "http://msg.umeng.com/api/send";
+			
+			string strResponse;
+			string app_master_secret="iciicjmgh4l1kygtltmdryhhxlvpcmiy";
+			
+			string strSign = _SignUmeng( "POST", strUrl, strPost, app_master_secret);
+
+			strUrl += "?sign=" + strSign;
+			
+			CURLcode res = httpClient.Post( strUrl, strPost, strResponse);
+
+			PUSH_SERVER_INFO("HandlePushMsg, android push url=%s,post=%s,resp=%s,res=%d.",
+				strUrl.c_str(), strPost.c_str(), strResponse.c_str(), res);
+
+			if (CURLE_OK == res)
+			{
+            	push_result->set_result_code(0);
+			}
+			else
+			{
+				push_result->set_result_code(1);
+                PUSH_SERVER_WARN("HandlePushMsg, android push failed.");
+			}
+			
+            push_result->set_user_token(user_token.token());
+
+			
+			
+        }
+		else if (user_token.user_type() == IM::BaseDefine::CLIENT_TYPE_IOS) {
+			
+			//todo ios push...
+			
+			if (!pApnsClient)
+				continue;
+			
             m_NotificationID++;
-            
+        
             PUSH_SERVER_INFO("HandlePushMsg, token: %s, push count: %d, push_type:%d, notification id: %u.", user_token.token().c_str(), user_token.push_count(),
                               user_token.push_type(), m_NotificationID);
             CAPNSGateWayMsg msg;
@@ -129,7 +196,7 @@ void CPushSessionHandler::_HandlePushMsg(const char* szBuf, int32_t nBufSize)
             msg.SetNotificationID(m_NotificationID);
             if (msg.SerializeToArray())
             {
-                pClient->SendPushMsgToGateway(msg.Data(), msg.GetDataLength());
+                pApnsClient->SendPushMsgToGateway(msg.Data(), msg.GetDataLength());
                 push_result->set_result_code(0);
             }
             else
@@ -138,19 +205,37 @@ void CPushSessionHandler::_HandlePushMsg(const char* szBuf, int32_t nBufSize)
                 PUSH_SERVER_WARN("HandlePushMsg, serialize CAPNSGateWayMsg failed.");
             }
             push_result->set_user_token(user_token.token());
+			
         }
-        
-        CPduMsg pdu_msg2;
-        pdu_msg2.SetServiceID(IM::BaseDefine::DFFX_SID_OTHER);
-        pdu_msg2.SetCommandID(IM::BaseDefine::DFFX_CID_OTHER_PUSH_TO_USER_RSP);
-        
-        if (pdu_msg2.SerializeToArray(&msg2))
-        {
-            pSession->SendMsg(pdu_msg2.Data(), pdu_msg2.GetDataLength());
+		else {
+			
+            push_result->set_user_token(user_token.token());
+            push_result->set_result_code(1);
+			
         }
-        else
-        {
-            PUSH_SERVER_WARN("HandlePushMsg, serialize IMPushToUserRsp failed.");
-        }
+		
+       
+    }
+    
+    CPduMsg pdu_msg2;
+    pdu_msg2.SetServiceID(IM::BaseDefine::DFFX_SID_OTHER);
+    pdu_msg2.SetCommandID(IM::BaseDefine::DFFX_CID_OTHER_PUSH_TO_USER_RSP);
+    
+    if (pdu_msg2.SerializeToArray(&msg2))
+    {
+        pSession->SendMsg(pdu_msg2.Data(), pdu_msg2.GetDataLength());
+    }
+    else
+    {
+        PUSH_SERVER_WARN("HandlePushMsg, serialize IMPushToUserRsp failed.");
     }
 }
+
+string CPushSessionHandler::_SignUmeng(const string& method,const string& url,const string& post_body,const string& app_master_secret)
+{
+	char szMd5[33] = {0};
+	string strSign=method+url+post_body+app_master_secret;
+	CMd5::MD5_Calculate( strSign.c_str(), strSign.length(), szMd5);
+	return string(szMd5);
+}
+

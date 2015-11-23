@@ -79,7 +79,10 @@ int main(int argc, char* argv[])
 	CEntrushThread* pEntrushThread;
 	CTopUP_withDrawalThread* pTopUP_withDrawalThread;
 	CMyTimerThread* pMyTimerThread;
-
+	CCheckUser* pCheckUser;
+	CWaitPayment* pWaitPayment;
+	CCancelOrComplete* pCancelOrComplete;
+	
 	CStrExplode push_thread_list(push_thread, ';');	
 	for (uint32_t i = 0; i < push_thread_list.GetItemCnt(); i++)	
 	{		
@@ -130,6 +133,29 @@ int main(int argc, char* argv[])
 			pMyTimerThread = new CMyTimerThread();	
 			log("new pMyTimerThread");
 		}	
+		if(strcmp(push_thread_list.GetItem(i), "CCheckUser") == 0)	
+		{			
+			//通知用户身份认证结果	
+			pCheckUser= new CCheckUser();	
+			pCheckUser->setGPClient(*pClient);	
+			log("new pCheckUser");
+		}	
+		if(strcmp(push_thread_list.GetItem(i), "CWaitPayment") == 0)	
+		{			
+			//等待付款通知客户端
+			pWaitPayment= new CWaitPayment();	
+			pWaitPayment->setGPClient(*pClient);	
+			log("new pWaitPayment");
+		}	
+		if(strcmp(push_thread_list.GetItem(i), "CCancelOrComplete") == 0)	
+		{			
+			//订单完成或者撤销通知律师端	
+			pCancelOrComplete= new CCancelOrComplete();	
+			pCancelOrComplete->setGPClient(*pClient);	
+			log("new pCancelOrComplete");
+		}	
+
+
 	}
 
 
@@ -208,6 +234,36 @@ int main(int argc, char* argv[])
 				log("free pMyTimerThread");
 			}
 		}	
+		if(strcmp(push_thread_list.GetItem(i), "CCheckUser") == 0)	
+		{			
+			if(pCheckUser)
+			{
+				delete pCheckUser;
+				pCheckUser = NULL;
+				log("free pCheckUser");
+			}
+		}	
+		if(strcmp(push_thread_list.GetItem(i), "CWaitPayment") == 0)	
+		{			
+			if(pWaitPayment)
+			{
+				delete pWaitPayment;
+				pWaitPayment = NULL;
+				log("free pWaitPayment");
+			}
+
+		}	
+		if(strcmp(push_thread_list.GetItem(i), "CCancelOrComplete") == 0)	
+		{			
+			if(pCancelOrComplete)
+			{
+				delete pCancelOrComplete;
+				pCancelOrComplete = NULL;
+				log("free pCancelOrComplete");
+			}
+
+		}	
+
 	}
 
 	return 0;

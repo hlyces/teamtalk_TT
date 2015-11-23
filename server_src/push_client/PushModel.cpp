@@ -701,6 +701,186 @@ bool CPushModel::updateEntrustOrder(list<OrderEntrust > lsOrderEntrust )
 }
 
 
+//订单等待付款(律师申请付款)通知客户端
+bool CPushModel::getWaitPayment(list<OrderStatusChg >& lsOrderStatusChg)
+{
+	bool bRet = false;
+
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
+	if (pDBConn) 
+	{
+		string strSql = "select * from dffx_order_msg where msg_status = 10 and msg_sign = 0 limit 100 ";
+		log("strSql = %s", strSql.c_str());
+		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+		if(pResultSet)
+		{ 		
+			
+			while (pResultSet->Next()) 
+			{
+				OrderStatusChg cOrderStatusChg;
+				cOrderStatusChg.msg_orderid  = pResultSet->GetInt("msg_orderid");
+				cOrderStatusChg.msg_user= pResultSet->GetInt("msg_user");
+				cOrderStatusChg.msg_lawyer = pResultSet->GetLong("msg_lawyer");
+				cOrderStatusChg.msg_status   = pResultSet->GetInt("msg_status");
+				
+				lsOrderStatusChg.push_back(cOrderStatusChg);
+			}
+			pResultSet->Clear();
+			bRet = true;
+		}
+		else
+		{
+			log("getWaitPayment failed:%s", strSql.c_str());
+			bRet = false;
+		}
+					
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffx_db_bs");
+		bRet = false;
+	}
+	return bRet;	
+}
+
+bool CPushModel::updateWaitPayment(list<OrderStatusChg > lsOrderStatusChg)
+{
+	list<OrderStatusChg >::iterator lsIter = lsOrderStatusChg.begin();
+	
+	uint32_t nMsgOrderid = lsIter->msg_orderid;
+	string strMsgOrderid = "(" + int2string(nMsgOrderid);
+	lsIter++;
+	
+	for(; lsIter != lsOrderStatusChg.end(); lsIter++)
+	{
+		nMsgOrderid = lsIter->msg_orderid;
+		strMsgOrderid += "," + int2string(nMsgOrderid);
+	}
+	strMsgOrderid += ")";
+	
+	bool bRet = false;
+	
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
+	if(pDBConn)
+	{
+		string strSql ;
+		if (pDBConn)
+		{
+			//update 当前时间 
+			strSql = "update dffx_order_msg t1 set msg_sign =  16  where  t1.msg_orderid in " + strMsgOrderid;
+			log("strSql = %s", strSql.c_str());
+			bRet = pDBConn->ExecuteUpdate(strSql.c_str());
+		}
+		else
+		{
+				log("updateWaitPayment failed:%s", strSql.c_str());
+				bRet = false;
+		}
+					
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffx_db_bs");
+		bRet = false;
+	}
+	return bRet;
+}
+
+//订单撤销与完成通知律师端
+bool CPushModel::getCancelOrCompleteTolawyer(list<OrderStatusChg >& lsOrderStatusChg)
+{
+	bool bRet = false;
+
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
+	if (pDBConn) 
+	{
+		string strSql = "select * from dffx_order_msg where (msg_status = 0 or msg_status = -1 or msg_status = -3) AND msg_sign = 0 limit 100 ";
+		log("strSql = %s", strSql.c_str());
+		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+		if(pResultSet)
+		{ 		
+			
+			while (pResultSet->Next()) 
+			{
+				OrderStatusChg cOrderStatusChg;
+				cOrderStatusChg.msg_orderid  = pResultSet->GetInt("msg_orderid");
+				cOrderStatusChg.msg_user= pResultSet->GetInt("msg_user");
+				cOrderStatusChg.msg_lawyer = pResultSet->GetLong("msg_lawyer");
+				cOrderStatusChg.msg_status   = pResultSet->GetInt("msg_status");
+				
+				lsOrderStatusChg.push_back(cOrderStatusChg);
+			}
+			pResultSet->Clear();
+			bRet = true;
+		}
+		else
+		{
+			log("getCancelOrCompleteTolawyer failed:%s", strSql.c_str());
+			bRet = false;
+		}
+					
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffx_db_bs");
+		bRet = false;
+	}
+	return bRet;	
+}
+
+bool CPushModel::updateCancelOrCompleteTolawyer(list<OrderStatusChg > lsOrderStatusChg)
+{
+	list<OrderStatusChg >::iterator lsIter = lsOrderStatusChg.begin();
+	
+	uint32_t nMsgOrderid = lsIter->msg_orderid;
+	string strMsgOrderid = "(" + int2string(nMsgOrderid);
+	lsIter++;
+	
+	for(; lsIter != lsOrderStatusChg.end(); lsIter++)
+	{
+		nMsgOrderid = lsIter->msg_orderid;
+		strMsgOrderid += "," + int2string(nMsgOrderid);
+	}
+	strMsgOrderid += ")";
+	
+	bool bRet = false;
+	
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
+	if(pDBConn)
+	{
+		string strSql ;
+		if (pDBConn)
+		{
+			//update 当前时间 
+			strSql = "update dffx_order_msg t1 set msg_sign =  (CASE msg_status WHEN 0 THEN 18 WHEN -1 THEN 17 WHEN -3 THEN 17  \
+						ELSE msg_status END )  where  t1.msg_orderid in " + strMsgOrderid;
+			log("strSql = %s", strSql.c_str());
+			bRet = pDBConn->ExecuteUpdate(strSql.c_str());
+		}
+		else
+		{
+				log("updateCancelOrCompleteTolawyer failed:%s", strSql.c_str());
+				bRet = false;
+		}
+					
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffx_db_bs");
+		bRet = false;
+	}
+	return bRet;
+}
+
+
 bool CPushModel::getTopUP_withDrawal(list<TopUP_withDrawal>& lsTopUP_withDrawal )
 {
 	bool bRet = false;
@@ -793,9 +973,11 @@ bool CPushModel::updateTopUP_withDrawal(list<TopUP_withDrawal> lsTopUP_withDrawa
 #define SQL_UPDATE_USERTABLE_VIP_EXPRI_STATUS  "UPDATE dffx_user SET user_isvip = 0 WHERE user_isvip > 0 AND  user_uid IN "
 #define SQL_UPDATE_VIP_EXPRI_STATUS  "UPDATE dffx_user_vipvalid SET vipvalid_status = 0 WHERE vipvalid_uid IN "
 //更新过期订单状态
-#define SQL_SELECT_ORDER_EXPRT        "SELECT valid_orderid FROM dffx_order_valid  WHERE  NOW() > valid_time limit 100"
+//#define SQL_SELECT_ORDER_EXPRT        "SELECT valid_orderid FROM dffx_order_valid  WHERE  NOW() > valid_time limit 100"
+#define SQL_SELECT_ORDER_EXPRT  "SELECT t1.valid_orderid, t2.msg_user, t2.msg_lawyer FROM dffx_order_valid t1, dffx_order_msg t2 WHERE  NOW() > t1.valid_time and t2.msg_orderid = t1.valid_orderid limit 100"
+
 #define SQL_UPDATE_ORDER_EXPRI_STATUS  "UPDATE dffx_order SET order_status = -3 ,order_updatetime = 1000 * unix_timestamp() WHERE (order_status= 1  OR order_status= 2 OR order_status= 3) AND  id IN "
-#define SQL_UPDATE_ORDER_MSG_EXPRI_STATUS  "UPDATE dffx_order_msg SET msg_status = -3 WHERE (msg_status= 1  OR msg_status= 2 OR msg_status= 3) AND  msg_orderid IN "
+#define SQL_UPDATE_ORDER_MSG_EXPRI_STATUS  "UPDATE dffx_order_msg SET msg_status = -3, msg_sign = 0 WHERE (msg_status= 1  OR msg_status= 2 OR msg_status= 3) AND  msg_orderid IN "
 #define SQL_DELETE_ORDER_EXPRT        "DELETE FROM dffx_order_valid  WHERE  valid_orderid in "
 
 
@@ -864,6 +1046,7 @@ void CPushModel::updateVipExp()
 void  CPushModel::updateOrderExp()
 {
 	bool bRet =false;
+	map<int, int> m_Orderid_Lawyer;
 	
 	CDBManager* pDBManger = CDBManager::getInstance();
 	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
@@ -880,6 +1063,11 @@ void  CPushModel::updateOrderExp()
 			{
 				string validOrderid = pResultSet->GetString("valid_orderid");
 				strValidOrderid += validOrderid + ",";
+				
+				int orderid = pResultSet->GetInt("msg_lawyer");
+				int lawyerid = pResultSet->GetInt("msg_lawyer");
+
+				m_Orderid_Lawyer.insert(map<int,int>::value_type(orderid, lawyerid));
 			}
 			strValidOrderid +=  "0) ";
 			pResultSet->Clear();
@@ -925,6 +1113,25 @@ void  CPushModel::updateOrderExp()
 
 	*/
 		pDBManger->RelDBConn(pDBConn);
+
+		CacheConn* pCacheConn = NULL;	
+		CAutoCache autoCache( "unread", &pCacheConn);		
+		if(pCacheConn)	
+		{	
+			map<int, int>::iterator t_Iter = m_Orderid_Lawyer.begin();
+
+			
+			for(; t_Iter != m_Orderid_Lawyer.end() ; t_Iter++)
+			{
+				string strTableKey = "order_prompt_message_" + int2string(t_Iter->first);			
+				int nRet = pCacheConn->hset( strTableKey, int2string(t_Iter->second), int2string(1));		
+				if(nRet==-1)			
+				{			
+					log("redis set failed %s", strTableKey.c_str());		
+				}
+			}
+		}
+
 	}
 	else
 	{
@@ -932,6 +1139,90 @@ void  CPushModel::updateOrderExp()
 	}
  	
 	return ;
+}
+
+
+bool CPushModel::getCheckUser(list<CheckUser>& lsCheckUser)
+{
+	bool bRet = false;
+	
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
+	if (pDBConn) 
+	{
+  		string strSql = "select * from dffx_user_check limit 100";
+		log("strSql = %s", strSql.c_str());
+		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
+		if(pResultSet)
+		{ 		
+			while (pResultSet->Next()) 
+			{
+				CheckUser cCheckUser;
+				cCheckUser.check_id     = pResultSet->GetInt("id");
+				cCheckUser.check_userid = pResultSet->GetInt("check_uid");
+				cCheckUser.check_status = pResultSet->GetInt("check_status");
+				
+				lsCheckUser.push_back(cCheckUser);
+
+			}
+			pResultSet->Clear();
+			bRet = true;
+		}
+		else
+		{
+			log("getCheckUser failed:%s", strSql.c_str());
+			bRet = false;
+		}
+					
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffx_db_bs");
+		bRet = false;
+	}
+	return bRet;
+
+}
+
+bool CPushModel::delCheckUser(list<CheckUser>& lsCheckUser)
+{
+	string strCheckId = "(";
+	list<CheckUser >::iterator lsIter = lsCheckUser.begin();
+	strCheckId += int2string(lsIter->check_id);
+	
+	for(lsIter++; lsIter != lsCheckUser.end(); lsIter++)
+	{
+		strCheckId += "," + long2string(lsIter->check_id);
+	}
+	strCheckId += ")";
+
+	bool bRet = false;
+	
+	
+	CDBManager* pDBManger = CDBManager::getInstance();
+	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
+	if (pDBConn) 
+	{
+		string strSql = "delete from dffx_user_check where id in " + strCheckId+ " limit 100";
+		log("strSql = %s", strSql.c_str());
+		
+		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
+		if(!bRet)
+		{
+			log("delCheckUser failed:%s", strSql.c_str());
+		}
+					
+		pDBManger->RelDBConn(pDBConn);
+	}
+	else
+	{
+		log("no db connection for dffx_db_bs");
+		bRet = false;
+	}
+
+	return bRet;	
+
 }
 
 void  CPushModel::getPushConfig()

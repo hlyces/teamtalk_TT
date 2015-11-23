@@ -62,6 +62,8 @@ CRouteConn::~CRouteConn()
 
 void CRouteConn::Close()
 {
+	log("routeconn onclose from handle=%d\n", m_handle);
+	
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
 		g_route_conn_map.erase(m_handle);
@@ -151,9 +153,9 @@ void CRouteConn::HandlePdu(CImPdu* pPdu)
 		case DFFX_CID_BUDDY_LIST_FRIENDNOTIFY_REQ:
 		case DFFX_CID_BUDDY_LIST_DELFRIEND_NOTIFY:
 		case DFFX_CID_BUDDY_LIST_REVERSEADDFRIEND_RES:
+		case DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST:
             _BroadcastMsg(pPdu, this);
             break;
-        
 	default:
 		log("CRouteConn::HandlePdu, wrong cmd id: %d ", pPdu->GetCommandId());
 		break;

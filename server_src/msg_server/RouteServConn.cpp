@@ -161,6 +161,7 @@ void CRouteServConn::Connect(const char* server_ip, uint16_t server_port, uint32
 
 void CRouteServConn::Close()
 {
+	log("CRouteServConn close, from handle=%d ", m_handle);
 	serv_reset<CRouteServConn>(g_route_server_list, g_route_server_count, m_serv_idx);
 
 	m_bOpen = false;
@@ -236,6 +237,7 @@ void CRouteServConn::OnTimer(uint64_t curr_tick)
 
 void CRouteServConn::HandlePdu(CImPdu* pPdu)
 {
+	log("CRouteServConn HandlePdu cmd = %d ", pPdu->GetCommandId());
 	switch (pPdu->GetCommandId())
 	{
 		case DFFX_CID_OTHER_HEARTBEAT:
@@ -284,6 +286,9 @@ void CRouteServConn::HandlePdu(CImPdu* pPdu)
 			_HandleDBReverseAddFriendRes( pPdu);
 			break;
 
+		case DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST:
+			_HanddleClientOrderStatusReadMsgBraodcast(pPdu);
+			break;		
 		default:
 			log("unknown cmd id=%d ", pPdu->GetCommandId());
 			break;
@@ -370,6 +375,7 @@ void CRouteServConn::_HandleMsgData(CImPdu* pPdu)
 		pToImUser->BroadcastClientMsgData(pPdu, msg_id, NULL, from_user_id);
 	}
 }
+
 
 void CRouteServConn::_HandleMsgReadNotify(CImPdu *pPdu)
 {
@@ -567,7 +573,7 @@ void CRouteServConn::_HandleClientAddFriendRequest(CImPdu* pPdu)
 	CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_user_id);
 	if (pToImUser)
 	{
-		//1.todo send msg to db
+		//1. send msg to db
 		//2.
 		pToImUser->BroadcastPdu(pPdu);
 	}
@@ -603,7 +609,7 @@ void CRouteServConn::_HandleClientDelFriendNotify(CImPdu* pPdu)
 		pFromImUser->BroadcastPdu(pPdu);
 	}
 	
-	//todo 2.send notify to myfriend
+	// 2.send notify to myfriend
 	uint32_t to_user_id = msg.friend_id();
 	CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_user_id);
 	if (pToImUser)
@@ -621,6 +627,23 @@ void CRouteServConn::_HandleDBReverseAddFriendRes(CImPdu* pPdu)
 	
 	log(" user_id=%d friend_id=%d.", msg.user_id(), msg.friend_id());
 
+	//send to other client
+	CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(msg.user_id());
+	if (pFromImUser)
+	{
+		pFromImUser->BroadcastPdu(pPdu);
+	}
+
+}
+
+
+void CRouteServConn::_HanddleClientOrderStatusReadMsgBraodcast(CImPdu* pPdu)
+{
+	
+	IM::Message::IMOrderStatusRead msg;
+	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+
+	log("CRouteServConn   user_id = %d order_id = %d  orderlist_is_null = %d", msg.user_id(), msg.order_id(), msg.orderlist_is_null());
 	//send to other client
 	CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(msg.user_id());
 	if (pFromImUser)

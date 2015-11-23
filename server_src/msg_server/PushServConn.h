@@ -44,5 +44,5 @@ private:
 void init_push_serv_conn(serv_info_t* server_list, uint32_t server_count);
 CPushServConn* get_push_serv_conn();
 
-void build_ios_push_flash(string& flash, uint32_t msg_type, uint32_t from_id);
+void build_push_flash(string& flash, uint32_t msg_type, uint32_t from_id);
 #endif /* defined(__im_server_TT__PushServConn__) */

@@ -178,8 +178,9 @@ bool CImUser::KickOutSameClientType(uint32_t client_type, uint32_t reason, CMsgC
 		//16进制位移计算
 		if ((((pMsgConn->GetClientType() ^ client_type) >> 4) == 0) && (pMsgConn != pFromConn))
 		{
+			log("client_type = %d pMsgConn->GetClientType() = %d", client_type, pMsgConn->GetClientType());
 			HandleKickUser(pMsgConn, reason);
-			break;
+		//	break;
 		}
 	}
 	return true;

@@ -446,7 +446,7 @@ void CSessionModel::fillSessionMsg(uint32_t nUserId, list<IM::BaseDefine::Contac
     {
         uint32_t nMsgId = 0;
         string strMsgData;
-        IM::BaseDefine::MsgType nMsgType;
+        IM::BaseDefine::MsgType nMsgType = IM::BaseDefine::MsgType(0);
         uint32_t nFromId = 0;
 		uint32_t nCreateTime = 0;
         if( it->session_type() == IM::BaseDefine::SESSION_TYPE_SINGLE)

@@ -117,6 +117,7 @@ CProxyConn::~CProxyConn()
 
 void CProxyConn::Close()
 {
+	log("CProxyConn close, from handle=%d ", m_handle);
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
 		g_proxy_conn_map.erase(m_handle);
@@ -175,6 +176,7 @@ void CProxyConn::OnRead()
 
 void CProxyConn::OnClose()
 {
+	log("CProxyConn Onclose, from handle=%d ", m_handle);
 	Close();
 }
 
