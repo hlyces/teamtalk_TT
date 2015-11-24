@@ -19,6 +19,8 @@ namespace Login {
 void protobuf_ShutdownFile_IM_2eLogin_2eproto() {
   delete IMLoginReq::default_instance_;
   delete IMLoginRes::default_instance_;
+  delete IMLogoutReq::default_instance_;
+  delete IMLogoutRsp::default_instance_;
   delete IMKickUser::default_instance_;
   delete IMDeviceTokenReq::default_instance_;
   delete IMDeviceTokenRsp::default_instance_;
@@ -41,6 +43,8 @@ void protobuf_AddDesc_IM_2eLogin_2eproto() {
   ::IM::BaseDefine::protobuf_AddDesc_IM_2eBaseDefine_2eproto();
   IMLoginReq::default_instance_ = new IMLoginReq();
   IMLoginRes::default_instance_ = new IMLoginRes();
+  IMLogoutReq::default_instance_ = new IMLogoutReq();
+  IMLogoutRsp::default_instance_ = new IMLogoutRsp();
   IMKickUser::default_instance_ = new IMKickUser();
   IMDeviceTokenReq::default_instance_ = new IMDeviceTokenReq();
   IMDeviceTokenRsp::default_instance_ = new IMDeviceTokenRsp();
@@ -48,6 +52,8 @@ void protobuf_AddDesc_IM_2eLogin_2eproto() {
   IMKickPCClientRsp::default_instance_ = new IMKickPCClientRsp();
   IMLoginReq::default_instance_->InitAsDefaultInstance();
   IMLoginRes::default_instance_->InitAsDefaultInstance();
+  IMLogoutReq::default_instance_->InitAsDefaultInstance();
+  IMLogoutRsp::default_instance_->InitAsDefaultInstance();
   IMKickUser::default_instance_->InitAsDefaultInstance();
   IMDeviceTokenReq::default_instance_->InitAsDefaultInstance();
   IMDeviceTokenRsp::default_instance_->InitAsDefaultInstance();
@@ -966,6 +972,346 @@ void IMLoginRes::Swap(IMLoginRes* other) {
 
 ::std::string IMLoginRes::GetTypeName() const {
   return "IM.Login.IMLoginRes";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+#endif  // !_MSC_VER
+
+IMLogoutReq::IMLogoutReq()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:IM.Login.IMLogoutReq)
+}
+
+void IMLogoutReq::InitAsDefaultInstance() {
+}
+
+IMLogoutReq::IMLogoutReq(const IMLogoutReq& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:IM.Login.IMLogoutReq)
+}
+
+void IMLogoutReq::SharedCtor() {
+  _cached_size_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+IMLogoutReq::~IMLogoutReq() {
+  // @@protoc_insertion_point(destructor:IM.Login.IMLogoutReq)
+  SharedDtor();
+}
+
+void IMLogoutReq::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void IMLogoutReq::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const IMLogoutReq& IMLogoutReq::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_IM_2eLogin_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eLogin_2eproto();
+#endif
+  return *default_instance_;
+}
+
+IMLogoutReq* IMLogoutReq::default_instance_ = NULL;
+
+IMLogoutReq* IMLogoutReq::New() const {
+  return new IMLogoutReq;
+}
+
+void IMLogoutReq::Clear() {
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->clear();
+}
+
+bool IMLogoutReq::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
+  // @@protoc_insertion_point(parse_start:IM.Login.IMLogoutReq)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+  handle_unusual:
+    if (tag == 0 ||
+        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+      goto success;
+    }
+    DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+        input, tag, &unknown_fields_stream));
+  }
+success:
+  // @@protoc_insertion_point(parse_success:IM.Login.IMLogoutReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:IM.Login.IMLogoutReq)
+  return false;
+#undef DO_
+}
+
+void IMLogoutReq::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:IM.Login.IMLogoutReq)
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
+  // @@protoc_insertion_point(serialize_end:IM.Login.IMLogoutReq)
+}
+
+int IMLogoutReq::ByteSize() const {
+  int total_size = 0;
+
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IMLogoutReq::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const IMLogoutReq*>(&from));
+}
+
+void IMLogoutReq::MergeFrom(const IMLogoutReq& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  mutable_unknown_fields()->append(from.unknown_fields());
+}
+
+void IMLogoutReq::CopyFrom(const IMLogoutReq& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IMLogoutReq::IsInitialized() const {
+
+  return true;
+}
+
+void IMLogoutReq::Swap(IMLogoutReq* other) {
+  if (other != this) {
+    _unknown_fields_.swap(other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string IMLogoutReq::GetTypeName() const {
+  return "IM.Login.IMLogoutReq";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int IMLogoutRsp::kResultCodeFieldNumber;
+#endif  // !_MSC_VER
+
+IMLogoutRsp::IMLogoutRsp()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:IM.Login.IMLogoutRsp)
+}
+
+void IMLogoutRsp::InitAsDefaultInstance() {
+}
+
+IMLogoutRsp::IMLogoutRsp(const IMLogoutRsp& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:IM.Login.IMLogoutRsp)
+}
+
+void IMLogoutRsp::SharedCtor() {
+  _cached_size_ = 0;
+  result_code_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+IMLogoutRsp::~IMLogoutRsp() {
+  // @@protoc_insertion_point(destructor:IM.Login.IMLogoutRsp)
+  SharedDtor();
+}
+
+void IMLogoutRsp::SharedDtor() {
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void IMLogoutRsp::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const IMLogoutRsp& IMLogoutRsp::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_IM_2eLogin_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eLogin_2eproto();
+#endif
+  return *default_instance_;
+}
+
+IMLogoutRsp* IMLogoutRsp::default_instance_ = NULL;
+
+IMLogoutRsp* IMLogoutRsp::New() const {
+  return new IMLogoutRsp;
+}
+
+void IMLogoutRsp::Clear() {
+  result_code_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->clear();
+}
+
+bool IMLogoutRsp::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
+  // @@protoc_insertion_point(parse_start:IM.Login.IMLogoutRsp)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required uint32 result_code = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &result_code_)));
+          set_has_result_code();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:IM.Login.IMLogoutRsp)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:IM.Login.IMLogoutRsp)
+  return false;
+#undef DO_
+}
+
+void IMLogoutRsp::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:IM.Login.IMLogoutRsp)
+  // required uint32 result_code = 1;
+  if (has_result_code()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->result_code(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
+  // @@protoc_insertion_point(serialize_end:IM.Login.IMLogoutRsp)
+}
+
+int IMLogoutRsp::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required uint32 result_code = 1;
+    if (has_result_code()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->result_code());
+    }
+
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IMLogoutRsp::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const IMLogoutRsp*>(&from));
+}
+
+void IMLogoutRsp::MergeFrom(const IMLogoutRsp& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_result_code()) {
+      set_result_code(from.result_code());
+    }
+  }
+  mutable_unknown_fields()->append(from.unknown_fields());
+}
+
+void IMLogoutRsp::CopyFrom(const IMLogoutRsp& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IMLogoutRsp::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
+void IMLogoutRsp::Swap(IMLogoutRsp* other) {
+  if (other != this) {
+    std::swap(result_code_, other->result_code_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.swap(other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string IMLogoutRsp::GetTypeName() const {
+  return "IM.Login.IMLogoutRsp";
 }
 
 

@@ -36,6 +36,8 @@ void protobuf_ShutdownFile_IM_2eLogin_2eproto();
 
 class IMLoginReq;
 class IMLoginRes;
+class IMLogoutReq;
+class IMLogoutRsp;
 class IMKickUser;
 class IMDeviceTokenReq;
 class IMDeviceTokenRsp;
@@ -385,6 +387,178 @@ class IMLoginRes : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static IMLoginRes* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IMLogoutReq : public ::google::protobuf::MessageLite {
+ public:
+  IMLogoutReq();
+  virtual ~IMLogoutReq();
+
+  IMLogoutReq(const IMLogoutReq& from);
+
+  inline IMLogoutReq& operator=(const IMLogoutReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMLogoutReq& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMLogoutReq* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMLogoutReq* other);
+
+  // implements Message ----------------------------------------------
+
+  IMLogoutReq* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMLogoutReq& from);
+  void MergeFrom(const IMLogoutReq& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:IM.Login.IMLogoutReq)
+ private:
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eLogin_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eLogin_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eLogin_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eLogin_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMLogoutReq* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IMLogoutRsp : public ::google::protobuf::MessageLite {
+ public:
+  IMLogoutRsp();
+  virtual ~IMLogoutRsp();
+
+  IMLogoutRsp(const IMLogoutRsp& from);
+
+  inline IMLogoutRsp& operator=(const IMLogoutRsp& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMLogoutRsp& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMLogoutRsp* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMLogoutRsp* other);
+
+  // implements Message ----------------------------------------------
+
+  IMLogoutRsp* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMLogoutRsp& from);
+  void MergeFrom(const IMLogoutRsp& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 result_code = 1;
+  inline bool has_result_code() const;
+  inline void clear_result_code();
+  static const int kResultCodeFieldNumber = 1;
+  inline ::google::protobuf::uint32 result_code() const;
+  inline void set_result_code(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:IM.Login.IMLogoutRsp)
+ private:
+  inline void set_has_result_code();
+  inline void clear_has_result_code();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 result_code_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eLogin_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eLogin_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eLogin_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eLogin_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMLogoutRsp* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1702,6 +1876,38 @@ inline void IMLoginRes::set_allocated_version_filesize(::std::string* version_fi
     version_filesize_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Login.IMLoginRes.version_filesize)
+}
+
+// -------------------------------------------------------------------
+
+// IMLogoutReq
+
+// -------------------------------------------------------------------
+
+// IMLogoutRsp
+
+// required uint32 result_code = 1;
+inline bool IMLogoutRsp::has_result_code() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IMLogoutRsp::set_has_result_code() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IMLogoutRsp::clear_has_result_code() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IMLogoutRsp::clear_result_code() {
+  result_code_ = 0u;
+  clear_has_result_code();
+}
+inline ::google::protobuf::uint32 IMLogoutRsp::result_code() const {
+  // @@protoc_insertion_point(field_get:IM.Login.IMLogoutRsp.result_code)
+  return result_code_;
+}
+inline void IMLogoutRsp::set_result_code(::google::protobuf::uint32 value) {
+  set_has_result_code();
+  result_code_ = value;
+  // @@protoc_insertion_point(field_set:IM.Login.IMLogoutRsp.result_code)
 }
 
 // -------------------------------------------------------------------

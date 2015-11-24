@@ -56,6 +56,7 @@ class IMFileServerIPReq;
 class IMFileServerIPRsp;
 class IMGetFriendsidReq;
 class IMGetFriendsidRes;
+class IMMsgServerRestartNotify;
 
 // ===================================================================
 
@@ -266,6 +267,27 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   inline ::std::string* release_client_version();
   inline void set_allocated_client_version(::std::string* client_version);
 
+  // optional .IM.BaseDefine.UserStatType online_status = 13;
+  inline bool has_online_status() const;
+  inline void clear_online_status();
+  static const int kOnlineStatusFieldNumber = 13;
+  inline ::IM::BaseDefine::UserStatType online_status() const;
+  inline void set_online_status(::IM::BaseDefine::UserStatType value);
+
+  // optional uint32 msg_server_id = 14;
+  inline bool has_msg_server_id() const;
+  inline void clear_msg_server_id();
+  static const int kMsgServerIdFieldNumber = 14;
+  inline ::google::protobuf::uint32 msg_server_id() const;
+  inline void set_msg_server_id(::google::protobuf::uint32 value);
+
+  // optional uint32 cur_time = 15;
+  inline bool has_cur_time() const;
+  inline void clear_cur_time();
+  static const int kCurTimeFieldNumber = 15;
+  inline ::google::protobuf::uint32 cur_time() const;
+  inline void set_cur_time(::google::protobuf::uint32 value);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -290,6 +312,12 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   inline void clear_has_client_ip();
   inline void set_has_client_version();
   inline void clear_has_client_version();
+  inline void set_has_online_status();
+  inline void clear_has_online_status();
+  inline void set_has_msg_server_id();
+  inline void clear_has_msg_server_id();
+  inline void set_has_cur_time();
+  inline void clear_has_cur_time();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -300,9 +328,12 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
   ::std::string* user_name_;
   ::std::string* password_;
   ::std::string* client_ip_;
-  ::std::string* client_version_;
-  ::std::string* attach_data_;
   int client_type_;
+  int online_status_;
+  ::std::string* client_version_;
+  ::google::protobuf::uint32 msg_server_id_;
+  ::google::protobuf::uint32 cur_time_;
+  ::std::string* attach_data_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
   #else
@@ -1172,6 +1203,20 @@ class IMUserStatusUpdate : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::uint32 user_uid() const;
   inline void set_user_uid(::google::protobuf::uint32 value);
 
+  // optional uint32 msg_server_id = 11;
+  inline bool has_msg_server_id() const;
+  inline void clear_msg_server_id();
+  static const int kMsgServerIdFieldNumber = 11;
+  inline ::google::protobuf::uint32 msg_server_id() const;
+  inline void set_msg_server_id(::google::protobuf::uint32 value);
+
+  // optional uint32 cur_time = 12;
+  inline bool has_cur_time() const;
+  inline void clear_cur_time();
+  static const int kCurTimeFieldNumber = 12;
+  inline ::google::protobuf::uint32 cur_time() const;
+  inline void set_cur_time(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:IM.Server.IMUserStatusUpdate)
  private:
   inline void set_has_user_status();
@@ -1182,6 +1227,10 @@ class IMUserStatusUpdate : public ::google::protobuf::MessageLite {
   inline void clear_has_client_type();
   inline void set_has_user_uid();
   inline void clear_has_user_uid();
+  inline void set_has_msg_server_id();
+  inline void clear_has_msg_server_id();
+  inline void set_has_cur_time();
+  inline void clear_has_cur_time();
 
   ::std::string _unknown_fields_;
 
@@ -1191,6 +1240,8 @@ class IMUserStatusUpdate : public ::google::protobuf::MessageLite {
   ::google::protobuf::uint32 user_id_;
   int client_type_;
   ::google::protobuf::uint32 user_uid_;
+  ::google::protobuf::uint32 msg_server_id_;
+  ::google::protobuf::uint32 cur_time_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
   #else
@@ -2688,6 +2739,117 @@ class IMGetFriendsidRes : public ::google::protobuf::MessageLite {
   void InitAsDefaultInstance();
   static IMGetFriendsidRes* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class IMMsgServerRestartNotify : public ::google::protobuf::MessageLite {
+ public:
+  IMMsgServerRestartNotify();
+  virtual ~IMMsgServerRestartNotify();
+
+  IMMsgServerRestartNotify(const IMMsgServerRestartNotify& from);
+
+  inline IMMsgServerRestartNotify& operator=(const IMMsgServerRestartNotify& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMMsgServerRestartNotify& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMMsgServerRestartNotify* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMMsgServerRestartNotify* other);
+
+  // implements Message ----------------------------------------------
+
+  IMMsgServerRestartNotify* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMMsgServerRestartNotify& from);
+  void MergeFrom(const IMMsgServerRestartNotify& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 oprt_status = 1;
+  inline bool has_oprt_status() const;
+  inline void clear_oprt_status();
+  static const int kOprtStatusFieldNumber = 1;
+  inline ::google::protobuf::uint32 oprt_status() const;
+  inline void set_oprt_status(::google::protobuf::uint32 value);
+
+  // optional uint32 msg_server_id = 2;
+  inline bool has_msg_server_id() const;
+  inline void clear_msg_server_id();
+  static const int kMsgServerIdFieldNumber = 2;
+  inline ::google::protobuf::uint32 msg_server_id() const;
+  inline void set_msg_server_id(::google::protobuf::uint32 value);
+
+  // optional uint32 cur_time = 3;
+  inline bool has_cur_time() const;
+  inline void clear_cur_time();
+  static const int kCurTimeFieldNumber = 3;
+  inline ::google::protobuf::uint32 cur_time() const;
+  inline void set_cur_time(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:IM.Server.IMMsgServerRestartNotify)
+ private:
+  inline void set_has_oprt_status();
+  inline void clear_has_oprt_status();
+  inline void set_has_msg_server_id();
+  inline void clear_has_msg_server_id();
+  inline void set_has_cur_time();
+  inline void clear_has_cur_time();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 oprt_status_;
+  ::google::protobuf::uint32 msg_server_id_;
+  ::google::protobuf::uint32 cur_time_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eServer_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eServer_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMMsgServerRestartNotify* default_instance_;
+};
 // ===================================================================
 
 
@@ -3052,15 +3214,88 @@ inline void IMValidateReq::set_allocated_client_version(::std::string* client_ve
   // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateReq.client_version)
 }
 
-// optional bytes attach_data = 20;
-inline bool IMValidateReq::has_attach_data() const {
+// optional .IM.BaseDefine.UserStatType online_status = 13;
+inline bool IMValidateReq::has_online_status() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void IMValidateReq::set_has_attach_data() {
+inline void IMValidateReq::set_has_online_status() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void IMValidateReq::clear_has_attach_data() {
+inline void IMValidateReq::clear_has_online_status() {
   _has_bits_[0] &= ~0x00000020u;
+}
+inline void IMValidateReq::clear_online_status() {
+  online_status_ = 1;
+  clear_has_online_status();
+}
+inline ::IM::BaseDefine::UserStatType IMValidateReq::online_status() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateReq.online_status)
+  return static_cast< ::IM::BaseDefine::UserStatType >(online_status_);
+}
+inline void IMValidateReq::set_online_status(::IM::BaseDefine::UserStatType value) {
+  assert(::IM::BaseDefine::UserStatType_IsValid(value));
+  set_has_online_status();
+  online_status_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateReq.online_status)
+}
+
+// optional uint32 msg_server_id = 14;
+inline bool IMValidateReq::has_msg_server_id() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void IMValidateReq::set_has_msg_server_id() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void IMValidateReq::clear_has_msg_server_id() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void IMValidateReq::clear_msg_server_id() {
+  msg_server_id_ = 0u;
+  clear_has_msg_server_id();
+}
+inline ::google::protobuf::uint32 IMValidateReq::msg_server_id() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateReq.msg_server_id)
+  return msg_server_id_;
+}
+inline void IMValidateReq::set_msg_server_id(::google::protobuf::uint32 value) {
+  set_has_msg_server_id();
+  msg_server_id_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateReq.msg_server_id)
+}
+
+// optional uint32 cur_time = 15;
+inline bool IMValidateReq::has_cur_time() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void IMValidateReq::set_has_cur_time() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void IMValidateReq::clear_has_cur_time() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void IMValidateReq::clear_cur_time() {
+  cur_time_ = 0u;
+  clear_has_cur_time();
+}
+inline ::google::protobuf::uint32 IMValidateReq::cur_time() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMValidateReq.cur_time)
+  return cur_time_;
+}
+inline void IMValidateReq::set_cur_time(::google::protobuf::uint32 value) {
+  set_has_cur_time();
+  cur_time_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMValidateReq.cur_time)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMValidateReq::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void IMValidateReq::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void IMValidateReq::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline void IMValidateReq::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -4418,6 +4653,54 @@ inline void IMUserStatusUpdate::set_user_uid(::google::protobuf::uint32 value) {
   set_has_user_uid();
   user_uid_ = value;
   // @@protoc_insertion_point(field_set:IM.Server.IMUserStatusUpdate.user_uid)
+}
+
+// optional uint32 msg_server_id = 11;
+inline bool IMUserStatusUpdate::has_msg_server_id() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void IMUserStatusUpdate::set_has_msg_server_id() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void IMUserStatusUpdate::clear_has_msg_server_id() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void IMUserStatusUpdate::clear_msg_server_id() {
+  msg_server_id_ = 0u;
+  clear_has_msg_server_id();
+}
+inline ::google::protobuf::uint32 IMUserStatusUpdate::msg_server_id() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMUserStatusUpdate.msg_server_id)
+  return msg_server_id_;
+}
+inline void IMUserStatusUpdate::set_msg_server_id(::google::protobuf::uint32 value) {
+  set_has_msg_server_id();
+  msg_server_id_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMUserStatusUpdate.msg_server_id)
+}
+
+// optional uint32 cur_time = 12;
+inline bool IMUserStatusUpdate::has_cur_time() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void IMUserStatusUpdate::set_has_cur_time() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void IMUserStatusUpdate::clear_has_cur_time() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void IMUserStatusUpdate::clear_cur_time() {
+  cur_time_ = 0u;
+  clear_has_cur_time();
+}
+inline ::google::protobuf::uint32 IMUserStatusUpdate::cur_time() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMUserStatusUpdate.cur_time)
+  return cur_time_;
+}
+inline void IMUserStatusUpdate::set_cur_time(::google::protobuf::uint32 value) {
+  set_has_cur_time();
+  cur_time_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMUserStatusUpdate.cur_time)
 }
 
 // -------------------------------------------------------------------
@@ -5945,6 +6228,82 @@ inline void IMGetFriendsidRes::set_allocated_attach_data(::std::string* attach_d
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Server.IMGetFriendsidRes.attach_data)
+}
+
+// -------------------------------------------------------------------
+
+// IMMsgServerRestartNotify
+
+// optional uint32 oprt_status = 1;
+inline bool IMMsgServerRestartNotify::has_oprt_status() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IMMsgServerRestartNotify::set_has_oprt_status() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IMMsgServerRestartNotify::clear_has_oprt_status() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IMMsgServerRestartNotify::clear_oprt_status() {
+  oprt_status_ = 0u;
+  clear_has_oprt_status();
+}
+inline ::google::protobuf::uint32 IMMsgServerRestartNotify::oprt_status() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMMsgServerRestartNotify.oprt_status)
+  return oprt_status_;
+}
+inline void IMMsgServerRestartNotify::set_oprt_status(::google::protobuf::uint32 value) {
+  set_has_oprt_status();
+  oprt_status_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMMsgServerRestartNotify.oprt_status)
+}
+
+// optional uint32 msg_server_id = 2;
+inline bool IMMsgServerRestartNotify::has_msg_server_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IMMsgServerRestartNotify::set_has_msg_server_id() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IMMsgServerRestartNotify::clear_has_msg_server_id() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IMMsgServerRestartNotify::clear_msg_server_id() {
+  msg_server_id_ = 0u;
+  clear_has_msg_server_id();
+}
+inline ::google::protobuf::uint32 IMMsgServerRestartNotify::msg_server_id() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMMsgServerRestartNotify.msg_server_id)
+  return msg_server_id_;
+}
+inline void IMMsgServerRestartNotify::set_msg_server_id(::google::protobuf::uint32 value) {
+  set_has_msg_server_id();
+  msg_server_id_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMMsgServerRestartNotify.msg_server_id)
+}
+
+// optional uint32 cur_time = 3;
+inline bool IMMsgServerRestartNotify::has_cur_time() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void IMMsgServerRestartNotify::set_has_cur_time() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void IMMsgServerRestartNotify::clear_has_cur_time() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void IMMsgServerRestartNotify::clear_cur_time() {
+  cur_time_ = 0u;
+  clear_has_cur_time();
+}
+inline ::google::protobuf::uint32 IMMsgServerRestartNotify::cur_time() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMMsgServerRestartNotify.cur_time)
+  return cur_time_;
+}
+inline void IMMsgServerRestartNotify::set_cur_time(::google::protobuf::uint32 value) {
+  set_has_cur_time();
+  cur_time_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMMsgServerRestartNotify.cur_time)
 }
 
 
