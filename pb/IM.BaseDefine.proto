@@ -186,13 +186,16 @@ enum OrderMsgStatus{
 	ENTRUST_CANCEL			= 5; //公众委托取消通知律师端
 	TOPUP_SUCCESS			= 6; //充值成功通知客户端（包括律师端与公众端）
 	TOPUP_FAILED			= 7; //充值失败通知客户端（包括律师端与公众端）
-	WITHDRAWAL_SUCCESS		= 8; //提现成功通知客户端（包括律师端与公众端）
-	WITHDRAWAL_FAILED		= 9; //提现失败通知客户端（包括律师端与公众端）
-	CHECK_SUCCESS	 		= 10; //用户信息认证通知客户端（包括律师端与公众端）
-	CHECK_FAILED			= 11; //用户信息认证失败通知客户端（包括律师端与公众端）
-	USER_CANCEL				= 12; //用户撤销订单通知律师端
-	VALID_CANCEL			= 13; //过期撤销订单通知律师端
-	ORDER_COMPLETE			= 14; //订单完成通知律师端
+	BWITHDRAWAL_SUCCESS		= 8; //余额成功通知客户端（包括律师端与公众端）
+	BWITHDRAWAL_FAILED		= 9; //余额失败通知客户端（包括律师端与公众端）
+	TWITHDRAWAL_SUCCESS		= 10; //积分成功通知客户端（包括律师端与公众端）
+	TWITHDRAWAL_FAILED		= 11; //积分失败通知客户端（包括律师端与公众端）
+	CHECK_SUCCESS	 		= 12; //用户信息认证通知客户端（包括律师端与公众端）
+	CHECK_FAILED			= 13; //用户信息认证失败通知客户端（包括律师端与公众端）
+	USER_CANCEL				= 14; //处理过程中用户撤销订单通知律师端
+	VALID_CANCEL			= 15; //过期撤销订单通知律师端
+	ORDER_COMPLETE			= 16; //订单完成通知律师端
+	ORDER_REVOKE			= 17;//律师申请付款 用户撤回律师的付款金额要求
 }
 
 
@@ -245,6 +248,7 @@ enum MsgType{						//消息类型： 单聊文本，单聊音频，群聊文本�
 	MSG_TYPE_ORDER_WAITPAYMENT	= 0x29; //订单等待付款通知客户端
 	MSG_TYPE_ORDER_ALLCANCEL	= 0x2a;	//通知律师端所有的撤销订单（包括过期撤销与用户撤销）
 	MSG_TYPE_ORDER_COMPLETE		= 0X2b; //订单完成通知律师端	
+	Msg_TYPE_ORDER_REVOKE		= 0x2c; //律师申请付款后用户撤单
 	MSG_TYPE_LOCATION_SHARING	= 0x31;	//位置分享消息
 	MSG_TYPE_FILE_TRANSFER		= 0x32;	//文件消息
 

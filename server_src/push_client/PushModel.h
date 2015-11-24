@@ -155,8 +155,9 @@ enum Dffx_Order_Grab_Sign{
 
 //dffx_common_pushresult
 enum Dffx_Common_Pushresult_Type{
-	TOPUPTYPE  = 1,
-	WITHDRAWAL = 2,
+	TOPUPTYPE  = 1,			 //充值
+	BALANCE_WITHDRAWAL = 2,  //余额提现  
+	INTEGRAL_WITHDRAWAL = 3, //积分提现
 };
 
 enum Dffx_Common_Pushresult_Result{
@@ -180,6 +181,7 @@ enum AllCancelOrComplete{
 	ValidCancel = -3,
 	UserCancel 	= -1,
 	Complete 	=  0,
+	Revoke 		= 15,
 };
 
 class CPushModel {
@@ -222,7 +224,6 @@ public:
 	//充值或提现状态消息推送
 	bool getTopUP_withDrawal(list<TopUP_withDrawal>& lsTopUP_withDrawal);
 	bool updateTopUP_withDrawal(list<TopUP_withDrawal> lsTopUP_withDrawal);
-	
 
 	//会员过期
 	void updateVipExp();

@@ -253,7 +253,6 @@ void CDBServConn::OnTimer(uint64_t curr_tick)
 
 void CDBServConn::HandlePdu(CImPdu* pPdu)
 {
-	log("cmdId = %d", pPdu->GetCommandId());
 	switch (pPdu->GetCommandId())
 	{
 		case DFFX_CID_OTHER_HEARTBEAT:
@@ -872,7 +871,9 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 		uint32_t msg_type = msg2.msg_type();
 		from_id = msg2.from_user_id();
 		uint32_t to_id = msg2.to_session_id();
-
+		
+		if (msg_type != IM::BaseDefine::MSG_TYPE_GROUP_AUDIO 
+			&& msg_type != IM::BaseDefine::MSG_TYPE_SINGLE_AUDIO)
 		{
 			char* msg_out = NULL;
 			uint32_t msg_out_len = 0;

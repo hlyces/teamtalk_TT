@@ -311,7 +311,6 @@ void CMsgConn::OnTimer(uint64_t curr_tick)
 
 void CMsgConn::HandlePdu(CImPdu* pPdu)
 {
-	log("cmdId = %d", pPdu->GetCommandId());
 	// request authorization check
 	if (pPdu->GetCommandId() != DFFX_CID_LOGIN_REQ_USERLOGIN
 	    && (!IsOpen() || IsKickOff()))
@@ -726,16 +725,7 @@ void CMsgConn::_HandleClientMsgData(CImPdu* pPdu)
 	msg.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
 	pPdu->SetPBMsg(&msg);
 
-	if(msg_type== IM::BaseDefine::MSG_TYPE_ORDER_PUSH \
-		|| msg_type== IM::BaseDefine::MSG_TYPE_ORDER_GRAB \
-		|| msg_type== IM::BaseDefine::MSG_TYPE_ORDER_RESULT \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_USER_CHECK \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL \
-		|| msg_type == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
+	if(CHECK_MSG_TYPE_PUSH( msg_type))
 	{
 		CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_session_id);
 		if (pToImUser)

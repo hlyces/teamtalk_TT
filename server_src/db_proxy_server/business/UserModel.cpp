@@ -1578,17 +1578,17 @@ bool CUserModel::orderstatusread(uint32_t user_id, uint32_t order_id, bool& is_n
 				log("redis set failed %s", strTableKey.c_str());	
 				return bRet;
 			}
-			bRet = true;
 			
 			int nRet = pCacheConn->isExists(strTableKey);
 			if(nRet == false)
 			{
-				is_null = 1;
+				is_null = 0;
 			}
 			else
 			{
-				is_null = 0;
+				is_null = 1;
 			}
+			bRet = true;
 		}
 		return bRet;
 }

@@ -237,7 +237,6 @@ void CRouteServConn::OnTimer(uint64_t curr_tick)
 
 void CRouteServConn::HandlePdu(CImPdu* pPdu)
 {
-	log("CRouteServConn HandlePdu cmd = %d ", pPdu->GetCommandId());
 	switch (pPdu->GetCommandId())
 	{
 		case DFFX_CID_OTHER_HEARTBEAT:

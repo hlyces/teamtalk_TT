@@ -758,7 +758,8 @@ namespace DB_PROXY
 			
 			if( !CUserModel::getInstance()->orderstatusread(user_id, order_id, is_null))
 			{
-				log("!!!error:user_id=%d order_id:%d ", user_id, order_id, is_null);			
+				log("!!!error:user_id=%d order_id:%d ", user_id, order_id, is_null);	
+				return ;
 			}
 
 			msg.set_orderlist_is_null(is_null);

@@ -513,6 +513,10 @@ void CCancelOrComplete::OnThreadTick()
 		{
 			intResult = IM::BaseDefine::ORDER_COMPLETE;
 		}
+		else if(lsIter->msg_status == Revoke)
+		{
+			intResult = IM::BaseDefine::ORDER_REVOKE; //律师申请付款 用户撤回
+		}
 	
 		string strMsg = "{\"UserId\":" + int2string(lsIter->msg_user) +  ", \"OrderId\":" + int2string(lsIter->msg_orderid)  \
 						+ ", \"resultStatus\":" + int2string(intResult)  + "}";
@@ -528,8 +532,6 @@ void CCancelOrComplete::OnThreadTick()
 
 	usleep(500000);
 }
-
-
 
 
 CTopUP_withDrawalThread::CTopUP_withDrawalThread()
@@ -591,18 +593,32 @@ void CTopUP_withDrawalThread::OnThreadTick()
 				
 			}
 		}
-		else if(lsIter->result_type == WITHDRAWAL) //提现
+		else if(lsIter->result_type == BALANCE_WITHDRAWAL) //提现
 		{
 			if(lsIter->result_result == RESULTFAILED) //失败
 			{
-				intResult = IM::BaseDefine::WITHDRAWAL_FAILED;
-				strResult += "提现失败";
+				intResult = IM::BaseDefine::BWITHDRAWAL_FAILED;
+				strResult += "余额提现失败";
 	
 			}
 			else if(lsIter->result_result == RESULTSUCCESS) //成功
 			{
-				intResult = IM::BaseDefine::WITHDRAWAL_SUCCESS;
-				strResult += "提现成功";
+				intResult = IM::BaseDefine::BWITHDRAWAL_SUCCESS;
+				strResult += "余额提现成功";
+			}
+		}
+		else if(lsIter->result_type == INTEGRAL_WITHDRAWAL) //提现
+		{
+			if(lsIter->result_result == RESULTFAILED) //失败
+			{
+				intResult = IM::BaseDefine::TWITHDRAWAL_FAILED;
+				strResult += "积分提现失败";
+	
+			}
+			else if(lsIter->result_result == RESULTSUCCESS) //成功
+			{
+				intResult = IM::BaseDefine::TWITHDRAWAL_SUCCESS;
+				strResult += "积分提现成功";
 			}
 		}
 

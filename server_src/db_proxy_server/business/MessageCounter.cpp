@@ -203,7 +203,8 @@ namespace DB_PROXY {
                                 {
                                     nClientType = IM::BaseDefine::CLIENT_TYPE_ANDROID;
                                 }
-                                if(IM::BaseDefine::ClientType_IsValid(nClientType))
+                                if( !strToken.empty()
+									&& IM::BaseDefine::ClientType_IsValid(nClientType))
                                 {
                                     IM::BaseDefine::UserTokenInfo* pToken = msgResp.add_user_token_info();
                                     pToken->set_user_id(nUserId);
@@ -217,7 +218,7 @@ namespace DB_PROXY {
                                 }
                                 else
                                 {
-                                    log("invalid clientType.clientType=%u", nClientType);
+                                    log("invalid clientType.clientType=%u,strToken=%s", nClientType, strToken.c_str());
                                 }
                             }
                             else

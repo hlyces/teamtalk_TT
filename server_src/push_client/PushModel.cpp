@@ -624,7 +624,7 @@ bool CPushModel::handleEntrustOrder(list<OrderEntrust >& lsOrderEntrust )
 	if (pDBConn) 
 	{
   		string strSql = "select * from dffx_order_msg where ((msg_status = 2 and msg_sign != 11) or (msg_status = -1 and msg_sign != 12) \
-							or (msg_status = 5 and msg_sign != 13)) and msg_skillid = 10001";
+							or (msg_status = 5 and msg_sign != 13)) and msg_skillid = 10001 limit 100";
 		log("strSql = %s", strSql.c_str());
 		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
 		if(pResultSet)
@@ -799,7 +799,7 @@ bool CPushModel::getCancelOrCompleteTolawyer(list<OrderStatusChg >& lsOrderStatu
 	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
 	if (pDBConn) 
 	{
-		string strSql = "select * from dffx_order_msg where (msg_status = 0 or msg_status = -1 or msg_status = -3) AND msg_sign = 0 limit 100 ";
+		string strSql = "select * from dffx_order_msg where (msg_status = 0 or msg_status = -1 or msg_status = -3 or msg_sign = 15) AND msg_sign = 0 limit 100 ";
 		log("strSql = %s", strSql.c_str());
 		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
 		if(pResultSet)
@@ -964,10 +964,6 @@ bool CPushModel::updateTopUP_withDrawal(list<TopUP_withDrawal> lsTopUP_withDrawa
 }
 
 
-
-
-
-
 //更新过期用户状态
 #define SQL_SELECT_VIP_EXPRI_STATUS  "SELECT vipvalid_uid  FROM dffx_user_vipvalid WHERE 1000 * unix_timestamp() > vipvalid_endtime and vipvalid_status > 0 limit 100"
 #define SQL_UPDATE_USERTABLE_VIP_EXPRI_STATUS  "UPDATE dffx_user SET user_isvip = 0 WHERE user_isvip > 0 AND  user_uid IN "
@@ -1064,7 +1060,7 @@ void  CPushModel::updateOrderExp()
 				string validOrderid = pResultSet->GetString("valid_orderid");
 				strValidOrderid += validOrderid + ",";
 				
-				int orderid = pResultSet->GetInt("msg_lawyer");
+				int orderid = pResultSet->GetInt("valid_orderid");
 				int lawyerid = pResultSet->GetInt("msg_lawyer");
 
 				m_Orderid_Lawyer.insert(map<int,int>::value_type(orderid, lawyerid));
@@ -1123,8 +1119,8 @@ void  CPushModel::updateOrderExp()
 			
 			for(; t_Iter != m_Orderid_Lawyer.end() ; t_Iter++)
 			{
-				string strTableKey = "order_prompt_message_" + int2string(t_Iter->first);			
-				int nRet = pCacheConn->hset( strTableKey, int2string(t_Iter->second), int2string(1));		
+				string strTableKey = "order_prompt_message_" + int2string(t_Iter->second);			
+				int nRet = pCacheConn->hset( strTableKey, int2string(t_Iter->first), int2string(1));		
 				if(nRet==-1)			
 				{			
 					log("redis set failed %s", strTableKey.c_str());		

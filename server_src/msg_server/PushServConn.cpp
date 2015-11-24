@@ -192,11 +192,13 @@ void build_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
    				{  
 				    resultStatus = value["resultStatus"].asInt(); 
 
-					if(resultStatus == IM::BaseDefine::WITHDRAWAL_FAILED)
+					if(resultStatus == IM::BaseDefine::BWITHDRAWAL_FAILED
+						|| resultStatus == IM::BaseDefine::TWITHDRAWAL_FAILED)
 					{
 						msg_tmp.append("您的提现金额已到账");
 					}
-					else if(resultStatus == IM::BaseDefine::WITHDRAWAL_SUCCESS)
+					else if(resultStatus == IM::BaseDefine::BWITHDRAWAL_SUCCESS
+						|| resultStatus == IM::BaseDefine::TWITHDRAWAL_SUCCESS)
 					{
 						msg_tmp.append("提现失败，银行卡信息有误");
 					}
@@ -212,7 +214,7 @@ void build_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
 			{
 				//msg_tmp.append(nick_name);
 				//msg_tmp.append(":");
-				msg_tmp.append(flash);
+				msg_tmp.append("您有一条新消息");
 			}
 			flash = msg_tmp;
 			uint32_t flash_max_length = IOS_PUSH_FLASH_MAX_LENGTH - 3;
