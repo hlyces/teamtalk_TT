@@ -152,9 +152,10 @@ message IMCleanMsgListRsp{
 
 
 message IMOrderStatusRead{
+	//cmd id: 0x0311 && 0x0312
 	required uint32 user_id = 1;	//用户自己的id
 	required uint32 order_id = 2;	//已读的订单id
-	required uint32 orderlist_is_null = 3; //订单列表是否为空 0：为空， 1：非空
+	required uint32 orderlist_is_null = 3; //订单列表是否为空 0：为空， 1：非空（即redis列表里面是否有该状态）
 	
 	optional bytes attach_data = 20;
 };
