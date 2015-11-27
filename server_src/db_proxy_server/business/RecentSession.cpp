@@ -50,16 +50,7 @@ namespace DB_PROXY {
             for(auto it=lsContactList.begin(); it!=lsContactList.end(); ++it)
             {
 				// MSG_TYPE_ORDER_ENTRUST MSG_TYPE_ORDER_ACCEPT	MSG_TYPE_ORDER_CANCEL	
-				if(it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_PUSH || \
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_GRAB || \
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_RESULT || \
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST || \
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT || \
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_CANCEL ||	\
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_USER_CHECK ||	\
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT ||	\
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL ||	\
-					it->latest_msg_type() == IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
+				if( CHECK_MSG_TYPE_PUSH( it->latest_msg_type()))
 				{
 					continue;
 				}

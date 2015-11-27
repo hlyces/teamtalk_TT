@@ -130,7 +130,7 @@ namespace DB_PROXY
 
 	void changeAvatar(CImPdu* pPdu, uint32_t conn_uuid)
 	{
-		IM::Buddy::IMChangeAvatarReq msg;
+/*		IM::Buddy::IMChangeAvatarReq msg;
 		IM::Buddy::IMChangeAvatarRsp msgResp;
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
@@ -159,7 +159,7 @@ namespace DB_PROXY
 		else
 		{
 			log("parse pb failed");
-		}
+		}*/
 	}
 
 	void addFriend(CImPdu* pPdu, uint32_t conn_uuid)

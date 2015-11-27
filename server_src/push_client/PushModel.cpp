@@ -270,6 +270,7 @@ bool CPushModel::updateOrderPushtime(list<OrderMsg > lsOrderMsg )
 			strSql = "update dffx_order_msg t1, dffx_common_skillpushtime t2 set t1.msg_pushtime = t2.skill_pushtime \
 					where  t1.msg_sign = 0 and t1.msg_case = t2.skill_caseid and t1.msg_skillid = t2.skill_skillid and \
 					msg_orderid in  " + strMsgOrderid;
+		
 			log("strSql = %s", strSql.c_str());
 			bRet = pDBConn->ExecuteUpdate(strSql.c_str());
 		}
@@ -770,7 +771,7 @@ bool CPushModel::updateWaitPayment(list<OrderStatusChg > lsOrderStatusChg)
 		if (pDBConn)
 		{
 			//update 当前时间 
-			strSql = "update dffx_order_msg t1 set msg_sign =  16  where  t1.msg_orderid in " + strMsgOrderid;
+			strSql = "update dffx_order_msg t1 set msg_sign =  16 , msg_lasttime = 1000 * unix_timestamp() where  t1.msg_orderid in " + strMsgOrderid;
 			log("strSql = %s", strSql.c_str());
 			bRet = pDBConn->ExecuteUpdate(strSql.c_str());
 		}
@@ -799,7 +800,7 @@ bool CPushModel::getCancelOrCompleteTolawyer(list<OrderStatusChg >& lsOrderStatu
 	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
 	if (pDBConn) 
 	{
-		string strSql = "select * from dffx_order_msg where (msg_status = 0 or msg_status = -1 or msg_status = -3 or msg_sign = 15) AND msg_sign = 0 limit 100 ";
+		string strSql = "select * from dffx_order_msg where (msg_status = 0 or msg_status = -1 or msg_status = -3 or msg_status = 15) AND msg_sign = 0 limit 100 ";
 		log("strSql = %s", strSql.c_str());
 		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
 		if(pResultSet)
@@ -860,7 +861,7 @@ bool CPushModel::updateCancelOrCompleteTolawyer(list<OrderStatusChg > lsOrderSta
 		{
 			//update 当前时间 
 			strSql = "update dffx_order_msg t1 set msg_sign =  (CASE msg_status WHEN 0 THEN 18 WHEN -1 THEN 17 WHEN -3 THEN 17  \
-						ELSE msg_status END )  where  t1.msg_orderid in " + strMsgOrderid;
+						ELSE msg_status END ) , msg_lasttime = 1000 * unix_timestamp() where  t1.msg_orderid in " + strMsgOrderid;
 			log("strSql = %s", strSql.c_str());
 			bRet = pDBConn->ExecuteUpdate(strSql.c_str());
 		}
@@ -1119,7 +1120,12 @@ void  CPushModel::updateOrderExp()
 			
 			for(; t_Iter != m_Orderid_Lawyer.end() ; t_Iter++)
 			{
-				string strTableKey = "order_prompt_message_" + int2string(t_Iter->second);			
+				if(t_Iter->second == 0)
+				{
+					continue;
+				}
+				
+				string strTableKey = "Red_Dot:order_prompt_message_" + int2string(t_Iter->second);			
 				int nRet = pCacheConn->hset( strTableKey, int2string(t_Iter->first), int2string(1));		
 				if(nRet==-1)			
 				{			

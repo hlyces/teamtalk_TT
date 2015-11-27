@@ -804,7 +804,7 @@ void CDBServConn::_HandleRemoveSessionResponse(CImPdu* pPdu)
 
 void CDBServConn::_HandleChangeAvatarResponse(CImPdu* pPdu)
 {
-	IM::Buddy::IMChangeAvatarRsp msg;
+/*	IM::Buddy::IMChangeAvatarRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	uint32_t user_id = msg.user_id();
@@ -819,7 +819,7 @@ void CDBServConn::_HandleChangeAvatarResponse(CImPdu* pPdu)
 		msg.clear_attach_data();
 		pPdu->SetPBMsg(&msg);
 		pUser->BroadcastPdu(pPdu);
-	}
+	}*/
 }
 
 void CDBServConn::_HandleDepartmentResponse(CImPdu *pPdu)
@@ -989,9 +989,11 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 		log("HandleGetDeviceTokenResponse, user_id = %u, device_token = %s, push_cnt = %u, client_type = %u.",
 		    user_id, device_token.c_str(), push_cnt, client_type);
 
+		/*
 		CImUser* pUser = CImUserManager::GetInstance()->GetImUserById(user_id);
 		if (pUser)
 		{
+		*/
 			msg3.set_flash(msg_data);
 			msg3.set_push_data(json_obj.json());
 			IM::BaseDefine::UserTokenInfo* user_token_tmp = msg3.add_user_token_list();
@@ -999,6 +1001,8 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 			user_token_tmp->set_user_type((IM::BaseDefine::ClientType)client_type);
 			user_token_tmp->set_token(device_token);
 			user_token_tmp->set_push_count(push_cnt);
+
+			/*
 			//pc client登录，则为勿打扰式推送
 			if (pUser->GetPCLoginStatus() == IM_PC_LOGIN_STATUS_ON)
 			{
@@ -1006,11 +1010,13 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 				log("HandleGetDeviceTokenResponse, user id: %d, push type: silent.", user_id);
 			}
 			else
+			*/
 			{
 				user_token_tmp->set_push_type(IM_PUSH_TYPE_NORMAL);
 				log("HandleGetDeviceTokenResponse, user id: %d, push type: normal.", user_id);
 			}
-		}
+		/*
+		}		
 		else
 		{
 			IM::Server::IMPushToUserReq msg4;
@@ -1041,7 +1047,7 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 			{
 				route_conn->SendPdu(&pdu2);
 			}
-		}
+		}*/
 	}
 
 	if (msg3.user_token_list_size() > 0)

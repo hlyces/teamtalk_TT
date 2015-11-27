@@ -1085,7 +1085,7 @@ void CMsgConn::_HandleClientAllUserRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleChangeAvatarRequest(CImPdu* pPdu)
 {
-	IM::Buddy::IMChangeAvatarReq msg;
+/*	IM::Buddy::IMChangeAvatarReq msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	log("HandleChangeAvatarRequest, user_id=%u ", GetUserId());
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1094,7 +1094,7 @@ void CMsgConn::_HandleChangeAvatarRequest(CImPdu* pPdu)
 		msg.set_user_id(GetUserId());
 		pPdu->SetPBMsg(&msg);
 		pDBConn->SendPdu(pPdu);
-	}
+	}*/
 }
 
 void CMsgConn::_HandleClientUsersStatusRequest(CImPdu* pPdu)

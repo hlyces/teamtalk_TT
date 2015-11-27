@@ -1571,7 +1571,7 @@ bool CUserModel::orderstatusread(uint32_t user_id, uint32_t order_id, bool& is_n
 		CAutoCache autoCache( "unread", &pCacheConn);		
 		if(pCacheConn)	
 		{	
-			string strTableKey = "order_prompt_message_" + int2string(user_id);			
+			string strTableKey = "Red_Dot:order_prompt_message_" + int2string(user_id);			
 			bRet = pCacheConn->hdel( strTableKey, int2string(order_id));		
 			if(bRet==-1)			
 			{			

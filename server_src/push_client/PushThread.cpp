@@ -164,7 +164,6 @@ void CPushThread::OnThreadTick()
 	{
 		pPush->updateOrderPushtime(lsOrderMsg);
 		pPush->updateOrderSendsign(lsOrderMsg);
-		
 	}
 	if(lsTrueOrderMsg.size() != 0)
 	{
@@ -598,27 +597,27 @@ void CTopUP_withDrawalThread::OnThreadTick()
 			if(lsIter->result_result == RESULTFAILED) //失败
 			{
 				intResult = IM::BaseDefine::BWITHDRAWAL_FAILED;
-				strResult += "余额提现失败";
+				strResult += "个人余额提现失败";
 	
 			}
 			else if(lsIter->result_result == RESULTSUCCESS) //成功
 			{
 				intResult = IM::BaseDefine::BWITHDRAWAL_SUCCESS;
-				strResult += "余额提现成功";
+				strResult += "个人余额提现成功";
 			}
 		}
-		else if(lsIter->result_type == INTEGRAL_WITHDRAWAL) //提现
+		else if(lsIter->result_type == BUSINESS_INCOME) //提现
 		{
 			if(lsIter->result_result == RESULTFAILED) //失败
 			{
 				intResult = IM::BaseDefine::TWITHDRAWAL_FAILED;
-				strResult += "积分提现失败";
+				strResult += "业务收益提现失败";
 	
 			}
 			else if(lsIter->result_result == RESULTSUCCESS) //成功
 			{
 				intResult = IM::BaseDefine::TWITHDRAWAL_SUCCESS;
-				strResult += "积分提现成功";
+				strResult += "业务收益提现成功";
 			}
 		}
 

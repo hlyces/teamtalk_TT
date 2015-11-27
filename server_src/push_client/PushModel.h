@@ -156,8 +156,10 @@ enum Dffx_Order_Grab_Sign{
 //dffx_common_pushresult
 enum Dffx_Common_Pushresult_Type{
 	TOPUPTYPE  = 1,			 //充值
-	BALANCE_WITHDRAWAL = 2,  //余额提现  
-	INTEGRAL_WITHDRAWAL = 3, //积分提现
+	BALANCE_WITHDRAWAL = 2,  //余额提现 
+	BUSINESS_INCOME = 3,	 //业务收益
+//	business income
+//	INTEGRAL_WITHDRAWAL = 3,
 };
 
 enum Dffx_Common_Pushresult_Result{

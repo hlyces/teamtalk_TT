@@ -116,24 +116,37 @@ namespace DB_PROXY {
                 
                 string strOldValue = pCacheConn->get("device_token:userId_"+int2string(nUserId));
                 
-                if(!strOldValue.empty())
+                if(strOldValue != strValue)
                 {
-                    size_t nPos = strOldValue.find(":");
-                    if(nPos!=string::npos)
-                    {
-                        string strOldToken = strOldValue.substr(nPos + 1);
-                        string strReply = pCacheConn->get("device_token:token_"+strOldToken);
+					if( !strOldValue.empty())
+	                {
+	                    size_t nPos = strOldValue.find(":");
+	                    if(nPos!=string::npos)
+	                    {
+	                        string strOldToken = strOldValue.substr(nPos + 1);
+	                        //string strReply = pCacheConn->get("device_token:token_"+strOldToken);
+	                        if (!strOldToken.empty()) {
+	                            
+	                            pCacheConn->del("device_token:token_"+strOldToken );
+	                        }
+	                    }
+	                }
+
+					//
+					if( !strToken.empty())
+					{
+					 	string strReply = pCacheConn->get("device_token:token_"+strToken);
                         if (!strReply.empty()) {
-                            string strNewValue("");
-                            pCacheConn->set("device_token:token_"+strOldToken, strNewValue);
+                            
+							pCacheConn->del("device_token:userId_"+strReply );
                         }
-                    }
+					}
+					
+	                pCacheConn->set("device_token:userId_"+int2string(nUserId), strValue);
+	                string strNewValue = int2string(nUserId);
+	                pCacheConn->set("device_token:token_"+strToken, strNewValue);
                 }
-                
-                pCacheConn->set("device_token:userId_"+int2string(nUserId), strValue);
-                string strNewValue = int2string(nUserId);
-                pCacheConn->set("device_token:token_"+strToken, strNewValue);
-            
+				
                 //log("setDeviceToken. userId=%u, deviceToken=%s", nUserId, strToken.c_str());
                 pCacheManager->RelCacheConn(pCacheConn);
             }

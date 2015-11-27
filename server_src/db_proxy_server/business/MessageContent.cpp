@@ -171,22 +171,11 @@ namespace DB_PROXY
 							delete pPduResp;
 							return;
 						}
-						//	MSG_TYPE_ORDER_PUSH MSG_TYPE_ORDER_GRAB MSG_TYPE_ORDER_RESULT
-						// MSG_TYPE_ORDER_ENTRUST MSG_TYPE_ORDER_ACCEPT	MSG_TYPE_ORDER_CANCEL	
 					}
 					else if(nMsgType== IM::BaseDefine::MSG_TYPE_SINGLE_TEXT
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_PUSH
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_GRAB
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_RESULT
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
-							|| nMsgType== IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL
-							|| nMsgType== IM::BaseDefine::MSG_TYPE_USER_CHECK
-							|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT
-							|| nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_LOCATION_SHARING
-					        || nMsgType== IM::BaseDefine::MSG_TYPE_FILE_TRANSFER)
+						|| CHECK_MSG_TYPE_PUSH(nMsgType)
+						|| nMsgType== IM::BaseDefine::MSG_TYPE_LOCATION_SHARING
+					    || nMsgType== IM::BaseDefine::MSG_TYPE_FILE_TRANSFER)
 					{
 						if (nFromId != nToId)
 						{
@@ -218,13 +207,7 @@ namespace DB_PROXY
 								nMsgId = pMsgModel->getMsgId(nRelateId);
 								if(nMsgId != INVALID_VALUE)
 								{
-									if(nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_PUSH
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_GRAB
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_RESULT
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
-									   || nMsgType== IM::BaseDefine::MSG_TYPE_USER_CHECK)
+									if(CHECK_MSG_TYPE_PUSH(nMsgType))
 									{
 										CacheConn* pCacheConn = NULL;
 										CAutoCache autoCache( "login_token", &pCacheConn);
@@ -241,8 +224,6 @@ namespace DB_PROXY
 											}
 										}
 									}
-							//		pMsgModel->sendMessage(nRelateId, nFromId, nToId, nMsgType, nCreateTime, nMsgId, (string&)msg.msg_data(), isBlack);
-
 									if(nSessionId != INVALID_VALUE &&
 									   nMsgType== IM::BaseDefine::MSG_TYPE_SINGLE_TEXT
 									   || nMsgType== IM::BaseDefine::MSG_TYPE_LOCATION_SHARING
@@ -326,16 +307,7 @@ namespace DB_PROXY
 
 					msg.set_is_black(isBlack?1:0);
 
-					if(nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_PUSH
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_GRAB
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_RESULT
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ENTRUST
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_CANCEL
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_USER_CHECK
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL
-					   && nMsgType != IM::BaseDefine::MSG_TYPE_TOPUP_WITHDRAWAL)
+					if(!CHECK_MSG_TYPE_PUSH(nMsgType))
 					{
 						msg.set_msg_id(nMsgId);
 						pPduResp->SetPBMsg(&msg);

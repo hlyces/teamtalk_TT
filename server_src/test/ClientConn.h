@@ -104,6 +104,8 @@ private:
 	void _HandleIMFileRsp(CImPdu* pPdu);
 	void _HandleIMFileNotify(CImPdu* pPdu);
 	void _HandleIMFileHasOfflineRsp(CImPdu* pPdu);
+
+	void _HandleOrderStatusReadBroadcastRsp(CImPdu* pPdu);
 	
 private:
 	bool 		m_bOpen;

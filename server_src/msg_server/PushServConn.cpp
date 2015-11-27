@@ -100,33 +100,13 @@ void build_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
 			{
 				msg_tmp.append("您有新的案件委托");
 			}
-			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_GRAB)
-			{
-				Json::Reader reader(Json::Features::strictMode());  
-   				Json::Value value;
-				int grabStatus;
-   				if (reader.parse(flash, value)) 
-   				{  
-				    grabStatus = value["grabStatus"].asInt(); 
-				
-
-					if(grabStatus == IM::BaseDefine::LAWSUIT_ATTENDANCE_GRAB)
-					{
-						msg_tmp.append("您的订单已有律师受理");
-					}
-					else if(grabStatus == IM::BaseDefine::CONSULT_DOCUMENTS_GRAB)
-					{
-						msg_tmp.append("您的订单有新动态");
-					}
-				} 
-				else
-				{
-					msg_tmp.append("您有一条新消息");
-					log("json parse error!");
-				}
-			}
 			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ACCEPT \
-					|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT \
+					|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_GRAB)
+			{
+				msg_tmp.append("您的订单已有律师受理");
+					
+			}
+			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT \
 					|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL)
 			{
 				msg_tmp.append("您的订单有新动态");
@@ -195,12 +175,12 @@ void build_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
 					if(resultStatus == IM::BaseDefine::BWITHDRAWAL_FAILED
 						|| resultStatus == IM::BaseDefine::TWITHDRAWAL_FAILED)
 					{
-						msg_tmp.append("您的提现金额已到账");
+						msg_tmp.append("提现失败，银行卡信息有误");
 					}
 					else if(resultStatus == IM::BaseDefine::BWITHDRAWAL_SUCCESS
 						|| resultStatus == IM::BaseDefine::TWITHDRAWAL_SUCCESS)
 					{
-						msg_tmp.append("提现失败，银行卡信息有误");
+						msg_tmp.append("您的提现金额已到账");
 					}
    				}
 				else

@@ -573,6 +573,10 @@ void ClientConn::HandlePdu(CImPdu* pPdu)
 			_HandleIMFileHasOfflineRsp(pPdu);
 			break;
 
+		case IM::BaseDefine::DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST:
+			log("DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST msg_type=%d\n", pPdu->GetCommandId());
+			_HandleOrderStatusReadBroadcastRsp(pPdu);
+			break;
 			
 		default:
 			printf("wrong msg_type=%d\n", pPdu->GetCommandId());
@@ -1353,4 +1357,22 @@ void ClientConn::_HandleIMFileHasOfflineRsp(CImPdu* pPdu)
         m_pCallback->onError(nSeqNo, pPdu->GetCommandId(), "parse pb error");
     }
 }
+
+
+void ClientConn::_HandleOrderStatusReadBroadcastRsp(CImPdu* pPdu)
+{
+	IM::Message::IMOrderStatusRead msgResp;
+    uint32_t nSeqNo = pPdu->GetSeqNum();
+	
+    if(msgResp.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
+    {
+		uint32_t user_id = msgResp.user_id();
+		uint32_t order_id = msgResp.order_id();
+		uint32_t orderlist_is_null = msgResp.orderlist_is_null();
+
+		printf("user_id = %d   order_id = %d    orderlist_is_null = %d\n", user_id, order_id, orderlist_is_null);
+		log("user_id = %d   order_id = %d    orderlist_is_null = %d\n", user_id, order_id, orderlist_is_null);
+	}
+}
+
 

@@ -301,6 +301,9 @@ bool OrderMsgStatus_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+    case 15:
+    case 16:
+    case 17:
       return true;
     default:
       return false;
@@ -370,7 +373,6 @@ bool MsgType_IsValid(int value) {
     case 40:
     case 41:
     case 42:
-    case 43:
     case 49:
     case 50:
       return true;
