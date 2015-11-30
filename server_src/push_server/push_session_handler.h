@@ -16,6 +16,7 @@
 #include "HttpClient.h"
 #include "EncDec.h"
 #include "json/json.h"
+#include "push_app.h"
 
 
 class CPushSessionHandler : public CBaseHandler

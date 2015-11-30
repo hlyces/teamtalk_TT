@@ -441,36 +441,38 @@ void CRouteServConn::_HandleUsersStatusResponse(CImPdu* pPdu)
 	}
 	else if (attach_data.GetType() == ATTACH_TYPE_PDU_FOR_PUSH)
 	{
-		log("unsupported Type: ATTACH_TYPE_PDU_FOR_PUSH");
-		/*
+		//log("unsupported Type: ATTACH_TYPE_PDU_FOR_PUSH");
+		
 		IM::BaseDefine::UserStat user_stat = msg.user_stat_list(0);
 		IM::Server::IMPushToUserReq msg2;
 		CHECK_PB_PARSE_MSG(msg2.ParseFromArray(attach_data.GetPdu(), attach_data.GetPduLength()));
 		IM::BaseDefine::UserTokenInfo* user_token = msg2.mutable_user_token_list(0);
 
-		//pc client登录，则为勿打扰式推送
+		//mobile is online
 		if (user_stat.status() == IM::BaseDefine::USER_STATUS_ONLINE
 			&& CHECK_CLIENT_TYPE_MOBILE(user_stat.client_type()))
 		{
-			user_token->set_push_type(IM_PUSH_TYPE_SILENT);
+			//user_token->set_push_type(IM_PUSH_TYPE_SILENT);
 			log("HandleUsersStatusResponse, user id: %d, push type: silent. ", user_stat.user_id());
 		}
 		else
-		{
+		{		
 			user_token->set_push_type(IM_PUSH_TYPE_NORMAL);
 			log("HandleUsersStatusResponse, user id: %d, push type: normal. ", user_stat.user_id());
-		}
-		CImPdu pdu;
-		pdu.SetPBMsg(&msg2);
-		pdu.SetServiceId(DFFX_SID_OTHER);
-		pdu.SetCommandId(DFFX_CID_OTHER_PUSH_TO_USER_REQ);
 
-		CPushServConn* PushConn = get_push_serv_conn();
-		if (PushConn)
-		{
-			PushConn->SendPdu(&pdu);
+			CImPdu pdu;
+			pdu.SetPBMsg(&msg2);
+			pdu.SetServiceId(DFFX_SID_OTHER);
+			pdu.SetCommandId(DFFX_CID_OTHER_PUSH_TO_USER_REQ);
+
+			CPushServConn* PushConn = get_push_serv_conn();
+			if (PushConn)
+			{
+				PushConn->SendPdu(&pdu);
+			}
 		}
-		*/
+		
+		
 	}
 	else if (attach_data.GetType() == ATTACH_TYPE_HANDLE_AND_PDU_FOR_FILE)
 	{

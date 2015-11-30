@@ -30,6 +30,11 @@ public:
 private:
     BOOL    m_bInit;
     CEpollIOLoop m_io;
+
+public:
+	string m_strAppKey;
+	string m_strAppMasterSecret;
+	string m_strAppSendUrl;
 };
 
 

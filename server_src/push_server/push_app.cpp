@@ -78,11 +78,24 @@ BOOL CPushApp::Start()
         char* key_path = config_file.GetConfigName("KeyPath");
         char* key_password = config_file.GetConfigName("KeyPassword");
         char* sand_box = config_file.GetConfigName("SandBox");
-        if (!listen_ip || !str_listen_port || !cert_path || !key_path || !sand_box || !key_password)
+
+		//android
+		char* app_key = config_file.GetConfigName("AppKey");
+        char* app_master_secret = config_file.GetConfigName("AppMasterSecret");
+		char* app_send_url = config_file.GetConfigName("AppSendUrl");
+		
+        if (!listen_ip || !str_listen_port || !cert_path || !key_path || !sand_box || !key_password
+			|| !app_key || !app_master_secret || !app_send_url)
         {
             PUSH_SERVER_ERROR("push app config file: %s not exist or miss required parameter obtained.", file_name.c_str());
             return FALSE;
         }
+
+		//android
+		m_strAppKey = app_key;
+		m_strAppMasterSecret = app_master_secret;
+		m_strAppSendUrl = app_send_url;
+		
         uint32_t nsand_box = atoi(sand_box);
         if (nsand_box != 1 && nsand_box != 0)
         {

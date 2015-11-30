@@ -1062,9 +1062,9 @@ void  CPushModel::updateOrderExp()
 				strValidOrderid += validOrderid + ",";
 				
 				int orderid = pResultSet->GetInt("valid_orderid");
-				int lawyerid = pResultSet->GetInt("msg_lawyer");
+				int userid = pResultSet->GetInt("msg_user");
 
-				m_Orderid_Lawyer.insert(map<int,int>::value_type(orderid, lawyerid));
+				m_Orderid_Lawyer.insert(map<int,int>::value_type(orderid, userid));
 			}
 			strValidOrderid +=  "0) ";
 			pResultSet->Clear();

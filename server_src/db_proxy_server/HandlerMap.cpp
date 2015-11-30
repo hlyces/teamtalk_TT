@@ -74,7 +74,7 @@ void CHandlerMap::Init()
     m_handler_map.insert(make_pair(uint32_t(DFFX_CID_BUDDY_LIST_USER_INFO_REQUEST), DB_PROXY::getUserInfo));
     m_handler_map.insert(make_pair(uint32_t(DFFX_CID_BUDDY_LIST_ALL_USER_REQUEST), DB_PROXY::getChangedUser));
     m_handler_map.insert(make_pair(uint32_t(DFFX_CID_BUDDY_LIST_DEPARTMENT_REQUEST), DB_PROXY::getChgedDepart));
-	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST), DB_PROXY::changeAvatar));
+//	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST), DB_PROXY::changeAvatar));
 
 	//friend
 	m_handler_map.insert(make_pair(uint32_t(DFFX_CID_BUDDY_LIST_ADDFRIEND_REQ), DB_PROXY::addFriend));

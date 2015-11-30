@@ -126,14 +126,14 @@ uint32_t CUserInfo::GetStatus( uint32_t& client_type)
     uint32_t status = USER_STATUS_OFFLINE;
     map<uint32_t, uint32_t>::iterator it = m_ClientTypeList.begin();
     for (; it != m_ClientTypeList.end(); it++)
-    {
-        client_type = it->first;
+    {      
 		
         //if (CHECK_CLIENT_TYPE_PC(client_type))
-        if(it->second>0)
+        if(it->second > 0)
         {
             status = USER_STATUS_ONLINE;
-            break;
+			client_type |= it->first;
+            //break;
         }
     }
     return status;

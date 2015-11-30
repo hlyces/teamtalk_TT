@@ -108,7 +108,7 @@ void CPushSessionHandler::_HandlePushMsg(const char* szBuf, int32_t nBufSize)
                 user_token.push_type(), m_NotificationID);
 
 			Json::Value root;
-			root["appkey"] = "564bd725e0f55aac2600be43";
+			root["appkey"] = CPushApp::GetInstance()->m_strAppKey;
 			root["timestamp"] = (int)time(NULL);
 			root["type"] = "unicast";
 			root["device_tokens"] = user_token.token().c_str();
@@ -137,15 +137,17 @@ void CPushSessionHandler::_HandlePushMsg(const char* szBuf, int32_t nBufSize)
 			string strPost = root.toStyledString();
 
 			CHttpClient httpClient;
-			string strUrl = "http://msg.umeng.com/api/send";
+			string strUrl = CPushApp::GetInstance()->m_strAppSendUrl;
 			
 			string strResponse;
-			string app_master_secret="iciicjmgh4l1kygtltmdryhhxlvpcmiy";
+			string app_master_secret= CPushApp::GetInstance()->m_strAppMasterSecret;
 			
 			string strSign = _SignUmeng( "POST", strUrl, strPost, app_master_secret);
 
 			strUrl += "?sign=" + strSign;
-			
+
+			int nTryCnt = 1;
+		lResend:
 			CURLcode res = httpClient.Post( strUrl, strPost, strResponse);
 
 			PUSH_SERVER_INFO("HandlePushMsg, android push url=%s,post=%s,resp=%s,res=%d.",
@@ -154,6 +156,11 @@ void CPushSessionHandler::_HandlePushMsg(const char* szBuf, int32_t nBufSize)
 			if (CURLE_OK == res)
 			{
             	push_result->set_result_code(0);
+			}
+			else if(CURLE_OPERATION_TIMEDOUT == res
+				&& nTryCnt-- > 0)
+			{
+				goto lResend;
 			}
 			else
 			{

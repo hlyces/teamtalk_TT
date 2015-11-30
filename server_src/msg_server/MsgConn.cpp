@@ -377,10 +377,10 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
 		case DFFX_CID_BUDDY_LIST_ALL_USER_REQUEST:
 			_HandleClientAllUserRequest(pPdu );
 			break;
-		case DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST:
+/*		case DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST:
 			_HandleChangeAvatarRequest(pPdu);
 			break;
-
+*/
 		case DFFX_CID_BUDDY_LIST_USERS_STATUS_REQUEST:
 			_HandleClientUsersStatusRequest(pPdu);
 			break;

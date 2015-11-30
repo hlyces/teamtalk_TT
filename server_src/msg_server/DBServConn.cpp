@@ -290,9 +290,9 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 		case DFFX_CID_BUDDY_LIST_REMOVE_SESSION_RES:
 			_HandleRemoveSessionResponse(pPdu );
 			break;
-		case DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE:
+/*		case DFFX_CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE:
 			_HandleChangeAvatarResponse(pPdu);
-			break;
+			break;*/
 		case DFFX_CID_BUDDY_LIST_DEPARTMENT_RESPONSE:
 			_HandleDepartmentResponse(pPdu);
 			break;
@@ -989,33 +989,31 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 		log("HandleGetDeviceTokenResponse, user_id = %u, device_token = %s, push_cnt = %u, client_type = %u.",
 		    user_id, device_token.c_str(), push_cnt, client_type);
 
-		/*
+		
 		CImUser* pUser = CImUserManager::GetInstance()->GetImUserById(user_id);
 		if (pUser)
 		{
-		*/
-			msg3.set_flash(msg_data);
-			msg3.set_push_data(json_obj.json());
-			IM::BaseDefine::UserTokenInfo* user_token_tmp = msg3.add_user_token_list();
-			user_token_tmp->set_user_id(user_id);
-			user_token_tmp->set_user_type((IM::BaseDefine::ClientType)client_type);
-			user_token_tmp->set_token(device_token);
-			user_token_tmp->set_push_count(push_cnt);
-
-			/*
-			//pc client登录，则为勿打扰式推送
-			if (pUser->GetPCLoginStatus() == IM_PC_LOGIN_STATUS_ON)
+		
+			//mobile is online
+			if (pUser->GetClientTypeFlag() & CLIENT_TYPE_FLAG_MOBILE )
 			{
-				user_token_tmp->set_push_type(IM_PUSH_TYPE_SILENT);
+				//user_token_tmp->set_push_type(IM_PUSH_TYPE_SILENT);
 				log("HandleGetDeviceTokenResponse, user id: %d, push type: silent.", user_id);
 			}
-			else
-			*/
+			else			
 			{
+				msg3.set_flash(msg_data);
+				msg3.set_push_data(json_obj.json());
+				IM::BaseDefine::UserTokenInfo* user_token_tmp = msg3.add_user_token_list();
+				user_token_tmp->set_user_id(user_id);
+				user_token_tmp->set_user_type((IM::BaseDefine::ClientType)client_type);
+				user_token_tmp->set_token(device_token);
+				user_token_tmp->set_push_count(push_cnt);
+				
 				user_token_tmp->set_push_type(IM_PUSH_TYPE_NORMAL);
 				log("HandleGetDeviceTokenResponse, user id: %d, push type: normal.", user_id);
 			}
-		/*
+		
 		}		
 		else
 		{
@@ -1047,7 +1045,7 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 			{
 				route_conn->SendPdu(&pdu2);
 			}
-		}*/
+		}
 	}
 
 	if (msg3.user_token_list_size() > 0)
