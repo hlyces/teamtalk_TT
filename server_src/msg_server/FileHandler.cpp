@@ -100,7 +100,7 @@ void CFileHandler::HandleClientFileRequest(CMsgConn* pMsgConn, CImPdu* pPdu)
 			{
 				//no client in this msg_server, check it from route_server
 				CPduAttachData attach_data(ATTACH_TYPE_HANDLE_AND_PDU_FOR_FILE, pMsgConn->GetHandle(), pdu.GetBodyLength(), pdu.GetBodyData());
-				IM::Buddy::IMUsersStatReq msg3;
+				IM::Buddy::IMUsersInfoReq msg3;
 				msg3.set_user_id(from_id);
 				msg3.add_user_id_list(to_id);
 				msg3.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
@@ -145,7 +145,7 @@ void CFileHandler::HandleClientFileHasOfflineReq(CMsgConn* pMsgConn, CImPdu* pPd
 	CDBServConn* pDbConn = get_db_serv_conn();
 	if (pDbConn)
 	{
-		IM::File::IMFileHasOfflineReq msg;
+		IM::File::IMFileHasOfflineRsp msg;
 		CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 		msg.set_user_id(req_user_id);
 		msg.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());

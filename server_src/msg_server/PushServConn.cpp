@@ -106,7 +106,7 @@ void build_push_flash(string& flash, uint32_t msg_type, uint32_t from_id)
 				msg_tmp.append("您的订单已有律师受理");
 					
 			}
-			else if (msg_type == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT \
+			else if ( msg_type == IM::BaseDefine::MSG_TYPE_ORDER_WAITPAYMENT \
 					|| msg_type == IM::BaseDefine::MSG_TYPE_ORDER_ALLCANCEL)
 			{
 				msg_tmp.append("您的订单有新动态");

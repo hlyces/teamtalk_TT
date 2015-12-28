@@ -118,7 +118,8 @@ uint32_t ClientConn::sendMessage(uint32_t nFromId, uint32_t nToId, IM::BaseDefin
 	if (retCode == 0 && nOutLen > 0 && pOutData != 0)
 	{
 		msg.set_msg_data( pOutData, nOutLen);
-		delete pOutData;
+		//delete pOutData;
+		Free(pOutData);
 		pOutData = NULL;
 	}
 	else 
@@ -258,7 +259,8 @@ void ClientConn::_HandleMsgData(CImPdu* pPdu)
 		if (retCode == 0 && nOutLen > 0 && pOutData != 0)
 		{
 			strMsg = std::string(pOutData, nOutLen);
-			delete pOutData;
+			//delete pOutData;
+			Free( pOutData);
 			pOutData = NULL;			
 		}
 		else 

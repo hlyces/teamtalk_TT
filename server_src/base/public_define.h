@@ -223,6 +223,6 @@ typedef struct
     set<string>  authed_interfaces;
 } auth_struct;
 
-#define MAX_MSG_LEN     2048
+#define MAX_MSG_LEN     3400
 
 #endif

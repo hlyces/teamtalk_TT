@@ -604,7 +604,7 @@ void CMsgConn::_HandleLoginOutRequest(CImPdu *pPdu)
 
 void CMsgConn::_HandleKickPCClient(CImPdu *pPdu)
 {
-	IM::Login::IMKickPCClientReq msg;
+	IM::Login::IMKickPCClientRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	uint32_t user_id = GetUserId();
 	if (!CHECK_CLIENT_TYPE_MOBILE(GetClientType()))
@@ -1026,7 +1026,7 @@ void CMsgConn::_HandleClientUserInfoRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientRemoveSessionRequest(CImPdu* pPdu)
 {
-	IM::Buddy::IMRemoveSessionReq msg;
+	IM::Buddy::IMRemoveSessionRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	uint32_t session_type = msg.session_type();
 	uint32_t session_id = msg.session_id();
@@ -1067,7 +1067,7 @@ void CMsgConn::_HandleClientRemoveSessionRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientAllUserRequest(CImPdu* pPdu)
 {
-	IM::Buddy::IMAllUserReq msg;
+	IM::Buddy::IMAllUserRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	uint32_t latest_update_time = msg.latest_update_time();
 	log("HandleClientAllUserReq, user_id=%u, latest_update_time=%u. ", GetUserId(), latest_update_time);
@@ -1099,7 +1099,7 @@ void CMsgConn::_HandleChangeAvatarRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientUsersStatusRequest(CImPdu* pPdu)
 {
-	IM::Buddy::IMUsersStatReq msg;
+	IM::Buddy::IMUsersInfoReq msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	uint32_t user_count = msg.user_id_list_size();
 	log("HandleClientUsersStatusReq, user_id=%u, query_count=%u.", GetUserId(), user_count);
@@ -1117,7 +1117,7 @@ void CMsgConn::_HandleClientUsersStatusRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientDepartmentRequest(CImPdu *pPdu)
 {
-	IM::Buddy::IMDepartmentReq msg;
+	IM::Buddy::IMDepartmentRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	log("HandleClientDepartmentRequest, user_id=%u, latest_update_time=%u.", GetUserId(), msg.latest_update_time());
 	CDBServConn* pDBConn = get_db_serv_conn();
@@ -1235,7 +1235,7 @@ void CMsgConn::_HandleClientFriendNotifyRes(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientDelFriendRequest(CImPdu* pPdu)
 {
-	IM::Buddy::IMDelFriendReq msg;
+	IM::Buddy::IMCommonOperFriendGroupRes msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	msg.set_user_id(GetUserId());
@@ -1244,7 +1244,7 @@ void CMsgConn::_HandleClientDelFriendRequest(CImPdu* pPdu)
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
 	// 1.send msg to db
-	log("_HandleClientDelFriendRequest, user_id=%u del_user_id=%u ", GetUserId(), msg.del_user_id());
+	log("_HandleClientDelFriendRequest, user_id=%u del_user_id=%u ", GetUserId(), msg.result_code());
 	CDBServConn* pDBConn = get_db_serv_conn();
 	if (pDBConn)
 	{
@@ -1303,7 +1303,7 @@ void CMsgConn::_HandleClientAddFriendGroupRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientDelFriendGroupRequest(CImPdu* pPdu)
 {
-	IM::Buddy::IMDelFriendGroupReq msg;
+	IM::Buddy::IMCommonOperFriendGroupRes msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	msg.set_user_id(GetUserId());
@@ -1312,7 +1312,7 @@ void CMsgConn::_HandleClientDelFriendGroupRequest(CImPdu* pPdu)
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
 	// 1.send msg to db
-	log("_HandleClientDelFriendGroupRequest, user_id=%u group_id=%u ", GetUserId(), msg.group_id());
+	log("_HandleClientDelFriendGroupRequest, user_id=%u group_id=%u ", GetUserId(), msg.result_code());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
 	if (pDBConn)
@@ -1350,16 +1350,18 @@ void CMsgConn::_HandleClientMoveFrinedGroupRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientChgFriendGroupRequest(CImPdu* pPdu)
 {
-	IM::Buddy::IMChgFriendGroupNameReq msg;
+	IM::Buddy::IMChgFriendRemarkReq msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	msg.set_user_id(GetUserId());
 
+	
+	
 	CDbAttachData dbAttachData(ATTACH_TYPE_HANDLE, m_handle);
 	msg.set_attach_data(dbAttachData.GetBuffer(), dbAttachData.GetLength());
 
 	// 1.send msg to db
-	log("_HandleClientChgFriendGroupRequest, user_id=%u group_id=%u group_name=%s ", GetUserId(), msg.group_id(), msg.group_name().c_str());
+	log("_HandleClientChgFriendGroupRequest, user_id=%u group_id=%u group_name=%s ", GetUserId(), msg.friend_id(), msg.friend_nick().c_str());
 	
 	CDBServConn* pDBConn = get_db_serv_conn();
 	if (pDBConn)
@@ -1414,7 +1416,7 @@ void CMsgConn::_HandleClientFindUserInfoRequest(CImPdu* pPdu)
 
 void CMsgConn::_HandleClientCleanMsgListRequest(CImPdu* pPdu)
 {
-	IM::Message::IMCleanMsgListReq msg;
+	IM::Message::IMCleanMsgListRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	msg.set_user_id(GetUserId());
 

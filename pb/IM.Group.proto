@@ -5,13 +5,13 @@ option java_package = "com.dffx.im.protobuf";
 option optimize_for = LITE_RUNTIME;
 
 //service id:0x0004
-
+/*删除 使用IMNormalGroupListRsp
 message IMNormalGroupListReq{
 	//cmd id:			0x0401
 	required uint32 user_id = 1;
 	optional bytes attach_data = 20;
 }
-
+*/
 message IMNormalGroupListRsp{
 	//cmd id:			0x0402
 	required uint32 user_id = 1;
@@ -66,7 +66,7 @@ message IMGroupChangeMemberRsp{
 	//cmd id:			0x0408
 	required uint32 user_id = 1;
 	required IM.BaseDefine.GroupModifyType change_type = 2;
-	required uint32 result_code = 3;
+	optional uint32 result_code = 3;
 	required uint32 group_id = 4;
 	repeated uint32 cur_user_id_list = 5;			//现有的成员id		
 	repeated uint32 chg_user_id_list = 6;			//变动的成员id,add: 表示添加成功的id,   del: 表示删除的id
@@ -77,10 +77,10 @@ message IMGroupShieldReq{
 	//cmd id:			0x0409
 	required uint32 user_id = 1;
 	required uint32 group_id = 2;
-	required uint32 shield_status = 3;
+	required uint32 shield_status = 3;  //对于Req 屏蔽或者取消  对于RSp 0:successed 1:failed
 	optional bytes attach_data = 20;
 }
-
+/*删除 使用IMGroupShieldReq
 message IMGroupShieldRsp{
 	//cmd id:			0x040a
 	required uint32 user_id = 1;
@@ -88,7 +88,9 @@ message IMGroupShieldRsp{
 	required uint32 result_code = 3;			//0:successed 1:failed
 	optional bytes attach_data = 20;
 }
+*/
 
+/*删除 使用IMGroupChangeMemberRsp
 message IMGroupChangeMemberNotify{
 	//cmd id: 			0x040b
 	required uint32 user_id = 1;
@@ -97,4 +99,4 @@ message IMGroupChangeMemberNotify{
 	repeated uint32 cur_user_id_list = 4;			//现有的成员id
 	repeated uint32 chg_user_id_list = 5;			//add: 表示添加成功的id,   del: 表示删除的id
 }
-
+*/

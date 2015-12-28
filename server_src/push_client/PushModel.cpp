@@ -800,7 +800,7 @@ bool CPushModel::getCancelOrCompleteTolawyer(list<OrderStatusChg >& lsOrderStatu
 	CDBConn* pDBConn = pDBManger->GetDBConn("dffxIMDB_slave");
 	if (pDBConn) 
 	{
-		string strSql = "select * from dffx_order_msg where (msg_status = 0 or msg_status = -1 or msg_status = -3 or msg_status = 15) AND msg_sign = 0 limit 100 ";
+		string strSql = "select * from dffx_order_msg where (msg_status = 0 or msg_status = -1 or msg_status = -3 or msg_status = 15 or msg_status = 20) AND msg_sign = 0 limit 100 ";
 		log("strSql = %s", strSql.c_str());
 		CResultSet* pResultSet = pDBConn->ExecuteQuery(strSql.c_str());
 		if(pResultSet)
@@ -903,7 +903,7 @@ bool CPushModel::getTopUP_withDrawal(list<TopUP_withDrawal>& lsTopUP_withDrawal 
 				cTopUP_withDrawal.result_type   = pResultSet->GetInt("result_type");
 				cTopUP_withDrawal.result_result = pResultSet->GetInt("result_result");
 				cTopUP_withDrawal.result_linkid = pResultSet->GetString("result_linkid");
-				
+				cTopUP_withDrawal.result_text= pResultSet->GetString("result_text");
 				lsTopUP_withDrawal.push_back(cTopUP_withDrawal);
 			}
 			pResultSet->Clear();
@@ -975,7 +975,8 @@ bool CPushModel::updateTopUP_withDrawal(list<TopUP_withDrawal> lsTopUP_withDrawa
 
 #define SQL_UPDATE_ORDER_EXPRI_STATUS  "UPDATE dffx_order SET order_status = -3 ,order_updatetime = 1000 * unix_timestamp() WHERE (order_status= 1  OR order_status= 2 OR order_status= 3) AND  id IN "
 #define SQL_UPDATE_ORDER_MSG_EXPRI_STATUS  "UPDATE dffx_order_msg SET msg_status = -3, msg_sign = 0 WHERE (msg_status= 1  OR msg_status= 2 OR msg_status= 3) AND  msg_orderid IN "
-#define SQL_DELETE_ORDER_EXPRT        "DELETE FROM dffx_order_valid  WHERE  valid_orderid in "
+#define SQL_DELETE_ORDER_EXPRT        "DELETE FROM dffx_order_valid  WHERE  valid_orderid in " 
+#define SQL_INSERT_ORDERSTART_EXPRT  "insert into dffx_order_state(order_id, order_uid, order_state, state_time, state_time_new) select id , order_useruid,-3, NOW(), 0 from dffx_order where id in"
 
 
 //考虑原子操作一步更新
@@ -1109,6 +1110,11 @@ void  CPushModel::updateOrderExp()
 		}
 
 	*/
+
+		strSql = SQL_INSERT_ORDERSTART_EXPRT + strValidOrderid;
+		log("strSql = %s ", strSql.c_str());
+		bRet = pDBConn->ExecuteUpdate(strSql.c_str());
+	
 		pDBManger->RelDBConn(pDBConn);
 
 		CacheConn* pCacheConn = NULL;	

@@ -34,15 +34,15 @@ public:
 //operation for friend
 	bool addFriend(IM::Buddy::IMAddFriendReq& addFriend);
 	bool reverseAddFriend(IM::Buddy::IMReverseAddFriendReq& reverseAddFriend, IM::Buddy::IMFriendNotifyReq& msgNotify);
-	bool delFriend(IM::Buddy::IMDelFriendReq& delFriend);
+	bool delFriend(IM::Buddy::IMCommonOperFriendGroupRes& delFriend);
 	bool chgFriendRemark(IM::Buddy::IMChgFriendRemarkReq& chgFriendRemark);
 	bool friendNotifyResp(IM::Buddy::IMFriendNotifyRes& friendNotifyRes);
 
 //operation for friend_group
 	bool createFriendGroup(IM::Buddy::IMCreateFriendGroupReq& createGroup, uint32_t& group_id);
-	bool delFriendGroup(IM::Buddy::IMDelFriendGroupReq& delGroup);
+	bool delFriendGroup(IM::Buddy::IMCommonOperFriendGroupRes& delGroup);
 	bool moveFriendToGroup(IM::Buddy::IMMoveFriendToGroupReq& moveFriend);
-	bool chgFriendGroupName(IM::Buddy::IMChgFriendGroupNameReq& chgGroupName);
+	bool chgFriendGroupName(IM::Buddy::IMChgFriendRemarkReq& chgGroupName);
 	
 //handle friend message notify
 	bool addFiendInfo(uint32_t nUserId, list<IM::Buddy::IMCommonOperFrienInfo>& laddInfo, 

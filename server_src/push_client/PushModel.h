@@ -103,6 +103,7 @@ typedef struct top_up_or_withdrawal{
 	uint16_t result_sign;
 	uint16_t result_result;
 	string   result_linkid;
+	string   result_text;
 }TopUP_withDrawal;
 
 enum CONFIGSTATUS{
@@ -163,8 +164,9 @@ enum Dffx_Common_Pushresult_Type{
 };
 
 enum Dffx_Common_Pushresult_Result{
-	RESULTSUCCESS = 1,
-	RESULTFAILED  = 2,
+	RESULTSUCCESS  = 1,
+	RESULTFAILED   = 2,
+	ORDERPAYFAILED = 3,
 };
 
 
@@ -184,6 +186,7 @@ enum AllCancelOrComplete{
 	UserCancel 	= -1,
 	Complete 	=  0,
 	Revoke 		= 15,
+	RevokeAgain = 20
 };
 
 class CPushModel {

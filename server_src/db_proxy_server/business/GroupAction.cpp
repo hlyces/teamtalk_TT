@@ -94,7 +94,7 @@ namespace DB_PROXY {
      */
     void getNormalGroupList(CImPdu* pPdu, uint32_t conn_uuid)
     {
-        IM::Group::IMNormalGroupListReq msg;
+        IM::Group::IMNormalGroupListRsp msg;
         IM::Group::IMNormalGroupListRsp msgResp;
         if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
         {
@@ -261,7 +261,7 @@ namespace DB_PROXY {
     void setGroupPush(CImPdu* pPdu, uint32_t conn_uuid)
     {
         IM::Group::IMGroupShieldReq msg;
-        IM::Group::IMGroupShieldRsp msgResp;
+        IM::Group::IMGroupShieldReq msgResp;
         if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
         {
             uint32_t nUserId = msg.user_id();
@@ -275,9 +275,9 @@ namespace DB_PROXY {
                 
                 msgResp.set_user_id(nUserId);
                 msgResp.set_group_id(nGroupId);
-                msgResp.set_result_code(bRet?0:1);
+                msgResp.set_shield_status(bRet?0:1);
             
-                log("userId=%u, groupId=%u, result=%u", nUserId, nGroupId, msgResp.result_code());
+                log("userId=%u, groupId=%u, result=%u", nUserId, nGroupId, msgResp.shield_status());
                 
                 msgResp.set_attach_data(msg.attach_data());
                 pPduRes->SetPBMsg(&msgResp);

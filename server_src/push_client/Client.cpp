@@ -83,7 +83,7 @@ void CClient::connect()
             return;
         }
         strPriorIp = value["priorIP"].asString();
-        strBackupIp = value["backupIp"].asString();
+        strBackupIp = value["backupIP"].asString();
         nPort = string2int(value["port"].asString());
         
     } catch (std::runtime_error msg) {
@@ -94,7 +94,7 @@ void CClient::connect()
     }
 
     g_pConn = new ClientConn(this);
-    m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort, m_strName, m_strPass);
+    m_nHandle = g_pConn->connect(strBackupIp.c_str(), nPort, m_strName, m_strPass);
     if(m_nHandle != INVALID_SOCKET)
     {
         netlib_register_timer(CClient::TimerCallback, (void*)this, 1000);	

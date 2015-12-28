@@ -196,6 +196,7 @@ enum OrderMsgStatus{
 	VALID_CANCEL			= 15; //过期撤销订单通知律师端
 	ORDER_COMPLETE			= 16; //订单完成通知律师端
 	ORDER_REVOKE			= 17;//律师申请付款 用户撤回律师的付款金额要求
+	ORDER_PAY_FAILED		= 18; //订单支付失败，与TOPUP_SUCCESS属于一种MsgType
 }
 
 

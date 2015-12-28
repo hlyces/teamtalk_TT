@@ -454,7 +454,7 @@ namespace DB_PROXY
 
 void cleanMsgList(CImPdu* pPdu, uint32_t conn_uuid)
 	{
-		IM::Message::IMCleanMsgListReq msg;
+		IM::Message::IMCleanMsgListRsp msg;
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
 			uint32_t nUserId = msg.user_id();

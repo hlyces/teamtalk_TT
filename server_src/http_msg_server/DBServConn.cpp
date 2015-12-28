@@ -310,7 +310,7 @@ void CDBServConn::_HandleChangeMemberRsp(CImPdu *pPdu)
     pHttpConn->Close();
     
     if (!result) {
-        IM::Group::IMGroupChangeMemberNotify msg2;
+        IM::Group::IMGroupChangeMemberRsp msg2;
         msg2.set_user_id(user_id);
         msg2.set_change_type((::IM::BaseDefine::GroupModifyType)change_type);
         msg2.set_group_id(group_id);

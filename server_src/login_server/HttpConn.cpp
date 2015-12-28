@@ -22,7 +22,7 @@ extern string strHeadlinkUrl;
 extern string strWebServiceUrl;
 extern string strMapUrl;
 extern string strIOSWebServiceUrl;
-
+extern string strCustomService;
 
 
 
@@ -317,7 +317,8 @@ void CHttpConn::_HandleMsgServRequest(string& url, string& post_data)
 		value["mapUrlPrior"] = strMapUrl;
         value["discovery"] = strDiscovery;
 		value["iosWebServicePrior"] = strIOSWebServiceUrl;
-        
+        value["customService"] = strCustomService;
+		
         string strContent = value.toStyledString();
         char* szContent = new char[HTTP_RESPONSE_HTML_MAX];
         uint32_t nLen = strContent.length();

@@ -97,7 +97,7 @@ uint32_t ClientConn::login(const string &strName, const string &strPass)
 uint32_t ClientConn::getUser(uint32_t nUserId, uint32_t nTime)
 {
     CImPdu cPdu;
-    IM::Buddy::IMAllUserReq msg;
+    IM::Buddy::IMAllUserRsp msg;
     msg.set_user_id(nUserId);
     msg.set_latest_update_time(nTime);
     cPdu.SetPBMsg(&msg);
@@ -145,7 +145,8 @@ uint32_t ClientConn::sendMessage(uint32_t nFromId, uint32_t nToId, IM::BaseDefin
 	if (retCode == 0 && nOutLen > 0 && pOutData != 0)
 	{
 		msg.set_msg_data( pOutData, nOutLen);
-		delete pOutData;
+		//delete pOutData;
+		Free( pOutData);
 		pOutData = NULL;
 	}
 	else 
@@ -187,9 +188,9 @@ uint32_t ClientConn::addFriendReq(uint32_t nFromId,uint32_t nToId,uint32_t nGrou
 uint32_t ClientConn::delFriendReq(uint32_t nFromId,uint32_t nToId)
 {
 	CImPdu cPdu;
-	IM::Buddy::IMDelFriendReq msg;
+	IM::Buddy::IMCommonOperFriendGroupRes msg;
 	msg.set_user_id(nFromId);
-	msg.set_del_user_id(nToId);
+	msg.set_result_code(nToId);
 	
 	cPdu.SetPBMsg(&msg);
 	cPdu.SetServiceId(IM::BaseDefine::DFFX_SID_BUDDY_LIST);
@@ -276,9 +277,9 @@ uint32_t ClientConn::createFriendGroup(uint32_t nFromId, string group_name)
 uint32_t ClientConn::delFriendGroup(uint32_t nFromId, uint32_t group_id)
 {
 	CImPdu cPdu;
-	IM::Buddy::IMDelFriendGroupReq msg;
+	IM::Buddy::IMCommonOperFriendGroupRes msg;
 	msg.set_user_id(nFromId);
-	msg.set_group_id(group_id);
+	msg.set_result_code(group_id);
 
 	log("user_id = %d ", nFromId);
 
@@ -330,10 +331,10 @@ uint32_t ClientConn::moveFriendToGroup(uint32_t nFromId, uint32_t  group_id, lis
 uint32_t ClientConn::chgFriendGroupName(uint32_t nFromId, uint32_t	group_id, string group_name)
 {
 	CImPdu cPdu;
-	IM::Buddy::IMChgFriendGroupNameReq msg;
+	IM::Buddy::IMChgFriendRemarkReq msg;
 	msg.set_user_id(nFromId);
-	msg.set_group_id(group_id);
-	msg.set_group_name(group_name);
+	msg.set_friend_id(group_id);
+	msg.set_friend_nick(group_name);
 
 	log("user_id = %d ", nFromId);
 
@@ -401,7 +402,7 @@ uint32_t ClientConn::getRecentSession(uint32_t nUserId, uint32_t nLastTime)
 uint32_t ClientConn::delRecentSession(uint32_t nUserId, uint32_t nSessionId, IM::BaseDefine::SessionType session_type)
 {
 	CImPdu cPdu;
-    IM::Buddy::IMRemoveSessionReq msg;
+    IM::Buddy::IMRemoveSessionRsp msg;
     msg.set_user_id(nUserId);
     msg.set_session_type(session_type);
 	msg.set_session_id(nSessionId);
@@ -574,6 +575,7 @@ void ClientConn::HandlePdu(CImPdu* pPdu)
 			break;
 
 		case IM::BaseDefine::DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST:
+			printf("DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST msg_type=%d\n", pPdu->GetCommandId());
 			log("DFFX_CID_MSG_ORDERSTATUS_READ_BROADCAST msg_type=%d\n", pPdu->GetCommandId());
 			_HandleOrderStatusReadBroadcastRsp(pPdu);
 			break;
@@ -635,14 +637,14 @@ void ClientConn::_HandleUser(CImPdu* pPdu)
 
 void ClientConn::_HandleUserInfo(CImPdu* pPdu)
 {
-    IM::Buddy::IMUsersInfoRsp msgResp;
+    IM::Buddy::IMAllUserRsp msgResp;
     uint32_t nSeqNo = pPdu->GetSeqNum();
     if(msgResp.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
     {
-        uint32_t userCnt = msgResp.user_info_list_size();
+        uint32_t userCnt = msgResp.user_list_size();
         list<IM::BaseDefine::UserInfo> lsUser;
         for (uint32_t i=0; i<userCnt; ++i) {
-            IM::BaseDefine::UserInfo userInfo = msgResp.user_info_list(i);
+            IM::BaseDefine::UserInfo userInfo = msgResp.user_list(i);
             lsUser.push_back(userInfo);
         }
         m_pCallback->onGetUserInfo(nSeqNo, lsUser);
@@ -783,7 +785,8 @@ void ClientConn::_HandleMsgData(CImPdu* pPdu)
 		if (retCode == 0 && nOutLen > 0 && pOutData != 0)
 		{
 			strMsg = std::string(pOutData, nOutLen);
-			delete pOutData;
+			//delete pOutData;
+			Free( pOutData);
 			pOutData = NULL;			
 		}
 		else 
@@ -975,16 +978,16 @@ void ClientConn::_HandleGetAddFriendRes(CImPdu* pPdu)
 
 void ClientConn::_HandleFindFriendRes(CImPdu* pPdu)
 {
-	IM::Buddy::IMUsersInfoRsp msgResp;
+	IM::Buddy::IMAllUserRsp msgResp;
 	CHECK_PB_PARSE_MSG(msgResp.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	uint32_t nSeqNo = pPdu->GetSeqNum();
 
 	uint32_t user_id = msgResp.user_id();
 	//IM::BaseDefine::UserInfo findUserInfo = msgResp.userInfo_list();
-	printf("_HandleFindFriendRes: user_id = %d  userinfo_list_size=%d\n", user_id,msgResp.user_info_list_size());
-	for(int i = 0; i < msgResp.user_info_list_size(); i++)
+	printf("_HandleFindFriendRes: user_id = %d  userinfo_list_size=%d\n", user_id,msgResp.user_list_size());
+	for(int i = 0; i < msgResp.user_list_size(); i++)
 	{
-		IM::BaseDefine::UserInfo friendInfo = msgResp.user_info_list(i);
+		IM::BaseDefine::UserInfo friendInfo = msgResp.user_list(i);
 
 		printf("_HandleFindFriendRes: from_user_id=%d  extra_info=%s \n", friendInfo.user_id(),\
 			friendInfo.user_nickname().c_str());
@@ -1167,7 +1170,7 @@ uint32_t ClientConn::delOffFile(uint32_t from_user_id, uint32_t to_user_id, stri
 uint32_t ClientConn::hasOffFile(uint32_t from_user_id)
 {
 	CImPdu cPdu;
-	IM::File::IMFileHasOfflineReq msg;
+	IM::File::IMFileHasOfflineRsp msg;
 	msg.set_user_id(from_user_id);
 	
 	log("user_id = %d ", from_user_id);
@@ -1185,7 +1188,7 @@ uint32_t ClientConn::hasOffFile(uint32_t from_user_id)
 uint32_t ClientConn::cleanMsg(uint32_t from_user_id, uint32_t session_id)
 {
 	CImPdu cPdu;
-	IM::Message::IMCleanMsgListReq msg;
+	IM::Message::IMCleanMsgListRsp msg;
 	msg.set_user_id(from_user_id);
 	msg.set_session_id(session_id);
 	msg.set_session_type(IM::BaseDefine::SESSION_TYPE_SINGLE);
@@ -1223,7 +1226,7 @@ uint32_t ClientConn::orderStatusRead(uint32_t from_user_id, uint32_t order_id)
 uint32_t ClientConn::getFriendGroup(uint32_t from_user_id)
 {
 	CImPdu cPdu;
-	IM::Buddy::IMDepartmentReq msg;
+	IM::Buddy::IMDepartmentRsp msg;
 	msg.set_user_id(from_user_id);
     msg.set_latest_update_time(0);
 	

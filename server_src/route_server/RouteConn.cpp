@@ -280,7 +280,7 @@ void CRouteConn::_HandleRoleSet(CImPdu* pPdu)
 
 void CRouteConn::_HandleUsersStatusRequest(CImPdu* pPdu)
 {
-    IM::Buddy::IMUsersStatReq msg;
+    IM::Buddy::IMUsersInfoReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	uint32_t request_id = msg.user_id();

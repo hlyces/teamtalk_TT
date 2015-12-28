@@ -816,11 +816,11 @@ bool CUserModel::reverseAddFriend(IM::Buddy::IMReverseAddFriendReq& reverseAddFr
 }
 
 
-bool CUserModel::delFriend(IM::Buddy::IMDelFriendReq& delFriend)
+bool CUserModel::delFriend(IM::Buddy::IMCommonOperFriendGroupRes& delFriend)
 {
 	uint32_t user_id, friend_id;
 	user_id = delFriend.user_id();
-	friend_id =	delFriend.del_user_id();
+	friend_id =	delFriend.result_code();
 
 	//redis delete
 	{
@@ -1009,12 +1009,12 @@ bool CUserModel::createFriendGroup(IM::Buddy::IMCreateFriendGroupReq& createGrou
 	return bRet;
 }
 
-bool CUserModel::delFriendGroup(IM::Buddy::IMDelFriendGroupReq& delGroup)
+bool CUserModel::delFriendGroup(IM::Buddy::IMCommonOperFriendGroupRes& delGroup)
 {
 	uint32_t user_id, group_id;
 
 	user_id = delGroup.user_id();
-	group_id = delGroup.group_id();
+	group_id = delGroup.result_code();
 
 	CDBManager* pDBManager = CDBManager::getInstance();
     CDBConn* pDBConn = pDBManager->GetDBConn("dffxIMDB_master");
@@ -1157,14 +1157,14 @@ bool CUserModel::moveFriendToGroup(IM::Buddy::IMMoveFriendToGroupReq& moveFriend
 	return bRet;
 }
 
-bool CUserModel::chgFriendGroupName(IM::Buddy::IMChgFriendGroupNameReq& chgGroupName)
+bool CUserModel::chgFriendGroupName(IM::Buddy::IMChgFriendRemarkReq& chgGroupName)
 {
 	uint32_t user_id, group_id;
 	string group_name;
 	
 	user_id = chgGroupName.user_id();
-	group_id = chgGroupName.group_id();
-	group_name = chgGroupName.group_name();
+	group_id = chgGroupName.friend_id();
+	group_name = chgGroupName.friend_nick();
 
 	CDBManager* pDBManager = CDBManager::getInstance();
     CDBConn* pDBConn = pDBManager->GetDBConn("dffxIMDB_master");
@@ -1578,6 +1578,7 @@ bool CUserModel::orderstatusread(uint32_t user_id, uint32_t order_id, bool& is_n
 				log("redis set failed %s", strTableKey.c_str());	
 				return bRet;
 			}
+			bRet = true;
 			
 			int nRet = pCacheConn->isExists(strTableKey);
 			if(nRet == false)
@@ -1588,7 +1589,6 @@ bool CUserModel::orderstatusread(uint32_t user_id, uint32_t order_id, bool& is_n
 			{
 				is_null = 1;
 			}
-			bRet = true;
 		}
 		return bRet;
 }

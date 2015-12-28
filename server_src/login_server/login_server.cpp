@@ -19,7 +19,7 @@ string strHeadlinkUrl;
 string strWebServiceUrl;
 string strMapUrl;
 string strIOSWebServiceUrl;
-
+string strCustomService;
 
 
 void client_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
@@ -85,11 +85,12 @@ int main(int argc, char* argv[])
 	char* str_webservice_url = config_file.GetConfigName("webService");
 	char* str_map_url = config_file.GetConfigName("mapUrl");
 	char* str_ioswebservice_url = config_file.GetConfigName("iosWebService");
-
+	char* str_customservice_url = config_file.GetConfigName("customService");
+	
 	if (!msg_server_listen_ip || !str_msg_server_port || !http_listen_ip
         || !str_http_port || !str_msfs_url || !str_discovery
         || !str_headlink_url || !str_webservice_url || !str_map_url
-        || !str_ioswebservice_url) {
+        || !str_ioswebservice_url || !str_customservice_url) {
 		log("config item missing, exit... ");
 		return -1;
 	}
@@ -102,7 +103,8 @@ int main(int argc, char* argv[])
 	strWebServiceUrl = str_webservice_url;
 	strMapUrl = str_map_url;
 	strIOSWebServiceUrl = str_ioswebservice_url;
-    
+    strCustomService = str_customservice_url;
+	
     pIpParser = new IpParser();
     
 	int ret = netlib_init();

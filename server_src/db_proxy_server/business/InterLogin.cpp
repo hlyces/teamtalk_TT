@@ -285,6 +285,8 @@ bool CInterLoginStrategy::setLoginToken(_AcctInfo & acctInfo, int nClientType)
 			string account_user_phone_Key="account_user_phone_"+acctInfo.user_phone;
 			pCacheConn->hset( account_user_phone_Key, "uid", acctInfo.user_account);
 
+			log("userid = %s  login_token = %s  nClientType = %d", acctInfo.user_account.c_str(), acctInfo.token.c_str(), nClientType);
+
 			return true;
 		}
 		else

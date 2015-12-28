@@ -32,7 +32,7 @@ CGroupChat* CGroupChat::GetInstance()
 
 void CGroupChat::HandleClientGroupNormalRequest(CImPdu* pPdu, CMsgConn* pFromConn)
 {
-	IM::Group::IMNormalGroupListReq msg;
+	IM::Group::IMNormalGroupListRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 	uint32_t user_id = pFromConn->GetUserId();
 	log("HandleClientGroupNormalRequest, user_id=%u. ", user_id);
@@ -424,7 +424,7 @@ void CGroupChat::HandleGroupChangeMemberResponse(CImPdu* pPdu)
 
 	if (!result)
 	{
-		IM::Group::IMGroupChangeMemberNotify msg2;
+		IM::Group::IMGroupChangeMemberRsp msg2;
 		msg2.set_user_id(user_id);
 		msg2.set_change_type((::IM::BaseDefine::GroupModifyType)change_type);
 		msg2.set_group_id(group_id);
@@ -461,7 +461,7 @@ void CGroupChat::HandleGroupChangeMemberResponse(CImPdu* pPdu)
 
 void CGroupChat::HandleGroupChangeMemberBroadcast(CImPdu* pPdu)
 {
-	IM::Group::IMGroupChangeMemberNotify msg;
+	IM::Group::IMGroupChangeMemberRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	uint32_t change_type = msg.change_type();
@@ -506,9 +506,9 @@ void CGroupChat::HandleClientGroupShieldGroupRequest(CImPdu *pPdu, CMsgConn *pFr
 	else
 	{
 		log("no DB connection ");
-		IM::Group::IMGroupShieldRsp msg2;
+		IM::Group::IMGroupShieldReq msg2;
 		msg2.set_user_id(user_id);
-		msg2.set_result_code(1);
+		msg2.set_shield_status(1);
 		CImPdu pdu;
 		pdu.SetPBMsg(&msg2);
 		pdu.SetServiceId(DFFX_SID_GROUP);
@@ -520,10 +520,10 @@ void CGroupChat::HandleClientGroupShieldGroupRequest(CImPdu *pPdu, CMsgConn *pFr
 
 void CGroupChat::HandleGroupShieldGroupResponse(CImPdu *pPdu)
 {
-	IM::Group::IMGroupShieldRsp msg;
+	IM::Group::IMGroupShieldReq msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
-	uint32_t result = msg.result_code();
+	uint32_t result = msg.shield_status();
 	uint32_t user_id = msg.user_id();
 	uint32_t group_id = msg.group_id();
 	log("HandleGroupShieldGroupResponse, result: %u, user_id: %u, group_id: %u. ", result,

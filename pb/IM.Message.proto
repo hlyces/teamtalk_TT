@@ -130,6 +130,7 @@ message IMGetMsgListRsp{
 //}
 
 // 清空聊天记录请求
+/*删除 使用IMCleanMsgListRsp
 message IMCleanMsgListReq{
 	//cmd id: 		0x030f
 	required uint32 user_id = 1;	//用户自己的id
@@ -138,11 +139,12 @@ message IMCleanMsgListReq{
 	
 	optional bytes attach_data = 20;
 }
-
+*/
 // 清空聊天记录应答
 message IMCleanMsgListRsp{
 	//cmd id:		0x0310
 	required uint32 user_id = 1;	//用户自己的id
+	
 	required IM.BaseDefine.SessionType session_type = 2;	//会话类型
 	required uint32 session_id = 3;	//会话id，单聊为对方的user_id,群聊为群组id
 	optional uint32 result_code = 4;	//操作结果，0=success,1=failed

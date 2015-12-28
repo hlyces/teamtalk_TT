@@ -32,51 +32,57 @@ message IMUsersInfoReq{			//用户信息请求
 	optional bytes attach_data = 20;
 }
 
+/*删除 使用IMAllUserRsp
 message IMUsersInfoRsp{
 	//cmd id:		0x0205
 	required uint32 user_id = 1;
 	repeated IM.BaseDefine.UserInfo user_info_list = 2;
 	optional bytes attach_data = 20;
 }
+*/
 
-message IMRemoveSessionReq{	//移除用户会话列表
-	//cmd id:		0x0206
-	required uint32 user_id = 1;
-	required IM.BaseDefine.SessionType session_type = 2;
-	required uint32 session_id = 3;
-	optional bytes attach_data = 20;
-}
+/*IMRemoveSessionRsp*/
+//message IMRemoveSessionReq{	//移除用户会话列表
+//	//cmd id:		0x0206
+//	required uint32 user_id = 1;
+//	required IM.BaseDefine.SessionType session_type = 2;
+//	required uint32 session_id = 3;
+//	optional bytes attach_data = 20;
+//}
 
 message IMRemoveSessionRsp{
 	//cmd id:		0x0207
 	required uint32 user_id = 1;
-	required uint32 result_code = 2;
+	optional uint32 result_code = 2;
 	required IM.BaseDefine.SessionType session_type = 3;
 	required uint32 session_id = 4;
 	optional bytes attach_data = 20;
 }
 
-message IMAllUserReq{	//所有用户请求，其中带了一个latest_update_time字段，请求应答会返回latest_update_time时间之后发生变化的用户回来。
-	//cmd id:		0x0208
-	required uint32 user_id = 1;
-	required uint32 latest_update_time = 2;
-	optional bytes attach_data = 20;
-}
+/*删除 使用IMAllUserRsp*/
+//message IMAllUserReq{	//所有用户请求，其中带了一个latest_update_time字段，请求应答会返回latest_update_time时间之后发生变化的用户回来。
+//	//cmd id:		0x0208
+//	required uint32 user_id = 1;
+//	required uint32 latest_update_time = 2;
+//	optional bytes attach_data = 20;
+//}
 
 message IMAllUserRsp{
 	//cmd id:		0x0209
 	required uint32 user_id = 1;
-	required uint32 latest_update_time = 2;
+	optional uint32 latest_update_time = 2;
 	repeated IM.BaseDefine.UserInfo user_list = 3;		
 	optional bytes attach_data = 20;
 }
 
+/*删除 使用IMUsersInfoReq
 message IMUsersStatReq{	//用户状态请求。
 	//cmd id:		0x020a
 	required uint32 user_id = 1;
 	repeated uint32 user_id_list = 2;
 	optional bytes attach_data = 20;
 }
+*/
 
 message IMUsersStatRsp{
 	//cmd id:		0x020b
@@ -85,20 +91,22 @@ message IMUsersStatRsp{
 	optional bytes attach_data = 20;
 }
 
-message IMChangeAvatarReq{	//用户头像改变
-	//cmd id:		0x020c
-	required uint32 user_id = 1;		//自己的id
-	required string avatar_url = 2;		//图像保存地址
-	optional bytes attach_data = 20;
-}
+/*删除 IMChangeAvatarRsp*/
+//message IMChangeAvatarReq{	//用户头像改变
+//	//cmd id:		0x020c
+//	required uint32 user_id = 1;		//自己的id
+//	required string avatar_url = 2;		//图像保存地址
+//	optional bytes attach_data = 20;
+//}
 
+/*删除 图像请求走webservice
 message IMChangeAvatarRsp{
 	//cmd id:		0x020d
 	required uint32 user_id = 1;
 	required string avatar_url = 2;
 	required uint32 result_code = 3;
 	optional bytes attach_data = 20;
-}
+}*/
 
 //只给移动端通知
 message IMPCLoginStatusNotify{
@@ -115,12 +123,14 @@ message IMPCLoginStatusNotify{
  }
 
 //修改为获取好友分组信息
-message IMDepartmentReq{
-	//cmd id:		0x0210
-	required uint32 user_id = 1;
-	required uint32 latest_update_time = 2;
-	optional bytes attach_data = 20;
-}
+/*删除 使用IMDepartmentRsp*/
+//message IMDepartmentReq{
+//	//cmd id:		0x0210
+//	required uint32 user_id = 1;
+//	required uint32 latest_update_time = 2;
+//	optional bytes attach_data = 20;
+//}
+
 
 message IMDepartmentRsp{
 	//cmd id:		0x0211
@@ -193,6 +203,7 @@ message IMCommonOperFriendRes{
 	//optional bytes attach_data = 20; //数据库响应时将原req返回
 //}
 
+/*删除 使用IMCommonOperFriendGroupRes
 message IMDelFriendReq{//删除好友
 	//cmd id:		0x0216
 	required uint32 user_id = 1;//自己的id
@@ -200,8 +211,9 @@ message IMDelFriendReq{//删除好友
 	
 	optional bytes attach_data = 20;
 }
+*/
 
-//删除之使用IMCommonOperFriendRes
+//删除之使用IMCommonOperFriendRes,删除好友的通知也使用此格式
 //message IMDelFriendRes{
 	//cmd id:		0x0217
 	//required uint32 user_id = 1;
@@ -214,9 +226,9 @@ message IMDelFriendReq{//删除好友
 
 message IMChgFriendRemarkReq{//修改好友备注
 	//cmd id:		0x0218
-	required uint32 user_id = 1;//自己的id
-	required uint32 friend_id = 2;//好友的id
-	required string friend_nick = 3;//备注
+	required uint32 user_id = 1;//自己的id  
+	required uint32 friend_id = 2;//好友的id  组id
+	required string friend_nick = 3;//备注	  组名
 	
 	optional bytes attach_data = 20;
 }
@@ -243,7 +255,7 @@ message IMCreateFriendGroupReq{//创建好友分组
 message IMCommonOperFriendGroupRes{
 	//cmd id:		0x021b
 	required uint32 user_id = 1;
-	required uint32 result_code = 2; //操作结果，0=success,1=failed//分组的group_id,if id <=0 failed
+	required uint32 result_code = 2; //操作结果，0=success,1=failed//分组的group_id,if id <=0 failed  //删除的好友id
 	
 	optional bytes attach_data = 20;
 }
@@ -257,13 +269,15 @@ message IMCommonOperFriendGroupRes{
 	//optional bytes attach_data = 20;
 //}
 
-message IMDelFriendGroupReq{//删除好友分组，好友自动进入默认分组
-	//cmd id:		0x021c
-	required uint32 user_id = 1;//自己的id
-	required uint32 group_id = 2;//分组的group_id
+/*删除之使用IMCommonOperFriendGroupRes*/
+//message IMDelFriendGroupReq{//删除好友分组，好友自动进入默认分组
+//	//cmd id:		0x021c
+//	required uint32 user_id = 1;//自己的id
+//	required uint32 group_id = 2;//分组的group_id
 	
-	optional bytes attach_data = 20;
-}
+//	optional bytes attach_data = 20;
+//}
+
 
 //删除之使用IMCommonOperFriendGroupRes
 //message IMDelFriendGroupRes{
@@ -292,6 +306,7 @@ message IMMoveFriendToGroupReq{//移动一些好友到某分组
 	//optional bytes attach_data = 20;
 //}
 
+/*删除 使用IMChgFriendRemarkReq
 message IMChgFriendGroupNameReq{//修改好友分组名
 	//cmd id:		0x0220
 	required uint32 user_id = 1;//自己的id
@@ -300,6 +315,7 @@ message IMChgFriendGroupNameReq{//修改好友分组名
 	
 	optional bytes attach_data = 20;
 }
+*/
 
 //删除之使用IMCommonOperFriendGroupRes
 //message IMChgFriendGroupNameRes{
@@ -409,7 +425,7 @@ message IMFindUserInfoReq{//用法宝号查找用户信息的请求
 	optional bytes attach_data = 20;
 }
 
-//删除之使用IMUsersInfoRsp
+//删除之使用IMAllUserRsp
 //message IMFindUserInfoRes{
 	//cmd id:		0x0227
 	//required uint32 user_id = 1;

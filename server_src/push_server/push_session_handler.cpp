@@ -120,8 +120,8 @@ void CPushSessionHandler::_HandlePushMsg(const char* szBuf, int32_t nBufSize)
 			payload["extra"]=strUserData.c_str();
 			
 			Json::Value body;
-			body["ticker"]="东方法信";
-			body["title"]="东方法信";
+			body["ticker"]="法仔";
+			body["title"]="法仔";
 			body["text"]=strFlash.c_str();
 
 			body["play_vibrate"]="true";

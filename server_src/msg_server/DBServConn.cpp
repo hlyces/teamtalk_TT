@@ -752,11 +752,11 @@ void CDBServConn::_HandleUnreadMsgCountResponse(CImPdu* pPdu)
 
 void CDBServConn::_HandleUsersInfoResponse(CImPdu* pPdu)
 {
-	IM::Buddy::IMUsersInfoRsp msg;
+	IM::Buddy::IMAllUserRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	uint32_t user_id = msg.user_id();
-	uint32_t user_cnt = msg.user_info_list_size();
+	uint32_t user_cnt = msg.user_list_size();
 	CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
 	uint32_t handle = attach_data.GetHandle();
 
@@ -1032,7 +1032,7 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
 			pdu.SetCommandId(DFFX_CID_OTHER_PUSH_TO_USER_REQ);
 
 			CPduAttachData attach_data(ATTACH_TYPE_PDU_FOR_PUSH, 0, pdu.GetBodyLength(), pdu.GetBodyData());
-			IM::Buddy::IMUsersStatReq msg5;
+			IM::Buddy::IMUsersInfoReq msg5;
 			msg5.set_user_id(0);
 			msg5.add_user_id_list(user_id);
 			msg5.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
@@ -1328,7 +1328,7 @@ void CDBServConn::_HandleClientGetAddFriendRespone(CImPdu* pPdu)
 
 void CDBServConn::_HandleClientFindUserInfoRespone(CImPdu* pPdu)
 {
-	IM::Buddy::IMUsersInfoRsp msg;
+	IM::Buddy::IMAllUserRsp msg;
 	CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
 	uint32_t from_user_id = msg.user_id();
@@ -1337,7 +1337,7 @@ void CDBServConn::_HandleClientFindUserInfoRespone(CImPdu* pPdu)
 
 	uint32_t handle = attach_data.GetHandle();
 
-	log(" user_id=%d findCnt=%d.", from_user_id, msg.user_info_list().size());
+	log(" user_id=%d findCnt=%d.", from_user_id, msg.user_list().size());
 	
 	CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, handle);
 	if(pMsgConn)

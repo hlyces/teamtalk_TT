@@ -17,6 +17,7 @@ message IMFileLoginRsp{
 	required string task_id = 2;//任务的uuid
 }
 
+
 message IMFileState{
 	//cmd id: 	0x0503
 	required IM.BaseDefine.ClientFileState state = 1;//文件传输状态
@@ -74,11 +75,13 @@ message IMFileNotify{
 	required uint32 offline_ready = 8;				//1:True 0:False 离线传输是否准备好了
 }
 
+/*删除 使用IMFileHasOfflineRsp
 message IMFileHasOfflineReq{
 	//cmd id: 	0x0509
 	required uint32 user_id = 1;//自己的id
 	optional bytes attach_data = 20;
 }
+*/
 
 message IMFileHasOfflineRsp{
 	//cmd id:	0x050a

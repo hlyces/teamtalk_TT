@@ -91,7 +91,7 @@ namespace DB_PROXY {
      */
     void deleteRecentSession(CImPdu* pPdu, uint32_t conn_uuid)
     {
-        IM::Buddy::IMRemoveSessionReq msg;
+        IM::Buddy::IMRemoveSessionRsp msg;
         IM::Buddy::IMRemoveSessionRsp msgResp;
         
         if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))

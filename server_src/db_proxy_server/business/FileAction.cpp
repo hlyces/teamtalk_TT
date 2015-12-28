@@ -19,7 +19,7 @@ namespace DB_PROXY {
     
     void hasOfflineFile(CImPdu* pPdu, uint32_t conn_uuid)
     {
-        IM::File::IMFileHasOfflineReq msg;
+        IM::File::IMFileHasOfflineRsp msg;
         IM::File::IMFileHasOfflineRsp msgResp;
         if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
         {

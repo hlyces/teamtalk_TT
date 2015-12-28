@@ -31,7 +31,7 @@ namespace DB_PROXY
 	void getUserInfo(CImPdu* pPdu, uint32_t conn_uuid)
 	{
 		IM::Buddy::IMUsersInfoReq msg;
-		IM::Buddy::IMUsersInfoRsp msgResp;
+		IM::Buddy::IMAllUserRsp msgResp;
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
 			CImPdu* pPduRes = new CImPdu;
@@ -50,7 +50,7 @@ namespace DB_PROXY
 			for(list<IM::BaseDefine::UserInfo>::iterator it=lsUser.begin();
 			    it!=lsUser.end(); ++it)
 			{
-				IM::BaseDefine::UserInfo* pUser = msgResp.add_user_info_list();
+				IM::BaseDefine::UserInfo* pUser = msgResp.add_user_list();
 				*pUser = *it;
 				/*pUser->set_user_id(it->user_id());
 				pUser->set_user_nickname(it->user_nickname());
@@ -78,7 +78,7 @@ namespace DB_PROXY
 
 	void getChangedUser(CImPdu* pPdu, uint32_t conn_uuid)
 	{
-		IM::Buddy::IMAllUserReq msg;
+		IM::Buddy::IMAllUserRsp msg;
 		IM::Buddy::IMAllUserRsp msgResp;
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
@@ -129,8 +129,8 @@ namespace DB_PROXY
 	}
 
 	void changeAvatar(CImPdu* pPdu, uint32_t conn_uuid)
-	{
-/*		IM::Buddy::IMChangeAvatarReq msg;
+	{/*
+		IM::Buddy::IMChangeAvatarRsp msg;
 		IM::Buddy::IMChangeAvatarRsp msgResp;
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
@@ -273,7 +273,7 @@ namespace DB_PROXY
 
 	void delFriend(CImPdu* pPdu, uint32_t conn_uuid)
 	{
-		IM::Buddy::IMDelFriendReq msg;
+		IM::Buddy::IMCommonOperFriendGroupRes msg;
 		IM::Buddy::IMCommonOperFriendRes msgResp;
 
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
@@ -281,7 +281,7 @@ namespace DB_PROXY
 			CImPdu* pPduRes = new CImPdu;
 
 			uint32_t from_user_id = msg.user_id();
-			uint32_t to_user_id = msg.del_user_id();
+			uint32_t to_user_id = msg.result_code();
 
 
 			int result = 0;
@@ -391,14 +391,14 @@ namespace DB_PROXY
 
 	void delFriendGroup(CImPdu* pPdu, uint32_t conn_uuid)
 	{
-		IM::Buddy::IMDelFriendGroupReq msg;
+		IM::Buddy::IMCommonOperFriendGroupRes msg;
 		IM::Buddy::IMCommonOperFriendGroupRes msgResp;
 
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
 
 			uint32_t from_user_id = msg.user_id();
-			uint32_t group_id = msg.group_id();
+			uint32_t group_id = msg.result_code();
 
 			int result = 0;
 			if( !CUserModel::getInstance()->delFriendGroup(msg))
@@ -457,15 +457,15 @@ namespace DB_PROXY
 
 	void chgFriendGroupName(CImPdu* pPdu, uint32_t conn_uuid)
 	{
-		IM::Buddy::IMChgFriendGroupNameReq msg;
+		IM::Buddy::IMChgFriendRemarkReq msg;
 		IM::Buddy::IMCommonOperFriendGroupRes msgResp;
 
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
 
 			uint32_t from_user_id = msg.user_id();
-			uint32_t group_id = msg.group_id();
-			string group_name = msg.group_name();
+			uint32_t group_id = msg.friend_id();
+			string group_name = msg.friend_nick();
 
 			int result = 0;
 			if( !CUserModel::getInstance()->chgFriendGroupName(msg))
@@ -550,7 +550,7 @@ namespace DB_PROXY
 	void findUserInfo(CImPdu* pPdu, uint32_t conn_uuid)
 	{
 		IM::Buddy::IMFindUserInfoReq msg;
-		IM::Buddy::IMUsersInfoRsp msgResp;
+		IM::Buddy::IMAllUserRsp msgResp;
 		if(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
 		{
 			CImPdu* pPduRes = new CImPdu;
@@ -569,7 +569,7 @@ namespace DB_PROXY
 
 			for(auto it=lUser.begin(); it!=lUser.end(); ++it)
 			{
-				IM::BaseDefine::UserInfo* pContact = msgResp.add_user_info_list();
+				IM::BaseDefine::UserInfo* pContact = msgResp.add_user_list();
 				*pContact = *it;
 				/*
 				pContact->set_user_id(it->user_id());

@@ -16,7 +16,7 @@
 namespace DB_PROXY{
     void getChgedDepart(CImPdu* pPdu, uint32_t conn_uuid)
     {
-        IM::Buddy::IMDepartmentReq msg;
+        IM::Buddy::IMDepartmentRsp msg;
         IM::Buddy::IMDepartmentRsp msgResp;
         if (msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength())) {
             

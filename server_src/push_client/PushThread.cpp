@@ -512,7 +512,7 @@ void CCancelOrComplete::OnThreadTick()
 		{
 			intResult = IM::BaseDefine::ORDER_COMPLETE;
 		}
-		else if(lsIter->msg_status == Revoke)
+		else if(lsIter->msg_status == Revoke || lsIter->msg_status == RevokeAgain)
 		{
 			intResult = IM::BaseDefine::ORDER_REVOKE; //律师申请付款 用户撤回
 		}
@@ -522,7 +522,20 @@ void CCancelOrComplete::OnThreadTick()
 		
 		CAutoLock cAutoLock(&g_csLock);
 		//通知律师端订单变化
-		g_pClient->sendMsg(lsIter->msg_lawyer, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ALLCANCEL, strMsg);
+		if(lsIter->msg_lawyer > 0)
+		{
+			g_pClient->sendMsg(lsIter->msg_lawyer, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ALLCANCEL, strMsg);
+		}
+	
+		if(lsIter->msg_status == ValidCancel)
+		{
+			intResult = IM::BaseDefine::VALID_CANCEL;
+			
+			string strMsg2 = "{\"OrderId\":" + int2string(lsIter->msg_orderid) + ", \"resultStatus\":" + int2string(intResult)  + "}";
+
+			//通知客户端订单过期
+			g_pClient->sendMsg(lsIter->msg_user, IM::BaseDefine::MsgType::MSG_TYPE_ORDER_ALLCANCEL, strMsg2);
+		}
 	
 		usleep(100);
 	}
@@ -590,6 +603,11 @@ void CTopUP_withDrawalThread::OnThreadTick()
 				intResult = IM::BaseDefine::TOPUP_SUCCESS;
 				strResult += "充值成功";
 				
+			}
+			else if(lsIter->result_result == ORDERPAYFAILED)
+			{
+				intResult = IM::BaseDefine::ORDER_PAY_FAILED;
+				strResult += lsIter->result_text;
 			}
 		}
 		else if(lsIter->result_type == BALANCE_WITHDRAWAL) //提现
